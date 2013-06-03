@@ -1,0 +1,335 @@
+@charset "utf-8";
+/*活动主页*/
+/*slide*/
+.slide-box {
+    position: relative;
+}
+
+.slide-box .corner {
+    clear: both;
+    border-top: #333 1px solid;
+    display: block;
+    overflow: hidden;
+    height: 0;
+    margin: 0 1px;
+}
+
+.slide-content {
+    padding: 0 30px;
+    zoom: 1;
+    overflow: hidden;
+    position: relative;
+    width: 572px;
+    height: 120px;
+    margin: 20px 0 0 50px
+}
+
+.slide-box .JQ-slide-content {
+    position: absolute;
+    height: 95px;
+    overflow: hidden
+}
+
+.slide-box .JQ-slide-nav a {
+    display: block;
+    z-index: 99;
+    width: 37px;
+    color: #b4b4b4;
+    position: absolute;
+    top: 55px;
+    height: 65px;
+    text-decoration: none;
+}
+
+.slide-box .JQ-slide-nav span {
+    display: block;
+    font: 700 53px arial;
+    width: 37px;
+    cursor: pointer;
+    height: 63px;
+    text-align: center;
+}
+
+.slide-box .JQ-slide-nav .corner {
+    border-color: #4b4b4b;
+}
+
+.slide-box .JQ-slide-nav .prev {
+    left: -10px;
+}
+
+.slide-box .JQ-slide-nav .next {
+    right: -10px;
+    text-indent: 0;
+}
+
+.slide-box .wrap {
+    overflow: hidden;
+    height: 120px;
+    position: relative;
+}
+
+.slide-box ul {
+    width: 10000px;
+}
+
+.slide-box li {
+    float: left;
+    width: 123px;
+    text-align: center;
+    margin: 0 10px;
+    _display: inline
+}
+
+.slide-box li a {
+    display: block;
+}
+
+.slide-box .JQ-slide-nav a:hover, #slide-box .JQ-slide-nav a:hover span {
+    color: #DD0D0B;
+}
+
+.slide-box .JQ-slide-nav a {
+    display: block;
+    z-index: 99;
+    width: 37px;
+    color: #b4b4b4;
+    position: absolute;
+    top: 10px;
+    height: 65px;
+    text-decoration: none;
+}
+
+.place {
+    padding: 10px 12px;
+}
+
+.place .map {
+    border: 1px solid #CCC;
+    width: 408px;
+    height: 448px;
+}
+
+.map_label {
+    width: 176px;margin-right:10px
+}
+
+.map_label .tags {
+    height: 26px;
+    border-bottom: 2px solid #c84123;
+}
+
+.map_label .tags ul li {
+    float: left;
+    margin-right: 16px;
+    background: #f2f2f2;
+    width: 70px;
+    height: 26px;
+    border-radius: 5px 5px 0px 0px;
+    line-height: 26px;
+    text-align: center;
+}
+.map_label .tags ul li.nowtag {
+    background: #c84123;
+}
+.map_label .tags ul li.nowtag  a{color: #fff}
+.map_label.tags ul li.nowtag a {
+    color: #FFF;
+}
+
+.place_label {
+    padding-top: 10px;
+}
+
+.place_label ul li {
+    height: 50px;
+    padding-bottom: 7px;
+    _padding-bottom: 0px;
+    background: url(../images/place_label.png) no-repeat;
+    padding-left: 38px;
+}
+
+.place_label h2 {
+    color: #3f5487;
+    font-weight: normal;
+}
+
+.place_label p {
+    color: #999999;
+}
+
+.place_label .labelA {
+    background-position: 0 0;
+}
+
+.place_label .labelB {
+    background-position: 0 -56px;
+}
+
+.place_label .labelC {
+    background-position: 0 -112px;
+}
+
+.place_label .labelD {
+    background-position: 0 -169px;
+}
+
+.place_label .labelE {
+    background-position: 0 -225px;
+}
+
+.place_label .labelF {
+    background-position: 0 -282px;
+}
+
+.place_label .labelG {
+    background-position: 0 -342px;
+}
+
+.place_label .labelH {
+    background-position: 0 -399px;
+}
+
+.place_label .labelI {
+    background-position: 0 -455px;
+}
+
+.place_label .labelJ {
+    background-position: 0 -512px;
+}
+
+.place_label .labelk {
+    background-position: 0 -568px;
+}
+
+.place_label .labelL {
+    background-position: 0 -626px;
+}
+
+.place_label .labelA_on {
+    background-position: -260px 0;
+}
+
+.place_label .labelB_on {
+    background-position: -260px -56px;
+}
+
+.place_label .labelC_on {
+    background-position: -260px -112px;
+}
+
+.place_label .labelD_on {
+    background-position: -260px -169px;
+}
+
+.place_label .labelE_on {
+    background-position: -260px -225px;
+}
+
+.place_label .labelF_on {
+    background-position: -260px -282px;
+}
+
+.place_label .labelG_on {
+    background-position: -260px -342px;
+}
+
+.place_label .labelH_on {
+    background-position: -260px -399px;
+}
+
+.place_label .labelI_on {
+    background-position: -260px -455px;
+}
+
+.place_label .labelJ_on {
+    background-position: -260px -512px;
+}
+
+.place_label .labelk_on {
+    background-position: -260px -568px;
+}
+
+.place_label .labelL_on {
+    background-position: -260px -626px;
+}
+
+.place_label .labelA_on h2,  .place_label .labelB_on h2, .place_label .labelC_on h2, .place_label .labelD_on h2, .place_label .labelE_on h2, .place_label .labelF_on h2, .place_label .labelG_on h2, .place_label .labelH_on h2, .place_label .labelI_on h2, .place_label .labelJ_on h2,  .place_label .labelK_on h2, .place_label .labelL_on h2 {
+    font-weight: bold;
+}
+.paging{ height:15px; border:1px solid #d8d8d8;}
+.paging a{ background:url(../images/arrows_03.png) no-repeat; width:18px; height:14px;float: left;overflow: hidden}
+.paging .l_arrows_d{ background-position:left 0px; width:19px;}
+.paging a.l_arrows_e{ background-position:0 -14px;width: 19px}
+.paging a.l_arrows_e:hover{background-position:0 -28px;}
+.paging a.r_arrows_e{background-position:right 0;}
+.paging a.r_arrows_e:hover{background-position:right -28px;}
+.r_arrows_d{background-position:right -14px; }
+
+.event_box6 .tags{ height:26px; border-bottom:2px solid #dc2121;}
+ .event_box6 .tags ul li{ float:left; margin-right:12px; background:#eaeaea; width:90px; height:26px;border-radius: 5px 5px 0px 0px; line-height:26px; text-align:center; font-size:14px;}
+.event_box6 .tags ul li.nowtag{ background:#dc2121;}
+.event_box6 .tags ul li.nowtag a{color:#FFF; font-size:14px; font-weight:bold;}
+.prizes .cont{ padding:10px 0;}
+.prizes .cont ul li{display:inline;text-align:center;background:#F2F2F2}
+.prizes .cont ul li a{display:block;}
+.prizes .cont .pic{ border:1px solid #c3c3c3; padding:2px;}
+/*评分星星*/
+.grade_box .star{background: none}
+.score  #doStar,.score .blockRA #doStar span,.score .blockRA .starInfo em,.star_score,.star_score span{background:url(../images/icon.png) no-repeat;}
+.score .s1,.score .blockRA .s2{display:inline-block;margin-top:11px;}
+.score .doStar{position:relative;width:120px;float:left;margin:16px 0 0 3px;display:inline;line-height:20px;text-align:left;}
+.score .blockRA .doStar p{position:absolute;top:-8px;left:0;background:#FFEBC1;text-align:center;line-height:30px;width:180px;height:31px}
+.score .blockRA #doStar,.star_score{cursor:pointer;float:left;display:inline;height:18px;width:120px;background-position:0 -220px}
+.score .blockRA #doStar span,.star_score span{float:left;width:0;display:block;height:18px;background-position:0 -240px}
+.score .blockRA .starInfo{display:none;position:absolute;top:-28px;left:0;width:130px;height:15px;padding-top:5px;background:#f6f6f6;border:1px #A9CFEF solid;line-height:14px;text-align:center}
+.score .blockRA .starInfo em{position:absolute;top:19px;left:2px;width:7px;height:5px;background-position:-135px -170px;font-size:0}
+.mark{float:left;margin:8px 0 0 8px;display:inline;color:#FF6000;width:53px;}
+.mark span{font:24px/32px "Arial";font-weight: bold;}
+.mark em{margin-right:4px;font:18px/32px "Arial";font-weight: bold;}
+.per{position:relative;z-index: 2}
+.event_right .pingfen .total .per{float:left;display:inline;margin:4px 0 0 10px;line-height:20px;}
+.score .blockRC li{width:124px;float:left;height:130px;margin:0;}
+.score .blockRE li{width:100%;height:85px;display:inline;margin-right:0;}
+.score .blockRE .pic{width:84px;float:left;}
+.score .blockRE dl{float:right;width:170px;text-align:left;}
+.score .blockRE dt{margin:3px 0;}
+.score .blockRE .d1{margin:5px 0;}
+.score .blockRF .menuA,.score .blockRF .menuA ul{width:auto;}
+.score .blockRF .snList{width:auto;}
+.show{display:block;}
+.hidden{display:none;}
+.starbar{width:88px;height:16px;overflow:hidden;background:url(../images/stars.gif) no-repeat;vertical-align:middle;margin:3px 0 0 0;padding:0}
+.fx_mark{color:#FF6000;font-size:14px;margin-left:10px;font-weight:bold;position:absolute;right:10px;top:5px;}
+.fx_btn{padding-left:65px;margin-top:10px;}
+.star_rating {;float:left;margin:6px 0}
+.pingfen #item p{float:left;width:72px;text-align:right;margin-right:5px;padding:2px;color: #666}
+.star_score{margin: 11px 0 0 6px;}
+/* jQuery.Rating Plugin CSS - http://www.fyneworks.com/jquery/star-rating/ */
+div.rating-cancel,div.star-rating{float:left;width:17px;height:15px;text-indent:-999em;cursor:pointer;display:block;background:transparent;overflow:hidden;}
+div.rating-cancel,div.rating-cancel a{background:url(delete.gif) no-repeat 0 -16px;display:none}
+div.star-rating,div.star-rating a{background:url(../images/star.gif) no-repeat 0 0px}
+div.rating-cancel a,div.star-rating a{display:block;width:16px;height:100%;background-position:0 0px;border:0}
+div.star-rating-on a{background-position:0 -16px!important}
+div.star-rating-hover a{background-position:0 -32px}
+/* Read Only CSS */
+div.star-rating-readonly a{cursor:default !important}
+/* Partial Star CSS */
+div.star-rating{background:transparent!important;overflow:hidden!important}
+/* END jQuery.Rating Plugin CSS */
+.mg_gaikuang .pingfen{width:170px}
+.event_right .pingfen{margin: 15px 0 10px 0}
+.mg_gaikuang .pingfen .score .doStar{margin:8px 0 0 3px}
+.mg_gaikuang .pingfen .mark {margin:0 0 0 8px}
+.pingfen .total{ height:28px; background:#ffefcd; border:1px solid #edd6a0; color:#f07200; line-height:28px;padding: 0 5px;border-radius: 5px}
+.pingfen .total .more{ display:inline-block; float:right; margin-right:10px;}
+ .pingfen .total .more a{ color:#9b9b9b;}
+ .pingfen .total .arrow_d { border-color: #B5B5B5 transparent transparent; border-style: solid dashed dashed; border-width: 4px 4px 0; display: inline-block; font-size: 0; height: 0; line-height: 0; margin-left: 5px; overflow: hidden; vertical-align: middle; width: 0;}
+.grade_box{ background:#ffebc1 ;margin-top:15px;border:1px solid #edd6a0;border-radius:5px 5px 5px 5px;padding-bottom: 15px;}
+.grade_box .score{ position: relative;margin-top: -8px;background:url("../images/pf_arr.gif") no-repeat 25px 0;zoom:1;float: left;padding-left: 10px}
+.grade_box .pf_num{padding: 0 10px}
+.grade_box .pf_num .look_num,.grade_box .pf_num  .comm_num,.grade_box .pf_num .fav_num ,.grade_box .pf_num .lov_num{width:60px;color: #999;float: left;text-align: center}
+.zt_pf_main{width:185px;padding:15px 0;background:#ffffff;position:absolute;top:20px;right:-10px;border:1px solid #ccc;z-index: 998;background: #fff;}
+.zt_pf_main .star{padding: 0}
+.fx_list li{padding:5px 0;position:relative}
+.fx_list li .fx_con{float:left;width:62px;text-align:right;margin-right:15px;vertical-align:middle}

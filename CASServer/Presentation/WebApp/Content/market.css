@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+.header{ height:100px; background:#FF7012; margin-bottom:10px;}
+.header .logo{background: url("../images/logo.png"); display: inline-block; height:50px; margin-top:24px; margin-left:24px;width:236px}
+.header_lay{ width:375px; float:right; height:100px; position:relative;}
+.header_lay ul{ padding-top:20px;}
+.header_lay ul li{ float:left; color:#FFFFFF;}
+.header_lay ul li a{ color:#FFF; margin:0 20px;}
+.header_lay a.demand_btn{ display:inline-block; height:40px; width:120px; background:#669900; line-height:40px; color:#FFF; text-align:center; font-size:14px; position:absolute; bottom:0; right:0;}
+.container{ width:1000px; margin:0 auto;}
+.lmenu{width: 263px; float:left; margin-right:8px; border:1px solid #E4E4E4; height:300px; border-radius:5px;}
+.rcont{width: 685px; float:right; border:1px solid #E4E4E4; border-radius:5px; padding:20px; padding-top:0;}
+.lmenu h2{ font-family:'Microsoft YaHei'; font-size:18px; font-weight:bold; color:#000; text-align:center; line-height:70px; border-bottom:1px solid #D7D7D7;}
+.lmenu li{ background:#F2F2F2; border-bottom:1px solid #D7D7D7; height:45px; line-height:45px; text-indent:20px; font-size:14px; }
+.lmenu li:hover { background:#EEE;}
+.r_title{ font-size:18px; line-height:70px; font-family:'Microsoft YaHei'; color:#000; font-weight:bold;}
+.task_con_box{ float:right; width:725px;}
+.task_con_box .task_con{border:1px solid #E4E4E4;}
+.market_admin_tit{ text-align:center; margin-top:150px; color:#FFF; font-size:28px; font-weight:bold; font-family:'Microsoft YaHei'; }
+.login_dialog{ width:510px; height:260px; padding-top:30px; margin:0 auto; margin-top:20px; background:#FFF; border-radius:5px; }
+.green_admin_btn{ width:80px; height:35px; line-height:35px; text-align:center; color:#FFF; font-weight:bold; font-size:16px; display:inline-block; background:#669900; text-decoration:none;}
+a.green_admin_btn:hover{ text-decoration:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
