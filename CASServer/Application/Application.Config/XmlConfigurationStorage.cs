@@ -1,11 +1,11 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2013年01月29日 11:06
-// 
-// 修改于：2013年02月18日 13:52
-// 文件名：XmlCasServerConfigurationStorage.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:25
+//  文件名：CASServer/Application.Config/XmlConfigurationStorage.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
 using System;
@@ -15,13 +15,15 @@ using Dev.Comm.Core.Runtime.Serialization;
 namespace Application.Config
 {
     /// <summary>
-    /// xml保存，911
+    ///   xml保存，911
     /// </summary>
-    class XmlConfigurationStorage : IConfigurationStorage
+    internal class XmlConfigurationStorage : IConfigurationStorage
     {
+        #region IConfigurationStorage Members
+
         public CommConfiguration Get()
         {
-            return Get(null);
+            return this.Get(null);
         }
 
         public CommConfiguration Get(string configname)
@@ -48,17 +50,19 @@ namespace Application.Config
 
         public void Save(CommConfiguration config)
         {
-            Save(config, null);
+            this.Save(config, null);
         }
 
 
         public void Save(CommConfiguration config, string configname)
         {
-            string settingFile = GetSettingFile(configname);
+            var settingFile = GetSettingFile(configname);
             DataContractSerializationHelper.Serialize<CommConfiguration>(config, settingFile);
         }
 
+        #endregion
 
+        #region Class Methods
 
         private static string GetSettingFile(string filename)
         {
@@ -70,5 +74,7 @@ namespace Application.Config
             applicationBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             return Path.Combine(applicationBaseDirectory, filename);
         }
+
+        #endregion
     }
 }

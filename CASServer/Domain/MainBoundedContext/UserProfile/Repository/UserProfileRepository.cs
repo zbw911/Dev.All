@@ -1,34 +1,44 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:25
+//  文件名：CASServer/Domain.MainBoundedContext/UserProfileRepository.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
+using System.Data.Entity;
+using Dev.Data;
 
 namespace Domain.MainBoundedContext.UserProfile.Repository
 {
-    using System.Collections.Generic;
-    using System.Data.Entity;
-
-    using Dev.Data;
-
-    using Domain.Entities.Models;
-
-    public class UserProfileRepository : GenericRepository<UserProfile>, IUserProfileRepository
+    public class UserProfileRepository : GenericRepository<Entities.Models.UserProfile>, IUserProfileRepository
     {
+        #region C'tors
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="GenericRepository&lt;TEntity&gt;" /> class.
+        ///   Initializes a new instance of the <see cref="GenericRepository&lt;TEntity&gt;" /> class.
         /// </summary>
-        /// <param name="connectionStringName">Name of the connection string.</param>
+        /// <param name="connectionStringName"> Name of the connection string. </param>
         public UserProfileRepository(string connectionStringName)
             : base(connectionStringName)
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="GenericRepository&lt;TEntity&gt;" /> class.
+        ///   Initializes a new instance of the <see cref="GenericRepository&lt;TEntity&gt;" /> class.
         /// </summary>
-        /// <param name="context">The context.</param>
+        /// <param name="context"> The context. </param>
         public UserProfileRepository(DbContext context)
             : base(context)
         {
         }
 
+        #endregion
+
+        #region IUserProfileRepository Members
 
         public string GetPhoneByUserId(int userid)
         {
@@ -47,7 +57,8 @@ namespace Domain.MainBoundedContext.UserProfile.Repository
             user.PhonePasswordResetToken = code;
             user.PhonePasswordResetTokenExpirationDate = System.DateTime.Now.AddMinutes(tokenExpirationInMinutesFromNow);
             user.LastPhonePasswordResetTokenTime = System.DateTime.Now;
-            if (user.LastPhonePasswordResetTokenTime == null || user.LastPhonePasswordResetTokenTime.Value.AddHours(1) < System.DateTime.Now)
+            if (user.LastPhonePasswordResetTokenTime == null ||
+                user.LastPhonePasswordResetTokenTime.Value.AddHours(1) < System.DateTime.Now)
                 user.PhonePasswordResendCount = 0;
 
             user.PhonePasswordResendCount = user.PhonePasswordResendCount ?? 0;
@@ -66,5 +77,7 @@ namespace Domain.MainBoundedContext.UserProfile.Repository
             this.Update(user);
             this.UnitOfWork.SaveChanges();
         }
+
+        #endregion
     }
 }

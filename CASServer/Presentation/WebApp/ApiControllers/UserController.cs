@@ -1,57 +1,95 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:24
+//  文件名：CASServer/WebApp/UserController.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Application.Dto.User;
+using Application.MainBoundedContext.UserModule;
 using Dev.CasServer.Authenticator;
 using Dev.Comm.Web.Mvc.Filter;
 using Dev.Framework.FileServer;
-
 using WebMatrix.WebData;
-using Application.Dto.User;
-using Application.MainBoundedContext.UserModule;
 
 namespace CASServer.ApiControllers
 {
-    public class UserInfo
-    {
-        public string UserName { get; set; }
-        public int UserId { get; set; }
-    }
-
-
-
-
-
-
     public class UserController : ApiController
     {
-        private ICasAuthenticator _casAuthenticator;
-        private readonly IUserService _userService;
-        private readonly IKey _key;
+        #region Readonly & Static Fields
 
+        private readonly IKey _key;
+        private readonly IUserService _userService;
+
+        #endregion
+
+        #region Fields
+
+        private ICasAuthenticator _casAuthenticator;
+
+        #endregion
+
+        #region C'tors
 
         public UserController(IUserService userService, IKey key)
         {
-
             this._userService = userService;
-            _key = key;
+            this._key = key;
             this._casAuthenticator = new FormsCasAuthenticator();
+        }
+
+        #endregion
+
+        #region Instance Methods
+
+        public string AvatarLoader()
+        {
+            return "";
+        }
+
+        [WebApiAllowCrossSiteJson]
+        [HttpGet, HttpPost]
+        public bool CheckNick([FromUri] string nickname)
+        {
+            return this._userService.UserNickExist(nickname);
         }
 
         [WebApiAllowCrossSiteJson]
         public UserInfo Get()
         {
-
             return new UserInfo
-            {
-                UserId = WebSecurity.CurrentUserId,
-                UserName = WebSecurity.CurrentUserName
-            };
+                       {
+                           UserId = WebSecurity.CurrentUserId,
+                           UserName = WebSecurity.CurrentUserName
+                       };
+        }
+
+        [HttpGet, HttpPost]
+        public DateTime? GetRegDateTime([FromUri] decimal uid)
+        {
+            return this._userService.GetRegDateTime(uid);
         }
 
         [WebApiAllowCrossSiteJson]
-        public UserProfileModel GetUserInfo([FromUri]decimal uid)
+        public UserProfileModel GetUserInfo([FromUri] decimal uid)
         {
             return this._userService.GetUserProfileByCache(uid);
+        }
+
+        public UserProfileModel GetUserInfoByNickname([FromUri] string nickname)
+        {
+            return this._userService.GetUserProfileByNickName(nickname);
+        }
+
+        public UserProfileModel GetUserInfoByUserName([FromUri] string username)
+        {
+            return this._userService.GetUserProfileByUserName(username);
         }
 
         public List<UserProfileModel> GetUserInfoList([FromUri] decimal[] uids)
@@ -59,45 +97,17 @@ namespace CASServer.ApiControllers
             return this._userService.GetUserProfiles(uids);
         }
 
-        public UserProfileModel GetUserInfoByNickname([FromUri]string nickname)
-        {
-            return this._userService.GetUserProfileByNickName(nickname);
-        }
-
-        public UserProfileModel GetUserInfoByUserName([FromUri]string username)
-        {
-            return this._userService.GetUserProfileByUserName(username);
-        }
-
         public List<UserProfileModel> GetUserInfoListByNickNames([FromUri] string[] nicknames)
         {
             return this._userService.GetUserProfileByNickNames(nicknames);
         }
+
+        #endregion
 
         //[WebApiAllowCrossSiteJson]
         //public UserProfileModel GetUserInfo(decimal[] uid)
         //{
         //    return userService.GetUserProfileByCache(uid);
         //}
-        [WebApiAllowCrossSiteJson]
-        [HttpGet, HttpPost]
-        public bool CheckNick([FromUri]string nickname)
-        {
-            return _userService.UserNickExist(nickname);
-        }
-
-        [HttpGet, HttpPost]
-        public DateTime? GetRegDateTime([FromUri]decimal uid)
-        {
-            return this._userService.GetRegDateTime(uid);
-        }
-
-
-        public string AvatarLoader()
-        {
-
-            return "";
-        }
-
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model string
 @{
-    ViewBag.Title = "找回密码";
+    this.ViewBag.Title = "找回密码";
 }
 @section css{
     @Styles.Render("~/Content/toastmessage");
@@ -10,53 +10,54 @@
     @Scripts.Render("~/bundles/toastmessage");
     <script type="text/javascript">
         var X_Des;
+
         function countseconds(sec, domid) {
-            X_Des = setInterval(function () {
+            X_Des = setInterval(function() {
                 sec = sec - 1;
                 $("#" + domid).html(sec);
             }, 1000);
         }
 
         function sendATcode() {
-            $.getJSON('@Url.Action("ResendSms")?' + $.now(), {
-                username: $('#username').val()
-            }, function (d) {
-                if (d.ErrorCode != 0) {
-                    showError(d.ErrorMessage);
-                } else {
-                    showSuccess("已经发送完成");
-                    countseconds(60, "code_show");
-                }
+            $.getJSON('@this.Url.Action("ResendSms")?' + $.now(), {
+                    username: $('#username').val()
+                }, function(d) {
+                    if (d.ErrorCode != 0) {
+                        showError(d.ErrorMessage);
+                    } else {
+                        showSuccess("已经发送完成");
+                        countseconds(60, "code_show");
+                    }
 
-            });
+                });
         }
 
         function checkCode() {
-            $.getJSON('@Url.Action("Checktoken")?' + $.now(), {
-                username: $('#username').val(),
-                token: $('#pCode').val(),
-            }, function (d) {
-                if (d.ErrorCode == 0) {
+            $.getJSON('@this.Url.Action("Checktoken")?' + $.now(), {
+                    username: $('#username').val(),
+                    token: $('#pCode').val(),
+                }, function(d) {
+                    if (d.ErrorCode == 0) {
 
-                    window.location.href = "@Url.Action("ResetPwdByPhone")?username=" + $('#username').val() + "&token=" + $('#pCode').val();
-                } else {
-                    showError(d.ErrorMessage);
-                }
+                        window.location.href = "@this.Url.Action("ResetPwdByPhone")?username=" + $('#username').val() + "&token=" + $('#pCode').val();
+                    } else {
+                        showError(d.ErrorMessage);
+                    }
 
-            });
+                });
         }
 
-        $(function () {
+        $(function() {
             //  document.getElementById("phones ").innerText = $("#phone").val();
             $("#Waiter").html('<span class="count" id="code_show">60</span>');
             countseconds(60, "code_show");
-            setTimeout(function () {
+            setTimeout(function() {
                 clearInterval(X_Des);
 
                 $("#Waiter").html('<a href="#" id="code_show2" onclick="sendATcode();return true;">重新发送</a>');
             }, 60000);
 
-            $(".nxt_green_btn").click(function () {
+            $(".nxt_green_btn").click(function() {
 
                 var pCode = $("#pCode").val();
                 if (pCode == "" || pCode == null) {
@@ -72,7 +73,7 @@
 
             });
 
-            $(document).keydown(function (e) {
+            $(document).keydown(function(e) {
                 if (e.keyCode == 13) {
                     $(".nxt_green_btn").click();
 
@@ -88,16 +89,16 @@
     <div class="reg_cont clear">
         <div class="pasd_get1">
 
-            @using (Html.BeginForm("ResetPwdByPhone", "Account"))
+            @using (this.Html.BeginForm("ResetPwdByPhone", "Account"))
             {
-                @Html.Hidden("username", @Model.Split(',')[1])
+                @this.Html.Hidden("username", this.Model.Split(',')[1])
                 <div class="new_item">
-                    系统已将验证码发送至手机号：<span class="green1" id="phones">@Model.Split(',')[0]</span>
+                    系统已将验证码发送至手机号：<span class="green1" id="phones">@this.Model.Split(',')[0]</span>
                 </div>
                 <div class="new_item">
                     输入手机获取的验证码：<input id="pCode" type="text" class="inpt reg_time" maxlength="6" name="pCode" />
                     <span id="Waiter"><span class="count" id="code_show">60</span> <a href="#" id="code_show2"
-                        onclick="sendATcode();return false;">重新发送</a> </span>
+                                                                                      onclick=" sendATcode();return false; ">重新发送</a> </span>
                 </div>
                 <div class="new_item">
                     <a class="nxt_green_btn time_btn">下一步</a>

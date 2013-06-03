@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:25
+//  文件名：CASServer/Application.Dto/GetPwdModel.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace CASServer.Models
 {
     public class GetPwdModel
     {
+        #region Instance Properties
+
+        [DefaultValue(0)]
+        public int GetPwdType { get; set; }
+
         [Required]
         [Display(Name = "用户名")]
         public string UserName { get; set; }
@@ -18,7 +29,6 @@ namespace CASServer.Models
         [StringLength(4, ErrorMessage = "{0}最大长度为{1}")]
         public string Validcode { get; set; }
 
-        [DefaultValue(0)]
-        public int GetPwdType { get; set; }
+        #endregion
     }
 }

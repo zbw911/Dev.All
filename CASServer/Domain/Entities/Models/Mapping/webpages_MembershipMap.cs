@@ -1,3 +1,13 @@
+// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:25
+//  文件名：CASServer/Domain.Entities/webpages_MembershipMap.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
@@ -5,6 +15,8 @@ namespace Domain.Entities.Models.Mapping
 {
     public class webpages_MembershipMap : EntityTypeConfiguration<webpages_Membership>
     {
+        #region C'tors
+
         public webpages_MembershipMap()
         {
             // Primary Key
@@ -40,7 +52,10 @@ namespace Domain.Entities.Models.Mapping
             this.Property(t => t.PasswordChangedDate).HasColumnName("PasswordChangedDate");
             this.Property(t => t.PasswordSalt).HasColumnName("PasswordSalt");
             this.Property(t => t.PasswordVerificationToken).HasColumnName("PasswordVerificationToken");
-            this.Property(t => t.PasswordVerificationTokenExpirationDate).HasColumnName("PasswordVerificationTokenExpirationDate");
+            this.Property(t => t.PasswordVerificationTokenExpirationDate).HasColumnName(
+                "PasswordVerificationTokenExpirationDate");
         }
+
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "主页";
+    this.ViewBag.Title = "主页";
 }
 @*@section featured {
     <section class="featured">
@@ -29,12 +29,12 @@
         </li>
     }
     <li class="one">
-        @Html.ActionLink("管理", "Manage", "Account")
+        @this.Html.ActionLink("管理", "Manage", "Account")
 
     </li>
 
     <li class="one">
-        @Html.Partial("_LoginPartial")
+        @this.Html.Partial("_LoginPartial")
 
     </li>
 </ol>

@@ -1,38 +1,42 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:24
+//  文件名：CASServer/WebApp/CASController.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.IO;
+using System.Web.Mvc;
 using Application.MainBoundedContext.UserModule;
-using WebMatrix.WebData;
+using CASServer.Models;
+using Dev.CasServer;
+using Dev.CasServer.Authenticator;
 
 namespace CASServer.Controllers
 {
-    using System.Web.Mvc;
-    using System.Web.Security;
-
-
-    using CASServer.Models;
-
-    using Dev.CasServer;
-    using Dev.CasServer.Authenticator;
-
     public class CasController : Controller
     {
-        #region Fields
+        #region Readonly & Static Fields
 
-        private static string strJsSDK = null;
-
-        private readonly ICasAuthenticator casAuthenticator;
         private readonly CasServer _casServer;
 
-        private readonly CasServer casServer;
         private readonly IUserService _userService;
+        private readonly ICasAuthenticator casAuthenticator;
+        private readonly CasServer casServer;
+        private static string strJsSDK = null;
 
         private readonly IUserValidate userValidate;
 
         #endregion
 
-        #region Constructors and Destructors
+        #region C'tors
 
-        public CasController(IUserValidate UserValidate, ICasAuthenticator CasAuthenticator, CasServer CasServer, IUserService userService)
+        public CasController(IUserValidate UserValidate, ICasAuthenticator CasAuthenticator, CasServer CasServer,
+                             IUserService userService)
         {
             if (UserValidate == null) throw new ArgumentNullException("UserValidate");
             if (CasAuthenticator == null) throw new ArgumentNullException("CasAuthenticator");
@@ -41,29 +45,32 @@ namespace CASServer.Controllers
             this.userValidate = UserValidate;
 
             this.casServer = CasServer;
-            _userService = userService;
+            this._userService = userService;
         }
 
         #endregion
 
-        #region Public Methods and Operators
+        #region Instance Methods
+
+        public ActionResult JsSDK()
+        {
+            return this.JavaScript(this.Js());
+        }
 
         public ActionResult Login(string service)
         {
             this.ViewBag.service = service;
             //如果 serivce 不为空是,有必要返回
             if (!string.IsNullOrEmpty(service))
-                this.ViewBag.ReturnUrl = Request.RawUrl;
+                this.ViewBag.ReturnUrl = this.Request.RawUrl;
 
             //Response.AddHeader("p3p", "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
             string returl;
-            bool redrect = this.casServer.HandlePageLoad(service, out returl);
-
+            var redrect = this.casServer.HandlePageLoad(service, out returl);
 
 
             if (redrect)
             {
-
                 return this.Redirect(returl);
             }
 
@@ -84,7 +91,7 @@ namespace CASServer.Controllers
 
             string redirectUrl;
             // check if this is a CAS request and handle it
-            if (ModelState.IsValid && this.casServer.HandlePageLogin(
+            if (this.ModelState.IsValid && this.casServer.HandlePageLogin(
                 service, model.UserName, model.Password, model.RememberMe, out redirectUrl))
             {
                 if (string.IsNullOrEmpty(redirectUrl))
@@ -92,7 +99,7 @@ namespace CASServer.Controllers
                     // if not, do it the FormsAuthentication way
                     //FormsAuthentication.RedirectFromLoginPage(model.UserName, model.RememberMe);
 
-                    return Redirect(Dev.CasServer.Configuration.CasServerConfiguration.Config.DefaultUrl);
+                    return this.Redirect(Dev.CasServer.Configuration.CasServerConfiguration.Config.DefaultUrl);
                 }
                 else
                 {
@@ -102,7 +109,7 @@ namespace CASServer.Controllers
 
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
             //ViewBag.ErrorMessage = "提供的用户名或密码不正确。";
-            ModelState.AddModelError("", "提供的用户名或密码不正确。");
+            this.ModelState.AddModelError("", "提供的用户名或密码不正确。");
             return View(model);
         }
 
@@ -119,44 +126,36 @@ namespace CASServer.Controllers
 
         public ActionResult ServiceValidate(string service, string ticket)
         {
-            string strResponse = this.casServer.HandleServiceValidateRequest(service, ticket);
+            var strResponse = this.casServer.HandleServiceValidateRequest(service, ticket);
             return this.Content(strResponse);
         }
 
         public ActionResult Validate(string service, string ticket)
         {
-            string strResponse = this.casServer.HandleValidateRequest(service, ticket);
+            var strResponse = this.casServer.HandleValidateRequest(service, ticket);
             return this.Content(strResponse);
         }
 
-
-        public ActionResult JsSDK()
-        {
-
-            return JavaScript(Js());
-
-
-        }
 
         private string Js()
         {
             //if (strJsSDK == null)
             //{
-                string content;
-                ViewEngineResult view = null;
+            string content;
+            ViewEngineResult view = null;
 
-                view = ViewEngines.Engines.FindPartialView(ControllerContext, "JsSDK");
-                using (var writer = new StringWriter())
-                {
-                    ViewData["basurl"] = Dev.Comm.Web.HttpServerInfo.BaseUrl;
-                    var context = new ViewContext(ControllerContext, view.View, ViewData, TempData, writer);
-                    view.View.Render(context, writer);
+            view = ViewEngines.Engines.FindPartialView(this.ControllerContext, "JsSDK");
+            using (var writer = new StringWriter())
+            {
+                this.ViewData["basurl"] = Dev.Comm.Web.HttpServerInfo.BaseUrl;
+                var context = new ViewContext(this.ControllerContext, view.View, this.ViewData, this.TempData, writer);
+                view.View.Render(context, writer);
 
-                    writer.Flush();
-                    content = writer.ToString();
-                }
+                writer.Flush();
+                content = writer.ToString();
+            }
 
-                strJsSDK = content;
+            strJsSDK = content;
             //}
             return strJsSDK;
         }

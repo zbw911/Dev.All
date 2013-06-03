@@ -1,5 +1,6 @@
 ﻿
-;(function ($) {
+;
+(function($) {
     var settings = {
         inEffect: { opacity: 'show' }, // in effect
         inEffectDuration: 600, 			// in effect duration in miliseconds
@@ -14,14 +15,14 @@
     };
 
     var methods = {
-        init: function (options) {
+        init: function(options) {
             if (options) {
                 $.extend(settings, options);
             }
         },
 
-        showToast: function (options) {
-            var localSettings = {};
+        showToast: function(options) {
+            var localSettings = { };
             $.extend(localSettings, settings, options);
 
             // declare variables
@@ -33,7 +34,7 @@
             if (localSettings.single) $(toastWrapAll).empty();
             toastItemOuter = $('<div></div>').addClass('toast-item-wrapper');
             toastItemInner = $('<div></div>').hide().addClass('toast-item toast-type-' + localSettings.type).appendTo(toastWrapAll).html($('<p>').append(localSettings.text)).animate(localSettings.inEffect, localSettings.inEffectDuration).wrap(toastItemOuter);
-            toastItemClose = $('<div></div>').addClass('toast-item-close').prependTo(toastItemInner).html(localSettings.closeText).click(function () { $().toastmessage('removeToast', toastItemInner, localSettings) });
+            toastItemClose = $('<div></div>').addClass('toast-item-close').prependTo(toastItemInner).html(localSettings.closeText).click(function() { $().toastmessage('removeToast', toastItemInner, localSettings); });
             toastItemImage = $('<div></div>').addClass('toast-item-image').addClass('toast-item-image-' + localSettings.type).prependTo(toastItemInner);
 
             if (navigator.userAgent.match(/MSIE 6/i)) {
@@ -41,37 +42,37 @@
             }
 
             if (!localSettings.sticky) {
-                setTimeout(function () {
+                setTimeout(function() {
                     $().toastmessage('removeToast', toastItemInner, localSettings);
                 },
-				localSettings.stayTime);
+                    localSettings.stayTime);
             }
             return toastItemInner;
         },
 
-        showNoticeToast: function (message) {
+        showNoticeToast: function(message) {
             var options = { text: message, type: 'notice' };
             return $().toastmessage('showToast', options);
         },
 
-        showSuccessToast: function (message) {
+        showSuccessToast: function(message) {
             var options = { text: message, type: 'success' };
             return $().toastmessage('showToast', options);
         },
 
-        showErrorToast: function (message) {
+        showErrorToast: function(message) {
             var options = { text: message, type: 'error' };
             return $().toastmessage('showToast', options);
         },
 
-        showWarningToast: function (message) {
+        showWarningToast: function(message) {
             var options = { text: message, type: 'warning' };
             return $().toastmessage('showToast', options);
         },
 
-        removeToast: function (obj, options) {
-            obj.animate({ opacity: '0' }, 600, function () {
-                obj.parent().animate({ height: '0px' }, 300, function () {
+        removeToast: function(obj, options) {
+            obj.animate({ opacity: '0' }, 600, function() {
+                obj.parent().animate({ height: '0px' }, 300, function() {
                     obj.parent().remove();
                 });
             });
@@ -82,7 +83,7 @@
         }
     };
 
-    $.fn.toastmessage = function (method) {
+    $.fn.toastmessage = function(method) {
 
         // Method calling logic
         if (methods[method]) {
@@ -103,7 +104,7 @@
 var autohideSecond = 2;
 
 
-function _showBase(message, autohide, funclose, type)  {
+function _showBase(message, autohide, funclose, type) {
 
     $(".toast-container").removeAttr("style");
     sticky = false;
@@ -125,13 +126,14 @@ function _showBase(message, autohide, funclose, type)  {
         position: 'middle-center',
         type: type,
         closeText: '',
-        close: function () {
+        close: function() {
             // console.log("toast is closed ...");
             //                    window.alert("");
             if ($.isFunction(funclose)) funclose();
         }
     });
 }
+
 function showError(message, funclose, autohide) {
     _showBase(message, autohide, funclose, "error");
 }
@@ -143,6 +145,7 @@ function showWarning(message, funclose, autohide) {
 function showSuccess(message, funclose, autohide) {
     _showBase(message, autohide, funclose, 'success');
 }
+
 function showInfo(message, funclose, autohide) {
     _showBase(message, autohide, funclose, 'notice');
 }
@@ -151,8 +154,8 @@ function showInfo(message, funclose, autohide) {
 function showPosition(left, top) {
 
     $(".toast-container")
-            .css("top", top + "px")
-            .css("left", left + "px")
-            .css("margin-left", 0)
-            .css("margin-top", 0);
+        .css("top", top + "px")
+        .css("left", left + "px")
+        .css("margin-left", 0)
+        .css("margin-top", 0);
 }

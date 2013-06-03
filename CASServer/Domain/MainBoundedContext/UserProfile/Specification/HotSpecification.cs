@@ -1,18 +1,10 @@
-﻿//namespace GameGroup.Domain.MainBoundedContext.BBS.Specification
-//{
-//    using Dev.Data.Infras.Specification;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:25
+//  文件名：CASServer/Domain.MainBoundedContext/HotSpecification.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
 
-//    using GameGroup.Domain.Entities.Models;
-
-//    public class HotSpecification : Specification<Group_BBS>
-//    {
-//        #region Constructors and Destructors
-
-//        public HotSpecification(int view)
-//            : base(x => x.VistNum >= view)
-//        {
-//        }
-
-//        #endregion
-//    }
-//}

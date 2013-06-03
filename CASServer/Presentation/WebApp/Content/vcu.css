@@ -1,11 +1,67 @@
-.vcuImg { background-image: url(../images/vcuImg.jpg); background-repeat: no-repeat; height: 170px; width: 1000px; margin-right: auto; margin-bottom: auto; }
-.vcuCont { position: relative; line-height: 2em; }
-.tit_vcu { font-family: "microsoft yahei"; font-size: 22px; color: #000; }
-.font14yahei { font-family: "microsoft yahei"; font-size: 14px; color: #333; }
-.online-qq { background-color: #FFFFEF; padding: 20px; border: 1px solid #F5E1B3; position: absolute; top: 80px; right: 0px; width: 100px; font-family: "microsoft yahei"; }
-.btn-qq { line-height: 30px; height: 30px; width: 100px; font-family: "microsoft yahei"; display: block; background-color: #FFBF05; }
+.vcuImg {
+    background-image: url(../images/vcuImg.jpg);
+    background-repeat: no-repeat;
+    height: 170px;
+    margin-bottom: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+
+.vcuCont {
+    line-height: 2em;
+    position: relative;
+}
+
+.tit_vcu {
+    color: #000;
+    font-family: "microsoft yahei";
+    font-size: 22px;
+}
+
+.font14yahei {
+    color: #333;
+    font-family: "microsoft yahei";
+    font-size: 14px;
+}
+
+.online-qq {
+    background-color: #FFFFEF;
+    border: 1px solid #F5E1B3;
+    font-family: "microsoft yahei";
+    padding: 20px;
+    position: absolute;
+    right: 0px;
+    top: 80px;
+    width: 100px;
+}
+
+.btn-qq {
+    background-color: #FFBF05;
+    display: block;
+    font-family: "microsoft yahei";
+    height: 30px;
+    line-height: 30px;
+    width: 100px;
+}
+
 .btn-qq:hover { background-color: #FFD24A; }
 
-.online-qq a { color: #000; text-decoration: none; }
-.btn-qq em { background-image: url(../images/online-qq.png); background-repeat: no-repeat; background-position: 0px -37px; height: 18px; width: 16px; display: inline-block; margin-top: 6px; margin-left: 12px; float: left; margin-right: 8px; }
+.online-qq a {
+    color: #000;
+    text-decoration: none;
+}
+
+.btn-qq em {
+    background-image: url(../images/online-qq.png);
+    background-position: 0px -37px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    float: left;
+    height: 18px;
+    margin-left: 12px;
+    margin-right: 8px;
+    margin-top: 6px;
+    width: 16px;
+}
+
 .t-center { text-align: center; }

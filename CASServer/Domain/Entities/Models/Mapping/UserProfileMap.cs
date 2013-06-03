@@ -1,10 +1,21 @@
-using System.ComponentModel.DataAnnotations.Schema;
+// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:25
+//  文件名：CASServer/Domain.Entities/UserProfileMap.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
 using System.Data.Entity.ModelConfiguration;
 
 namespace Domain.Entities.Models.Mapping
 {
     public class UserProfileMap : EntityTypeConfiguration<UserProfile>
     {
+        #region C'tors
+
         public UserProfileMap()
         {
             // Primary Key
@@ -47,7 +58,8 @@ namespace Domain.Entities.Models.Mapping
             this.Property(t => t.ProvinceName).HasColumnName("ProvinceName");
             this.Property(t => t.CityName).HasColumnName("CityName");
             this.Property(t => t.PhonePasswordResetToken).HasColumnName("PhonePasswordResetToken");
-            this.Property(t => t.PhonePasswordResetTokenExpirationDate).HasColumnName("PhonePasswordResetTokenExpirationDate");
+            this.Property(t => t.PhonePasswordResetTokenExpirationDate).HasColumnName(
+                "PhonePasswordResetTokenExpirationDate");
             this.Property(t => t.PhonePasswordResendCount).HasColumnName("PhonePasswordResendCount");
             this.Property(t => t.LastPhonePasswordResetTokenTime).HasColumnName("LastPhonePasswordResetTokenTime");
             this.Property(t => t.Email).HasColumnName("Email");
@@ -55,5 +67,7 @@ namespace Domain.Entities.Models.Mapping
             this.Property(t => t.IsConfirmEmail).HasColumnName("IsConfirmEmail");
             this.Property(t => t.IsConfirmPhone).HasColumnName("IsConfirmPhone");
         }
+
+        #endregion
     }
 }

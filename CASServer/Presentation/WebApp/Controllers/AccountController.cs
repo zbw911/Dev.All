@@ -1,10 +1,19 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:24
+//  文件名：CASServer/WebApp/AccountController.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
-using Application.Dto;
 using Application.MainBoundedContext;
 using Application.MainBoundedContext.UserModule;
 using CASServer.Core;
@@ -13,7 +22,6 @@ using CASServer.Models;
 using Dev.CasServer.Configuration;
 using Dev.Comm;
 using Dev.Comm.Web.Mvc.Filter;
-using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 
@@ -23,118 +31,42 @@ namespace CASServer.Controllers
     [InitializeSimpleMembership]
     public class AccountController : BaseController
     {
-        private readonly IUserService _userService;
+        #region Enums
 
-        public AccountController(IUserService userService)
+        public enum ManageMessageId
         {
-            _userService = userService;
-        }
-
-        #region 中转URL
-
-        //
-        // GET: /Account/Login
-
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            return RedirectToAction("Login", "CAS");
-        }
-
-        //
-        // POST: /Account/Login
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
-        {
-            return new HttpUnauthorizedResult();
-        }
-
-        //
-        // POST: /Account/LogOff
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            return RedirectToAction("Logout", "CAS");
+            ChangePasswordSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
         }
 
         #endregion
 
-        #region 注册
+        #region Readonly & Static Fields
 
-        //
-        // GET: /Account/Register
+        private readonly IUserService _userService;
 
-        [AllowAnonymous]
-        public ActionResult Register()
+        #endregion
+
+        #region C'tors
+
+        public AccountController(IUserService userService)
         {
-            return View();
+            this._userService = userService;
+        }
+
+        #endregion
+
+        #region Instance Methods
+
+        [AllowAnonymous, JsonpFilter, UserAuthorizeJson, ActionAllowCrossSiteJson]
+        public ActionResult A()
+        {
+            return this.Json("json", JsonRequestBehavior.AllowGet);
         }
 
         //
-        // POST: /Account/Register
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
-        {
-            string code = (SessionGet<string>(SessionName.验证码) ?? "").ToLower();
-            SessionRemove(SessionName.验证码);
-
-            if (model.Validcode.ToLower() != code)
-            {
-                ModelState.AddModelError("Validcode", "验证码不正确");
-                return View(model);
-            }
-            if (ModelState.IsValid)
-            {
-                if (_userService.UserNickExist(model.NickName))
-                {
-                    ModelState.AddModelError("NickName", "昵称已经被使用");
-                    return View(model);
-                }
-
-                // 尝试注册用户
-                try
-                {
-                    string token = WebSecurity.CreateUserAndAccount(model.UserName, model.Password,
-                                                                    new
-                                                                        {
-                                                                            Email = model.UserName,
-                                                                            model.NickName,
-                                                                            model.Sex,
-                                                                            model.Province,
-                                                                            model.City,
-                                                                            model.ProvinceName,
-                                                                            model.CityName
-                                                                        }, true);
-
-                    int userid = WebSecurity.GetUserId(model.UserName);
-
-                    decimal uid = _userService.InserOrUpdateExtUid(userid);
-
-
-                    SystemMessagerManager.SendValidateMail(model.UserName, model.NickName, "邮件激活",
-                                                           SystemMessagerManager.ActMessage(model.UserName,
-                                                                                            model.NickName, token));
-
-
-                    return RedirectToAction("EmailActivation", new { email = model.UserName });
-                }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
-            }
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            return View(model);
-        }
+        // GET: /Account/Login
 
         [AllowAnonymous]
         public ActionResult Activation(string token)
@@ -147,56 +79,118 @@ namespace CASServer.Controllers
             //if (WebSecurity.IsConfirmed(email))
 
 
-            if (_userService.IsConfirmedByToken(token))
-                return Message("此帐户已经激活", "/CAS/Login");
+            if (this._userService.IsConfirmedByToken(token))
+                return this.Message("此帐户已经激活", "/CAS/Login");
 
             if (WebSecurity.ConfirmAccount(accountConfirmationToken: token))
             {
                 this._userService.ConfirmEmail(token);
-                return Message("激活成功", "/CAS/Login");
+                return this.Message("激活成功", "/CAS/Login");
             }
 
-            return Content("激活失败");
+            return this.Content("激活失败");
         }
 
-        [AllowAnonymous]
-        public ActionResult EmailActivation(string email, int type = 0)
+        public ActionResult Binding()
         {
-            if (string.IsNullOrEmpty(email))
-            {
-                throw new Exception("email can't null");
-            }
-
-            ViewBag.type = type;
-            //if (WebSecurity.IsConfirmed(email))
-
-
-            if (WebSecurity.IsConfirmed(email))
-            {
-                return Message("此帐户已经激活", "/CAS/Login");
-            }
-
-
-            return View(model: email);
+            return this.View();
         }
 
-        [AllowAnonymous]
+        [AllowAnonymous, JsonpFilter, UserAuthorizeJson, ActionAllowCrossSiteJson]
+        public ActionResult ChangeNick(string nickname)
+        {
+            var bs = this._userService.ChangeNick(userid: WebSecurity.CurrentUserId, nickname: nickname);
+            return this.Json(bs);
+        }
+
+        public ActionResult ChangePassword(ManageMessageId? message)
+        {
+            this.ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess
+                    ? "已更改你的密码。"
+                    : message == ManageMessageId.SetPasswordSuccess
+                          ? "已设置你的密码。"
+                          : message == ManageMessageId.RemoveLoginSuccess
+                                ? "已删除外部登录。"
+                                : "";
+            this.ViewBag.HasLocalPassword =
+                OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(this.User.Identity.Name));
+            this.ViewBag.ReturnUrl = this.Url.Action("Manage");
+            return this.View();
+        }
+
         [HttpPost]
-        public ActionResult ResendToken(string email)
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(LocalPasswordModel model)
         {
-            if (WebSecurity.IsConfirmed(email))
+            var hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(this.User.Identity.Name));
+            this.ViewBag.HasLocalPassword = hasLocalAccount;
+            this.ViewBag.ReturnUrl = this.Url.Action("ChangePassword",
+                                                     new {@in = Dev.Comm.Web.DevRequest.GetInt("in", 0)});
+            if (hasLocalAccount)
             {
-                return Json(false);
+                if (this.ModelState.IsValid)
+                {
+                    // 在某些失败方案中，ChangePassword 将引发异常，而不是返回 false。
+                    bool changePasswordSucceeded;
+                    try
+                    {
+                        changePasswordSucceeded = WebSecurity.ChangePassword(this.User.Identity.Name, model.OldPassword,
+                                                                             model.NewPassword);
+                    }
+                    catch (Exception)
+                    {
+                        changePasswordSucceeded = false;
+                    }
+
+                    if (changePasswordSucceeded)
+                    {
+                        return this.RedirectToAction("ChangePassword",
+                                                     new
+                                                         {
+                                                             Message = ManageMessageId.ChangePasswordSuccess,
+                                                             @in = Dev.Comm.Web.DevRequest.GetInt("in", 0)
+                                                         });
+                    }
+                    else
+                    {
+                        this.ModelState.AddModelError("", "当前密码不正确或新密码无效。");
+                    }
+                }
+            }
+            else
+            {
+                // 用户没有本地密码，因此将删除由于缺少
+                // OldPassword 字段而导致的所有验证错误
+                var state = this.ModelState["OldPassword"];
+                if (state != null)
+                {
+                    state.Errors.Clear();
+                }
+
+                if (this.ModelState.IsValid)
+                {
+                    try
+                    {
+                        WebSecurity.CreateAccount(this.User.Identity.Name, model.NewPassword);
+                        return this.RedirectToAction("Manage", new {Message = ManageMessageId.SetPasswordSuccess});
+                    }
+                    catch (Exception e)
+                    {
+                        this.ModelState.AddModelError("", e);
+                    }
+                }
             }
 
-            string NickName = _userService.GetNickNameByUserName(email);
+            // 如果我们进行到这一步时某个地方出错，则重新显示表单
+            return View(model);
+        }
 
-            string token = _userService.GetTokenByUserName(email);
-
-            SystemMessagerManager.SendValidateMail(email, NickName, "邮件激活",
-                                                   SystemMessagerManager.ActMessage(email, NickName, token));
-
-            return Json(true);
+        [AllowAnonymous, JsonpFilter, UserAuthorizeJson, ActionAllowCrossSiteJson]
+        public ActionResult ChangeSex(int sex)
+        {
+            var bs = this._userService.ChangeSex(userid: WebSecurity.CurrentUserId, sex: sex);
+            return this.Json(bs);
         }
 
 
@@ -209,49 +203,52 @@ namespace CASServer.Controllers
         [AllowAnonymous]
         public bool CheckNick(string nickname)
         {
-            return _userService.UserNickExist(nickname);
+            return this._userService.UserNickExist(nickname);
         }
 
-        #endregion
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Checktoken(string username, string token)
+        {
+            var bs = this._userService.CheckPhoneToken(username, token);
 
-        #region 验证码
+            return this.Json(bs, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
-        ///     验证码，当然要匿名了啊
+        ///   验证码，当然要匿名了啊
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         [AllowAnonymous]
         public ActionResult Code()
         {
             ////生成验证码
             var validateCode = new ValidateCode();
-            string code = validateCode.CreateValidateCode(4, 0);
-            SessionSet(SessionName.验证码, code);
-            byte[] bytes = validateCode.CreateValidateGraphic(code);
+            var code = validateCode.CreateValidateCode(4, 0);
+            this.SessionSet(SessionName.验证码, code);
+            var bytes = validateCode.CreateValidateGraphic(code);
             return File(bytes, @"image/jpeg");
         }
-        #endregion
-
-
-
-        #region 外部登录模块
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Disassociate(string provider, string providerUserId)
         {
-            string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
+            var ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
             ManageMessageId? message = null;
 
             // 只有在当前登录用户是所有者时才取消关联帐户
-            if (ownerAccount == User.Identity.Name)
+            if (ownerAccount == this.User.Identity.Name)
             {
                 // 使用事务来防止用户删除其上次使用的登录凭据
                 using (
                     var scope = new TransactionScope(TransactionScopeOption.Required,
-                                                     new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
+                                                     new TransactionOptions
+                                                         {IsolationLevel = IsolationLevel.Serializable}))
                 {
-                    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-                    if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
+                    var hasLocalAccount =
+                        OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(this.User.Identity.Name));
+                    if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(this.User.Identity.Name).Count > 1)
                     {
                         OAuthWebSecurity.DeleteAccount(provider, providerUserId);
                         scope.Complete();
@@ -260,182 +257,32 @@ namespace CASServer.Controllers
                 }
             }
 
-            return RedirectToAction("Manage", new { Message = message });
+            return this.RedirectToAction("Manage", new {Message = message});
         }
 
-        #region  Manage
+        [AllowAnonymous]
+        public ActionResult EmailActivation(string email, int type = 0)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new Exception("email can't null");
+            }
+
+            this.ViewBag.type = type;
+            //if (WebSecurity.IsConfirmed(email))
+
+
+            if (WebSecurity.IsConfirmed(email))
+            {
+                return this.Message("此帐户已经激活", "/CAS/Login");
+            }
+
+
+            return this.View(model: email);
+        }
+
         //
         // GET: /Account/Manage
-
-        public ActionResult Manage(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess
-                    ? "已更改你的密码。"
-                    : message == ManageMessageId.SetPasswordSuccess
-                          ? "已设置你的密码。"
-                          : message == ManageMessageId.RemoveLoginSuccess
-                                ? "已删除外部登录。"
-                                : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            return View();
-        }
-
-        //
-        // POST: /Account/Manage
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
-        {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.HasLocalPassword = hasLocalAccount;
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            if (hasLocalAccount)
-            {
-                if (ModelState.IsValid)
-                {
-                    // 在某些失败方案中，ChangePassword 将引发异常，而不是返回 false。
-                    bool changePasswordSucceeded;
-                    try
-                    {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword,
-                                                                             model.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
-                    }
-
-                    if (changePasswordSucceeded)
-                    {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "当前密码不正确或新密码无效。");
-                    }
-                }
-            }
-            else
-            {
-                // 用户没有本地密码，因此将删除由于缺少
-                // OldPassword 字段而导致的所有验证错误
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    catch (Exception e)
-                    {
-                        ModelState.AddModelError("", e);
-                    }
-                }
-            }
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            return View(model);
-        }
-
-        #endregion
-
-
-        #region ChangePWD
-
-        public ActionResult ChangePassword(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-               message == ManageMessageId.ChangePasswordSuccess
-                   ? "已更改你的密码。"
-                   : message == ManageMessageId.SetPasswordSuccess
-                         ? "已设置你的密码。"
-                         : message == ManageMessageId.RemoveLoginSuccess
-                               ? "已删除外部登录。"
-                               : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(LocalPasswordModel model)
-        {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.HasLocalPassword = hasLocalAccount;
-            ViewBag.ReturnUrl = Url.Action("ChangePassword", new { @in = Dev.Comm.Web.DevRequest.GetInt("in", 0) });
-            if (hasLocalAccount)
-            {
-                if (ModelState.IsValid)
-                {
-                    // 在某些失败方案中，ChangePassword 将引发异常，而不是返回 false。
-                    bool changePasswordSucceeded;
-                    try
-                    {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword,
-                                                                             model.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
-                    }
-
-                    if (changePasswordSucceeded)
-                    {
-                        return RedirectToAction("ChangePassword", new { Message = ManageMessageId.ChangePasswordSuccess, @in = Dev.Comm.Web.DevRequest.GetInt("in", 0) });
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "当前密码不正确或新密码无效。");
-                    }
-                }
-            }
-            else
-            {
-                // 用户没有本地密码，因此将删除由于缺少
-                // OldPassword 字段而导致的所有验证错误
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    catch (Exception e)
-                    {
-                        ModelState.AddModelError("", e);
-                    }
-                }
-            }
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            return View(model);
-        }
-
-        #endregion
-
-
-        #region Binding
-        public ActionResult Binding()
-        {
-            return View();
-        }
-        #endregion
 
         //
         // POST: /Account/ExternalLogin
@@ -445,7 +292,8 @@ namespace CASServer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+            return new ExternalLoginResult(provider,
+                                           this.Url.Action("ExternalLoginCallback", new {ReturnUrl = returnUrl}));
         }
 
         //
@@ -454,33 +302,35 @@ namespace CASServer.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
-            AuthenticationResult result =
-                OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+            var result =
+                OAuthWebSecurity.VerifyAuthentication(this.Url.Action("ExternalLoginCallback",
+                                                                      new {ReturnUrl = returnUrl}));
             if (!result.IsSuccessful)
             {
-                return RedirectToAction("ExternalLoginFailure");
+                return this.RedirectToAction("ExternalLoginFailure");
             }
 
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
             {
-                return RedirectToCas(returnUrl);
+                return this.RedirectToCas(returnUrl);
             }
 
-            if (User.Identity.IsAuthenticated)
+            if (this.User.Identity.IsAuthenticated)
             {
                 // 如果当前用户已登录，则添加新帐户
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-                _userService.InserOrUpdateExtUid(WebSecurity.GetUserId(User.Identity.Name));
-                return RedirectToCas(returnUrl);
+                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, this.User.Identity.Name);
+                this._userService.InserOrUpdateExtUid(WebSecurity.GetUserId(this.User.Identity.Name));
+                return this.RedirectToCas(returnUrl);
             }
             else
             {
                 // 该用户是新用户，因此将要求该用户提供所需的成员名称
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation",
-                            new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+                var loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+                this.ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+                this.ViewBag.ReturnUrl = returnUrl;
+                return this.View("ExternalLoginConfirmation",
+                                 new RegisterExternalLoginModel
+                                     {UserName = result.UserName, ExternalLoginData = loginData});
             }
         }
 
@@ -495,41 +345,41 @@ namespace CASServer.Controllers
             string provider = null;
             string providerUserId = null;
 
-            if (User.Identity.IsAuthenticated ||
+            if (this.User.Identity.IsAuthenticated ||
                 !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
             {
-                return RedirectToAction("Manage");
+                return this.RedirectToAction("Manage");
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 // 将新用户插入到数据库
                 using (var db = new UsersContext())
                 {
-                    UserProfile user =
+                    var user =
                         db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // 检查用户是否已存在
                     if (user == null)
                     {
                         // 将名称插入到配置文件表
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.UserProfiles.Add(new UserProfile {UserName = model.UserName});
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        _userService.InserOrUpdateExtUid(WebSecurity.GetUserId(model.UserName));
+                        this._userService.InserOrUpdateExtUid(WebSecurity.GetUserId(model.UserName));
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-                        return RedirectToCas(returnUrl);
+                        return this.RedirectToCas(returnUrl);
                     }
                     else
                     {
-                        ModelState.AddModelError("UserName", "用户名已存在。请输入其他用户名。");
+                        this.ModelState.AddModelError("UserName", "用户名已存在。请输入其他用户名。");
                     }
                 }
             }
 
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-            ViewBag.ReturnUrl = returnUrl;
+            this.ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
+            this.ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
 
@@ -539,25 +389,250 @@ namespace CASServer.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
-            return View();
+            return this.View();
         }
 
         [AllowAnonymous]
         [ChildActionOnly]
         public ActionResult ExternalLoginsList(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
+            this.ViewBag.ReturnUrl = returnUrl;
+            return this.PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult GetPwd()
+        {
+            return this.View();
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult GetPwd(GetPwdModel model)
+        {
+            var code = (this.SessionGet<string>(SessionName.验证码) ?? "").ToLower();
+            this.SessionRemove(SessionName.验证码);
+
+            if (model.Validcode.ToLower() != code)
+            {
+                this.ModelState.AddModelError("Validcode", "验证码不正确");
+                return View(model);
+            }
+
+            // 用户没有本地密码，因此将删除由于缺少
+            // OldPassword 字段而导致的所有验证错误
+            var state = this.ModelState["GetPwdType"];
+            if (state != null)
+            {
+                state.Errors.Clear();
+            }
+
+            if (this.ModelState.IsValid)
+            {
+                var bs = this._userService.GetPassWord(model);
+
+                if (bs.ErrorCode == 0)
+                {
+                    if (model.GetPwdType == 0)
+                        return this.View("_GetPwdMailSucess", model: model.UserName);
+                    else
+                        return this.View("_GetPwdNext", model: bs.ErrorMessage);
+                }
+                else
+                {
+                    if (bs.ErrorCode == -3)
+                        return this.Message("此用户还未激活，激活后继续",
+                                            this.Url.Action("EmailActivation", new {email = model.UserName}));
+
+                    this.ModelState.AddModelError("", "" + bs.ErrorMessage);
+                }
+            }
+
+
+            return this.View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            return this.RedirectToAction("Logout", "CAS");
+        }
+
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            return this.RedirectToAction("Login", "CAS");
+        }
+
+        //
+        // POST: /Account/Login
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel model, string returnUrl)
+        {
+            return new HttpUnauthorizedResult();
+        }
+
+        public ActionResult Manage(ManageMessageId? message)
+        {
+            this.ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess
+                    ? "已更改你的密码。"
+                    : message == ManageMessageId.SetPasswordSuccess
+                          ? "已设置你的密码。"
+                          : message == ManageMessageId.RemoveLoginSuccess
+                                ? "已删除外部登录。"
+                                : "";
+            this.ViewBag.HasLocalPassword =
+                OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(this.User.Identity.Name));
+            this.ViewBag.ReturnUrl = this.Url.Action("Manage");
+            return this.View();
+        }
+
+        //
+        // POST: /Account/Manage
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Manage(LocalPasswordModel model)
+        {
+            var hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(this.User.Identity.Name));
+            this.ViewBag.HasLocalPassword = hasLocalAccount;
+            this.ViewBag.ReturnUrl = this.Url.Action("Manage");
+            if (hasLocalAccount)
+            {
+                if (this.ModelState.IsValid)
+                {
+                    // 在某些失败方案中，ChangePassword 将引发异常，而不是返回 false。
+                    bool changePasswordSucceeded;
+                    try
+                    {
+                        changePasswordSucceeded = WebSecurity.ChangePassword(this.User.Identity.Name, model.OldPassword,
+                                                                             model.NewPassword);
+                    }
+                    catch (Exception)
+                    {
+                        changePasswordSucceeded = false;
+                    }
+
+                    if (changePasswordSucceeded)
+                    {
+                        return this.RedirectToAction("Manage", new {Message = ManageMessageId.ChangePasswordSuccess});
+                    }
+                    else
+                    {
+                        this.ModelState.AddModelError("", "当前密码不正确或新密码无效。");
+                    }
+                }
+            }
+            else
+            {
+                // 用户没有本地密码，因此将删除由于缺少
+                // OldPassword 字段而导致的所有验证错误
+                var state = this.ModelState["OldPassword"];
+                if (state != null)
+                {
+                    state.Errors.Clear();
+                }
+
+                if (this.ModelState.IsValid)
+                {
+                    try
+                    {
+                        WebSecurity.CreateAccount(this.User.Identity.Name, model.NewPassword);
+                        return this.RedirectToAction("Manage", new {Message = ManageMessageId.SetPasswordSuccess});
+                    }
+                    catch (Exception e)
+                    {
+                        this.ModelState.AddModelError("", e);
+                    }
+                }
+            }
+
+            // 如果我们进行到这一步时某个地方出错，则重新显示表单
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return this.View();
+        }
+
+        //
+        // POST: /Account/Register
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterModel model)
+        {
+            var code = (this.SessionGet<string>(SessionName.验证码) ?? "").ToLower();
+            this.SessionRemove(SessionName.验证码);
+
+            if (model.Validcode.ToLower() != code)
+            {
+                this.ModelState.AddModelError("Validcode", "验证码不正确");
+                return View(model);
+            }
+            if (this.ModelState.IsValid)
+            {
+                if (this._userService.UserNickExist(model.NickName))
+                {
+                    this.ModelState.AddModelError("NickName", "昵称已经被使用");
+                    return View(model);
+                }
+
+                // 尝试注册用户
+                try
+                {
+                    var token = WebSecurity.CreateUserAndAccount(model.UserName, model.Password,
+                                                                 new
+                                                                     {
+                                                                         Email = model.UserName,
+                                                                         model.NickName,
+                                                                         model.Sex,
+                                                                         model.Province,
+                                                                         model.City,
+                                                                         model.ProvinceName,
+                                                                         model.CityName
+                                                                     }, true);
+
+                    var userid = WebSecurity.GetUserId(model.UserName);
+
+                    var uid = this._userService.InserOrUpdateExtUid(userid);
+
+
+                    SystemMessagerManager.SendValidateMail(model.UserName, model.NickName, "邮件激活",
+                                                           SystemMessagerManager.ActMessage(model.UserName,
+                                                                                            model.NickName, token));
+
+
+                    return this.RedirectToAction("EmailActivation", new {email = model.UserName});
+                }
+                catch (MembershipCreateUserException e)
+                {
+                    this.ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                }
+            }
+
+            // 如果我们进行到这一步时某个地方出错，则重新显示表单
+            return View(model);
         }
 
         [ChildActionOnly]
         public ActionResult RemoveExternalLogins()
         {
-            ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
+            var accounts = OAuthWebSecurity.GetAccountsFromUserName(this.User.Identity.Name);
             var externalLogins = new List<ExternalLogin>();
-            foreach (OAuthAccount account in accounts)
+            foreach (var account in accounts)
             {
-                AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
+                var clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
 
                 externalLogins.Add(new ExternalLogin
                                        {
@@ -567,89 +642,52 @@ namespace CASServer.Controllers
                                        });
             }
 
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 ||
-                                       OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
-        }
-
-        #endregion
-
-        #region 找回密码
-
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult GetPwd()
-        {
-            return View();
-        }
-
-
-        [AllowAnonymous]
-        [HttpPost]
-        public ActionResult GetPwd(GetPwdModel model)
-        {
-            string code = (SessionGet<string>(SessionName.验证码) ?? "").ToLower();
-            SessionRemove(SessionName.验证码);
-
-            if (model.Validcode.ToLower() != code)
-            {
-                ModelState.AddModelError("Validcode", "验证码不正确");
-                return View(model);
-            }
-
-            // 用户没有本地密码，因此将删除由于缺少
-            // OldPassword 字段而导致的所有验证错误
-            ModelState state = ModelState["GetPwdType"];
-            if (state != null)
-            {
-                state.Errors.Clear();
-            }
-
-            if (ModelState.IsValid)
-            {
-                BaseState bs = _userService.GetPassWord(model);
-
-                if (bs.ErrorCode == 0)
-                {
-                    if (model.GetPwdType == 0)
-                        return View("_GetPwdMailSucess", model: model.UserName);
-                    else
-                        return View("_GetPwdNext", model: bs.ErrorMessage);
-                }
-                else
-                {
-                    if (bs.ErrorCode == -3)
-                        return Message("此用户还未激活，激活后继续", Url.Action("EmailActivation", new { email = model.UserName }));
-
-                    ModelState.AddModelError("", "" + bs.ErrorMessage);
-                }
-            }
-
-
-            return View();
+            this.ViewBag.ShowRemoveButton = externalLogins.Count > 1 ||
+                                            OAuthWebSecurity.HasLocalAccount(
+                                                WebSecurity.GetUserId(this.User.Identity.Name));
+            return this.PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
         [AllowAnonymous]
         [HttpGet]
         public ActionResult ResendSms(string username)
         {
-            BaseState bs = _userService.GetPassWord(new GetPwdModel
-                                                        {
-                                                            UserName = username,
-                                                            GetPwdType = 1
-                                                        });
+            var bs = this._userService.GetPassWord(new GetPwdModel
+                                                       {
+                                                           UserName = username,
+                                                           GetPwdType = 1
+                                                       });
 
-            return Json(bs, JsonRequestBehavior.AllowGet);
+            return this.Json(bs, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult ResendToken(string email)
+        {
+            if (WebSecurity.IsConfirmed(email))
+            {
+                return this.Json(false);
+            }
+
+            var NickName = this._userService.GetNickNameByUserName(email);
+
+            var token = this._userService.GetTokenByUserName(email);
+
+            SystemMessagerManager.SendValidateMail(email, NickName, "邮件激活",
+                                                   SystemMessagerManager.ActMessage(email, NickName, token));
+
+            return this.Json(true);
         }
 
         [AllowAnonymous]
         [HttpGet]
         public ActionResult ResetPwdByPhone(string username, string token)
         {
-            ViewBag.username = username;
-            ViewBag.token = token;
+            this.ViewBag.username = username;
+            this.ViewBag.token = token;
 
-            return View();
+            return this.View();
         }
 
 
@@ -657,46 +695,37 @@ namespace CASServer.Controllers
         [HttpPost]
         public ActionResult ResetPwdByPhone(string username, string token, LocalPasswordModel model)
         {
-            ViewBag.username = username;
-            ViewBag.token = token;
+            this.ViewBag.username = username;
+            this.ViewBag.token = token;
             // 用户没有本地密码，因此将删除由于缺少
             // OldPassword 字段而导致的所有验证错误
-            ModelState state = ModelState["OldPassword"];
+            var state = this.ModelState["OldPassword"];
             if (state != null)
             {
                 state.Errors.Clear();
             }
 
             if (string.IsNullOrEmpty(username))
-                ModelState.AddModelError("", "username can't null ");
+                this.ModelState.AddModelError("", "username can't null ");
             if (string.IsNullOrEmpty(token))
-                ModelState.AddModelError("", "token can't null");
+                this.ModelState.AddModelError("", "token can't null");
 
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                BaseState bs = _userService.ResetPasswordByPhoneToken(token, model.NewPassword, username);
+                var bs = this._userService.ResetPasswordByPhoneToken(token, model.NewPassword, username);
 
                 if (bs.ErrorCode == 0)
                 {
-                    return Message("重置成功", Url.Action("Login", "Cas"));
+                    return this.Message("重置成功", this.Url.Action("Login", "Cas"));
                 }
                 else
                 {
-                    ModelState.AddModelError("", bs.ErrorMessage);
+                    this.ModelState.AddModelError("", bs.ErrorMessage);
                 }
             }
 
-            return View();
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult Checktoken(string username, string token)
-        {
-            BaseState bs = _userService.CheckPhoneToken(username, token);
-
-            return Json(bs, JsonRequestBehavior.AllowGet);
+            return this.View();
         }
 
         [AllowAnonymous]
@@ -705,18 +734,18 @@ namespace CASServer.Controllers
         {
             if (string.IsNullOrEmpty(token))
             {
-                return Message("不正确定找回密码链接");
+                return this.Message("不正确定找回密码链接");
             }
 
-            string email = _userService.GetUserEmailByRestToken(restToken: token);
+            var email = this._userService.GetUserEmailByRestToken(restToken: token);
 
             if (string.IsNullOrEmpty(email))
-                return Message("找回密码链接已经过期", Url.Action("getpwd"));
+                return this.Message("找回密码链接已经过期", this.Url.Action("getpwd"));
 
-            ViewBag.Email = email;
-            ViewBag.token = token;
+            this.ViewBag.Email = email;
+            this.ViewBag.token = token;
 
-            return View();
+            return this.View();
         }
 
         [AllowAnonymous]
@@ -725,53 +754,30 @@ namespace CASServer.Controllers
         {
             // 用户没有本地密码，因此将删除由于缺少
             // OldPassword 字段而导致的所有验证错误
-            ModelState state = ModelState["OldPassword"];
+            var state = this.ModelState["OldPassword"];
             if (state != null)
             {
                 state.Errors.Clear();
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                bool isok =
-                    _userService.ResetPasswordByEmailToken(token, NewPassword: model.NewPassword);
+                var isok =
+                    this._userService.ResetPasswordByEmailToken(token, NewPassword: model.NewPassword);
 
                 if (isok)
-                    return Message("重置密码成功", Url.Action("login", "cas"));
+                    return this.Message("重置密码成功", this.Url.Action("login", "cas"));
                 else
-                    return Message("重置密码失败", Url.Action("RestPwd", new { token }));
+                    return this.Message("重置密码失败", this.Url.Action("RestPwd", new {token}));
             }
             return View(model);
         }
 
-        #endregion
-
-        #region 帮助程序
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
         private ActionResult RedirectToCas(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (this.Url.IsLocalUrl(returnUrl))
             {
-                return Redirect(returnUrl);
+                return this.Redirect(returnUrl);
             }
             else
             {
@@ -779,9 +785,25 @@ namespace CASServer.Controllers
                 {
                     returnUrl = CasServerConfiguration.Config.DefaultUrl;
                 }
-                return RedirectToAction("Login", "CAS", new { service = returnUrl });
+                return this.RedirectToAction("Login", "CAS", new {service = returnUrl});
             }
         }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (this.Url.IsLocalUrl(returnUrl))
+            {
+                return this.Redirect(returnUrl);
+            }
+            else
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+        }
+
+        #endregion
+
+        #region Class Methods
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
@@ -821,51 +843,39 @@ namespace CASServer.Controllers
             }
         }
 
+        #endregion
+
+        #region Nested type: ExternalLoginResult
+
         internal class ExternalLoginResult : ActionResult
         {
+            #region C'tors
+
             public ExternalLoginResult(string provider, string returnUrl)
             {
-                Provider = provider;
-                ReturnUrl = returnUrl;
+                this.Provider = provider;
+                this.ReturnUrl = returnUrl;
             }
+
+            #endregion
+
+            #region Instance Properties
 
             public string Provider { get; private set; }
             public string ReturnUrl { get; private set; }
 
+            #endregion
+
+            #region Instance Methods
+
             public override void ExecuteResult(ControllerContext context)
             {
-                OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
+                OAuthWebSecurity.RequestAuthentication(this.Provider, this.ReturnUrl);
             }
+
+            #endregion
         }
 
         #endregion
-
-        #region 修改NickName
-        [AllowAnonymous, JsonpFilter, UserAuthorizeJson, ActionAllowCrossSiteJson]
-        public ActionResult ChangeNick(string nickname)
-        {
-            BaseState bs = this._userService.ChangeNick(userid: WebSecurity.CurrentUserId, nickname: nickname);
-            return Json(bs);
-        }
-
-
-        #endregion
-
-        #region 修改 Sex
-        [AllowAnonymous, JsonpFilter, UserAuthorizeJson, ActionAllowCrossSiteJson]
-        public ActionResult ChangeSex(int sex)
-        {
-            BaseState bs = this._userService.ChangeSex(userid: WebSecurity.CurrentUserId, sex: sex);
-            return Json(bs);
-        }
-        #endregion
-
-        [AllowAnonymous, JsonpFilter, UserAuthorizeJson, ActionAllowCrossSiteJson]
-        public ActionResult A()
-        {
-            return Json("json", JsonRequestBehavior.AllowGet);
-        }
-
-
     }
 }

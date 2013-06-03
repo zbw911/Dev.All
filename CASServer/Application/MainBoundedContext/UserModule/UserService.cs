@@ -1,75 +1,159 @@
-﻿
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月03日 16:48
+//  
+//  修改于：2013年06月03日 17:25
+//  文件名：CASServer/Application.MainBoundedContext/UserService.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Application.Dto;
+using Application.Dto.User;
 using CASServer.Models;
+using Dev.Crosscutting.Adapter;
 using Dev.Framework.Cache;
 using Dev.Framework.FileServer;
 using Domain.MainBoundedContext.UserExtend.Repository;
+using Domain.MainBoundedContext.UserProfile.Repository;
 using Domain.MainBoundedContext.webpages_Membership.Repository;
-
 using WebMatrix.WebData;
-
 
 namespace Application.MainBoundedContext.UserModule
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Application.Dto;
-
-    using Dev.Crosscutting.Adapter;
-    using Dev.Data.Infras;
-    using Dev.Data.Infras.Extensions;
-
-    using Domain.MainBoundedContext.UserProfile.Repository;
-    using Application.Dto.User;
-
     public class UserService : IUserService
     {
-        private readonly IUserProfileRepository _userProfileRepository;
-        private readonly IUserExtendRepository _userExtendRepository;
-        private readonly IWebpagesMembershipRepository _webpagesMembershipRepository;
+        #region Readonly & Static Fields
+
         private readonly ICacheWraper _cacheWraper;
         private readonly IImageFile _imageFile;
+        private readonly IUserExtendRepository _userExtendRepository;
+        private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IWebpagesMembershipRepository _webpagesMembershipRepository;
 
+        #endregion
+
+        #region C'tors
 
         public UserService(IUserProfileRepository userProfileRepository,
-            IUserExtendRepository userExtendRepository, IWebpagesMembershipRepository webpagesMembershipRepository,
-           ICacheWraper cacheWraper, IImageFile imageFile)
+                           IUserExtendRepository userExtendRepository,
+                           IWebpagesMembershipRepository webpagesMembershipRepository,
+                           ICacheWraper cacheWraper, IImageFile imageFile)
         {
             this._userExtendRepository = userExtendRepository;
             this._userProfileRepository = userProfileRepository;
             this._webpagesMembershipRepository = webpagesMembershipRepository;
-            _cacheWraper = cacheWraper;
-            _imageFile = imageFile;
+            this._cacheWraper = cacheWraper;
+            this._imageFile = imageFile;
         }
+
+        #endregion
+
+        #region Instance Methods
+
+        private string GeneratePhonePasswordResetToken(string userName)
+        {
+            var userid = WebSecurity.GetUserId(userName);
+            var code = Dev.Comm.Security.CreateRandomCode(6);
+
+
+            this._userProfileRepository.CreatePhonePasswordResetToken(userid, code);
+
+            return code;
+        }
+
+        private BaseState GetPassWordByEmail(GetPwdModel model)
+        {
+            if (!Dev.Comm.Validate.Validate.IsEmail(model.UserName))
+            {
+                return new BaseState(-1, "用户名非邮箱!");
+            }
+
+
+            var nick = this.GetNickNameByUserName(model.UserName);
+            var token = WebSecurity.GeneratePasswordResetToken(model.UserName);
+            var mail = SystemMessagerManager.GetContentForGetPass(nick, token);
+            var isok = SystemMessagerManager.SendValidateMail(model.UserName, nick, "找回密码", mail);
+
+            if (isok)
+            {
+                return new BaseState();
+            }
+
+            return new BaseState {ErrorCode = -1, ErrorMessage = "发送邮件失败"};
+        }
+
+        private BaseState GetPassWordByPhone(GetPwdModel model)
+        {
+            var userid = WebSecurity.GetUserId(model.UserName);
+            var uid = this.GetUidByUserId(userid);
+            var profile = this._userProfileRepository.FindOne(x => x.UserId == userid);
+            if (profile == null)
+                return new BaseState(-1, "用户不存在");
+            var phone = profile.Phone;
+            if (string.IsNullOrEmpty(phone))
+            {
+                return new BaseState(-1, "用户还未设置手机号");
+            }
+
+            if (profile.LastPhonePasswordResetTokenTime.HasValue &&
+                profile.LastPhonePasswordResetTokenTime.Value.AddMinutes(1) > System.DateTime.Now
+                ||
+                profile.PhonePasswordResendCount.HasValue && profile.PhonePasswordResendCount >= 5 &&
+                profile.LastPhonePasswordResetTokenTime.HasValue &&
+                profile.LastPhonePasswordResetTokenTime.Value.AddHours(1) > System.DateTime.Now)
+            {
+                return new BaseState(-1, "短信发送过于频繁，请稍后再试");
+            }
+
+
+            var code = this.GeneratePhonePasswordResetToken(model.UserName);
+
+            var message = "尊敬的" + phone + "，您好！游戏团发送给您的认证码是" + code + "，请在网站上输入，找回游戏团密码。如非本人操作，请忽略。";
+            var issend = SystemMessagerManager.SendSMS(phone, message, uid);
+
+            if (!issend)
+                return new BaseState(-1, "发送失败");
+
+            return new BaseState(0, phone + "," + model.UserName);
+        }
+
+        #endregion
+
+        #region IUserService Members
+
         public bool UserNickExist(string nickname)
         {
             return this._userProfileRepository.FindOne(x => x.NickName == nickname) != null;
         }
+
         /// <summary>
-        /// 根据用户编号读取用户数据
+        ///   根据用户编号读取用户数据
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
+        /// <param name="userId"> </param>
+        /// <returns> </returns>
         public UserProfileModel GetUserProfile(decimal uid)
         {
-
             var extend = this._userExtendRepository.FindOne(x => x.Uid == uid);
 
             if (extend == null)
                 return null;
 
 
-            var user = this._userProfileRepository.FindOne(m => m.UserId == extend.UserId).ProjectedAs<UserProfileModel>();
+            var user =
+                this._userProfileRepository.FindOne(m => m.UserId == extend.UserId).ProjectedAs<UserProfileModel>();
             user.Uid = uid;
             return user;
         }
 
         /// <summary>
-        /// 根据用户编号读取用户数据
+        ///   根据用户编号读取用户数据
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
+        /// <param name="userId"> </param>
+        /// <returns> </returns>
         public UserProfileModel GetUserProfileByCache(decimal uid)
         {
             return this._cacheWraper.SmartyGetPut(uid, new TimeSpan(0, 1, 0), () => this.GetUserProfile(uid));
@@ -77,7 +161,9 @@ namespace Application.MainBoundedContext.UserModule
 
         public List<UserProfileModel> GetUserProfiles(decimal[] uids)
         {
-            var listuser = this._userExtendRepository.GetQuery(x => uids.Contains(x.Uid)).Select(x => new { x.UserId, x.Uid }).ToList();
+            var listuser =
+                this._userExtendRepository.GetQuery(x => uids.Contains(x.Uid)).Select(x => new {x.UserId, x.Uid}).ToList
+                    ();
             var listuserids = listuser.Select(x => x.UserId);
             var userprofiles = this._userProfileRepository.GetQuery(m => listuserids.Contains(m.UserId));
 
@@ -115,7 +201,9 @@ namespace Application.MainBoundedContext.UserModule
 
         public List<UserProfileModel> GetUserProfileByNickNames(string[] nicknames)
         {
-            var user = this._userProfileRepository.GetQuery(m => nicknames.Contains(m.NickName)).ProjectedAsCollection<UserProfileModel>();
+            var user =
+                this._userProfileRepository.GetQuery(m => nicknames.Contains(m.NickName)).ProjectedAsCollection
+                    <UserProfileModel>();
 
             if (user == null)
                 return null;
@@ -125,13 +213,11 @@ namespace Application.MainBoundedContext.UserModule
             var userids = user.Select(x => x.UserId);
 
 
+            var listuser =
+                this._userExtendRepository.GetQuery(x => userids.Contains(x.UserId)).Select(x => new {x.UserId, x.Uid}).
+                    ToList();
 
-            var listuser = this._userExtendRepository.GetQuery(x => userids.Contains(x.UserId)).Select(x => new { x.UserId, x.Uid }).ToList();
-
-            listuser.ForEach(x =>
-                                 {
-                                     user.First(y => y.UserId == x.UserId).Uid = x.Uid;
-                                 });
+            listuser.ForEach(x => { user.First(y => y.UserId == x.UserId).Uid = x.Uid; });
 
 
             return user;
@@ -162,7 +248,6 @@ namespace Application.MainBoundedContext.UserModule
 
         public BaseState ChangeNick(int userid, string nickname)
         {
-
             var profile = this._userProfileRepository.FindOne(x => x.UserId == userid);
 
             if (profile == null)
@@ -183,8 +268,7 @@ namespace Application.MainBoundedContext.UserModule
 
         public BaseState ChangeSex(int userid, int sex)
         {
-
-            if (!new[] { 1, 2 }.Contains(sex))
+            if (!new[] {1, 2}.Contains(sex))
             {
                 return new BaseState(-1, "性别参数不正确");
             }
@@ -193,7 +277,6 @@ namespace Application.MainBoundedContext.UserModule
 
             if (profile == null)
                 return new BaseState(-1, "用户不存在");
-
 
 
             profile.Sex = sex;
@@ -220,7 +303,6 @@ namespace Application.MainBoundedContext.UserModule
 
         public decimal GetUidByUserId(int userid)
         {
-
             var ext = this._userExtendRepository.FindOne(x => x.UserId == userid);
 
             if (ext == null)
@@ -237,7 +319,7 @@ namespace Application.MainBoundedContext.UserModule
 
             if (model == null)
             {
-                model = new Domain.Entities.Models.UserExtend { UserId = userid };
+                model = new Domain.Entities.Models.UserExtend {UserId = userid};
                 this._userExtendRepository.Add(model);
                 this._userExtendRepository.UnitOfWork.SaveChanges();
             }
@@ -276,7 +358,8 @@ namespace Application.MainBoundedContext.UserModule
 
         public BaseState GetPassWord(GetPwdModel model)
         {
-            var exist = this._userProfileRepository.FindOne(x => x.Email == model.UserName);// .UserExists(model.UserName);
+            var exist = this._userProfileRepository.FindOne(x => x.Email == model.UserName);
+            // .UserExists(model.UserName);
             if (exist == null)
             {
                 return new BaseState(-2, "邮箱不正确");
@@ -286,7 +369,6 @@ namespace Application.MainBoundedContext.UserModule
             {
                 return new BaseState(-3, "此帐户还未激活");
             }
-
 
 
             if (model.GetPwdType == 0)
@@ -309,7 +391,6 @@ namespace Application.MainBoundedContext.UserModule
                 return "";
 
             return user.UserName;
-
         }
 
         public bool ResetPasswordByEmailToken(string token, string NewPassword)
@@ -330,9 +411,9 @@ namespace Application.MainBoundedContext.UserModule
             }
 
             var user = this._userProfileRepository.FindOne(
-                 x =>
-                  x.UserName == username
-                 );
+                x =>
+                x.UserName == username
+                );
 
             if (user == null)
             {
@@ -348,7 +429,6 @@ namespace Application.MainBoundedContext.UserModule
             {
                 return new BaseState(-1, "手机重置码已经过期");
             }
-
 
 
             var passwordResetToken = WebSecurity.GeneratePasswordResetToken(user.UserName);
@@ -375,17 +455,15 @@ namespace Application.MainBoundedContext.UserModule
                 return new BaseState(-1, "重置码已经过期");
 
             return new BaseState();
-
         }
+
         /// <summary>
-        /// 仅用于用户名是邮件的情况下
+        ///   仅用于用户名是邮件的情况下
         /// </summary>
-        /// <param name="token"></param>
+        /// <param name="token"> </param>
         public void ConfirmEmail(string token)
         {
-
-
-            var usrid = this.GetUserIdByConfirmToken(token);// WebSecurity.GetUserIdFromPasswordResetToken(token);
+            var usrid = this.GetUserIdByConfirmToken(token); // WebSecurity.GetUserIdFromPasswordResetToken(token);
 
             var user = this._userProfileRepository.Single(x => x.UserId == usrid);
 
@@ -395,15 +473,14 @@ namespace Application.MainBoundedContext.UserModule
 
                 this._userProfileRepository.Update(user);
                 this._userProfileRepository.UnitOfWork.SaveChanges();
-
             }
         }
 
         /// <summary>
-        /// 通过确认token取得用户userid
+        ///   通过确认token取得用户userid
         /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <param name="token"> </param>
+        /// <returns> </returns>
         public int GetUserIdByConfirmToken(string token)
         {
             var msp = this._webpagesMembershipRepository.First(x => x.ConfirmationToken == token);
@@ -434,73 +511,6 @@ namespace Application.MainBoundedContext.UserModule
             return this.GetUserAvatar(extend.UserId);
         }
 
-
-        private BaseState GetPassWordByPhone(GetPwdModel model)
-        {
-
-            var userid = WebSecurity.GetUserId(model.UserName);
-            var uid = this.GetUidByUserId(userid);
-            var profile = this._userProfileRepository.FindOne(x => x.UserId == userid);
-            if (profile == null)
-                return new BaseState(-1, "用户不存在");
-            var phone = profile.Phone;
-            if (string.IsNullOrEmpty(phone))
-            {
-                return new BaseState(-1, "用户还未设置手机号");
-            }
-
-            if (profile.LastPhonePasswordResetTokenTime.HasValue && profile.LastPhonePasswordResetTokenTime.Value.AddMinutes(1) > System.DateTime.Now
-                ||
-                profile.PhonePasswordResendCount.HasValue && profile.PhonePasswordResendCount >= 5 &&
-                profile.LastPhonePasswordResetTokenTime.HasValue && profile.LastPhonePasswordResetTokenTime.Value.AddHours(1) > System.DateTime.Now)
-            {
-                return new BaseState(-1, "短信发送过于频繁，请稍后再试");
-            }
-
-
-            var code = GeneratePhonePasswordResetToken(model.UserName);
-
-            var message = "尊敬的" + phone + "，您好！游戏团发送给您的认证码是" + code + "，请在网站上输入，找回游戏团密码。如非本人操作，请忽略。";
-            var issend = SystemMessagerManager.SendSMS(phone, message, uid);
-
-            if (!issend)
-                return new BaseState(-1, "发送失败");
-
-            return new BaseState(0, phone + "," + model.UserName);
-        }
-
-
-        private string GeneratePhonePasswordResetToken(string userName)
-        {
-            var userid = WebSecurity.GetUserId(userName);
-            string code = Dev.Comm.Security.CreateRandomCode(6);
-
-
-
-            this._userProfileRepository.CreatePhonePasswordResetToken(userid, code);
-
-            return code;
-        }
-
-        private BaseState GetPassWordByEmail(GetPwdModel model)
-        {
-            if (!Dev.Comm.Validate.Validate.IsEmail(model.UserName))
-            {
-                return new BaseState(-1, "用户名非邮箱!");
-            }
-
-
-            var nick = this.GetNickNameByUserName(model.UserName);
-            string token = WebSecurity.GeneratePasswordResetToken(model.UserName);
-            var mail = SystemMessagerManager.GetContentForGetPass(nick, token);
-            var isok = SystemMessagerManager.SendValidateMail(model.UserName, nick, "找回密码", mail);
-
-            if (isok)
-            {
-                return new BaseState();
-            }
-
-            return new BaseState { ErrorCode = -1, ErrorMessage = "发送邮件失败" };
-        }
+        #endregion
     }
 }

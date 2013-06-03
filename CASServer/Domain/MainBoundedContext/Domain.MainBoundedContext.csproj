@@ -62,9 +62,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserExtend\UserExtendFactory.cs" />
     <Compile Include="UserExtend\Repository\IUserExtendRepository.cs" />
-    <Compile Include="UserExtend\Repository\UserProfileRepository.cs" />
-    <Compile Include="webpages_Membership\Repository\Iwebpages_MembershipRepository.cs" />
-    <Compile Include="webpages_Membership\Repository\UserProfileRepository.cs" />
+    <Compile Include="UserExtend\Repository\UserExtendRepository.cs" />
+    <Compile Include="webpages_Membership\Repository\IWebpagesMembershipRepository.cs" />
+    <Compile Include="webpages_Membership\Repository\WebpagesMembershipRepository.cs" />
     <Compile Include="webpages_Membership\UserExtendFactory.cs" />
   </ItemGroup>
   <ItemGroup>

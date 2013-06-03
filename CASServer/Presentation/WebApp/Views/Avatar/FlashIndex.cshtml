@@ -1,16 +1,15 @@
 ﻿@{
-    ViewBag.Title = "FlashIndex";
+    this.ViewBag.Title = "FlashIndex";
 
     //Layout = null;
 
     var arg = Dev.Comm.Web.HttpServerInfo.WapperFullUrl("/images/common/camera.swf") +
-                                                          "?nt=1" +
+              "?nt=1" +
               "&inajax=1" +
               "&appid=67111770b37d9fc06c56e691c013b685" +
               "&input=Y5WgirRbGJI=" +
               "&ucapi=" +
               Dev.Comm.Web.HttpServerInfo.WapperFullUrl("/Avatar/FlashFaceUpload");
-
 
 
     var width = Dev.Comm.Web.DevRequest.GetInt("width", 540);
@@ -49,10 +48,10 @@
     <param name="AllowFullScreenInteractive" value="">
     <param name="IsDependent" value="0">
     <embed  Movie="@arg"
-        Src="@arg"
-           quality="high" width="@width" height="@height"
-       id="mycamera" name="mycamera"   type="application/x-shockwave-flash"
-        pluginspage="http://www.macromedia.com/go/getflashplayer"> 
+            Src="@arg"
+            quality="high" width="@width" height="@height"
+            id="mycamera" name="mycamera"   type="application/x-shockwave-flash"
+            pluginspage="http://www.macromedia.com/go/getflashplayer"> 
     </embed>
 </object>
 

@@ -1,6 +1,6 @@
 ﻿@model CASServer.Models.RegisterModel
 @{
-    ViewBag.Title = "注册";
+    this.ViewBag.Title = "注册";
 }
 
 <div class="reg_wp">
@@ -8,11 +8,10 @@
         <span class="reg_tag">注册游戏团帐号</span><span><em>894751</em>位玩家邀您加入游戏团，享受一起游戏的快乐</span>
     </div>
     <div class="reg_cont clear">
-        @Html.ValidationSummary(true)
-        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        @this.Html.ValidationSummary(true)
+        @using (this.Html.BeginForm(new {ReturnUrl = this.ViewBag.ReturnUrl}))
         {
-            
-            @Html.AntiForgeryToken()
+            @this.Html.AntiForgeryToken()
             <div class="reg_form">
                 <div class="new_item">
                     <div class="tit">
@@ -20,10 +19,10 @@
                     </div>
                     <div class="bdmain" id="b_email">
                         <div class="bd_input">
-                            @Html.TextBoxFor(x => x.UserName, new { @class = "regP ui-autocomplete-input bdcolor", autocomplete = "off" })
+                            @this.Html.TextBoxFor(x => x.UserName, new {@class = "regP ui-autocomplete-input bdcolor", autocomplete = "off"})
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.UserName)
+                    @this.Html.ValidationMessageFor(x => x.UserName)
                     <div></div>
 
                 </div>
@@ -33,10 +32,10 @@
                     </div>
                     <div class="bdmain" id="b_pass">
                         <div class="bd_input">
-                            @Html.PasswordFor(x => x.Password, new { @class = "regP bdcolor" })
+                            @this.Html.PasswordFor(x => x.Password, new {@class = "regP bdcolor"})
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.Password)
+                    @this.Html.ValidationMessageFor(x => x.Password)
                     <div class="reg_warn">@*<span class="right"></span>*@<span style="display: none" class="w w1"></span></div>
                     <!-- w1 密码弱 w2密码中 w3密码强-->
                     <div></div>
@@ -48,10 +47,10 @@
                     </div>
                     <div class="bdmain" id="b_pass2">
                         <div class="bd_input">
-                            @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "regP bdcolor" })
+                            @this.Html.PasswordFor(x => x.ConfirmPassword, new {@class = "regP bdcolor"})
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.ConfirmPassword)
+                    @this.Html.ValidationMessageFor(x => x.ConfirmPassword)
                     <div></div>
 
                 </div>
@@ -61,10 +60,10 @@
                     </div>
                     <div class="bdmain" id="b_nickname">
                         <div class="bd_input">
-                            @Html.TextBoxFor(x => x.NickName, new { @class = "regP bdcolor" })
+                            @this.Html.TextBoxFor(x => x.NickName, new {@class = "regP bdcolor"})
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.NickName)
+                    @this.Html.ValidationMessageFor(x => x.NickName)
                     <div></div>
                 </div>
                 <div class="new_item">
@@ -74,12 +73,12 @@
                     <div class="bdmain">
                         <div class="bd_radio">
                             <span class="man">
-                                @Html.RadioButtonFor(x => x.Sex, 1, new { id = "man" })<label for="man">男</label></span>
+                                @this.Html.RadioButtonFor(x => x.Sex, 1, new {id = "man"})<label for="man">男</label></span>
                             <span class="woman">
-                                @Html.RadioButtonFor(x => x.Sex, 2, new { id = "woman" })<label for="woman">女</label></span>
+                                @this.Html.RadioButtonFor(x => x.Sex, 2, new {id = "woman"})<label for="woman">女</label></span>
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.Sex)
+                    @this.Html.ValidationMessageFor(x => x.Sex)
                 </div>
                 <div class="new_item">
                     <div class="tit">
@@ -96,15 +95,15 @@
                                 <select id="selectcity">
                                     <option value="">请选择</option>
                                 </select></span>
-                            @Html.HiddenFor(x => x.Province)
-                            @Html.HiddenFor(x => x.City, new { style = "display:''" })
+                            @this.Html.HiddenFor(x => x.Province)
+                            @this.Html.HiddenFor(x => x.City, new {style = "display:''"})
 
-                            @Html.HiddenFor(x => x.ProvinceName)
-                            @Html.HiddenFor(x => x.CityName, new { style = "display:''" })
+                            @this.Html.HiddenFor(x => x.ProvinceName)
+                            @this.Html.HiddenFor(x => x.CityName, new {style = "display:''"})
 
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.City)
+                    @this.Html.ValidationMessageFor(x => x.City)
                     <div>
                     </div>
 
@@ -116,16 +115,16 @@
                     <div class="bdmain" id="b_valid">
                         <div class="bd_check">
                             <span>
-                                @Html.TextBoxFor(x => x.Validcode, new { @class = "bdcolor" })
+                                @this.Html.TextBoxFor(x => x.Validcode, new {@class = "bdcolor"})
 
                             </span>
                             <span>
-                                <img width="100px" height="29px" class="check_img" id="check_img"  src="@Url.Action("code", "account", new { r = System.DateTime.Now.Ticks })" /></span>
+                                <img width="100px" height="29px" class="check_img" id="check_img"  src="@this.Url.Action("code", "account", new {r = System.DateTime.Now.Ticks})" /></span>
                             <a class="check_text" href="javascript:void(0)">换一组</a>
 
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.Validcode)
+                    @this.Html.ValidationMessageFor(x => x.Validcode)
                     <div>
                     </div>
 
@@ -136,12 +135,12 @@
                         </div>
                         <div class="bdmain">
                             <p>
-                                @Html.CheckBoxFor(x => x.IsAgree, new { @checked = "checked" })
+                                @this.Html.CheckBoxFor(x => x.IsAgree, new {@checked = "checked"})
 
-                                @Html.LabelFor(x => x.IsAgree, "同意游戏团使用服务协议", new { @class = "dark" })
+                                @this.Html.LabelFor(x => x.IsAgree, "同意游戏团使用服务协议", new {@class = "dark"})
                             </p>
                         </div>
-                        @Html.ValidationMessageFor(x => x.IsAgree)
+                        @this.Html.ValidationMessageFor(x => x.IsAgree)
 
                     </div>
 
@@ -159,12 +158,12 @@
                     已有游戏团账号？
                 </p>
                 <p>
-                    @Html.ActionLink("登录", "login", "CAS", null, new { @class = "gray_btn", title = "登录即可分享新鲜事" })
+                    @this.Html.ActionLink("登录", "login", "CAS", null, new {@class = "gray_btn", title = "登录即可分享新鲜事"})
                 </p>
             </div>
             <div class="login_other">
                 <p>您也可以通过以下方式登录：</p>
-                @Html.Action("ExternalLoginsList", "account", new { ReturnUrl = ViewBag.ReturnUrl })
+                @this.Html.Action("ExternalLoginsList", "account", new {ReturnUrl = this.ViewBag.ReturnUrl})
             </div>
             <div class="reg_r2">
                 @*  <p>
@@ -182,13 +181,13 @@
 
     <script type="text/javascript">
         var apibase = "@Application.Config.CommConfiguration.Config.TuanApibase";
-        $(".reg_btn").click(function () {
+        $(".reg_btn").click(function() {
 
             //if (!$('#City').valid())
             //    return false;
 
-            $('#@Html.IdFor(x => x.CityName)').val($('#selectcity option:selected').text());
-            $('#@Html.IdFor(x => x.ProvinceName)').val($('#selectprovince option:selected').text());
+            $('#@this.Html.IdFor(x => x.CityName)').val($('#selectcity option:selected').text());
+            $('#@this.Html.IdFor(x => x.ProvinceName)').val($('#selectprovince option:selected').text());
 
             $(this).closest("form").submit();
 
@@ -196,19 +195,19 @@
         });
 
 
-        $(function () {
+        $(function() {
 
-            $(document).keydown(function (e) {
+            $(document).keydown(function(e) {
                 if (e.keyCode == 13) {
                     $(".reg_btn").click();
 
                 }
             });
 
-            $("#UserName").blur(function () {
+            $("#UserName").blur(function() {
                 if ($("#UserName").valid()) {
 
-                    $.get('/account/check?username=' + encodeURIComponent($(this).val()) + '&' + $.now(), function (back) {
+                    $.get('/account/check?username=' + encodeURIComponent($(this).val()) + '&' + $.now(), function(back) {
 
                         back = back.toLowerCase();
 
@@ -222,7 +221,7 @@
             });
 
 
-            $("#NickName").blur(function () {
+            $("#NickName").blur(function() {
 
                 //if (GetCharLength($.trim($(this).val())) < 4 || GetCharLength($.trim($(this).val())) > 14) {
 
@@ -233,7 +232,7 @@
 
                 if ($("#NickName").valid()) {
 
-                    $.get('/account/CheckNick?nickname=' + encodeURIComponent($(this).val()) + '&' + $.now(), function (back) {
+                    $.get('/account/CheckNick?nickname=' + encodeURIComponent($(this).val()) + '&' + $.now(), function(back) {
 
                         back = back.toLowerCase();
 
@@ -246,18 +245,18 @@
                 }
             });
 
-            $(".check_text,.check_img").click(function () {
+            $(".check_text,.check_img").click(function() {
                 $(".check_img").attr("src", "/account/code?r=" + $.now());
             });
 
             $("#selectprovince").change(changePro);
-            $("#selectprovince").change(function () {
+            $("#selectprovince").change(function() {
                 $("#Province").val($(this).val());
                 if ($('#City').valid()) {
                     onSuccess($('#City'));
                 }
             });
-            $("#selectcity").change(function () {
+            $("#selectcity").change(function() {
                 $("#City").val($(this).val());
                 if ($('#City').valid()) {
                     onSuccess($('#City'));
@@ -265,15 +264,15 @@
 
             });
 
-            $.get(apibase + "/API/Areas.svc/GetAllProvince", {}, function (back) {
-                $.each(back, function (i, j) {
+            $.get(apibase + "/API/Areas.svc/GetAllProvince", { }, function(back) {
+                $.each(back, function(i, j) {
                     $('<option value="' + j._provinceid + '">' + j._provincename + '</option>').appendTo('#selectprovince');
                 });
 
                 $('#selectprovince').val($("#Province").val());
                 changePro(true);
             },
-            'jsonp');
+                'jsonp');
 
             function changePro(isinit) {
                 var proid = $('#selectprovince').val();
@@ -282,39 +281,39 @@
                     return;
 
                 $.get(apibase + "/API/Areas.svc/GetCityByProvinceId", {
-                    provinceid: proid
-                }, function (back) {
-                    $('#selectcity').empty();
-                    $('<option value="">请选择</option>').appendTo("#selectcity");
-                    $.each(back, function (i, j) {
-                        $('<option value="' + j._cityid + '">' + j._cityname + '</option>').appendTo('#selectcity');
-                    });
-                    if (isinit) {
-                        $('#selectcity').val($("#City").val());
-                    } else {
-                        $('#City').val("");
-                    }
-                    if ($('#City').valid()) {
-                        onSuccess($('#City'));
-                    }
-                },
-           'jsonp');
+                        provinceid: proid
+                    }, function(back) {
+                        $('#selectcity').empty();
+                        $('<option value="">请选择</option>').appendTo("#selectcity");
+                        $.each(back, function(i, j) {
+                            $('<option value="' + j._cityid + '">' + j._cityname + '</option>').appendTo('#selectcity');
+                        });
+                        if (isinit) {
+                            $('#selectcity').val($("#City").val());
+                        } else {
+                            $('#City').val("");
+                        }
+                        if ($('#City').valid()) {
+                            onSuccess($('#City'));
+                        }
+                    },
+                    'jsonp');
             }
 
-            $('#Password').keyup(function () {
+            $('#Password').keyup(function() {
                 if ($(this).valid()) {
                     $('.w').show().removeClass('w1').removeClass('w2').removeClass('w3');
                     switch (checkStrong($(this).val())) {
-                        case 0:
-                        case 1:
-                            $('.w').addClass('w1');
-                            break;
-                        case 2:
-                            $('.w').addClass('w2');
-                            break;
-                        default:
-                            $('.w').addClass('w3');
-                            break;
+                    case 0:
+                    case 1:
+                        $('.w').addClass('w1');
+                        break;
+                    case 2:
+                        $('.w').addClass('w2');
+                        break;
+                    default:
+                        $('.w').addClass('w3');
+                        break;
                     }
                     onSuccess(this);
                 } else {
@@ -322,7 +321,7 @@
                 }
             });
 
-            $('#ConfirmPassword,[name=Sex]').blur(function () {
+            $('#ConfirmPassword,[name=Sex]').blur(function() {
 
                 if ($(this).valid()) {
                     onSuccess(this);

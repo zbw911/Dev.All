@@ -1,10 +1,9 @@
 ﻿@{
-    ViewBag.Title = "_Layout4Js";
-    Layout = null;
+    this.ViewBag.Title = "_Layout4Js";
+    this.Layout = null;
 }
 
-@RenderSection("css", required: false)
-@RenderSection("scripts", required: false)
-@RenderBody()
 
-
+@this.RenderSection("css", required: false)
+@this.RenderSection("scripts", required: false)
+@this.RenderBody()
