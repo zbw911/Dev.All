@@ -81,7 +81,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS.Web.UCenter", "Framework
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS.Web.UCenter.Api", "Framework\User\DS.Web.UCenter.Api\DS.Web.UCenter.Api.csproj", "{673E535C-9558-4698-B1E4-553E7228C986}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.Framework.User", "Framework\User\Kt.Framework.User\Dev.Framework.User.csproj", "{B5AE4C66-4576-4A5B-BC74-9C909EC1D4A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.Framework.WebUser", "Framework\User\Kt.Framework.User\Dev.Framework.WebUser.csproj", "{B5AE4C66-4576-4A5B-BC74-9C909EC1D4A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.Comm.Web.Mvc", "Framework\Comm\Dev.Comm.Web.Mvc\Dev.Comm.Web.Mvc.csproj", "{3CC3B80F-28BD-4F4A-8F37-FF14F0DCAA8D}"
 EndProject
