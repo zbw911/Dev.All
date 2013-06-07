@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dev.Comm.Web.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Dev.Comm.Web.Mvc.Formatter.JsonpMediaTypeFormatter">
+            <summary>
+            jsonp 
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Web.Mvc.Validate.EmailAddressAttribute">
+            <summary>
+            邮件地址
+            </summary>
+        </member>
+    </members>
+</doc>
