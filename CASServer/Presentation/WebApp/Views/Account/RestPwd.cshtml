@@ -9,7 +9,7 @@
 
         $(function() {
 
-            $('#@this.Html.IdFor(x => x.NewPassword)').keyup(function() {
+            $('#@Html.IdFor(x => x.NewPassword)').keyup(function() {
                 if ($(this).valid()) {
                     $('.w').show().removeClass('w1').removeClass('w2').removeClass('w3');
                     switch (checkStrong($(this).val())) {
@@ -30,7 +30,7 @@
                 }
             });
 
-            $('#@this.Html.IdFor(x => x.ConfirmPassword)').keyup(function() {
+            $('#@Html.IdFor(x => x.ConfirmPassword)').keyup(function() {
                 if ($(this).valid()) {
                     onSuccess(this);
                 }
@@ -101,10 +101,10 @@
                     <div class="tit">请输入新密码：</div>
                     <div id="b_emails" class="bdmain">
                         <div class="bd_input">
-                            @this.Html.TextBoxFor(x => x.NewPassword, new {maxlength = "16"})
+                            @Html.TextBoxFor(x => x.NewPassword, new {maxlength = "16"})
                         </div>
                     </div>
-                    @this.Html.ValidationMessageFor(x => x.NewPassword)
+                    @Html.ValidationMessageFor(x => x.NewPassword)
                     <div class="reg_warn">@*<span class="right"></span>*@<span style="display: none" class="w w1"></span></div>
                     <!-- w1 密码弱 w2密码中 w3密码强-->
                 </div>
@@ -112,10 +112,10 @@
                     <div class="tit">确认密码：</div>
                     <div id="b_emaila" class="bdmain">
                         <div class="bd_input">
-                            @this.Html.TextBoxFor(x => x.ConfirmPassword, new {maxlength = "16"})
+                            @Html.TextBoxFor(x => x.ConfirmPassword, new {maxlength = "16"})
                         </div>
                     </div>
-                    @this.Html.ValidationMessageFor(x => x.ConfirmPassword)
+                    @Html.ValidationMessageFor(x => x.ConfirmPassword)
                 </div>
                 <div class="new_item">
                     <p class="reg_pdl"><a class="green_btn" href="javascript:void(0)">确定</a></p>

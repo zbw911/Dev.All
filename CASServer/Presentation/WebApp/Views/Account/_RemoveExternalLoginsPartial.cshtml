@@ -14,10 +14,10 @@
                         {
                             using (this.Html.BeginForm("Disassociate", "Account"))
                             {
-                                @this.Html.AntiForgeryToken()
+                                @Html.AntiForgeryToken()
                                 <fieldset>
-                                    @this.Html.Hidden("provider", externalLogin.Provider)
-                                    @this.Html.Hidden("providerUserId", externalLogin.ProviderUserId)
+                                    @Html.Hidden("provider", externalLogin.Provider)
+                                    @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
                                     <input type="submit" value="删除" title="从你的帐户中删除此 @externalLogin.ProviderDisplayName 凭据" />
                                 </fieldset>
                             }

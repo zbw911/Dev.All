@@ -13,7 +13,7 @@ else
 {
     using (this.Html.BeginForm("ExternalLogin", "Account", new {ReturnUrl = this.ViewBag.ReturnUrl}, FormMethod.Post))
     {
-        @this.Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
         <p>
             @foreach (var p in this.Model)

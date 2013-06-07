@@ -278,12 +278,12 @@
                                                                     target = "uploadframe"
                                                                 }))
     {
-        @this.Html.AntiForgeryToken()
-        @this.Html.HiddenFor(model => model.headFileName, new {id = "head_name"})
-        @this.Html.HiddenFor(model => model.x, new {id = "head_x"})
-        @this.Html.HiddenFor(model => model.y, new {id = "head_y"})
-        @this.Html.HiddenFor(model => model.width, new {id = "head_width"})
-        @this.Html.HiddenFor(model => model.height, new {id = "head_height"})
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.headFileName, new {id = "head_name"})
+        @Html.HiddenFor(model => model.x, new {id = "head_x"})
+        @Html.HiddenFor(model => model.y, new {id = "head_y"})
+        @Html.HiddenFor(model => model.width, new {id = "head_width"})
+        @Html.HiddenFor(model => model.height, new {id = "head_height"})
     <input type="submit" class="btnyes" value="保存">
     <input type="button" class="btnno" value="取消" onclick=" cancelHead(); ">
     }

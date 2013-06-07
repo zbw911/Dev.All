@@ -13,18 +13,18 @@
 
 @if (this.ViewBag.HasLocalPassword)
 {
-    @this.Html.Partial("_ChangePasswordPartial")
+    @Html.Partial("_ChangePasswordPartial")
 }
 else
 {
-    @this.Html.Partial("_SetPasswordPartial")
+    @Html.Partial("_SetPasswordPartial")
 }
 
 <section id="externalLogins">
-    @this.Html.Action("RemoveExternalLogins")
+    @Html.Action("RemoveExternalLogins")
 
     <h3>添加外部登录</h3>
-    @this.Html.Action("ExternalLoginsList", new {ReturnUrl = this.ViewBag.ReturnUrl})
+    @Html.Action("ExternalLoginsList", new {ReturnUrl = this.ViewBag.ReturnUrl})
 </section>
 
 @section Scripts {

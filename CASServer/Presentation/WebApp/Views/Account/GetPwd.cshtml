@@ -15,7 +15,7 @@
             $(".pasd_tbar li").click(function() {
                 $(".pasd_tbar li").removeClass("on");
                 $(this).addClass("on");
-                $("#@this.Html.IdFor(x => x.GetPwdType)").val($(this).attr("gettype"));
+                $("#@Html.IdFor(x => x.GetPwdType)").val($(this).attr("gettype"));
             });
             $(".nxt_green_btn").click(function() {
                 $(this).closest("form").submit();
@@ -28,7 +28,7 @@
                 }
             });
 
-            $("li[gettype=" + $("#@this.Html.IdFor(x => x.GetPwdType)").val() + "]").click();
+            $("li[gettype=" + $("#@Html.IdFor(x => x.GetPwdType)").val() + "]").click();
 
         });
 
@@ -39,7 +39,7 @@
         <span class="reg_tag">找回密码</span>
     </div>
     <div class="reg_cont clear">
-        @this.Html.ValidationSummary(true)
+        @Html.ValidationSummary(true)
         <div class="pasd_get">
             <ul class="pasd_tbar clear">
                 <li gettype="0" class="on"><a href="javascript:void(0)">用邮箱找回</a></li>
@@ -48,31 +48,31 @@
             <div id="tabs-1">
                 @using (this.Html.BeginForm())
                 {
-                    @this.Html.HiddenFor(x => x.GetPwdType)
+                    @Html.HiddenFor(x => x.GetPwdType)
                     <div class="new_item">
                         <div class="tit">
                             用户名：
                         </div>
                         <div class="bdmain" id="b_email">
                             <div class="bd_input">
-                                @this.Html.TextBoxFor(x => x.UserName, new {@class = "regP ui-autocomplete-input", role = "textbox", aria_haspopup = "true", aria_autocomplete = "list", maxlength = "50", autocomplete = "off"})
+                                @Html.TextBoxFor(x => x.UserName, new {@class = "regP ui-autocomplete-input", role = "textbox", aria_haspopup = "true", aria_autocomplete = "list", maxlength = "50", autocomplete = "off"})
                             </div>
                         </div>
-                        @this.Html.ValidationMessageFor(x => x.UserName)
+                        @Html.ValidationMessageFor(x => x.UserName)
                     </div>
                     <div class="new_item">
                         <div class="tit">验证码：</div>
                         <div class="bdmain" id="b_valid">
                             <div class="bd_check">
                                 <span>
-                                    @this.Html.TextBoxFor(x => x.Validcode, new {maxlength = "4"})
+                                    @Html.TextBoxFor(x => x.Validcode, new {maxlength = "4"})
                                 </span>
                                 <span>
                                     <input name="check_img" id="check_img" type="image" src="@this.Url.Action("code", "account", new {r = System.DateTime.Now.Ticks})"></span>
                                 <a class="check_text" href="javascript:void(0);">换一组</a>
                             </div>
                         </div>
-                        @this.Html.ValidationMessageFor(x => x.Validcode)
+                        @Html.ValidationMessageFor(x => x.Validcode)
                     </div>
                     <div class="new_item">
                         <p class="reg_pdl">

@@ -38,14 +38,14 @@ namespace CASServer
             //OAuthWebSecurity.RegisterGoogleClient();
 
             OAuthWebSecurity.RegisterClient(
-                new SinaClient(appId: "1771985550", appSecret: "09ebbe5b995e25e55b5d36a8de4b48c3"), displayName: "新浪",
+                new SinaClient(appId: "11111111", appSecret: "11111111"), displayName: "新浪",
                 extraData: new Dictionary<string, object>
                                {
                                    {"class", "sina"}
                                });
 
             OAuthWebSecurity.RegisterClient(
-                new QQClient(appId: "100392331", appSecret: "4a1d5fe59f5e7b6425d9b182b19e106e"), displayName: "QQ",
+                new QQClient(appId: "11111111", appSecret: "11111111111"), displayName: "QQ",
                 extraData: new Dictionary<string, object>
                                {
                                    {"class", "qq"}

@@ -10,8 +10,8 @@
 
 @using (this.Html.BeginForm("ExternalLoginConfirmation", "Account", new {ReturnUrl = this.ViewBag.ReturnUrl}))
 {
-    @this.Html.AntiForgeryToken()
-    @this.Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>关联表单</legend>
@@ -22,12 +22,12 @@
         </p>
         <ol>
             <li class="name">
-                @this.Html.LabelFor(m => m.UserName)
-                @this.Html.TextBoxFor(m => m.UserName)
-                @this.Html.ValidationMessageFor(m => m.UserName)
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
             </li>
         </ol>
-        @this.Html.HiddenFor(m => m.ExternalLoginData)
+        @Html.HiddenFor(m => m.ExternalLoginData)
         <input type="submit" value="注册" />
     </fieldset>
 }

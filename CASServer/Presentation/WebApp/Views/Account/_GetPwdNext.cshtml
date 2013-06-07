@@ -91,7 +91,7 @@
 
             @using (this.Html.BeginForm("ResetPwdByPhone", "Account"))
             {
-                @this.Html.Hidden("username", this.Model.Split(',')[1])
+                @Html.Hidden("username", this.Model.Split(',')[1])
                 <div class="new_item">
                     系统已将验证码发送至手机号：<span class="green1" id="phones">@this.Model.Split(',')[0]</span>
                 </div>

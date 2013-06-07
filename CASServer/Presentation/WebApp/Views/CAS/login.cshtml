@@ -81,25 +81,25 @@
         <span class="reg_tag">登录游戏团</span><span>进入游戏团，享受一起游戏的快乐  </span>
     </div>
     <div class="reg_cont clear">
-        <div style="margin-left: 110px; margin-top: 10px; position: absolute">@this.Html.ValidationSummary(false)</div>
+        <div style="margin-left: 110px; margin-top: 10px; position: absolute">@Html.ValidationSummary(false)</div>
 
         <div class="reg_form">
 
             @using (this.Html.BeginForm(new {ReturnUrl = this.ViewBag.ReturnUrl}))
             {
-                @this.Html.Hidden("service", this.ViewBag.ReturnUrl as string)
+                @Html.Hidden("service", this.ViewBag.ReturnUrl as string)
 
 
                 <div class="new_item">
                     <div class="tit">用户名：</div>
                     <div class="bdmain" id="b_email">
                         <div class="bd_input">
-                            @this.Html.TextBoxFor(m => m.UserName, new {@class = "de_text"})
+                            @Html.TextBoxFor(m => m.UserName, new {@class = "de_text"})
                             <span class="lg_def">请填写常用邮箱或手机号码</span>
                         </div>
                     </div>
                     @*<div style="display: none;" class="reg_warn"><span class="error"></span><span>请输入用户名</span></div>*@
-                    @this.Html.ValidationMessageFor(x => x.UserName)
+                    @Html.ValidationMessageFor(x => x.UserName)
                     @*  @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
                     {
                         <div class="login_error"><i class="arrow"></i>@(ViewBag.ErrorMessage as string)</div>
@@ -113,20 +113,20 @@
                     </div>
                     <div class="bdmain" id="b_pass">
                         <div class="bd_input">
-                            @this.Html.PasswordFor(x => x.Password, new {@class = "regP"})
+                            @Html.PasswordFor(x => x.Password, new {@class = "regP"})
                             <span class="lg_def">请填写密码</span>
                         </div>
                     </div>
 
                     @*<div style="display: none;" class="reg_warn"><span class="error"></span><span>请输入密码</span></div>*@
-                    @this.Html.ValidationMessageFor(x => x.Password)
+                    @Html.ValidationMessageFor(x => x.Password)
                 </div>
                 <div class="new_item">
                     <div class="bd-des">
                         <p class="reg_pdl">
-                            @this.Html.CheckBoxFor(m => m.RememberMe, new {@checked = "checked"})
+                            @Html.CheckBoxFor(m => m.RememberMe, new {@checked = "checked"})
                             <label class="green2" for="RememberMe">记住我（两周免登录）</label>
-                            <span class="fg_pasd">@this.Html.ActionLink("忘记密码？", "GetPwd", "account")</span>
+                            <span class="fg_pasd">@Html.ActionLink("忘记密码？", "GetPwd", "account")</span>
                         </p>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
             }
             <div class="login_other reg_pdl lg_o2">
                 <p>您也可以通过以下方式登录：</p>
-                @this.Html.Action("ExternalLoginsList", "account", new {ReturnUrl = this.ViewBag.ReturnUrl})
+                @Html.Action("ExternalLoginsList", "account", new {ReturnUrl = this.ViewBag.ReturnUrl})
             </div>
 
         </div>
