@@ -66,11 +66,11 @@
     <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework2\Dev.Crosscutting.Adapter.NetFramework\Dev.Crosscutting.Adapter.NetFramework.csproj">
+    <ProjectReference Include="..\Dev.Crosscutting.Adapter.NetFramework\Dev.Crosscutting.Adapter.NetFramework.csproj">
       <Project>{8755523f-e709-4722-96f1-c0ff0d50368f}</Project>
       <Name>Dev.Crosscutting.Adapter.NetFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework2\Dev.Crosscutting.Adapter\Dev.Crosscutting.Adapter.csproj">
+    <ProjectReference Include="..\Dev.Crosscutting.Adapter\Dev.Crosscutting.Adapter.csproj">
       <Project>{4d6f4113-3c93-41ef-ab6e-05f18f145230}</Project>
       <Name>Dev.Crosscutting.Adapter</Name>
     </ProjectReference>
