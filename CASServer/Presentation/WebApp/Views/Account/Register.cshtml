@@ -5,7 +5,7 @@
 
 <div class="reg_wp">
     <div class="reg_title">
-        <span class="reg_tag">注册游戏团帐号</span><span><em>894751</em>位玩家邀您加入游戏团，享受一起游戏的快乐</span>
+        <span class="reg_tag">注册XXXXX帐号</span><span><em>894751</em>位玩家邀您加入XXXXX，享受一起游戏的快乐</span>
     </div>
     <div class="reg_cont clear">
         @Html.ValidationSummary(true)
@@ -137,7 +137,7 @@
                             <p>
                                 @Html.CheckBoxFor(x => x.IsAgree, new {@checked = "checked"})
 
-                                @Html.LabelFor(x => x.IsAgree, "同意游戏团使用服务协议", new {@class = "dark"})
+                                @Html.LabelFor(x => x.IsAgree, "同意XXXXX使用服务协议", new {@class = "dark"})
                             </p>
                         </div>
                         @Html.ValidationMessageFor(x => x.IsAgree)
@@ -155,7 +155,7 @@
         <div class="reg_right">
             <div class="reg_login">
                 <p>
-                    已有游戏团账号？
+                    已有XXXXX账号？
                 </p>
                 <p>
                     @Html.ActionLink("登录", "login", "CAS", null, new {@class = "gray_btn", title = "登录即可分享新鲜事"})
@@ -167,7 +167,7 @@
             </div>
             <div class="reg_r2">
                 @*  <p>
-                    已有<span>12240</span>玩家加入游戏团
+                    已有<span>12240</span>玩家加入XXXXX
                 </p>
                 <p>
                     已举办<span>2116</span>场游戏活动

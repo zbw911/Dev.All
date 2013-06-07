@@ -112,7 +112,7 @@ namespace Application.MainBoundedContext.UserModule
 
             var code = this.GeneratePhonePasswordResetToken(model.UserName);
 
-            var message = "尊敬的" + phone + "，您好！游戏团发送给您的认证码是" + code + "，请在网站上输入，找回游戏团密码。如非本人操作，请忽略。";
+            var message = "尊敬的" + phone + "，您好！XXXXX发送给您的认证码是" + code + "，请在网站上输入，找回XXXXX密码。如非本人操作，请忽略。";
             var issend = SystemMessagerManager.SendSMS(phone, message, uid);
 
             if (!issend)

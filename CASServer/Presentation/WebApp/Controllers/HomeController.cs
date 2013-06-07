@@ -33,7 +33,7 @@ namespace CASServer.Controllers
         public ActionResult Index()
         {
             this.ViewBag.Message = "修改此模板以快速启动你的 ASP.NET MVC 应用程序。";
-            //return Content(Url.IsLocalUrl("http://www.youxituan.com").ToString());
+            //return Content(Url.IsLocalUrl("http://www.xxxxxxx.com").ToString());
 
             return this.View();
         }

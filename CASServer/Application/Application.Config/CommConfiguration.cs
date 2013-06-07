@@ -41,7 +41,7 @@ namespace Application.Config
         public string CurrentUrl { get; set; }
 
         /// <summary>
-        ///   游戏团提供的API
+        ///   XXXXX提供的API
         /// </summary>
         [DataMember]
         public string TuanApibase { get; set; }

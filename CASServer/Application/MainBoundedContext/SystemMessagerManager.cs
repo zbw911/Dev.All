@@ -16,7 +16,7 @@ namespace Application.MainBoundedContext
 {
     public class SystemMessagerManager
     {
-        //private const string indexURL = "http://passport.youxituan.com";
+        //private const string indexURL = "http://passport.xxxxxxx.com";
 
         #region Readonly & Static Fields
 
@@ -40,12 +40,12 @@ namespace Application.MainBoundedContext
             ContentMessage +=
                 "<table width=100% border=0 bgcolor=#F5F5F5 cellpadding=5 cellspacing=1 style=font-size:12px>";
             ContentMessage += "<tr><td>" + nickname + "，您好!</font></td></tr>";
-            ContentMessage += "<tr><td>感谢您注册游戏团，您的帐号：" + email + "</font></td></tr>";
+            ContentMessage += "<tr><td>感谢您注册XXXXX，您的帐号：" + email + "</font></td></tr>";
             ContentMessage += "<tr><td>点击下面链接即可激活您的邮箱：</td></tr>";
             ContentMessage += "<tr><td><a href=" + Tourl + ">" + Tourl + "</a></td></tr>";
             ContentMessage +=
-                "<tr><td>(此链接有效时间为48小时，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系游戏团客服：0311-88611797)</td></tr>";
-            ContentMessage += "<tr><td>&nbsp;&nbsp;感谢您对游戏团的支持，若有疑问请联系客服\a此为系统自动发出，请不要回复本邮件。</td></tr></table>";
+                "<tr><td>(此链接有效时间为48小时，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系XXXXX客服：0311-88611797)</td></tr>";
+            ContentMessage += "<tr><td>&nbsp;&nbsp;感谢您对XXXXX的支持，若有疑问请联系客服\a此为系统自动发出，请不要回复本邮件。</td></tr></table>";
             return ContentMessage;
         }
 
@@ -60,12 +60,12 @@ namespace Application.MainBoundedContext
             ContentMessage +=
                 "<table width=100% border=0 bgcolor=#F5F5F5 cellpadding=5 cellspacing=1 style=font-size:12px>";
             ContentMessage += "<tr><td>" + name + "，您好\a</font></td></tr>";
-            ContentMessage += "<tr><td>您在游戏团申请了重设密码，请点击下面的链接，然后根据页面提示完成密码重设。</font></td></tr>";
+            ContentMessage += "<tr><td>您在XXXXX申请了重设密码，请点击下面的链接，然后根据页面提示完成密码重设。</font></td></tr>";
             ContentMessage += "<tr><td>请您在收到此邮件后尽快进行修改密码操作：</td></tr>";
             ContentMessage += "<tr><td><a href=" + Tourl + ">" + Tourl + "</a></td></tr>";
             ContentMessage +=
-                "<tr><td>(此链接48小时内有效，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系游戏团客服：0311-88611797)</td></tr>";
-            ContentMessage += "<tr><td>&nbsp;&nbsp;感谢您对游戏团的支持，若有疑问请联系客服\a此为系统自动发出，请不要回复本邮件。</td></tr></table>";
+                "<tr><td>(此链接48小时内有效，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系XXXXX客服：0311-88611797)</td></tr>";
+            ContentMessage += "<tr><td>&nbsp;&nbsp;感谢您对XXXXX的支持，若有疑问请联系客服\a此为系统自动发出，请不要回复本邮件。</td></tr></table>";
 
             return ContentMessage;
         }
@@ -128,7 +128,7 @@ namespace Application.MainBoundedContext
         }
 
         /// <summary>
-        ///   "尊敬的" + pnum + "，您好！游戏团发送给您的认证码是" + code + "，请在网站上输入，找回游戏团密码。如非本人操作，请忽略。"
+        ///   "尊敬的" + pnum + "，您好！XXXXX发送给您的认证码是" + code + "，请在网站上输入，找回XXXXX密码。如非本人操作，请忽略。"
         /// </summary>
         /// <param name="pnum"> </param>
         /// <param name="message"> </param>
