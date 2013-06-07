@@ -38,61 +38,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Config", "Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Test", "Presentation\WebApp.Test\WebApp.Test.csproj", "{8DA01BAC-0591-438A-998F-BEC2DDFEFE58}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CASLIB", "CASLIB", "{3459B1AB-736F-491E-B90A-E8A44722162B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.CasServer", "CASLIB\Dev.CasServer\Dev.CasServer.csproj", "{DE2EF6A3-9726-4B09-99FD-9A3D4AEF6FC8}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://192.168.1.10:8080/tfs/tfs%E8%AF%95%E9%AA%8C
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Application\\Dto\\Application.Dto.csproj
-		SccProjectTopLevelParentUniqueName1 = CASServer.sln
-		SccProjectName1 = Application/Dto
-		SccLocalPath1 = Application\\Dto
-		SccProjectUniqueName2 = Application\\EntityDtoProfile\\Application.EntityDtoProfile.csproj
-		SccProjectTopLevelParentUniqueName2 = CASServer.sln
-		SccProjectName2 = Application/EntityDtoProfile
-		SccLocalPath2 = Application\\EntityDtoProfile
-		SccProjectUniqueName3 = Application\\MainBoundedContext.Test\\Application.MainBoundedContext.Test.csproj
-		SccProjectTopLevelParentUniqueName3 = CASServer.sln
-		SccProjectName3 = Application/MainBoundedContext.Test
-		SccLocalPath3 = Application\\MainBoundedContext.Test
-		SccProjectUniqueName4 = Application\\MainBoundedContext\\Application.MainBoundedContext.csproj
-		SccProjectTopLevelParentUniqueName4 = CASServer.sln
-		SccProjectName4 = Application/MainBoundedContext
-		SccLocalPath4 = Application\\MainBoundedContext
-		SccProjectUniqueName5 = Domain\\Entities\\Domain.Entities.csproj
-		SccProjectTopLevelParentUniqueName5 = CASServer.sln
-		SccProjectName5 = Domain/Entities
-		SccLocalPath5 = Domain\\Entities
-		SccProjectUniqueName6 = Domain\\MainBoundedContext.Test\\Domain.MainBoundedContext.Test.csproj
-		SccProjectTopLevelParentUniqueName6 = CASServer.sln
-		SccProjectName6 = Domain/MainBoundedContext.Test
-		SccLocalPath6 = Domain\\MainBoundedContext.Test
-		SccProjectUniqueName7 = Domain\\MainBoundedContext\\Domain.MainBoundedContext.csproj
-		SccProjectTopLevelParentUniqueName7 = CASServer.sln
-		SccProjectName7 = Domain/MainBoundedContext
-		SccLocalPath7 = Domain\\MainBoundedContext
-		SccProjectUniqueName8 = Presentation\\CompositionRoot\\CompositionRoot.csproj
-		SccProjectTopLevelParentUniqueName8 = CASServer.sln
-		SccProjectName8 = Presentation/CompositionRoot
-		SccLocalPath8 = Presentation\\CompositionRoot
-		SccProjectUniqueName9 = Presentation\\WebApp\\WebApp.csproj
-		SccProjectTopLevelParentUniqueName9 = CASServer.sln
-		SccProjectName9 = Presentation/WebApp
-		SccLocalPath9 = Presentation\\WebApp
-		SccProjectUniqueName10 = Application\\Application.CasHander\\Application.CasHander.csproj
-		SccProjectTopLevelParentUniqueName10 = CASServer.sln
-		SccProjectName10 = Application/Application.CasHander
-		SccLocalPath10 = Application\\Application.CasHander
-		SccProjectUniqueName11 = Application\\Application.Config\\Application.Config.csproj
-		SccProjectTopLevelParentUniqueName11 = CASServer.sln
-		SccProjectName11 = Application/Application.Config
-		SccLocalPath11 = Application\\Application.Config
-		SccProjectUniqueName12 = Presentation\\WebApp.Test\\WebApp.Test.csproj
-		SccProjectTopLevelParentUniqueName12 = CASServer.sln
-		SccProjectName12 = Presentation/WebApp.Test
-		SccLocalPath12 = Presentation\\WebApp.Test
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -146,6 +96,10 @@ Global
 		{8DA01BAC-0591-438A-998F-BEC2DDFEFE58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA01BAC-0591-438A-998F-BEC2DDFEFE58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DA01BAC-0591-438A-998F-BEC2DDFEFE58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE2EF6A3-9726-4B09-99FD-9A3D4AEF6FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2EF6A3-9726-4B09-99FD-9A3D4AEF6FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2EF6A3-9726-4B09-99FD-9A3D4AEF6FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2EF6A3-9726-4B09-99FD-9A3D4AEF6FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,5 +117,6 @@ Global
 		{70D6130F-7E6D-418E-8329-9BA0508D97AF} = {334E698A-4DE5-4387-AFDF-0541494BB5FB}
 		{CF7DC93E-76A6-4C63-8AE8-806BA4D0CD9E} = {334E698A-4DE5-4387-AFDF-0541494BB5FB}
 		{A35463DB-5D9B-4EE3-A1A2-DF3DAAD056E7} = {334E698A-4DE5-4387-AFDF-0541494BB5FB}
+		{DE2EF6A3-9726-4B09-99FD-9A3D4AEF6FC8} = {3459B1AB-736F-491E-B90A-E8A44722162B}
 	EndGlobalSection
 EndGlobal

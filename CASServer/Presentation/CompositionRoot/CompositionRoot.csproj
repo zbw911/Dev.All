@@ -39,10 +39,6 @@
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Dev.CasServer, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Dev.CasServer.dll</HintPath>
-    </Reference>
     <Reference Include="Dev.Crosscutting.Adapter">
       <HintPath>..\..\Lib\Dev.Crosscutting.Adapter.dll</HintPath>
     </Reference>
@@ -127,6 +123,10 @@
     <ProjectReference Include="..\..\Application\MainBoundedContext\Application.MainBoundedContext.csproj">
       <Project>{68B27107-9BE6-49D1-89C4-CFED872B2F1B}</Project>
       <Name>Application.MainBoundedContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CASLIB\Dev.CasServer\Dev.CasServer.csproj">
+      <Project>{de2ef6a3-9726-4b09-99fd-9a3d4aef6fc8}</Project>
+      <Name>Dev.CasServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Domain\Entities\Domain.Entities.csproj">
       <Project>{70D6130F-7E6D-418E-8329-9BA0508D97AF}</Project>

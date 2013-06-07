@@ -45,10 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dev.CasServer, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Dev.CasServer.dll</HintPath>
-    </Reference>
     <Reference Include="Dev.Comm.Core, Version=1.0.4807.23955, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\CompositionRoot\bin\Debug\Dev.Comm.Core.dll</HintPath>
@@ -515,6 +511,10 @@
     <ProjectReference Include="..\..\Application\MainBoundedContext\Application.MainBoundedContext.csproj">
       <Project>{68b27107-9be6-49d1-89c4-cfed872b2f1b}</Project>
       <Name>Application.MainBoundedContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CASLIB\Dev.CasServer\Dev.CasServer.csproj">
+      <Project>{de2ef6a3-9726-4b09-99fd-9a3d4aef6fc8}</Project>
+      <Name>Dev.CasServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\CompositionRoot\CompositionRoot.csproj">
       <Project>{fb8621c0-9204-4e35-b005-ed72d5bb06ea}</Project>
