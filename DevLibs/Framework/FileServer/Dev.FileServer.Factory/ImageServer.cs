@@ -18,7 +18,7 @@ namespace Dev.FileServer
     public class ImageServer
     {
         private static readonly IKey ImageFileKey = new ShareFileKey();
-        private static readonly IUploadFile UploadFile = new ShareUploadFile();
+        private static readonly IUploadFile UploadFile = new ShareUploadFile(ImageFileKey);
 
         private static IImageFile imageFile;
 

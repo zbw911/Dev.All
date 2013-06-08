@@ -20,7 +20,7 @@ namespace Dev.Framework.FileServer
     /// </summary>
     public interface IUploadFile
     {
-        void SetCurrentKey(IKey Key);
+        void SetCurrentKey(IKey key);
 
         /// <summary>
         /// 保存图片，原图片的名称，返回运算后的图片名

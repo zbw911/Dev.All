@@ -16,6 +16,9 @@ using Dev.Framework.FileServer.HashServer;
 
 namespace Dev.Framework.FileServer.ShareImpl
 {
+    /// <summary>
+    /// 共享文件实现方式
+    /// </summary>
     public class ShareFileKey : IKey
     {
         #region IKey Members
@@ -103,7 +106,7 @@ namespace Dev.Framework.FileServer.ShareImpl
                 if (parts == null || parts.Length < 5)
                     return fileKey;
 
-                
+
 
                 string paramInfo = "";
                 foreach (var par in param)

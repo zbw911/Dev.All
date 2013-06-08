@@ -14,6 +14,9 @@ using Dev.Comm;
 
 namespace Dev.Framework.FileServer.ImageFile
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ImageUploader : IImageFile
     {
         private readonly IUploadFile _curFileDisposer;
@@ -38,6 +41,13 @@ namespace Dev.Framework.FileServer.ImageFile
             return this.SaveImageFile(new MemoryStream(bytefile), fileName, width, height);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="fileName"></param>
+        /// <param name="sizes"></param>
+        /// <returns></returns>
         public string SaveImageFile(byte[] bytefile, string fileName, ImagesSize[] sizes)
         {
             return this.SaveImageFile(new MemoryStream(bytefile), fileName, sizes);
@@ -93,6 +103,13 @@ namespace Dev.Framework.FileServer.ImageFile
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="fileKey"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public void UpdateImageFile(Stream stream, string fileKey, int width = 0, int height = 0)
         {
             if (!this.checkWidthHeight(width, height))
@@ -118,6 +135,13 @@ namespace Dev.Framework.FileServer.ImageFile
             return;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="fileName"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public void UpdateImageFile(byte[] bytefile, string fileName, int width = 0, int height = 0)
         {
             this.UpdateImageFile(new MemoryStream(bytefile), fileName, width, height);
@@ -130,7 +154,6 @@ namespace Dev.Framework.FileServer.ImageFile
             {
                 return this._curKeyDisposer.GetFileUrl(fileKey, "-", width, "_", height);
             }
-
 
             return this._curKeyDisposer.GetFileUrl(fileKey);
         }

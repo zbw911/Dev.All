@@ -13,26 +13,26 @@ using Dev.Framework.FileServer.Config;
 
 namespace Dev.Framework.FileServer
 {
-    public class KeyInfo
-    {
-        /// <summary>
-        /// 唯一编号
-        /// </summary>
-        public string unqid { get; set; }
+    //public class KeyInfo
+    //{
+    //    /// <summary>
+    //    /// 唯一编号
+    //    /// </summary>
+    //    public string unqid { get; set; }
 
-        /// <summary>
-        /// 当前的时间
-        /// </summary>
-        public DateTime now { get; set; }
+    //    /// <summary>
+    //    /// 当前的时间
+    //    /// </summary>
+    //    public DateTime now { get; set; }
 
-        /// <summary>
-        /// 生成的路径信息
-        /// </summary>
-        public string dirname { get; set; }
+    //    /// <summary>
+    //    /// 生成的路径信息
+    //    /// </summary>
+    //    public string dirname { get; set; }
 
-        public string extname { get; set; }
-        public string savefilename { get; set; }
-    }
+    //    public string extname { get; set; }
+    //    public string savefilename { get; set; }
+    //}
 
     /// <summary>
     /// 文件的绝对路径
@@ -57,6 +57,9 @@ namespace Dev.Framework.FileServer
         public string savefilename { get; set; }
     }
 
+    /// <summary>
+    /// 文件 Key 生成接口
+    /// </summary>
     public interface IKey
     {
         ///// <summary>

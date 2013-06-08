@@ -22,7 +22,7 @@ namespace Dev.Framework.FileServer
             this.Width = width;
             this.Height = height;
         }
- 
+
 
         public int Width;
         public int Height;
@@ -36,18 +36,22 @@ namespace Dev.Framework.FileServer
     public interface IImageFile
     {
         /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <param name="IUploadFile"></param>
-        /// <param name="Key"></param>
-        //void SetCurrent(IUploadFile IUploadFile, IKey Key);
-        /// <summary>
         /// 保存图片，原图片的名称，返回运算后的图片名
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="bytefile"> </param>
         /// <param name="fileName"></param>
+        /// <param name="width"> </param>
+        /// <param name="height"> </param>
         /// <returns></returns>
         string SaveImageFile(byte[] bytefile, string fileName, int width = 0, int height = 0);
+
+        /// <summary>
+        /// 保存图片文件
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="fileName"></param>
+        /// <param name="sizes"></param>
+        /// <returns></returns>
         string SaveImageFile(byte[] bytefile, string fileName, ImagesSize[] sizes);
 
         /// <summary>
@@ -70,9 +74,22 @@ namespace Dev.Framework.FileServer
         /// <returns></returns>
         string SaveImageFile(Stream stream, string fileName, ImagesSize[] sizes);
 
+        /// <summary>
+        /// 更新图片
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="fileKey"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         void UpdateImageFile(Stream stream, string fileKey, int width = 0, int height = 0);
 
-
+        /// <summary>
+        /// 更新图片
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="fileKey"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         void UpdateImageFile(byte[] bytefile, string fileKey, int width = 0, int height = 0);
 
         /// <summary>

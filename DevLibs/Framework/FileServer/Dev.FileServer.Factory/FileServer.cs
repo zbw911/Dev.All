@@ -18,7 +18,7 @@ namespace Dev.FileServer.Factory
     public class FileServer
     {
         private static readonly IKey ShareFileKey = new ShareFileKey();
-        private static readonly IUploadFile UploadFile = new ShareUploadFile();
+        private static readonly IUploadFile UploadFile = new ShareUploadFile(ShareFileKey);
 
 
         private static IDocFile uploadFile;

@@ -15,30 +15,43 @@ using Dev.Framework.FileServer.Config;
 
 namespace Dev.Framework.FileServer.ShareImpl
 {
+    /// <summary>
+    /// 共享文件上传实现方式
+    /// </summary>
     public class ShareUploadFile : IUploadFile
     {
-        private IKey CurrentKey;
+        private IKey _currentKey;
 
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="key"></param>
+        public ShareUploadFile(IKey key)
+        {
+            this._currentKey = key;
+        }
         #region IUploadFile Members
 
         /// <summary>
         /// 生成KEY方案
         /// </summary>
-        /// <param name="Key"></param>
-        public void SetCurrentKey(IKey Key)
+        /// <param name="key"></param>
+        public void SetCurrentKey(IKey key)
         {
-            this.CurrentKey = Key;
+            this._currentKey = key;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="bytefile"></param>
-        /// <param name="fileName"></param>
+        /// <param name="fileKey"> </param>
+        /// <param name="param"> </param>
         /// <returns></returns>
         public string SaveFile(byte[] bytefile, string fileKey, params object[] param)
         {
-            FileSaveInfo fileInfo = this.CurrentKey.GetFileSavePath(fileKey, param);
+            FileSaveInfo fileInfo = this._currentKey.GetFileSavePath(fileKey, param);
 
             Server server = fileInfo.FileServer;
 
@@ -78,7 +91,7 @@ namespace Dev.Framework.FileServer.ShareImpl
         /// <returns></returns>
         public string UpdateFile(byte[] bytefile, string fileKey, params object[] param)
         {
-            FileSaveInfo fileSaveInfo = this.CurrentKey.GetFileSavePath(fileKey, param);
+            FileSaveInfo fileSaveInfo = this._currentKey.GetFileSavePath(fileKey, param);
 
             var filehelper = new FileHelper
                                  {

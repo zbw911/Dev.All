@@ -32,9 +32,9 @@ namespace Dev.Framework.FileServer.HashServer
 
             char first = unqid.Substring(0, 1).ToArray()[0];
 
-            var firstNo = (int) first;
+            var firstNo = (int)first;
 
-            int index = firstNo%usedserver.Count();
+            int index = firstNo % usedserver.Count();
 
             return usedserver.ElementAt(index);
         }
