@@ -12,6 +12,9 @@ using System.IO;
 
 namespace Dev.Framework.FileServer.DocFile
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DocFileUploader : IDocFile
     {
         private readonly IUploadFile CurFileDisposer;
@@ -24,7 +27,7 @@ namespace Dev.Framework.FileServer.DocFile
         public DocFileUploader(IUploadFile IUploadFile, IKey Key)
         {
             this.CurFileDisposer = IUploadFile;
-            this.CurFileDisposer.SetCurrentKey(Key);
+            //this.CurFileDisposer.SetCurrentKey(Key);
             this.CurKeyDisposer = Key;
         }
 

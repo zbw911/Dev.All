@@ -95,5 +95,8 @@ namespace Kt.Framework.FileServer.Test
             //Assert.AreEqual("adf96d2c6be8dfade2a049f1ee4b8d7d.jpg", actual.savefilename);
             //Assert.AreEqual(@"2011\04\26\ad\f\9", actual.dirname);
         }
+
+
+        
     }
 }

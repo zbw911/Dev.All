@@ -8,6 +8,7 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System;
 using System.IO;
 
 namespace Dev.Framework.FileServer
@@ -35,6 +36,39 @@ namespace Dev.Framework.FileServer
     /// </summary>
     public interface IImageFile
     {
+        /// <summary>
+        /// 对图片处理，生成缩略，
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="with"> </param>
+        /// <param name="height"> </param>
+        /// <returns></returns>
+        Stream Thumbnail(Stream stream, int with, int height);
+        /// <summary>
+        /// 生成水印
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="watermark">水印图片地址</param>
+        /// <returns></returns>
+        Stream Watermark(Stream stream, string watermark);
+
+
+        /// <summary>
+        /// 对图片处理，生成缩略，
+        /// </summary>
+        /// <param name="bytefile"> </param>
+        /// <param name="with"> </param>
+        /// <param name="height"> </param>
+        /// <returns></returns>
+        Stream Thumbnail(byte[] bytefile, int with, int height);
+
+        /// <summary>
+        /// 生成水印
+        /// </summary>
+        /// <param name="bytefile"> </param>
+        /// <param name="watermark">水印图片地址</param>
+        /// <returns></returns>
+        Stream Watermark(byte[] bytefile, string watermark);
         /// <summary>
         /// 保存图片，原图片的名称，返回运算后的图片名
         /// </summary>
@@ -100,6 +134,12 @@ namespace Dev.Framework.FileServer
         /// <param name="height"></param>
         string GetImageUrl(string fileKey, int width = 0, int height = 0);
 
-
+        /// <summary>
+        /// 更新图片
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="fileKey"></param>
+        /// <param name="sizes"></param>
+        void UpdateImageFile(Stream stream, string fileKey, ImagesSize[] sizes);
     }
 }

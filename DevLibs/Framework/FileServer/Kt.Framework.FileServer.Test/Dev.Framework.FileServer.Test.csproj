@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -55,12 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageFileKeyTest.cs" />
+    <Compile Include="TestThumbnailAndWatorMark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Comm\Dev.Comm.Core\Dev.Comm.Core.csproj">
       <Project>{7FDF5D76-C1BB-48ED-B5C8-663C098CFCDD}</Project>
       <Name>Dev.Comm.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dev.FileServer.Factory\Dev.FileServer.Factory.csproj">
+      <Project>{636AAA85-E08F-4466-AA32-B35733764F92}</Project>
+      <Name>Dev.FileServer.Factory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Kt.Framework.ImageServer\Dev.Framework.FileServer.csproj">
       <Project>{4F9A6922-FE07-4E38-92D4-00ADB7F0D07C}</Project>
@@ -71,6 +77,9 @@
     <Content Include="bin\Debug\ImageServer.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ImageServer.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
