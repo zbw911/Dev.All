@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D52346
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "Presentation\WebApp\WebApp.csproj", "{3684B7DC-210A-43C3-8520-7EBC3E04C214}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerWebApp", "Presentation\WebApp\ServerWebApp.csproj", "{3684B7DC-210A-43C3-8520-7EBC3E04C214}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.CasHander", "Application\Application.CasHander\Application.CasHander.csproj", "{BBDEF304-594C-487F-8DCF-63309BC56B40}"
 EndProject
@@ -41,6 +41,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CASLIB", "CASLIB", "{3459B1AB-736F-491E-B90A-E8A44722162B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.CasServer", "CASLIB\Dev.CasServer\Dev.CasServer.csproj", "{DE2EF6A3-9726-4B09-99FD-9A3D4AEF6FC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FDE1397B-C20E-4C91-8484-B371FA31C89A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

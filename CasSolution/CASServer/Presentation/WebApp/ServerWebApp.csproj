@@ -465,6 +465,7 @@
     <Content Include="Scripts\Plus\toastmessage\images\success.png" />
     <Content Include="Scripts\Plus\toastmessage\images\warning.png" />
     <Content Include="Scripts\Plus\toastmessage\jquery.toastmessage.js" />
+    <Content Include="Scripts\townarr.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

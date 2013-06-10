@@ -9,7 +9,7 @@
     </div>
     <div class="reg_cont clear">
         @Html.ValidationSummary(true)
-        @using (this.Html.BeginForm(new {ReturnUrl = this.ViewBag.ReturnUrl}))
+        @using (this.Html.BeginForm(new { ReturnUrl = this.ViewBag.ReturnUrl }))
         {
             @Html.AntiForgeryToken()
             <div class="reg_form">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="bdmain" id="b_email">
                         <div class="bd_input">
-                            @Html.TextBoxFor(x => x.UserName, new {@class = "regP ui-autocomplete-input bdcolor", autocomplete = "off"})
+                            @Html.TextBoxFor(x => x.UserName, new { @class = "regP ui-autocomplete-input bdcolor", autocomplete = "off" })
                         </div>
                     </div>
                     @Html.ValidationMessageFor(x => x.UserName)
@@ -32,7 +32,7 @@
                     </div>
                     <div class="bdmain" id="b_pass">
                         <div class="bd_input">
-                            @Html.PasswordFor(x => x.Password, new {@class = "regP bdcolor"})
+                            @Html.PasswordFor(x => x.Password, new { @class = "regP bdcolor" })
                         </div>
                     </div>
                     @Html.ValidationMessageFor(x => x.Password)
@@ -47,7 +47,7 @@
                     </div>
                     <div class="bdmain" id="b_pass2">
                         <div class="bd_input">
-                            @Html.PasswordFor(x => x.ConfirmPassword, new {@class = "regP bdcolor"})
+                            @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "regP bdcolor" })
                         </div>
                     </div>
                     @Html.ValidationMessageFor(x => x.ConfirmPassword)
@@ -60,7 +60,7 @@
                     </div>
                     <div class="bdmain" id="b_nickname">
                         <div class="bd_input">
-                            @Html.TextBoxFor(x => x.NickName, new {@class = "regP bdcolor"})
+                            @Html.TextBoxFor(x => x.NickName, new { @class = "regP bdcolor" })
                         </div>
                     </div>
                     @Html.ValidationMessageFor(x => x.NickName)
@@ -73,9 +73,9 @@
                     <div class="bdmain">
                         <div class="bd_radio">
                             <span class="man">
-                                @Html.RadioButtonFor(x => x.Sex, 1, new {id = "man"})<label for="man">男</label></span>
+                                @Html.RadioButtonFor(x => x.Sex, 1, new { id = "man" })<label for="man">男</label></span>
                             <span class="woman">
-                                @Html.RadioButtonFor(x => x.Sex, 2, new {id = "woman"})<label for="woman">女</label></span>
+                                @Html.RadioButtonFor(x => x.Sex, 2, new { id = "woman" })<label for="woman">女</label></span>
                         </div>
                     </div>
                     @Html.ValidationMessageFor(x => x.Sex)
@@ -96,10 +96,10 @@
                                     <option value="">请选择</option>
                                 </select></span>
                             @Html.HiddenFor(x => x.Province)
-                            @Html.HiddenFor(x => x.City, new {style = "display:''"})
+                            @Html.HiddenFor(x => x.City, new { style = "display:''" })
 
                             @Html.HiddenFor(x => x.ProvinceName)
-                            @Html.HiddenFor(x => x.CityName, new {style = "display:''"})
+                            @Html.HiddenFor(x => x.CityName, new { style = "display:''" })
 
                         </div>
                     </div>
@@ -115,11 +115,11 @@
                     <div class="bdmain" id="b_valid">
                         <div class="bd_check">
                             <span>
-                                @Html.TextBoxFor(x => x.Validcode, new {@class = "bdcolor"})
+                                @Html.TextBoxFor(x => x.Validcode, new { @class = "bdcolor" })
 
                             </span>
                             <span>
-                                <img width="100px" height="29px" class="check_img" id="check_img"  src="@this.Url.Action("code", "account", new {r = System.DateTime.Now.Ticks})" /></span>
+                                <img width="100px" height="29px" class="check_img" id="check_img"  src="@this.Url.Action("code", "account", new { r = System.DateTime.Now.Ticks })" /></span>
                             <a class="check_text" href="javascript:void(0)">换一组</a>
 
                         </div>
@@ -135,9 +135,9 @@
                         </div>
                         <div class="bdmain">
                             <p>
-                                @Html.CheckBoxFor(x => x.IsAgree, new {@checked = "checked"})
+                                @Html.CheckBoxFor(x => x.IsAgree, new { @checked = "checked" })
 
-                                @Html.LabelFor(x => x.IsAgree, "同意XXXXX使用服务协议", new {@class = "dark"})
+                                @Html.LabelFor(x => x.IsAgree, "同意XXXXX使用服务协议", new { @class = "dark" })
                             </p>
                         </div>
                         @Html.ValidationMessageFor(x => x.IsAgree)
@@ -158,12 +158,12 @@
                     已有XXXXX账号？
                 </p>
                 <p>
-                    @Html.ActionLink("登录", "login", "CAS", null, new {@class = "gray_btn", title = "登录即可分享新鲜事"})
+                    @Html.ActionLink("登录", "login", "CAS", null, new { @class = "gray_btn", title = "登录即可分享新鲜事" })
                 </p>
             </div>
             <div class="login_other">
                 <p>您也可以通过以下方式登录：</p>
-                @Html.Action("ExternalLoginsList", "account", new {ReturnUrl = this.ViewBag.ReturnUrl})
+                @Html.Action("ExternalLoginsList", "account", new { ReturnUrl = this.ViewBag.ReturnUrl })
             </div>
             <div class="reg_r2">
                 @*  <p>
@@ -178,10 +178,10 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
+    @Scripts.Render("~/bundles/townarr")
     <script type="text/javascript">
-        var apibase = "@Application.Config.CommConfiguration.Config.TuanApibase";
-        $(".reg_btn").click(function() {
+       
+        $(".reg_btn").click(function () {
 
             //if (!$('#City').valid())
             //    return false;
@@ -195,19 +195,19 @@
         });
 
 
-        $(function() {
+        $(function () {
 
-            $(document).keydown(function(e) {
+            $(document).keydown(function (e) {
                 if (e.keyCode == 13) {
                     $(".reg_btn").click();
 
                 }
             });
 
-            $("#UserName").blur(function() {
+            $("#UserName").blur(function () {
                 if ($("#UserName").valid()) {
 
-                    $.get('/account/check?username=' + encodeURIComponent($(this).val()) + '&' + $.now(), function(back) {
+                    $.get('/account/check?username=' + encodeURIComponent($(this).val()) + '&' + $.now(), function (back) {
 
                         back = back.toLowerCase();
 
@@ -221,7 +221,7 @@
             });
 
 
-            $("#NickName").blur(function() {
+            $("#NickName").blur(function () {
 
                 //if (GetCharLength($.trim($(this).val())) < 4 || GetCharLength($.trim($(this).val())) > 14) {
 
@@ -232,7 +232,7 @@
 
                 if ($("#NickName").valid()) {
 
-                    $.get('/account/CheckNick?nickname=' + encodeURIComponent($(this).val()) + '&' + $.now(), function(back) {
+                    $.get('/account/CheckNick?nickname=' + encodeURIComponent($(this).val()) + '&' + $.now(), function (back) {
 
                         back = back.toLowerCase();
 
@@ -245,18 +245,18 @@
                 }
             });
 
-            $(".check_text,.check_img").click(function() {
+            $(".check_text,.check_img").click(function () {
                 $(".check_img").attr("src", "/account/code?r=" + $.now());
             });
 
             $("#selectprovince").change(changePro);
-            $("#selectprovince").change(function() {
+            $("#selectprovince").change(function () {
                 $("#Province").val($(this).val());
                 if ($('#City').valid()) {
                     onSuccess($('#City'));
                 }
             });
-            $("#selectcity").change(function() {
+            $("#selectcity").change(function () {
                 $("#City").val($(this).val());
                 if ($('#City').valid()) {
                     onSuccess($('#City'));
@@ -264,15 +264,13 @@
 
             });
 
-            $.get(apibase + "/API/Areas.svc/GetAllProvince", { }, function(back) {
-                $.each(back, function(i, j) {
-                    $('<option value="' + j._provinceid + '">' + j._provincename + '</option>').appendTo('#selectprovince');
-                });
+            $.each(townarr, function (key, value) {
+                $('<option value="' + key + '">' + value.name + '</option>').appendTo('#selectprovince');
+            });
 
-                $('#selectprovince').val($("#Province").val());
-                changePro(true);
-            },
-                'jsonp');
+            //$('#selectprovince').val($("#Province").val());
+            //changePro(true);
+
 
             function changePro(isinit) {
                 var proid = $('#selectprovince').val();
@@ -280,40 +278,38 @@
                 if (proid == "")
                     return;
 
-                $.get(apibase + "/API/Areas.svc/GetCityByProvinceId", {
-                        provinceid: proid
-                    }, function(back) {
-                        $('#selectcity').empty();
-                        $('<option value="">请选择</option>').appendTo("#selectcity");
-                        $.each(back, function(i, j) {
-                            $('<option value="' + j._cityid + '">' + j._cityname + '</option>').appendTo('#selectcity');
-                        });
-                        if (isinit) {
-                            $('#selectcity').val($("#City").val());
-                        } else {
-                            $('#City').val("");
-                        }
-                        if ($('#City').valid()) {
-                            onSuccess($('#City'));
-                        }
-                    },
-                    'jsonp');
+              
+                    $('#selectcity').empty();
+                    $('<option value="">请选择</option>').appendTo("#selectcity");
+                    $.each(townarr[proid]['child'], function (key, val) {
+                        $("<option value='" + key + "'>" + val.name + "</option>").appendTo('#selectcity');
+                    });
+                    if (isinit) {
+                        $('#selectcity').val($("#City").val());
+                    } else {
+                        $('#City').val("");
+                    }
+                    if ($('#City').valid()) {
+                        onSuccess($('#City'));
+                    }
+             
             }
-
-            $('#Password').keyup(function() {
+            
+           
+            $('#Password').keyup(function () {
                 if ($(this).valid()) {
                     $('.w').show().removeClass('w1').removeClass('w2').removeClass('w3');
                     switch (checkStrong($(this).val())) {
-                    case 0:
-                    case 1:
-                        $('.w').addClass('w1');
-                        break;
-                    case 2:
-                        $('.w').addClass('w2');
-                        break;
-                    default:
-                        $('.w').addClass('w3');
-                        break;
+                        case 0:
+                        case 1:
+                            $('.w').addClass('w1');
+                            break;
+                        case 2:
+                            $('.w').addClass('w2');
+                            break;
+                        default:
+                            $('.w').addClass('w3');
+                            break;
                     }
                     onSuccess(this);
                 } else {
@@ -321,7 +317,7 @@
                 }
             });
 
-            $('#ConfirmPassword,[name=Sex]').blur(function() {
+            $('#ConfirmPassword,[name=Sex]').blur(function () {
 
                 if ($(this).valid()) {
                     onSuccess(this);

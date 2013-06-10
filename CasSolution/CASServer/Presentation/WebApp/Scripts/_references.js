@@ -8,3 +8,4 @@
 /// <reference path="Plus/toastmessage/jquery.toastmessage.js" />
 /// <reference path="Plus/jquery-loadmask/jquery.loadmask.js" />
 /// <reference path="Plus/Json/jquery.json-2.3.js" />
+/// <reference path="townarr.js" />

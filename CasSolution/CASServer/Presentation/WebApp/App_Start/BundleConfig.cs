@@ -76,6 +76,11 @@ namespace CASServer
 
             bundles.Add(new ScriptBundle("~/bundles/json").Include(
                 "~/Scripts/Plus/json/jquery.json-2.3.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/townarr").Include(
+                "~/Scripts/townarr.js"));
+
+
         }
 
         #endregion
