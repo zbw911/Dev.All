@@ -295,105 +295,105 @@
             <param name="p"></param>
             <returns></returns>
         </member>
-        <member name="F:Dev.Comm.Web.HttpServerInfo.RELATIVE_ROOT_PATH">
+        <member name="M:Dev.Comm.Web.HttpServerInfo.AddParmToUrl(System.String,System.String)">
             <summary>
-            系统根路径
+              增加参数
             </summary>
-        </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.GetHost">
-            <summary>
-            当前系统网点地址
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.GetLeftPath">
-            <summary>
-            如源地址 : http://www.google.com/aaaa.html?fffffff.com
-            返回: http://www.google.com/aaaa.html
-            </summary>
-            <returns></returns>
+            <param name="sk"> </param>
+            <param name="sv"> </param>
+            <returns> </returns>
         </member>
         <member name="M:Dev.Comm.Web.HttpServerInfo.FullRequestPath">
             <summary>
-            全地址包括？后的
+              全地址包括？后的
             </summary>
-            <returns></returns>
+            <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.RebuildUrl(System.Collections.Specialized.NameValueCollection,System.String[])">
+        <member name="M:Dev.Comm.Web.HttpServerInfo.GetHost">
             <summary>
-            重建
+              当前系统网点地址
             </summary>
-            <param name="AddParms"></param>
-            <param name="RemoveKeys"></param>
-            <returns></returns>
+            <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.RebuildUrl(System.String,System.String,System.String)">
+        <member name="M:Dev.Comm.Web.HttpServerInfo.GetLeftPath">
             <summary>
-            重建
+              如源地址 : http://www.google.com/aaaa.html?fffffff.com
+              返回: http://www.google.com/aaaa.html
             </summary>
-            <param name="AddParms"></param>
-            <param name="RemoveKeys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.RebuildUrlParms(System.Collections.Specialized.NameValueCollection,System.Collections.Generic.IEnumerable{System.String},System.Collections.Specialized.NameValueCollection,System.String)">
-            <summary>
-            重建URL
-            </summary>
-            <param name="addParms"></param>
-            <param name="removeKeys"></param>
-            <param name="queryString"></param>
-            <param name="url"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.AddParmToUrl(System.String,System.String)">
-            <summary>
-            增加参数
-            </summary>
-            <param name="sk"></param>
-            <param name="sv"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.RemoveParmToUrl(System.String)">
-            <summary>
-            从URL中移除一个参数
-            </summary>
-            <param name="sk"></param>
-            <returns></returns>
+            <returns> </returns>
         </member>
         <member name="M:Dev.Comm.Web.HttpServerInfo.GetPort">
             <summary>
-            请求端口
+              请求端口
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Dev.Comm.Web.HttpServerInfo.GetRequestType">
-            <summary>
-            请求类型
-            </summary>
-            <returns></returns>
+            <returns> </returns>
         </member>
         <member name="M:Dev.Comm.Web.HttpServerInfo.GetRequestAgent">
             <summary>
-            Agent
+              Agent
             </summary>
-            <returns></returns>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.HttpServerInfo.GetRequestType">
+            <summary>
+              请求类型
+            </summary>
+            <returns> </returns>
         </member>
         <member name="M:Dev.Comm.Web.HttpServerInfo.GetUrlReferrer">
             <summary>
-            返回上一个页面的地址
+              返回上一个页面的地址
             </summary>
-            <returns>上一个页面的地址</returns>
+            <returns> 上一个页面的地址 </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.HttpServerInfo.RebuildUrl(System.Collections.Specialized.NameValueCollection,System.String[])">
+            <summary>
+              重建
+            </summary>
+            <param name="AddParms"> </param>
+            <param name="RemoveKeys"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.HttpServerInfo.RebuildUrl(System.String,System.String,System.String)">
+            <summary>
+              重建
+            </summary>
+            <param name="AddParms"> </param>
+            <param name="RemoveKeys"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.HttpServerInfo.RemoveParmToUrl(System.String)">
+            <summary>
+              从URL中移除一个参数
+            </summary>
+            <param name="sk"> </param>
+            <returns> </returns>
         </member>
         <member name="M:Dev.Comm.Web.HttpServerInfo.WapperFullUrl(System.String)">
             <summary>
-            将本地URL,包装包完整URL
+              将本地URL,包装包完整URL
             </summary>
-            <param name="url"></param>
-            <returns></returns>
+            <param name="url"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Web.HttpServerInfo.RebuildUrlParms(System.Collections.Specialized.NameValueCollection,System.Collections.Generic.IEnumerable{System.String},System.Collections.Specialized.NameValueCollection,System.String)">
+            <summary>
+              重建URL
+            </summary>
+            <param name="addParms"> </param>
+            <param name="removeKeys"> </param>
+            <param name="queryString"> </param>
+            <param name="url"> </param>
+            <returns> </returns>
         </member>
         <member name="P:Dev.Comm.Web.HttpServerInfo.BaseUrl">
             <summary>
-            服务器地址
+              服务器地址
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Web.HttpServerInfo.RELATIVE_ROOT_PATH">
+            <summary>
+              系统根路径
             </summary>
         </member>
         <member name="M:Dev.Comm.Web.WebFrom.JScript.Show(System.Web.UI.Page,System.String)">

@@ -28,7 +28,7 @@ namespace Dev.CasServer
         #region Readonly & Static Fields
 
         private readonly IUserValidate _userValidate;
-        private readonly ICasAuthenticator casAuthenticator;
+        private readonly ICasAuthenticator _casAuthenticator;
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace Dev.CasServer
         public CasServer(IUserValidate userValidate, ICasAuthenticator casAuthenticator)
         {
             this._userValidate = userValidate;
-            this.casAuthenticator = casAuthenticator;
+            this._casAuthenticator = casAuthenticator;
         }
 
         #endregion
@@ -52,7 +52,7 @@ namespace Dev.CasServer
         public void HandleLogoutRequest()
         {
             // call the logout hook
-            this.casAuthenticator.CasLogout();
+            this._casAuthenticator.CasLogout();
         }
 
         /// <summary>
@@ -64,10 +64,10 @@ namespace Dev.CasServer
         public bool HandlePageLoad(string strService, out string returl)
         {
             //用户已经登录了
-            if (this.casAuthenticator.IsAuthenticated())
+            if (this._casAuthenticator.IsAuthenticated())
             {
                 // when the user is already authenticated, then directly redirect to the requested service
-                returl = this.HandleLoginRequest(strService, this.casAuthenticator.GetName(), false);
+                returl = this.HandleLoginRequest(strService, this._casAuthenticator.GetName(), false);
                 return !string.IsNullOrEmpty(returl);
             }
 
@@ -93,7 +93,7 @@ namespace Dev.CasServer
             if (this._userValidate.PerformAuthentication(strUserName, strPassWord, doRemember, out ErrorMsg))
             {
                 // call the login hook ， 是否已经设置了cookie?设置登录的cookies
-                this.casAuthenticator.CasLogin(strUserName, doRemember);
+                this._casAuthenticator.CasLogin(strUserName, doRemember);
 
                 redirectUrl = this.HandleLoginRequest(strService, strUserName, doRemember);
                 return true;
@@ -226,7 +226,7 @@ namespace Dev.CasServer
                 strService = this.TranslateService(strService);
 
                 // call the check permission hook
-                if (!this.casAuthenticator.CasCheckPermission(strUserName, strService))
+                if (!this._casAuthenticator.CasCheckPermission(strUserName, strService))
 
                     throw new Exception("无权限的client" + strService);
                 //return "";
@@ -260,7 +260,7 @@ namespace Dev.CasServer
             if (nIdx != -1) strService = strService.Substring(0, nIdx);
 
             // call service translation hook
-            strService = this.casAuthenticator.CasTranslateService(strService);
+            strService = this._casAuthenticator.CasTranslateService(strService);
 
             return strService;
         }

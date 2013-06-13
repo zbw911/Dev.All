@@ -5,7 +5,7 @@
 @if (this.Model.TotalPages > 1)
 {
     <div class="fy">
-        <div class="fy_size"><span>第<em>@this.Model.CurrentPage</em>页</span>/<span>共<em>@this.Model.TotalPages</em>页</span></div>
+        <div class="fy_size"><span>第<em>@Model.CurrentPage</em>页</span>/<span>共<em>@Model.TotalPages</em>页</span></div>
         <ul class="fy_list">
             @if (this.Model.CurrentPage != 1)
             {

@@ -8,10 +8,12 @@
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Application.Config;
 using CASServer.Filters;
 
 namespace CASServer
@@ -34,7 +36,14 @@ namespace CASServer
             AuthConfig.RegisterAuth();
 
             InitializeSimpleMembershipAttribute.SimpleMembershipInitializer.Init();
+
+            //HttpContext.Current.
+
+            //CommConfiguration.Config.CurrentUrl = Dev.Comm.Web.HttpServerInfo.BaseUrl;
         }
+
+
+
 
         #endregion
     }

@@ -38,7 +38,7 @@ namespace Application.Config
             {
                 instance = new CommConfiguration
                                {
-                                   CurrentUrl = "http://caslocal.xxxxxxx.com",
+                                   //CurrentUrl = "http://caslocal.xxxxxxx.com",
                                    SmsApi = "http://192.168.0.188:9595",
                                    TuanApibase = "http://apilocal.xxxxxxx.com"
                                };

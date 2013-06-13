@@ -15,12 +15,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dev.Data.Configuration.CommonConfig.ConfigureData``1(System.String)">
+        <member name="M:Dev.Data.Configuration.CommonConfig.ConfigureData``1(System.String,System.Boolean)">
             <summary>
                 配置数据
             </summary>
             <typeparam name="T"></typeparam>
             <param name="connectionStringName"></param>
+            <param name="createDbFileImmediately">是否立即创建不存在的数据库文件 </param>
             <returns></returns>
         </member>
         <member name="M:Dev.Data.Configuration.CommonConfig.ConfigureData(System.String,System.String[],System.Boolean,System.Boolean)">
@@ -122,6 +123,15 @@
                 If you're only communicating with one database, you should call <see cref="P:Dev.Data.DbContextManager.Current"/> instead,
                 although you're certainly welcome to call this if you have the key available.
             </summary>
+        </member>
+        <member name="M:Dev.Data.DbContextManager.Init``1(System.String,System.Boolean)">
+            <summary>
+            初始化数据库
+            </summary>
+            <param name="connectionStringName"></param>
+            <param name="createDbFileImmediately">是否立即创建数据库</param>
+            <typeparam name="T"></typeparam>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:Dev.Data.DbContextManager.InitStorage(Dev.Data.IDbContextStorage)">
             <summary>

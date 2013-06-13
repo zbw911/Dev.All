@@ -30,23 +30,7 @@ namespace CASServer.Filters
 
         #endregion
 
-        #region Nested type: MyInitializer
 
-        public class MyInitializer : CreateDatabaseIfNotExists<UsersContext>
-        {
-            #region Instance Methods
-
-            protected override void Seed(UsersContext context)
-            {
-                //context.Database.ExecuteSqlCommand("CREATE UNIQUE INDEX IX_UserProfile_Uid ON  UserProfile (uid)");
-                //context.Database.ExecuteSqlCommand("ALTER TABLE USERPROFILE ALTER COLUMN [UID] DECIMAL(18,0)");
-                context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('UserExtend', RESEED, 10000)");
-            }
-
-            #endregion
-        }
-
-        #endregion
 
         #region Nested type: SimpleMembershipInitializer
 
@@ -64,22 +48,12 @@ namespace CASServer.Filters
 
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(new MyInitializer());
+                //Database.SetInitializer<UsersContext>(new MyInitializer());
 
                 try
                 {
-                    using (var context = new UsersContext())
-                    {
-                        context.Database.CreateIfNotExists();
-                        //if (context.Database.Exists())
-                        //{
-                        //    //    // Create the SimpleMembership database without Entity Framework migration schema
-                        //    //    //((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
-                        //}
-                    }
-
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName",
-                                                             autoCreateTables: true);
+                        autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {
@@ -92,7 +66,7 @@ namespace CASServer.Filters
             #endregion
 
             #region Class Methods
-
+            //在前面应该保证已经有存在的数据库了,所以在 Register中进行了db file的注册 
             public static void Init()
             {
                 LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);

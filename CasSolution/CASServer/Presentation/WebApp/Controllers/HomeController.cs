@@ -9,12 +9,21 @@
 // ***********************************************************************************
 
 using System.Web.Mvc;
+using Application.MainBoundedContext.UserModule;
 
 namespace CASServer.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUserService _userService;
+
         #region Instance Methods
+
+
+        public HomeController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         public ActionResult About()
         {
@@ -34,6 +43,8 @@ namespace CASServer.Controllers
         {
             this.ViewBag.Message = "修改此模板以快速启动你的 ASP.NET MVC 应用程序。";
             //return Content(Url.IsLocalUrl("http://www.xxxxxxx.com").ToString());
+
+            //this._userService.GetRegDateTime(100000);
 
             return this.View();
         }

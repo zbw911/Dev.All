@@ -47,7 +47,12 @@ namespace CompositionRoot
 
             CommonConfig.Instance()
                 .ConfigureDbContextStorage(this.Kernel.Get<IDbContextStorage>())
-                .ConfigureData<passportContext>(DefaultConnection);
+                .ConfigureData<passportContext>(DefaultConnection, createDbFileImmediately: true);
+
+
+            //CommonConfig.Instance()
+            //   .ConfigureDbContextStorage(this.Kernel.Get<IDbContextStorage>())
+            //   .ConfigureData(DefaultConnection, new[] { System.Reflection.Assembly.Load("Domain.Entities") }, false, false);
 
 
             // Repository
@@ -63,6 +68,9 @@ namespace CompositionRoot
             //CAS
             this.RegServiceWith<ICasAuthenticator, FormsCasAuthenticator>();
             this.RegServiceWith<IUserValidate, UserValidateFake>();
+
+
+          
         }
 
         #endregion

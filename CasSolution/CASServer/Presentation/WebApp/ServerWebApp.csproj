@@ -219,9 +219,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\UsersContext.cs" />
-    <Compile Include="Models\UserExtend.cs" />
-    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -505,6 +502,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\Application.Config\Application.Config.csproj">
+      <Project>{591bb180-63b5-4d61-9867-3a27173b2b93}</Project>
+      <Name>Application.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Application\Dto\Application.Dto.csproj">
       <Project>{438a93b0-6fdc-4733-a62d-2c09d09465b2}</Project>
       <Name>Application.Dto</Name>

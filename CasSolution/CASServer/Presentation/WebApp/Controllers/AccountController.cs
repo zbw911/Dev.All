@@ -126,7 +126,7 @@ namespace CASServer.Controllers
             var hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(this.User.Identity.Name));
             this.ViewBag.HasLocalPassword = hasLocalAccount;
             this.ViewBag.ReturnUrl = this.Url.Action("ChangePassword",
-                                                     new {@in = Dev.Comm.Web.DevRequest.GetInt("in", 0)});
+                                                     new { @in = Dev.Comm.Web.DevRequest.GetInt("in", 0) });
             if (hasLocalAccount)
             {
                 if (this.ModelState.IsValid)
@@ -173,7 +173,7 @@ namespace CASServer.Controllers
                     try
                     {
                         WebSecurity.CreateAccount(this.User.Identity.Name, model.NewPassword);
-                        return this.RedirectToAction("Manage", new {Message = ManageMessageId.SetPasswordSuccess});
+                        return this.RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
                     catch (Exception e)
                     {
@@ -243,8 +243,7 @@ namespace CASServer.Controllers
                 // 使用事务来防止用户删除其上次使用的登录凭据
                 using (
                     var scope = new TransactionScope(TransactionScopeOption.Required,
-                                                     new TransactionOptions
-                                                         {IsolationLevel = IsolationLevel.Serializable}))
+                                                     new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
                 {
                     var hasLocalAccount =
                         OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(this.User.Identity.Name));
@@ -257,7 +256,7 @@ namespace CASServer.Controllers
                 }
             }
 
-            return this.RedirectToAction("Manage", new {Message = message});
+            return this.RedirectToAction("Manage", new { Message = message });
         }
 
         [AllowAnonymous]
@@ -293,7 +292,7 @@ namespace CASServer.Controllers
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             return new ExternalLoginResult(provider,
-                                           this.Url.Action("ExternalLoginCallback", new {ReturnUrl = returnUrl}));
+                                           this.Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
 
         //
@@ -304,7 +303,7 @@ namespace CASServer.Controllers
         {
             var result =
                 OAuthWebSecurity.VerifyAuthentication(this.Url.Action("ExternalLoginCallback",
-                                                                      new {ReturnUrl = returnUrl}));
+                                                                      new { ReturnUrl = returnUrl }));
             if (!result.IsSuccessful)
             {
                 return this.RedirectToAction("ExternalLoginFailure");
@@ -329,8 +328,7 @@ namespace CASServer.Controllers
                 this.ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                 this.ViewBag.ReturnUrl = returnUrl;
                 return this.View("ExternalLoginConfirmation",
-                                 new RegisterExternalLoginModel
-                                     {UserName = result.UserName, ExternalLoginData = loginData});
+                                 new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
             }
         }
 
@@ -354,28 +352,35 @@ namespace CASServer.Controllers
             if (this.ModelState.IsValid)
             {
                 // 将新用户插入到数据库
-                using (var db = new UsersContext())
+
+                //var user =
+                //    db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+
+                var userprofiles = this._userService.GetUserProfileByUserName(model.UserName.ToLower());
+                // 检查用户是否已存在
+                if (userprofiles == null)
                 {
-                    var user =
-                        db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-                    // 检查用户是否已存在
-                    if (user == null)
-                    {
-                        // 将名称插入到配置文件表
-                        db.UserProfiles.Add(new UserProfile {UserName = model.UserName});
-                        db.SaveChanges();
+                    // 将名称插入到配置文件表
+                    //db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                    //db.SaveChanges();
 
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        this._userService.InserOrUpdateExtUid(WebSecurity.GetUserId(model.UserName));
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+                    userprofiles = new Application.Dto.User.UserProfileModel
+                                       {
+                                           UserName = model.UserName
+                                       };
+                    bool b = this._userService.AddUserProfiles(userprofiles);
 
-                        return this.RedirectToCas(returnUrl);
-                    }
-                    else
-                    {
-                        this.ModelState.AddModelError("UserName", "用户名已存在。请输入其他用户名。");
-                    }
+                    OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                    this._userService.InserOrUpdateExtUid(WebSecurity.GetUserId(model.UserName));
+                    OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+
+                    return this.RedirectToCas(returnUrl);
                 }
+                else
+                {
+                    this.ModelState.AddModelError("UserName", "用户名已存在。请输入其他用户名。");
+                }
+
             }
 
             this.ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
@@ -431,7 +436,7 @@ namespace CASServer.Controllers
 
             if (this.ModelState.IsValid)
             {
-                var bs = this._userService.GetPassWord(model);
+                var bs = this._userService.GetPassWord(Dev.Comm.Web.HttpServerInfo.BaseUrl, model);
 
                 if (bs.ErrorCode == 0)
                 {
@@ -444,7 +449,7 @@ namespace CASServer.Controllers
                 {
                     if (bs.ErrorCode == -3)
                         return this.Message("此用户还未激活，激活后继续",
-                                            this.Url.Action("EmailActivation", new {email = model.UserName}));
+                                            this.Url.Action("EmailActivation", new { email = model.UserName }));
 
                     this.ModelState.AddModelError("", "" + bs.ErrorMessage);
                 }
@@ -522,7 +527,7 @@ namespace CASServer.Controllers
 
                     if (changePasswordSucceeded)
                     {
-                        return this.RedirectToAction("Manage", new {Message = ManageMessageId.ChangePasswordSuccess});
+                        return this.RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
                     }
                     else
                     {
@@ -545,7 +550,7 @@ namespace CASServer.Controllers
                     try
                     {
                         WebSecurity.CreateAccount(this.User.Identity.Name, model.NewPassword);
-                        return this.RedirectToAction("Manage", new {Message = ManageMessageId.SetPasswordSuccess});
+                        return this.RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
                     catch (Exception e)
                     {
@@ -608,12 +613,12 @@ namespace CASServer.Controllers
                     var uid = this._userService.InserOrUpdateExtUid(userid);
 
 
-                    SystemMessagerManager.SendValidateMail(model.UserName, model.NickName, "邮件激活",
-                                                           SystemMessagerManager.ActMessage(model.UserName,
+                    SystemMessagerManager.SendValidateMail(Dev.Comm.Web.HttpServerInfo.BaseUrl, model.UserName, model.NickName, "邮件激活",
+                                                           SystemMessagerManager.ActMessage(Dev.Comm.Web.HttpServerInfo.BaseUrl, model.UserName,
                                                                                             model.NickName, token));
 
 
-                    return this.RedirectToAction("EmailActivation", new {email = model.UserName});
+                    return this.RedirectToAction("EmailActivation", new { email = model.UserName });
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -652,7 +657,7 @@ namespace CASServer.Controllers
         [HttpGet]
         public ActionResult ResendSms(string username)
         {
-            var bs = this._userService.GetPassWord(new GetPwdModel
+            var bs = this._userService.GetPassWord(Dev.Comm.Web.HttpServerInfo.BaseUrl, new GetPwdModel
                                                        {
                                                            UserName = username,
                                                            GetPwdType = 1
@@ -674,8 +679,8 @@ namespace CASServer.Controllers
 
             var token = this._userService.GetTokenByUserName(email);
 
-            SystemMessagerManager.SendValidateMail(email, NickName, "邮件激活",
-                                                   SystemMessagerManager.ActMessage(email, NickName, token));
+            SystemMessagerManager.SendValidateMail(Dev.Comm.Web.HttpServerInfo.BaseUrl, email, NickName, "邮件激活",
+                                                   SystemMessagerManager.ActMessage(Dev.Comm.Web.HttpServerInfo.BaseUrl, email, NickName, token));
 
             return this.Json(true);
         }
@@ -768,7 +773,7 @@ namespace CASServer.Controllers
                 if (isok)
                     return this.Message("重置密码成功", this.Url.Action("login", "cas"));
                 else
-                    return this.Message("重置密码失败", this.Url.Action("RestPwd", new {token}));
+                    return this.Message("重置密码失败", this.Url.Action("RestPwd", new { token }));
             }
             return View(model);
         }
@@ -785,7 +790,7 @@ namespace CASServer.Controllers
                 {
                     returnUrl = CasServerConfiguration.Config.DefaultUrl;
                 }
-                return this.RedirectToAction("Login", "CAS", new {service = returnUrl});
+                return this.RedirectToAction("Login", "CAS", new { service = returnUrl });
             }
         }
 

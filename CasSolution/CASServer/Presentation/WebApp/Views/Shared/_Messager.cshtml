@@ -58,16 +58,16 @@
                                                              {
                                                                  if (this.Model.time > 0)
                                                                  {
-                                                                     <a href="@this.Model.redirectto"><span id='redirect_status'><span id='msg_time'>@this.Model.time</span>秒后 @this.Model.to_title</span>，
+                                                                     <a href="@Model.redirectto"><span id='redirect_status'><span id='msg_time'>@Model.time</span>秒后 @Model.to_title</span>，
                                                                      
                                                                          如果您的浏览器没有自动跳转，请点这里继续</a>
                                                                      <script type="text/javascript">
                                                                          function showTimeStatus() {
                                                                              var timeObj = document.getElementById('msg_time');
                                                                              if (timeObj.innerHTML == 1) {
-                                                                                 document.getElementById('redirect_status').innerHTML = "正在 @this.Model.to_title";
+                                                                                 document.getElementById('redirect_status').innerHTML = "正在 @Model.to_title";
 
-                                                                                 window.location = "@this.Model.redirectto";
+                                                                                 window.location = "@Model.redirectto";
 
                                                                                  return false;
                                                                              }
@@ -81,12 +81,12 @@
                                                                  }
                                                                  else
                                                                  {
-                                                                     <a href="@this.Model.redirectto">@this.Model.to_title</a>
+                                                                     <a href="@Model.redirectto">@Model.to_title</a>
                                                                  }
                                                              }
                                                              else
                                                              {
-                                                                 @this.Model.return_msg
+                                                                 @Model.return_msg
                                                              }
                                                          </span></li>
         </ul>

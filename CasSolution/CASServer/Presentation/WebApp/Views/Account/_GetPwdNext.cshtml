@@ -93,7 +93,7 @@
             {
                 @Html.Hidden("username", this.Model.Split(',')[1])
                 <div class="new_item">
-                    系统已将验证码发送至手机号：<span class="green1" id="phones">@this.Model.Split(',')[0]</span>
+                    系统已将验证码发送至手机号：<span class="green1" id="phones">@Model.Split(',')[0]</span>
                 </div>
                 <div class="new_item">
                     输入手机获取的验证码：<input id="pCode" type="text" class="inpt reg_time" maxlength="6" name="pCode" />

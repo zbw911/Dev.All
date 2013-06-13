@@ -39,6 +39,10 @@
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Dev.Comm.Web, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Dev.Comm.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Dev.Crosscutting.Adapter">
       <HintPath>..\..\Lib\Dev.Crosscutting.Adapter.dll</HintPath>
     </Reference>

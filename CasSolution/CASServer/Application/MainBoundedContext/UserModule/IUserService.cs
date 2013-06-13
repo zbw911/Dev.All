@@ -39,9 +39,10 @@ namespace Application.MainBoundedContext.UserModule
         /// <summary>
         ///   找回密码类的方法
         /// </summary>
+        /// <param name="baseurl"> </param>
         /// <param name="model"> </param>
         /// <returns> </returns>
-        BaseState GetPassWord(GetPwdModel model);
+        BaseState GetPassWord(string baseurl, GetPwdModel model);
 
         System.DateTime? GetRegDateTime(decimal uid);
 
@@ -152,5 +153,7 @@ namespace Application.MainBoundedContext.UserModule
         bool UserNickExist(string nickname);
 
         #endregion
+
+        bool AddUserProfiles(UserProfileModel userprofiles);
     }
 }

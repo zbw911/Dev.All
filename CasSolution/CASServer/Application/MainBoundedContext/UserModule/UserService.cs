@@ -17,6 +17,7 @@ using CASServer.Models;
 using Dev.Crosscutting.Adapter;
 using Dev.Framework.Cache;
 using Dev.Framework.FileServer;
+using Domain.Entities.Models;
 using Domain.MainBoundedContext.UserExtend.Repository;
 using Domain.MainBoundedContext.UserProfile.Repository;
 using Domain.MainBoundedContext.webpages_Membership.Repository;
@@ -65,7 +66,7 @@ namespace Application.MainBoundedContext.UserModule
             return code;
         }
 
-        private BaseState GetPassWordByEmail(GetPwdModel model)
+        private BaseState GetPassWordByEmail(string baseurl, GetPwdModel model)
         {
             if (!Dev.Comm.Validate.Validate.IsEmail(model.UserName))
             {
@@ -75,15 +76,15 @@ namespace Application.MainBoundedContext.UserModule
 
             var nick = this.GetNickNameByUserName(model.UserName);
             var token = WebSecurity.GeneratePasswordResetToken(model.UserName);
-            var mail = SystemMessagerManager.GetContentForGetPass(nick, token);
-            var isok = SystemMessagerManager.SendValidateMail(model.UserName, nick, "找回密码", mail);
+            var mail = SystemMessagerManager.GetContentForGetPass(baseurl, nick, token);
+            var isok = SystemMessagerManager.SendValidateMail(baseurl, model.UserName, nick, "找回密码", mail);
 
             if (isok)
             {
                 return new BaseState();
             }
 
-            return new BaseState {ErrorCode = -1, ErrorMessage = "发送邮件失败"};
+            return new BaseState { ErrorCode = -1, ErrorMessage = "发送邮件失败" };
         }
 
         private BaseState GetPassWordByPhone(GetPwdModel model)
@@ -130,6 +131,15 @@ namespace Application.MainBoundedContext.UserModule
             return this._userProfileRepository.FindOne(x => x.NickName == nickname) != null;
         }
 
+        public bool AddUserProfiles(UserProfileModel userprofiles)
+        {
+            this._userProfileRepository.Add(userprofiles.ProjectedAs<UserProfile>());
+
+            this._userProfileRepository.UnitOfWork.SaveChanges();
+
+            return true;
+        }
+
         /// <summary>
         ///   根据用户编号读取用户数据
         /// </summary>
@@ -162,7 +172,7 @@ namespace Application.MainBoundedContext.UserModule
         public List<UserProfileModel> GetUserProfiles(decimal[] uids)
         {
             var listuser =
-                this._userExtendRepository.GetQuery(x => uids.Contains(x.Uid)).Select(x => new {x.UserId, x.Uid}).ToList
+                this._userExtendRepository.GetQuery(x => uids.Contains(x.Uid)).Select(x => new { x.UserId, x.Uid }).ToList
                     ();
             var listuserids = listuser.Select(x => x.UserId);
             var userprofiles = this._userProfileRepository.GetQuery(m => listuserids.Contains(m.UserId));
@@ -214,7 +224,7 @@ namespace Application.MainBoundedContext.UserModule
 
 
             var listuser =
-                this._userExtendRepository.GetQuery(x => userids.Contains(x.UserId)).Select(x => new {x.UserId, x.Uid}).
+                this._userExtendRepository.GetQuery(x => userids.Contains(x.UserId)).Select(x => new { x.UserId, x.Uid }).
                     ToList();
 
             listuser.ForEach(x => { user.First(y => y.UserId == x.UserId).Uid = x.Uid; });
@@ -268,7 +278,7 @@ namespace Application.MainBoundedContext.UserModule
 
         public BaseState ChangeSex(int userid, int sex)
         {
-            if (!new[] {1, 2}.Contains(sex))
+            if (!new[] { 1, 2 }.Contains(sex))
             {
                 return new BaseState(-1, "性别参数不正确");
             }
@@ -319,7 +329,7 @@ namespace Application.MainBoundedContext.UserModule
 
             if (model == null)
             {
-                model = new Domain.Entities.Models.UserExtend {UserId = userid};
+                model = new Domain.Entities.Models.UserExtend { UserId = userid };
                 this._userExtendRepository.Add(model);
                 this._userExtendRepository.UnitOfWork.SaveChanges();
             }
@@ -356,7 +366,7 @@ namespace Application.MainBoundedContext.UserModule
             return msp.ConfirmationToken;
         }
 
-        public BaseState GetPassWord(GetPwdModel model)
+        public BaseState GetPassWord(string baseurl, GetPwdModel model)
         {
             var exist = this._userProfileRepository.FindOne(x => x.Email == model.UserName);
             // .UserExists(model.UserName);
@@ -373,7 +383,7 @@ namespace Application.MainBoundedContext.UserModule
 
             if (model.GetPwdType == 0)
             {
-                return this.GetPassWordByEmail(model);
+                return this.GetPassWordByEmail(baseurl, model);
             }
             else if (model.GetPwdType == 1)
             {

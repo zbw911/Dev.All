@@ -37,7 +37,7 @@ namespace Application.Config
         /// <summary>
         ///   默认的主页面
         /// </summary>
-        [DataMember]
+        //[DataMember]
         public string CurrentUrl { get; set; }
 
         /// <summary>

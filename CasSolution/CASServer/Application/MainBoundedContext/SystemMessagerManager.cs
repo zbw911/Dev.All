@@ -21,14 +21,15 @@ namespace Application.MainBoundedContext
         #region Readonly & Static Fields
 
         private static readonly string SmsApi = CommConfiguration.Config.SmsApi;
-        private static string indexURL = CommConfiguration.Config.CurrentUrl;
+        private static string indexURL = "";
 
         #endregion
 
         #region Class Methods
 
-        public static string ActMessage(string email, string nickname, string token)
+        public static string ActMessage(string baseurl, string email, string nickname, string token)
         {
+            indexURL = baseurl;
             if (indexURL.Substring(indexURL.Length - 1) != "/")
             {
                 indexURL += "/";
@@ -44,13 +45,14 @@ namespace Application.MainBoundedContext
             ContentMessage += "<tr><td>点击下面链接即可激活您的邮箱：</td></tr>";
             ContentMessage += "<tr><td><a href=" + Tourl + ">" + Tourl + "</a></td></tr>";
             ContentMessage +=
-                "<tr><td>(此链接有效时间为48小时，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系XXXXX客服：0311-88611797)</td></tr>";
+                "<tr><td>(此链接有效时间为48小时，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系XXXXX客服：010-00000000)</td></tr>";
             ContentMessage += "<tr><td>&nbsp;&nbsp;感谢您对XXXXX的支持，若有疑问请联系客服\a此为系统自动发出，请不要回复本邮件。</td></tr></table>";
             return ContentMessage;
         }
 
-        public static string GetContentForGetPass(string name, string token)
+        public static string GetContentForGetPass(string baseurl, string name, string token)
         {
+            indexURL = baseurl;
             var ContentMessage = "";
 
             //激活链接
@@ -64,7 +66,7 @@ namespace Application.MainBoundedContext
             ContentMessage += "<tr><td>请您在收到此邮件后尽快进行修改密码操作：</td></tr>";
             ContentMessage += "<tr><td><a href=" + Tourl + ">" + Tourl + "</a></td></tr>";
             ContentMessage +=
-                "<tr><td>(此链接48小时内有效，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系XXXXX客服：0311-88611797)</td></tr>";
+                "<tr><td>(此链接48小时内有效，如果无法点击该URL链接地址，请将它复制并粘帖到浏览器的地址输入框，然后单击回车即可。如有疑问,请联系XXXXX客服：010-00000000)</td></tr>";
             ContentMessage += "<tr><td>&nbsp;&nbsp;感谢您对XXXXX的支持，若有疑问请联系客服\a此为系统自动发出，请不要回复本邮件。</td></tr></table>";
 
             return ContentMessage;
@@ -156,11 +158,13 @@ namespace Application.MainBoundedContext
         /// <summary>
         ///   发送激活邮箱用的邮件
         /// </summary>
+        /// <param name="baseurl"> </param>
         /// <param name="email"> </param>
-        /// <param name="model"> </param>
-        /// <param name="content"> </param>
+        /// <param name="nickname"> </param>
+        /// <param name="subject"> </param>
+        /// <param name="contentMessage"> </param>
         /// <returns> true 成功；false 失败 </returns>
-        public static bool SendValidateMail(string email, string nickname, string Subject, string ContentMessage)
+        public static bool SendValidateMail(string baseurl, string email, string nickname, string subject, string contentMessage)
         {
             if (string.IsNullOrEmpty(email))
             {
@@ -192,7 +196,7 @@ namespace Application.MainBoundedContext
 
             var mymail = new Dev.Comm.Net.Mail("");
             string result;
-            var around = mymail.ToSendMail(configMessage, email, nickname, Subject, ContentMessage, out result);
+            var around = mymail.ToSendMail(configMessage, email, nickname, subject, contentMessage, out result);
 
             if (around != 0)
             {
