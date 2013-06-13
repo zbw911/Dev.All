@@ -41,10 +41,11 @@ namespace Dev.Data.Configuration
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="connectionStringName"></param>
+        /// <param name="createDbFileImmediately">是否立即创建不存在的数据库文件 </param>
         /// <returns></returns>
-        public CommonConfig ConfigureData<T>(string connectionStringName) where T : DbContext
+        public CommonConfig ConfigureData<T>(string connectionStringName, bool createDbFileImmediately = false) where T : DbContext
         {
-            DbContextManager.Init<T>(connectionStringName);
+            DbContextManager.Init<T>(connectionStringName, createDbFileImmediately);
             return this;
         }
 

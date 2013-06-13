@@ -141,7 +141,14 @@ namespace Dev.Data
             AddConfiguration(connectionStringName, mappingAssemblies, recreateDatabaseIfExist, lazyLoadingEnabled);
         }
 
-        public static void Init<T>(string connectionStringName) where T : DbContext
+        /// <summary>
+        /// 初始化数据库
+        /// </summary>
+        /// <param name="connectionStringName"></param>
+        /// <param name="createDbFileImmediately">是否立即创建数据库</param>
+        /// <typeparam name="T"></typeparam>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static void Init<T>(string connectionStringName, bool createDbFileImmediately = false) where T : DbContext
         {
             if (string.IsNullOrEmpty(connectionStringName))
             {
@@ -155,14 +162,23 @@ namespace Dev.Data
                     //new DbContext(connectionStringName);//
                     var context = (T)Activator.CreateInstance(typeof(T), connectionStringName);
 
-
+                    //创建数据库
+                    context.Database.CreateIfNotExists();
                     //context.Database.Connection.ConnectionString =
                     //    ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
 
-
+                    //创建数据库
 
                     return context;
                 });
+
+
+            if (createDbFileImmediately)
+            {
+                var dbfunction = _DbContexts[connectionStringName];
+
+                dbfunction();
+            }
 
             //_dbContextBuilders.Add(connectionStringName, new CommDbContextBuilder<T>(connectionStringName));
         }
