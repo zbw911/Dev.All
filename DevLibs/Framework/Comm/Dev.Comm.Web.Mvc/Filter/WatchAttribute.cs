@@ -117,6 +117,9 @@ namespace Dev.Comm.Web.Mvc.Filter
 
         private static void WriteReport(HttpContextBase context)
         {
+
+
+            context.Response.Write("<!--");
             context.Response.Write("<b>µ÷ÊÔÐÅÏ¢</b><br/>");
 
             var list = new List<WatchData>();
@@ -131,7 +134,7 @@ namespace Dev.Comm.Web.Mvc.Filter
             }
 
             list.OrderByDescending(x => x.All).ForEach(x => context.Response.Write(x.Report()));
-
+            context.Response.Write("-->");
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
