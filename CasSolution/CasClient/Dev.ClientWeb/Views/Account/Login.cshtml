@@ -1,0 +1,27 @@
+﻿@model Dev.ClientWeb.Models.LoginModel
+
+@{
+    ViewBag.Title = "登录";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+    <h2>登录提示</h2>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+   
+    }
+</section>
+
+<section class="social" id="socialLoginForm">
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
