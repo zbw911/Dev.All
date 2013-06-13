@@ -27,7 +27,7 @@ namespace Domain.Entities.Models.Mapping
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             this.Property(t => t.Uid)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).HasPrecision(11, 0);
 
             // Table & Column Mappings
             this.ToTable("UserExtend");
