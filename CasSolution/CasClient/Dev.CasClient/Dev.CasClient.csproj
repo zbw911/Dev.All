@@ -68,7 +68,7 @@
     <Compile Include="UserAuthenticate\UserAuthenticateManager.cs" />
     <Compile Include="User\UserProfileModel.cs" />
     <Compile Include="User\UserInfo.cs" />
-    <Compile Include="Utils\UserFace.cs" />
+    <Compile Include="User\UserFace.cs" />
     <Compile Include="Utils\Urls.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
