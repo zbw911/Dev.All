@@ -229,20 +229,38 @@ namespace Dev.Comm.Net
         /// <param name="configMessage"></param>
         /// <param name="mail"></param>
         /// <param name="name"></param>
-        /// <param name="Subject"></param>
+        /// <param name="subject"></param>
         /// <param name="emailMessage"></param>
         /// <param name="errorMessage"></param>
         /// <returns></returns>
-        public int ToSendMail(string configMessage, string mail, string name, string Subject, string emailMessage,
+        public int ToSendMail(string configMessage, string mail, string name, string subject, string emailMessage,
                               out string errorMessage)
         {
-            string sendUsername = "游戏团";
+            return ToSendMail("", configMessage, mail, name, subject, emailMessage, out errorMessage);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sendUsername"></param>
+        /// <param name="configMessage"></param>
+        /// <param name="mail"></param>
+        /// <param name="name"></param>
+        /// <param name="subject"></param>
+        /// <param name="emailMessage"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        public int ToSendMail(string sendUsername, string configMessage, string mail, string name, string subject, string emailMessage,
+                                     out string errorMessage)
+        {
+
             string cMessage = "";
             //截取配置信息
             string[] strMail = configMessage.Split(";".ToCharArray());
 
             int result_mail = SendMail(strMail[0], Convert.ToInt32(strMail[1]), strMail[2], sendUsername, true,
-                                       strMail[2], strMail[3], mail, name, Priority.HIGH, true, "", Subject,
+                                       strMail[2], strMail[3], mail, name, Priority.HIGH, true, "", subject,
                                        emailMessage, out cMessage);
 
             //发送邮件返回结果不是0的都是错误
@@ -250,30 +268,32 @@ namespace Dev.Comm.Net
             return result_mail;
         }
 
+
         /// <summary>
         /// 发送邮件
         /// </summary>
-        /// <param name="SmtpHost">SMTP服务器</param>
-        /// <param name="Port">SMTP服务器端口</param>
-        /// <param name="From">邮件发送者</param>
-        /// <param name="DisplayFromName">显示的发送者名称</param>
-        /// <param name="Authentication">是否进行认证</param>
-        /// <param name="UserName">认证用户名</param>
-        /// <param name="Password">认证密码</param>
+        /// <param name="smtpHost">SMTP服务器</param>
+        /// <param name="port">SMTP服务器端口</param>
+        /// <param name="from">邮件发送者</param>
+        /// <param name="displayFromName">显示的发送者名称</param>
+        /// <param name="authentication">是否进行认证</param>
+        /// <param name="userName">认证用户名</param>
+        /// <param name="password">认证密码</param>
         /// <param name="To">邮件接收者</param>
-        /// <param name="DisplayToName">显示的接收者名称</param>
-        /// <param name="Priority">优先级</param>
-        /// <param name="Html">是否为HTML</param>
+        /// <param name="displayToName">显示的接收者名称</param>
+        /// <param name="priority">优先级</param>
+        /// <param name="html">是否为HTML</param>
         /// <param name="Base">URL</param>
-        /// <param name="Subject">邮件主题</param>
-        /// <param name="Message">邮件内容</param>
-        public int SendMail(string SmtpHost, int Port, string From, string DisplayFromName, bool Authentication,
-                            string UserName, string Password, string To, string DisplayToName, Priority Priority,
-                            bool Html, string Base, string Subject, string Message, out string errmsg)
+        /// <param name="subject">邮件主题</param>
+        /// <param name="message">邮件内容</param>
+        /// <param name="errmsg">错误信息 </param>
+        public int SendMail(string smtpHost, int port, string @from, string displayFromName, bool authentication,
+                            string userName, string password, string To, string displayToName, Priority priority,
+                            bool html, string Base, string subject, string message, out string errmsg)
         {
             try
             {
-                From = "<" + From + ">";
+                @from = "<" + @from + ">";
                 To = "<" + To + ">";
                 ////if (To.IndexOf(";") > -1)
                 ////    To = "<" + To.Replace(";", ">,<") + ">";
@@ -290,9 +310,9 @@ namespace Dev.Comm.Net
 
                 var NameParameter = new[]
                                         {
-                                            SmtpHost, Port.ToString(), From, DisplayFromName, Authentication.ToString(),
-                                            UserName, Password, To, DisplayToName, Priority.ToString(), Html.ToString(),
-                                            Base, Subject, Message
+                                            smtpHost, port.ToString(), @from, displayFromName, authentication.ToString(),
+                                            userName, password, To, displayToName, priority.ToString(), html.ToString(),
+                                            Base, subject, message
                                         };
 
                 //以上为发送邮件失败时记录到网站根目录的文本文件中
@@ -301,7 +321,7 @@ namespace Dev.Comm.Net
 
                 var smtpcMail = new SMTPClient(); //实例化连接类
 
-                smtpcMail.Connect(SmtpHost, Port); //连接SmtpHost服务器,端口Port
+                smtpcMail.Connect(smtpHost, port); //连接SmtpHost服务器,端口Port
 
                 bool boolConnect = smtpcMail.isConnected(); //返回连接是否成功
 
@@ -311,7 +331,11 @@ namespace Dev.Comm.Net
                 {
                     smtpcMail.Close();
 
-                    TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "未能取得连接", "");
+                    //TextLog.ErrorLog(_Server, "ErrorText.txt", Name,  string.Join(",", NameParameter), "未能取得连接", "");
+
+
+                    Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>未能取得连接");
+
                     errmsg = "smtpcMail.Connect error:未能取得连接";
                     return -1;
                 }
@@ -322,8 +346,10 @@ namespace Dev.Comm.Net
                 {
                     smtpcMail.Close();
 
-                    TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "请求连接失败",
-                                     FormatString(strResponseNumber).Trim());
+                    Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>请求连接失败");
+                   
+                    //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "请求连接失败",
+                    //                 FormatString(strResponseNumber).Trim());
                     errmsg = "smtpcMail.GetServerResponse error:" + FormatString(strResponseNumber).Trim();
                     return -1;
                 }
@@ -337,15 +363,18 @@ namespace Dev.Comm.Net
                 {
                     smtpcMail.Close();
 
-                    TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "与服务器连接初期（打招呼出错）",
-                                     FormatString(strResponseNumber).Trim());
+                    //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "与服务器连接初期（打招呼出错）",
+                    //                 FormatString(strResponseNumber).Trim());
+
+                    Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>与服务器连接初期（打招呼出错）");
+                  
                     errmsg = FormatString(strResponseNumber).Trim();
                     return 1;
                 }
 
                 //第一步结束
 
-                if (Authentication) //是否认证
+                if (authentication) //是否认证
                 {
                     //与服务器通讯第二步：请求登录
 
@@ -357,15 +386,18 @@ namespace Dev.Comm.Net
                     {
                         smtpcMail.Close();
 
-                        TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "请求登录出现错误",
-                                         FormatString(strResponseNumber).Trim());
+                        //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "请求登录出现错误",
+                        //                 FormatString(strResponseNumber).Trim());
+
+                        Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>请求登录出现错误");
+                  
                         errmsg = FormatString(strResponseNumber).Trim();
                         return 2;
                     }
 
                     //与服务器通讯第三步：输入用户帐号
 
-                    smtpcMail.SendCommandToServer(Encode(UserName) + "\r\n");
+                    smtpcMail.SendCommandToServer(Encode(userName) + "\r\n");
                     Thread.Sleep(50);
                     strResponseNumber = smtpcMail.GetServerResponse();
 
@@ -373,8 +405,12 @@ namespace Dev.Comm.Net
                     {
                         smtpcMail.Close();
 
-                        TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入用户名称出错",
-                                         FormatString(strResponseNumber).Trim());
+                        //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入用户名称出错",
+                        //                 FormatString(strResponseNumber).Trim());
+
+
+                        Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>输入用户名称出错");
+
                         errmsg = FormatString(strResponseNumber).Trim();
                         return 3;
                     }
@@ -383,7 +419,7 @@ namespace Dev.Comm.Net
 
                     //与服务器通讯第四步：输入用户密码
 
-                    smtpcMail.SendCommandToServer(Encode(Password) + "\r\n");
+                    smtpcMail.SendCommandToServer(Encode(password) + "\r\n");
                     Thread.Sleep(50);
                     strResponseNumber = smtpcMail.GetServerResponse();
 
@@ -391,8 +427,11 @@ namespace Dev.Comm.Net
                     {
                         smtpcMail.Close();
 
-                        TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入用户密码出错",
-                                         FormatString(strResponseNumber).Trim());
+                        //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入用户密码出错",
+                        //                 FormatString(strResponseNumber).Trim());
+
+                        Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>输入用户密码出错");
+
                         errmsg = FormatString(strResponseNumber).Trim();
                         return 4;
                     }
@@ -402,7 +441,7 @@ namespace Dev.Comm.Net
 
                 //与服务器通讯第五步：输入发送邮件的信箱地址
 
-                smtpcMail.SendCommandToServer("MAIL FROM: " + From + /* +  " AUTH = " + From*/ "\r\n");
+                smtpcMail.SendCommandToServer("MAIL FROM: " + @from + /* +  " AUTH = " + From*/ "\r\n");
                 Thread.Sleep(50);
                 strResponseNumber = smtpcMail.GetServerResponse();
 
@@ -410,8 +449,11 @@ namespace Dev.Comm.Net
                 {
                     smtpcMail.Close();
 
-                    TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入发信邮箱出错",
-                                     FormatString(strResponseNumber).Trim());
+                    //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入发信邮箱出错",
+                    //                 FormatString(strResponseNumber).Trim());
+                    Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>输入发信邮箱出错");
+
+
                     errmsg = FormatString(strResponseNumber).Trim();
                     return 5;
                 }
@@ -428,8 +470,10 @@ namespace Dev.Comm.Net
                 {
                     smtpcMail.Close();
 
-                    TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入接收邮箱出错",
-                                     FormatString(strResponseNumber).Trim());
+                    //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "输入接收邮箱出错",
+                    //                 FormatString(strResponseNumber).Trim());
+                    Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>输入接收邮箱出错");
+
                     errmsg = FormatString(strResponseNumber).Trim();
                     return 6;
                 }
@@ -446,8 +490,11 @@ namespace Dev.Comm.Net
                 {
                     smtpcMail.Close();
 
-                    TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "打开输入邮件主内容出错",
-                                     FormatString(strResponseNumber).Trim());
+                    //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "打开输入邮件主内容出错",
+                    //                 FormatString(strResponseNumber).Trim());
+
+
+                    Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>打开输入邮件主内容出错");
                     errmsg = "smtpcMail.SendCommandToServer error:" + FormatString(strResponseNumber).Trim();
                     return 7;
                 }
@@ -476,23 +523,23 @@ namespace Dev.Comm.Net
 
                 string strData = "";
 
-                strData = string.Concat("From: ", DisplayFromName + From);
+                strData = string.Concat("From: ", displayFromName + @from);
 
                 strData = string.Concat(strData, "\r\n");
 
                 strData = string.Concat(strData, "To: ");
 
-                strData = string.Concat(strData, DisplayToName + To);
+                strData = string.Concat(strData, displayToName + To);
 
                 strData = string.Concat(strData, "\r\n");
 
                 strData = string.Concat(strData, "Subject: ");
 
-                strData = string.Concat(strData, Subject);
+                strData = string.Concat(strData, subject);
 
                 strData = string.Concat(strData, "\r\n");
 
-                if (Html)
+                if (html)
                 {
                     strData = string.Concat(strData, "Content-Type: text/html;charset=\"gb2312\"");
                 }
@@ -507,7 +554,7 @@ namespace Dev.Comm.Net
 
                 //strData = string.Concat(strData,"\r\n");
 
-                strData = string.Concat(strData, "X-Priority: " + Priority);
+                strData = string.Concat(strData, "X-Priority: " + priority);
 
                 strData = string.Concat(strData, "\r\n");
 
@@ -519,11 +566,11 @@ namespace Dev.Comm.Net
 
                 //strData = string.Concat(strData,"\r\n");							
 
-                strData = string.Concat(strData, "X-Mailer:天天一卡通 www.the365.com.cn Email自动发送程序 1.0 ");
+                strData = string.Concat(strData, "X-Mailer: Email自动发送程序 1.0 ");
 
                 strData = string.Concat(strData, "\r\n" + "\r\n");
 
-                strData = string.Concat(strData, Message);
+                strData = string.Concat(strData, message);
 
                 //执行.命令结束传输
 
@@ -537,8 +584,10 @@ namespace Dev.Comm.Net
                 {
                     smtpcMail.Close();
 
-                    TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "添加-结束添加邮件内容出错",
-                                     FormatString(strResponseNumber).Trim());
+                    //TextLog.ErrorLog(_Server, "ErrorText.txt", Name, NameParameter, "添加-结束添加邮件内容出错",
+                    //                 FormatString(strResponseNumber).Trim());
+
+                    Dev.Log.Loger.Error(string.Join(",", NameParameter) + "=>添加-结束添加邮件内容出错");
                     errmsg = "smtpcMail.SendCommandToServer(strData) error:" + FormatString(strResponseNumber).Trim();
                     return 7;
                 }
@@ -653,7 +702,7 @@ namespace Dev.Comm.Net
         {
             FileStream fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             var f = new byte[fs.Length];
-            fs.Read(f, 0, (int) fs.Length);
+            fs.Read(f, 0, (int)fs.Length);
             fs.Close();
             string result = Encoding.GetEncoding("GB2312").GetString(f);
 
@@ -757,78 +806,78 @@ namespace Dev.Comm.Net
         #endregion
     }
 
-    /// <summary>
-    /// 记录日志到文本
-    /// </summary>
-    public class TextLog
-    {
-        #region 邮件发送失败的时候 记录日志到文本
+    ///// <summary>
+    ///// 记录日志到文本
+    ///// </summary>
+    //public class TextLog
+    //{
+    //    #region 邮件发送失败的时候 记录日志到文本
 
-        /// <summary>
-        ///  记录日志到Text文件
-        /// </summary>
-        /// <param name="Server">  服务器路径</param>
-        /// <param name="TextName">Text名称_虚拟路径下</param>
-        /// <param name="Name">    参数名称</param>
-        /// <param name="NameParameter">参数值</param>
-        public static void ErrorLog(string Server, string TextName, string[] Name, string[] NameParameter, string Error,
-                                    string ErrorBody)
-        {
-            try
-            {
-                StreamWriter sw = null;
+    //    /// <summary>
+    //    ///  记录日志到Text文件
+    //    /// </summary>
+    //    /// <param name="Server">  服务器路径</param>
+    //    /// <param name="TextName">Text名称_虚拟路径下</param>
+    //    /// <param name="Name">    参数名称</param>
+    //    /// <param name="NameParameter">参数值</param>
+    //    public static void ErrorLog(string Server, string TextName, string[] Name, string[] NameParameter, string Error,
+    //                                string ErrorBody)
+    //    {
+    //        try
+    //        {
+    //            StreamWriter sw = null;
 
-                if (!(File.Exists(Server + @"\" + TextName)))
-                {
-                    sw = File.CreateText(Server + @"\" + TextName);
-                }
-                else
-                {
-                    sw = File.AppendText(Server + @"\" + TextName);
-                }
+    //            if (!(File.Exists(Server + @"\" + TextName)))
+    //            {
+    //                sw = File.CreateText(Server + @"\" + TextName);
+    //            }
+    //            else
+    //            {
+    //                sw = File.AppendText(Server + @"\" + TextName);
+    //            }
 
-                sw.WriteLine("\n");
+    //            sw.WriteLine("\n");
 
-                sw.WriteLine("错误发生时间：" + DateTime.Now.ToString() + "\n");
+    //            sw.WriteLine("错误发生时间：" + DateTime.Now.ToString() + "\n");
 
-                sw.WriteLine("错误本地描述：" + Error + "   错误描述和服务器反馈信息：" + ErrorBody + "\n");
+    //            sw.WriteLine("错误本地描述：" + Error + "   错误描述和服务器反馈信息：" + ErrorBody + "\n");
 
-                for (int i = 0; i < Name.Length; i++)
-                {
-                    sw.WriteLine("参数名称：" + Name[i] + "  值：" + NameParameter[i]);
+    //            for (int i = 0; i < Name.Length; i++)
+    //            {
+    //                sw.WriteLine("参数名称：" + Name[i] + "  值：" + NameParameter[i]);
 
-                    sw.WriteLine("\n");
-                }
+    //                sw.WriteLine("\n");
+    //            }
 
-                sw.Flush();
+    //            sw.Flush();
 
-                sw.Close();
-            }
-            catch
-            {
-                //忽略错误
-            }
-        }
+    //            sw.Close();
+    //        }
+    //        catch
+    //        {
+    //            //忽略错误
+    //        }
+    //    }
 
-        /// <summary>
-        ///  记录日志到Text文件
-        /// </summary>
-        /// <param name="Server">  服务器路径</param>
-        /// <param name="TextName">Text名称_虚拟路径下</param>
-        /// <param name="Name">    参数名称</param>
-        /// <param name="NameParameter">参数值</param>
-        public static void ErrorLog(string Server, string TextName, string Name, string NameParameter, string Error,
-                                    string ErrorBody)
-        {
-            string[] s, s1;
+    //    /// <summary>
+    //    ///  记录日志到Text文件
+    //    /// </summary>
+    //    /// <param name="Server">  服务器路径</param>
+    //    /// <param name="TextName">Text名称_虚拟路径下</param>
+    //    /// <param name="Name">    参数名称</param>
+    //    /// <param name="NameParameter">参数值</param>
+    //    public static void ErrorLog(string Server, string TextName, string Name, string NameParameter, string Error,
+    //                                string ErrorBody)
+    //    {
+    //        string[] s, s1;
 
-            s = new[] {Name};
+    //        s = new[] { Name };
 
-            s1 = new[] {NameParameter};
+    //        s1 = new[] { NameParameter };
 
-            ErrorLog(Server, TextName, s, s1, Error, ErrorBody);
-        }
+    //        ErrorLog(Server, TextName, s, s1, Error, ErrorBody);
+    //    }
 
-        #endregion
-    }
+    //    #endregion
+    //}
 }
