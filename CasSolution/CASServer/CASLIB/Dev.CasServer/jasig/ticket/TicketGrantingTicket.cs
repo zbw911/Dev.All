@@ -16,13 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.ticket;
+//package org.jasig.cas.ticket;
 
-import java.util.List;
+//import java.util.List;
 
-import org.jasig.cas.authentication.Authentication;
-import org.jasig.cas.authentication.principal.Service;
+//import org.jasig.cas.authentication.Authentication;
+//import org.jasig.cas.authentication.principal.Service;
 
+using System.Collections.Generic;
+using Dev.CasServer.jasig.authentication;
+using System;
 /**
  * Interface for a ticket granting ticket. A TicketGrantingTicket is the main
  * access into the CAS service layer. Without a TicketGrantingTicket, a user of
@@ -32,19 +35,22 @@ import org.jasig.cas.authentication.principal.Service;
  * @version $Revision$ $Date$
  * @since 3.0
  */
-public interface TicketGrantingTicket extends Ticket {
 
-    /** The prefix to use when generating an id for a TicketGrantingTicket. */
-    String PREFIX = "TGT";
+namespace Dev.CasServer.jasig.ticket
+{
+    public interface TicketGrantingTicket : Ticket {
 
-    /**
+        /** The prefix to use when generating an id for a TicketGrantingTicket. */
+        //String PREFIX = "TGT";
+
+        /**
      * Method to retrieve the authentication.
      * 
      * @return the authentication
      */
-    Authentication getAuthentication();
+        Authentication getAuthentication();
 
-    /**
+        /**
      * Grant a ServiceTicket for a specific service.
      * 
      * @param id The unique identifier for this ticket.
@@ -52,29 +58,30 @@ public interface TicketGrantingTicket extends Ticket {
      * @return the service ticket granted to a specific service for the
      * principal of the TicketGrantingTicket
      */
-    ServiceTicket grantServiceTicket(String id, Service service,
-        ExpirationPolicy expirationPolicy, boolean credentialsProvided);
+        ServiceTicket grantServiceTicket(String id, Service service,
+                                         ExpirationPolicy expirationPolicy, Boolean credentialsProvided);
 
-    /**
+        /**
      * Explicitly expire a ticket.  This method will log out of any service associated with the
      * Ticket Granting Ticket.
      * 
      */
-    void expire();
+        void expire();
 
-    /**
+        /**
      * Convenience method to determine if the TicketGrantingTicket is the root
      * of the hierarchy of tickets.
      * 
      * @return true if it has no parent, false otherwise.
      */
-    boolean isRoot();
+        Boolean isRoot();
 
-    /**
+        /**
      * Method to retrieve the chained list of Authentications for this
      * TicketGrantingTicket.
      * 
      * @return the list of principals
      */
-    List<Authentication> getChainedAuthentications();
+        List<Authentication> getChainedAuthentications();
+    }
 }

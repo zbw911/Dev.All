@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.validation;
+//package org.jasig.cas.validation;
 
 /**
  * Base validation specification for the CAS protocol. This specification checks
@@ -27,49 +27,59 @@ package org.jasig.cas.validation;
  * @version $Revision$ $Date$
  * @since 3.0
  */
-public abstract class AbstractCasProtocolValidationSpecification implements
-    ValidationSpecification {
 
-    /** The default value for the renew attribute is false. */
-    private static  boolean DEFAULT_RENEW = false;
+namespace Dev.CasServer.jasig.validation
+{
+    public abstract class AbstractCasProtocolValidationSpecification :
+        ValidationSpecification
+    {
 
-    /** Denotes whether we should always authenticate or not. */
-    private boolean renew;
+        /** The default value for the renew attribute is false. */
+        private static bool DEFAULT_RENEW = false;
 
-    public AbstractCasProtocolValidationSpecification() {
-        this.renew = DEFAULT_RENEW;
-    }
+        /** Denotes whether we should always authenticate or not. */
+        private bool renew;
 
-    public AbstractCasProtocolValidationSpecification( boolean renew) {
-        this.renew = renew;
-    }
+        public AbstractCasProtocolValidationSpecification()
+        {
+            this.renew = DEFAULT_RENEW;
+        }
 
-    /**
+        public AbstractCasProtocolValidationSpecification(bool renew)
+        {
+            this.renew = renew;
+        }
+
+        /**
      * Method to set the renew requirement.
      * 
      * @param renew The renew value we want.
      */
-    public  void setRenew( boolean renew) {
-        this.renew = renew;
-    }
+        public void setRenew(bool renew)
+        {
+            this.renew = renew;
+        }
 
-    /**
+        /**
      * Method to determine if we require renew to be true.
      * 
      * @return true if renew is required, false otherwise.
      */
-    public  boolean isRenew() {
-        return this.renew;
-    }
+        public bool isRenew()
+        {
+            return this.renew;
+        }
 
-    public  boolean isSatisfiedBy( Assertion assertion) {
-        return isSatisfiedByInternal(assertion)
-            && ((!this.renew) || (assertion.isFromNewLogin() && this.renew));
-    }
+        public bool isSatisfiedBy(Assertion assertion)
+        {
+            return this.isSatisfiedByInternal(assertion)
+                   && ((!this.renew) || (assertion.isFromNewLogin() && this.renew));
+        }
 
-    /**
+        /**
      * Template method to allow for additional checks by subclassed methods
      * without needing to call super.isSatisfiedBy(...).
      */
-    protected abstract boolean isSatisfiedByInternal( Assertion assertion);
+        protected abstract bool isSatisfiedByInternal(Assertion assertion);
+    }
 }

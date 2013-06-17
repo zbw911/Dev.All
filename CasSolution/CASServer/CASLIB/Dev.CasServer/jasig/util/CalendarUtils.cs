@@ -23,35 +23,39 @@
 
 
 using System;
-public class CalendarUtils
+
+namespace Dev.CasServer.jasig.util
 {
-
-    public static String[] WEEKDAYS = new String[] { "UNDEFINED", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-
-    private CalendarUtils()
+    public class CalendarUtils
     {
-        // nothing to do
+
+        public static String[] WEEKDAYS = new String[] { "UNDEFINED", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+
+        private CalendarUtils()
+        {
+            // nothing to do
+        }
+
+        public static int getCurrentDayOfWeek()
+        {
+            ////return getCurrentDayOfWeekFor(new Date());
+
+            //return System.DateTime.Now.DayOfWeek;
+
+            return getCurrentDayOfWeekFor(System.DateTime.Now);
+        }
+
+        public static int getCurrentDayOfWeekFor(DateTime date)
+        {
+            //return getCalendarFor(date).get(Calendar.DAY_OF_WEEK);
+            return (int)date.DayOfWeek;
+        }
+
+        //public static Calendar getCalendarFor(System.DateTime date)
+        //{
+        //    Calendar calendar = Calendar.getInstance();
+        //    calendar.setTime(date);
+        //    return calendar;
+        //}
     }
-
-    public static int getCurrentDayOfWeek()
-    {
-        ////return getCurrentDayOfWeekFor(new Date());
-
-        //return System.DateTime.Now.DayOfWeek;
-
-        return getCurrentDayOfWeekFor(System.DateTime.Now);
-    }
-
-    public static int getCurrentDayOfWeekFor(DateTime date)
-    {
-        //return getCalendarFor(date).get(Calendar.DAY_OF_WEEK);
-        return (int)date.DayOfWeek;
-    }
-
-    //public static Calendar getCalendarFor(System.DateTime date)
-    //{
-    //    Calendar calendar = Calendar.getInstance();
-    //    calendar.setTime(date);
-    //    return calendar;
-    //}
 }

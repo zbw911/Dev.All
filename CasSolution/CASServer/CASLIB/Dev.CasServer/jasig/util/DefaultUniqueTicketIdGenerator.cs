@@ -33,48 +33,50 @@
 
 using System;
 using System.Text;
-using Dev.CasServer.util;
-public sealed class DefaultUniqueTicketIdGenerator :
-    UniqueTicketIdGenerator
+
+namespace Dev.CasServer.jasig.util
 {
+    public sealed class DefaultUniqueTicketIdGenerator :
+        UniqueTicketIdGenerator
+    {
 
-    /** The numeric generator to generate the static part of the id. */
-    private readonly NumericGenerator numericGenerator;
+        /** The numeric generator to generate the static part of the id. */
+        private readonly NumericGenerator numericGenerator;
 
-    /** The RandomStringGenerator to generate the secure random part of the id. */
-    private readonly RandomStringGenerator randomStringGenerator;
+        /** The RandomStringGenerator to generate the secure random part of the id. */
+        private readonly RandomStringGenerator randomStringGenerator;
 
-    /**
+        /**
      * Optional suffix to ensure uniqueness across JVMs by specifying unique
      * values.
      */
-    private readonly String suffix;
+        private readonly String suffix;
 
-    /**
+        /**
      * Creates an instance of DefaultUniqueTicketIdGenerator with default values
      * including a {@link DefaultLongNumericGenerator} with a starting value of
      * 1.
      */
-    public DefaultUniqueTicketIdGenerator()
-        : this(null)
-    {
+        public DefaultUniqueTicketIdGenerator()
+            : this(null)
+        {
 
-    }
+        }
 
-    /**
+        /**
      * Creates an instance of DefaultUniqueTicketIdGenerator with a specified
      * maximum length for the random portion.
      * 
      * @param maxLength the maximum length of the random string used to generate
      * the id.
      */
-    public DefaultUniqueTicketIdGenerator(int maxLength)
-        : this(maxLength, null)
-    {
+        public DefaultUniqueTicketIdGenerator(int maxLength)
+            : this(maxLength, null)
+        {
 
-    }
+        }
 
-    /**
+        /**
      * Creates an instance of DefaultUniqueTicketIdGenerator with default values
      * including a {@link DefaultLongNumericGenerator} with a starting value of
      * 1.
@@ -82,22 +84,22 @@ public sealed class DefaultUniqueTicketIdGenerator :
      * @param suffix the value to append at the end of the unique id to ensure
      * uniqueness across JVMs.
      */
-    public DefaultUniqueTicketIdGenerator(String suffix)
-    {
-        this.numericGenerator = new DefaultLongNumericGenerator(1);
-        this.randomStringGenerator = new DefaultRandomStringGenerator();
-
-        if (suffix != null)
+        public DefaultUniqueTicketIdGenerator(String suffix)
         {
-            this.suffix = "-" + suffix;
-        }
-        else
-        {
-            this.suffix = null;
-        }
-    }
+            this.numericGenerator = new DefaultLongNumericGenerator(1);
+            this.randomStringGenerator = new DefaultRandomStringGenerator();
 
-    /**
+            if (suffix != null)
+            {
+                this.suffix = "-" + suffix;
+            }
+            else
+            {
+                this.suffix = null;
+            }
+        }
+
+        /**
      * Creates an instance of DefaultUniqueTicketIdGenerator with a specified
      * maximum length for the random portion.
      * 
@@ -106,39 +108,40 @@ public sealed class DefaultUniqueTicketIdGenerator :
      * @param suffix the value to append at the end of the unique id to ensure
      * uniqueness across JVMs.
      */
-    public DefaultUniqueTicketIdGenerator(int maxLength, String suffix)
-    {
-        this.numericGenerator = new DefaultLongNumericGenerator(1);
-        this.randomStringGenerator = new DefaultRandomStringGenerator(maxLength);
-
-        if (suffix != null)
+        public DefaultUniqueTicketIdGenerator(int maxLength, String suffix)
         {
-            this.suffix = "-" + suffix;
-        }
-        else
-        {
-            this.suffix = null;
-        }
-    }
+            this.numericGenerator = new DefaultLongNumericGenerator(1);
+            this.randomStringGenerator = new DefaultRandomStringGenerator(maxLength);
 
-    public String getNewTicketId(String prefix)
-    {
-        String number = this.numericGenerator.getNextNumberAsString();
-        StringBuilder buffer = new StringBuilder(prefix.Length + 2
-           + (this.suffix != null ? this.suffix.Length : 0) + this.randomStringGenerator.getMaxLength()
-           + number.Length);
-
-        buffer.Append(prefix);
-        buffer.Append("-");
-        buffer.Append(number);
-        buffer.Append("-");
-        buffer.Append(this.randomStringGenerator.getNewString());
-
-        if (this.suffix != null)
-        {
-            buffer.Append(this.suffix);
+            if (suffix != null)
+            {
+                this.suffix = "-" + suffix;
+            }
+            else
+            {
+                this.suffix = null;
+            }
         }
 
-        return buffer.ToString();
+        public String getNewTicketId(String prefix)
+        {
+            String number = this.numericGenerator.getNextNumberAsString();
+            StringBuilder buffer = new StringBuilder(prefix.Length + 2
+                                                     + (this.suffix != null ? this.suffix.Length : 0) + this.randomStringGenerator.getMaxLength()
+                                                     + number.Length);
+
+            buffer.Append(prefix);
+            buffer.Append("-");
+            buffer.Append(number);
+            buffer.Append("-");
+            buffer.Append(this.randomStringGenerator.getNewString());
+
+            if (this.suffix != null)
+            {
+                buffer.Append(this.suffix);
+            }
+
+            return buffer.ToString();
+        }
     }
 }

@@ -16,31 +16,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.validation;
+//package org.jasig.cas.ticket;
+
+//import java.io.Serializable;
 
 /**
- * Validation specification for the CAS 2.0 protocol. This specification extends
- * the Cas20ProtocolValidationSpecification, checking for the presence of
- * renew=true and if requested, succeeding only if ticket validation is
- * occurring from a new login. Additionally, this specification will not accept
- * proxied authentications.
+ * Strategy that determines if the ticket is expired. Implementations of the
+ * Expiration Policy define their own rules on what they consider an expired
+ * Ticket to be.
  * 
  * @author Scott Battaglia
  * @version $Revision$ $Date$
  * @since 3.0
+ * <p>
+ * This is a published and supported CAS Server 3 API.
+ * </p>
+ * @see org.jasig.cas.ticket.Ticket
  */
-public class Cas20WithoutProxyingValidationSpecification extends
-    AbstractCasProtocolValidationSpecification {
+namespace Dev.CasServer.jasig.ticket
+{
+    public interface ExpirationPolicy  {
 
-    public Cas20WithoutProxyingValidationSpecification() {
-        super();
-    }
-
-    public Cas20WithoutProxyingValidationSpecification( boolean renew) {
-        super(renew);
-    }
-
-    protected boolean isSatisfiedByInternal( Assertion assertion) {
-        return (assertion.getChainedAuthentications().size() == 1);
+        /**
+     * Method to determine if a Ticket has expired or not, based on the policy.
+     * 
+     * @param ticketState The snapshot of the current ticket state
+     * @return true if the ticket is expired, false otherwise.
+     */
+        bool isExpired(TicketState ticketState);
     }
 }

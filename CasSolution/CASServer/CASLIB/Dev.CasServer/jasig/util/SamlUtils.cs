@@ -65,7 +65,7 @@
 
 using System;
 
-namespace Dev.CasServer.util
+namespace Dev.CasServer.jasig.util
 {
     public class SamlUtils
     {

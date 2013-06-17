@@ -51,48 +51,50 @@
 
 using System;
 
-public sealed class HttpClient
+namespace Dev.CasServer.jasig.util
 {
+    public sealed class HttpClient
+    {
 
-    ///** Unique Id for serialization. */
-    //private static  long serialVersionUID = -5306738686476129516L;
+        ///** Unique Id for serialization. */
+        //private static  long serialVersionUID = -5306738686476129516L;
 
-    ///** The default status codes we accept. */
-    //private static  int[] DEFAULT_ACCEPTABLE_CODES = new int[] {
-    //    HttpURLConnection.HTTP_OK, HttpURLConnection.HTTP_NOT_MODIFIED,
-    //    HttpURLConnection.HTTP_MOVED_TEMP, HttpURLConnection.HTTP_MOVED_PERM,
-    //    HttpURLConnection.HTTP_ACCEPTED};
+        ///** The default status codes we accept. */
+        //private static  int[] DEFAULT_ACCEPTABLE_CODES = new int[] {
+        //    HttpURLConnection.HTTP_OK, HttpURLConnection.HTTP_NOT_MODIFIED,
+        //    HttpURLConnection.HTTP_MOVED_TEMP, HttpURLConnection.HTTP_MOVED_PERM,
+        //    HttpURLConnection.HTTP_ACCEPTED};
 
-    //private static  Logger log = LoggerFactory.getLogger(HttpClient.class);
+        //private static  Logger log = LoggerFactory.getLogger(HttpClient.class);
 
-    //private static ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(100);
-
-
-    ///** List of HTTP status codes considered valid by this AuthenticationHandler. */
-    //@NotNull
-    //@Size(min=1)
-    //private int[] acceptableCodes = DEFAULT_ACCEPTABLE_CODES;
-
-    //@Min(0)
-    //private int connectionTimeout = 5000;
-
-    //@Min(0)
-    //private int readTimeout = 5000;
-
-    //private boolean followRedirects = true;
+        //private static ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(100);
 
 
-    ///**
-    // * Note that changing this executor will affect all httpClients.  While not ideal, this change was made because certain ticket registries
-    // * were persisting the HttpClient and thus getting serializable exceptions.
-    // * @param executorService
-    // */
-    //public void setExecutorService( ExecutorService executorService) {
-    //    Assert.notNull(executorService);
-    //    EXECUTOR_SERVICE = executorService;
-    //}
+        ///** List of HTTP status codes considered valid by this AuthenticationHandler. */
+        //@NotNull
+        //@Size(min=1)
+        //private int[] acceptableCodes = DEFAULT_ACCEPTABLE_CODES;
 
-    /**
+        //@Min(0)
+        //private int connectionTimeout = 5000;
+
+        //@Min(0)
+        //private int readTimeout = 5000;
+
+        //private boolean followRedirects = true;
+
+
+        ///**
+        // * Note that changing this executor will affect all httpClients.  While not ideal, this change was made because certain ticket registries
+        // * were persisting the HttpClient and thus getting serializable exceptions.
+        // * @param executorService
+        // */
+        //public void setExecutorService( ExecutorService executorService) {
+        //    Assert.notNull(executorService);
+        //    EXECUTOR_SERVICE = executorService;
+        //}
+
+        /**
      * Sends a message to a particular endpoint.  Option of sending it without waiting to ensure a response was returned.
      * <p>
      * This is useful when it doesn't matter about the response as you'll perform no action based on the response.
@@ -102,185 +104,186 @@ public sealed class HttpClient
      * @param async true if you don't want to wait for the response, false otherwise.
      * @return boolean if the message was sent, or async was used.  false if the message failed.
      */
-    public Boolean sendMessageToEndPoint(String url, String message, Boolean async)
-    {
-        // Future<Boolean> result = EXECUTOR_SERVICE.submit(new MessageSender(url, message, this.readTimeout, this.connectionTimeout, this.followRedirects));
+        public Boolean sendMessageToEndPoint(String url, String message, Boolean async)
+        {
+            // Future<Boolean> result = EXECUTOR_SERVICE.submit(new MessageSender(url, message, this.readTimeout, this.connectionTimeout, this.followRedirects));
 
 
-        Dev.Comm.Net.Http.PostUrl(url, "logoutRequest=" + Dev.Comm.Core.Utils.MockUrlCode.UrlEncode(message));
+            Dev.Comm.Net.Http.PostUrl(url, "logoutRequest=" + Dev.Comm.Core.Utils.MockUrlCode.UrlEncode(message));
 
-        //if (async) {
-        //    return true;
+            //if (async) {
+            //    return true;
+            //}
+
+            //try {
+            //    return result.get();
+            //} catch ( Exception e) {
+            //    return false;
+            //}
+
+
+
+            return true;
+        }
+
+        //public boolean isValidEndPoint( String url) {
+        //    try {
+        //         URL u = new URL(url);
+        //        return isValidEndPoint(u);
+        //    } catch ( MalformedURLException e) {
+        //        log.error(e.getMessage(),e);
+        //        return false;
+        //    }
         //}
 
-        //try {
-        //    return result.get();
-        //} catch ( Exception e) {
+        //public boolean isValidEndPoint( URL url) {
+        //    HttpURLConnection connection = null;
+        //    InputStream is = null;
+        //    try {
+        //        connection = (HttpURLConnection) url.openConnection();
+        //        connection.setConnectTimeout(this.connectionTimeout);
+        //        connection.setReadTimeout(this.readTimeout);
+        //        connection.setInstanceFollowRedirects(this.followRedirects);
+
+        //        connection.connect();
+
+        //         int responseCode = connection.getResponseCode();
+
+        //        for ( int acceptableCode : this.acceptableCodes) {
+        //            if (responseCode == acceptableCode) {
+        //                if (log.isDebugEnabled()) {
+        //                    log.debug("Response code from server matched " + responseCode + ".");
+        //                }
+        //                return true;
+        //            }
+        //        }
+
+        //        if (log.isDebugEnabled()) {
+        //            log.debug("Response Code did not match any of the acceptable response codes.  Code returned was " + responseCode);
+        //        }
+
+        //        // if the response code is an error and we don't find that error acceptable above:
+        //        if (responseCode == 500) {
+        //            is = connection.getInputStream();
+        //             String value = IOUtils.toString(is);
+        //            log.error(String.format("There was an error contacting the endpoint: %s; The error was:\n%s", url.toExternalForm(), value));
+        //        }
+        //    } catch ( IOException e) {
+        //        log.error(e.getMessage(),e);
+        //    } ly {
+        //        IOUtils.closeQuietly(is);
+        //        if (connection != null) {
+        //            connection.disconnect();
+        //        }
+        //    }
         //    return false;
         //}
 
+        ///**
+        // * Set the acceptable HTTP status codes that we will use to determine if the
+        // * response from the URL was correct.
+        // * 
+        // * @param acceptableCodes an array of status code integers.
+        // */
+        //public  void setAcceptableCodes( int[] acceptableCodes) {
+        //    this.acceptableCodes = acceptableCodes;
+        //}
 
+        //public void setConnectionTimeout( int connectionTimeout) {
+        //    this.connectionTimeout = connectionTimeout;
+        //}
 
-        return true;
+        //public void setReadTimeout( int readTimeout) {
+        //    this.readTimeout = readTimeout;
+        //}
+
+        ///**
+        // * Determines the behavior on receiving 3xx responses from HTTP endpoints.
+        // *
+        // * @param follow True to follow 3xx redirects (default), false otherwise.
+        // */
+        //public void setFollowRedirects( boolean follow) {
+        //    this.followRedirects = follow;
+        //}
+
+        //public void destroy() throws Exception {
+        //    EXECUTOR_SERVICE.shutdown();
+        //}
+
+        //private static  class MessageSender implements Callable<Boolean> {
+
+        //    private String url;
+
+        //    private String message;
+
+        //    private int readTimeout;
+
+        //    private int connectionTimeout;
+
+        //    private boolean followRedirects;
+
+        //    public MessageSender( String url,  String message,  int readTimeout,  int connectionTimeout,  boolean followRedirects) {
+        //        this.url = url;
+        //        this.message = message;
+        //        this.readTimeout = readTimeout;
+        //        this.connectionTimeout = connectionTimeout;
+        //        this.followRedirects = followRedirects;
+        //    }
+
+        //    public Boolean call() throws Exception {
+        //        HttpURLConnection connection = null;
+        //        BufferedReader in = null;
+        //        try {
+        //            if (log.isDebugEnabled()) {
+        //                log.debug("Attempting to access " + url);
+        //            }
+        //             URL logoutUrl = new URL(url);
+        //             String output = "logoutRequest=" + URLEncoder.encode(message, "UTF-8");
+
+        //            connection = (HttpURLConnection) logoutUrl.openConnection();
+        //            connection.setDoInput(true);
+        //            connection.setDoOutput(true);
+        //            connection.setRequestMethod("POST");
+        //            connection.setReadTimeout(this.readTimeout);
+        //            connection.setConnectTimeout(this.connectionTimeout);
+        //            connection.setInstanceFollowRedirects(this.followRedirects);
+        //            connection.setRequestProperty("Content-Length", Integer.toString(output.getBytes().length));
+        //            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        //             DataOutputStream printout = new DataOutputStream(connection.getOutputStream());
+        //            printout.writeBytes(output);
+        //            printout.flush();
+        //            printout.close();
+
+        //            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        //            while (in.readLine() != null) {
+        //                // nothing to do
+        //            }
+
+        //            if (log.isDebugEnabled()) {
+        //                log.debug("Finished sending message to" + url);
+        //            }
+        //            return true;
+        //        } catch ( SocketTimeoutException e) {
+        //            log.warn("Socket Timeout Detected while attempting to send message to [" + url + "].");
+        //            return false;
+        //        } catch ( Exception e) {
+        //            log.warn("Error Sending message to url endpoint [" + url + "].  Error is [" + e.getMessage() + "]");
+        //            return false;
+        //        } ly {
+        //            if (in != null) {
+        //                try {
+        //                    in.close();
+        //                } catch ( IOException e) {
+        //                    // can't do anything
+        //                }
+        //            }
+        //            if (connection != null) {
+        //                connection.disconnect();
+        //            }
+        //        }
+        //    }
+
+        //}
     }
-
-    //public boolean isValidEndPoint( String url) {
-    //    try {
-    //         URL u = new URL(url);
-    //        return isValidEndPoint(u);
-    //    } catch ( MalformedURLException e) {
-    //        log.error(e.getMessage(),e);
-    //        return false;
-    //    }
-    //}
-
-    //public boolean isValidEndPoint( URL url) {
-    //    HttpURLConnection connection = null;
-    //    InputStream is = null;
-    //    try {
-    //        connection = (HttpURLConnection) url.openConnection();
-    //        connection.setConnectTimeout(this.connectionTimeout);
-    //        connection.setReadTimeout(this.readTimeout);
-    //        connection.setInstanceFollowRedirects(this.followRedirects);
-
-    //        connection.connect();
-
-    //         int responseCode = connection.getResponseCode();
-
-    //        for ( int acceptableCode : this.acceptableCodes) {
-    //            if (responseCode == acceptableCode) {
-    //                if (log.isDebugEnabled()) {
-    //                    log.debug("Response code from server matched " + responseCode + ".");
-    //                }
-    //                return true;
-    //            }
-    //        }
-
-    //        if (log.isDebugEnabled()) {
-    //            log.debug("Response Code did not match any of the acceptable response codes.  Code returned was " + responseCode);
-    //        }
-
-    //        // if the response code is an error and we don't find that error acceptable above:
-    //        if (responseCode == 500) {
-    //            is = connection.getInputStream();
-    //             String value = IOUtils.toString(is);
-    //            log.error(String.format("There was an error contacting the endpoint: %s; The error was:\n%s", url.toExternalForm(), value));
-    //        }
-    //    } catch ( IOException e) {
-    //        log.error(e.getMessage(),e);
-    //    } ly {
-    //        IOUtils.closeQuietly(is);
-    //        if (connection != null) {
-    //            connection.disconnect();
-    //        }
-    //    }
-    //    return false;
-    //}
-
-    ///**
-    // * Set the acceptable HTTP status codes that we will use to determine if the
-    // * response from the URL was correct.
-    // * 
-    // * @param acceptableCodes an array of status code integers.
-    // */
-    //public  void setAcceptableCodes( int[] acceptableCodes) {
-    //    this.acceptableCodes = acceptableCodes;
-    //}
-
-    //public void setConnectionTimeout( int connectionTimeout) {
-    //    this.connectionTimeout = connectionTimeout;
-    //}
-
-    //public void setReadTimeout( int readTimeout) {
-    //    this.readTimeout = readTimeout;
-    //}
-
-    ///**
-    // * Determines the behavior on receiving 3xx responses from HTTP endpoints.
-    // *
-    // * @param follow True to follow 3xx redirects (default), false otherwise.
-    // */
-    //public void setFollowRedirects( boolean follow) {
-    //    this.followRedirects = follow;
-    //}
-
-    //public void destroy() throws Exception {
-    //    EXECUTOR_SERVICE.shutdown();
-    //}
-
-    //private static  class MessageSender implements Callable<Boolean> {
-
-    //    private String url;
-
-    //    private String message;
-
-    //    private int readTimeout;
-
-    //    private int connectionTimeout;
-
-    //    private boolean followRedirects;
-
-    //    public MessageSender( String url,  String message,  int readTimeout,  int connectionTimeout,  boolean followRedirects) {
-    //        this.url = url;
-    //        this.message = message;
-    //        this.readTimeout = readTimeout;
-    //        this.connectionTimeout = connectionTimeout;
-    //        this.followRedirects = followRedirects;
-    //    }
-
-    //    public Boolean call() throws Exception {
-    //        HttpURLConnection connection = null;
-    //        BufferedReader in = null;
-    //        try {
-    //            if (log.isDebugEnabled()) {
-    //                log.debug("Attempting to access " + url);
-    //            }
-    //             URL logoutUrl = new URL(url);
-    //             String output = "logoutRequest=" + URLEncoder.encode(message, "UTF-8");
-
-    //            connection = (HttpURLConnection) logoutUrl.openConnection();
-    //            connection.setDoInput(true);
-    //            connection.setDoOutput(true);
-    //            connection.setRequestMethod("POST");
-    //            connection.setReadTimeout(this.readTimeout);
-    //            connection.setConnectTimeout(this.connectionTimeout);
-    //            connection.setInstanceFollowRedirects(this.followRedirects);
-    //            connection.setRequestProperty("Content-Length", Integer.toString(output.getBytes().length));
-    //            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-    //             DataOutputStream printout = new DataOutputStream(connection.getOutputStream());
-    //            printout.writeBytes(output);
-    //            printout.flush();
-    //            printout.close();
-
-    //            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-    //            while (in.readLine() != null) {
-    //                // nothing to do
-    //            }
-
-    //            if (log.isDebugEnabled()) {
-    //                log.debug("Finished sending message to" + url);
-    //            }
-    //            return true;
-    //        } catch ( SocketTimeoutException e) {
-    //            log.warn("Socket Timeout Detected while attempting to send message to [" + url + "].");
-    //            return false;
-    //        } catch ( Exception e) {
-    //            log.warn("Error Sending message to url endpoint [" + url + "].  Error is [" + e.getMessage() + "]");
-    //            return false;
-    //        } ly {
-    //            if (in != null) {
-    //                try {
-    //                    in.close();
-    //                } catch ( IOException e) {
-    //                    // can't do anything
-    //                }
-    //            }
-    //            if (connection != null) {
-    //                connection.disconnect();
-    //            }
-    //        }
-    //    }
-
-    //}
 }

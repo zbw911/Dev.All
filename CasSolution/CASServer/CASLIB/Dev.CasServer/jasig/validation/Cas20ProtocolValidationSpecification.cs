@@ -16,25 +16,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.validation;
+//package org.jasig.cas.validation;
 
 /**
- * An interface to impose restrictions and requirements on validations (e.g.
- * renew=true).
+ * Validation specification for the CAS 2.0 protocol. This specification extends
+ * the Cas10ProtocolValidationSpecification, checking for the presence of
+ * renew=true and if requested, succeeding only if ticket validation is
+ * occurring from a new login.
  * 
- * @author William G. Thompson, Jr.
+ * @author Scott Battaglia
  * @version $Revision$ $Date$
  * @since 3.0
- * <p>
- * This is a published and supported CAS Server 3 API.
- * </p>
  */
-public interface ValidationSpecification {
 
-    /**
-     * @param assertion The assertion we want to confirm is satisfied by this
-     * spec.
-     * @return true if it is, false otherwise.
-     */
-    boolean isSatisfiedBy(Assertion assertion);
+using Dev.CasServer.jasig.validation;
+
+namespace Dev.CasServer.jasig.validation
+{
+    public class Cas20ProtocolValidationSpecification : AbstractCasProtocolValidationSpecification
+    {
+
+        public Cas20ProtocolValidationSpecification()
+        {
+
+        }
+
+        public Cas20ProtocolValidationSpecification(bool renew)
+            : base(renew)
+        {
+
+        }
+
+        protected override bool isSatisfiedByInternal(Assertion assertion)
+        {
+            return true;
+        }
+    }
 }

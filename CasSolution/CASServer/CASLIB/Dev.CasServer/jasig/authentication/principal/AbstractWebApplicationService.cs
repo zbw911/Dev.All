@@ -41,7 +41,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Dev.CasServer.util;
+using Dev.CasServer.jasig.util;
 
 namespace Dev.CasServer.principal
 {

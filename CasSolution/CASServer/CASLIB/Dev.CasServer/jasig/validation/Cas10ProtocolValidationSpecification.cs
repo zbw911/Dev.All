@@ -16,7 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.validation;
+
+//package org.jasig.cas.validation;
 
 /**
  * Validation specification for the CAS 1.0 protocol. This specification checks
@@ -29,18 +30,26 @@ package org.jasig.cas.validation;
  * @version $Revision$ $Date$
  * @since 3.0
  */
-public  class Cas10ProtocolValidationSpecification extends
-    AbstractCasProtocolValidationSpecification {
+namespace Dev.CasServer.jasig.validation
+{
+    public class Cas10ProtocolValidationSpecification :
+        AbstractCasProtocolValidationSpecification
+    {
 
-    public Cas10ProtocolValidationSpecification() {
-        super();
-    }
+        public Cas10ProtocolValidationSpecification()
+        {
 
-    public Cas10ProtocolValidationSpecification( boolean renew) {
-        super(renew);
-    }
+        }
 
-    protected boolean isSatisfiedByInternal( Assertion assertion) {
-        return (assertion.getChainedAuthentications().size() == 1);
+        public Cas10ProtocolValidationSpecification(bool renew)
+            : base(renew)
+        {
+            ;
+        }
+
+        protected override bool isSatisfiedByInternal(Assertion assertion)
+        {
+            return (assertion.getChainedAuthentications().Count == 1);
+        }
     }
 }

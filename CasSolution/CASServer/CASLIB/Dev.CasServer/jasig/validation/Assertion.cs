@@ -38,6 +38,7 @@
  */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Dev.CasServer.jasig.authentication;
 
 namespace Dev.CasServer.jasig.validation
@@ -58,7 +59,7 @@ namespace Dev.CasServer.jasig.validation
      * 
      * @return a List of Authentication
      */
-        List<Authentication> getChainedAuthentications();
+        ReadOnlyCollection<Authentication> getChainedAuthentications();
 
         /**
      * True if the validated ticket was granted in the same transaction as that
