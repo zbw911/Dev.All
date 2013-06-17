@@ -16,12 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.services;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.jasig.cas.authentication.principal.Service;
+using System;
+using System.Collections.Generic;
 
 /**
  * Interface for a service that can be registered by the Services Management
@@ -31,103 +28,106 @@ import org.jasig.cas.authentication.principal.Service;
  * @version $Revision$ $Date$
  * @since 3.1
  */
-public interface RegisteredService extends Cloneable, Serializable {    
-    /**
+namespace Dev.CasServer.jasig.services
+{
+    public interface RegisteredService : ICloneable
+    {
+        /**
      * Is this application currently allowed to use CAS?
      * 
      * @return true if it can use CAS, false otherwise.
      */
-    boolean isEnabled();
+        bool isEnabled();
 
-    /**
+        /**
      * Determines whether the service is allowed anonymous or privileged access
      * to user information. Anonymous access should not return any identifying
      * information such as user id.
      *
      * @return if we should use a pseudo random identifier instead of their real id
      */
-    boolean isAnonymousAccess();
-    
-    /**
+        bool isAnonymousAccess();
+
+        /**
      * Sets whether we should bother to read the attribute list or not.
      * 
      * @return true if we should read it, false otherwise.
      */
-    boolean isIgnoreAttributes();
+        bool isIgnoreAttributes();
 
-    /**
+        /**
      * Returns the list of allowed attributes.
      * 
      * @return the list of attributes
      */
-    List<String> getAllowedAttributes();
+        List<String> getAllowedAttributes();
 
-    /**
+        /**
      * Is this application allowed to take part in the proxying capabilities of
      * CAS?
      * 
      * @return true if it can, false otherwise.
      */
-    boolean isAllowedToProxy();
+        bool isAllowedToProxy();
 
-    /**
+        /**
      * The unique identifier for this service.
      * 
      * @return the unique identifier for this service.
      */
-    String getServiceId();
+        String getServiceId();
 
-    /**
+        /**
      * The numeric identifier for this service.
      * 
      * @return the numeric identifier for this service.
      */
-    long getId();
+        long getId();
 
-    /**
+        /**
      * Returns the name of the service.
      * 
      * @return the name of the service.
      */
-    String getName();
+        String getName();
 
-    /**
+        /**
      * Returns a short theme name. Services do not need to have unique theme
      * names.
      * 
      * @return the theme name associated with this service.
      */
-    String getTheme();
+        String getTheme();
 
-    /**
+        /**
      * Does this application participate in the SSO session?
      * 
      * @return true if it does, false otherwise.
      */
-    boolean isSsoEnabled();
+        bool isSsoEnabled();
 
-    /**
+        /**
      * Returns the description of the service.
      * 
      * @return the description of the service.
      */
-    String getDescription();
-   
-    /**
+        String getDescription();
+
+        /**
      * Gets the relative evaluation order of this service when determining
      * matches.
      * @return Evaluation order relative to other registered services.
      * Services with lower values will be evaluated for a match before others.
      */
-    int getEvaluationOrder();
+        int getEvaluationOrder();
 
-    /**
+        /**
      * Sets the relative evaluation order of this service when determining
      * matches.
      */
-    void setEvaluationOrder( int evaluationOrder);
-    
-    /**
+        void setEvaluationOrder(int evaluationOrder);
+
+        /**
      * Get the name of the attribute this service prefers to consume as username.
      * 
      * @return Either of the following values:
@@ -136,16 +136,17 @@ public interface RegisteredService extends Cloneable, Serializable {
      *  <li><code>null</code> indicating the default username</li>
      * </ul>
      */
-    public String getUsernameAttribute();
-    
-    /**
+        String getUsernameAttribute();
+
+        /**
      * Returns whether the service matches the registered service.
      * <p>Note, as of 3.1.2, matches are case insensitive.
      * 
      * @param service the service to match.
      * @return true if they match, false otherwise.
      */
-    boolean matches( Service service);
-    
-    Object clone() throws CloneNotSupportedException;
+        bool matches(Service service);
+
+        Object clone();
+    }
 }

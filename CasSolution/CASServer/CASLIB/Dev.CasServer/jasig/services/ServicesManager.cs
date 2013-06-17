@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.services;
+//package org.jasig.cas.services;
 
-import java.util.Collection;
+//import java.util.Collection;
 
-import org.jasig.cas.authentication.principal.Service;
+//import org.jasig.cas.authentication.principal.Service;
 
 /**
  * Manages the storage, retrieval, and matching of Services wishing to use CAS
@@ -30,52 +30,59 @@ import org.jasig.cas.authentication.principal.Service;
  * @version $Revision$ $Date$
  * @since 3.1
  */
-public interface ServicesManager {
 
-    /**
+using System.Collections.ObjectModel;
+
+namespace Dev.CasServer.jasig.services
+{
+    public interface ServicesManager
+    {
+
+        /**
      * Register a service with CAS, or update an existing an entry.
      * 
      * @param registeredService the RegisteredService to update or add.
      * @return newly persisted RegisteredService instance
      */
-    RegisteredService save(RegisteredService registeredService);
+        RegisteredService save(RegisteredService registeredService);
 
-    /**
+        /**
      * Delete the entry for this RegisteredService.
      * 
      * @param id the id of the registeredService to delete.
      * @return the registered service that was deleted, null if there was none.
      */
-    RegisteredService delete(long id);
+        RegisteredService delete(long id);
 
-    /**
+        /**
      * Find a RegisteredService by matching with the supplied service.
      * 
      * @param service the service to match with.
      * @return the RegisteredService that matches the supplied service.
      */
-    RegisteredService findServiceBy(Service service);
-    
-    /**
+        RegisteredService findServiceBy(Service service);
+
+        /**
      * Find a RegisteredService by matching with the supplied id.
      * 
      * @param id the id to match with.
      * @return the RegisteredService that matches the supplied service.
      */
-    RegisteredService findServiceBy(long id);
+        RegisteredService findServiceBy(long id);
 
-    /**
+        /**
      * Retrieve the collection of all registered services.
      * 
      * @return the collection of all services.
      */
-    Collection<RegisteredService> getAllServices();
+        Collection<RegisteredService> getAllServices();
 
-    /**
+        /**
      * Convenience method to let one know if a service exists in the data store.
      * 
      * @param service the service to check.
      * @return true if it exists, false otherwise.
      */
-    boolean matchesExistingService(Service service);
+        bool matchesExistingService(Service service);
+    }
 }

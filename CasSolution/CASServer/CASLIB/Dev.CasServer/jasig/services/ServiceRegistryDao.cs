@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.cas.services;
-
-import java.util.List;
+using System.Collections.Generic;
+ 
+using Dev.CasServer.jasig.services;
 
 /**
  * Registry of all RegisteredServices.
@@ -43,7 +43,7 @@ public interface ServiceRegistryDao {
      * @param registeredService the service to remove.
      * @return true if it was removed, false otherwise.
      */
-    boolean delete(RegisteredService registeredService);
+    bool delete(RegisteredService registeredService);
 
     /**
      * Retrieve the services from the data store.

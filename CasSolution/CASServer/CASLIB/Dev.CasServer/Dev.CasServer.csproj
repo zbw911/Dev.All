@@ -180,11 +180,11 @@
     <Content Include="jasig\services\JpaServiceRegistryDaoImpl.java" />
     <Content Include="jasig\services\package.html" />
     <Content Include="jasig\services\RegexRegisteredService.java" />
-    <Content Include="jasig\services\RegisteredService.java" />
+    <Compile Include="jasig\services\RegisteredService.cs" />
     <Content Include="jasig\services\RegisteredServiceImpl.java" />
     <Content Include="jasig\services\ReloadableServicesManager.java" />
-    <Content Include="jasig\services\ServiceRegistryDao.java" />
-    <Content Include="jasig\services\ServicesManager.java" />
+    <Compile Include="jasig\services\ServiceRegistryDao.cs" />
+    <Compile Include="jasig\services\ServicesManager.cs" />
     <Content Include="jasig\services\UnauthorizedProxyingException.java" />
     <Content Include="jasig\services\UnauthorizedServiceException.java" />
     <Content Include="jasig\services\UnauthorizedSsoServiceException.java" />
