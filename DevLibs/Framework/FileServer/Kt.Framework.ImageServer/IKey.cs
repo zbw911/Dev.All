@@ -92,6 +92,6 @@ namespace Dev.Framework.FileServer
         /// <param name="fileKey"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        FileSaveInfo GetFileSavePath(string fileKey, object[] param);
+        FileSaveInfo GetFileSavePath(string fileKey, params object[] param);
     }
 }

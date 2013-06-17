@@ -20,20 +20,34 @@ namespace Dev.Framework.FileServer.Config
     /// </summary>
     public class ReadConfig
     {
-        private static Configuration _Configuration;
+        private static string _configfile = "ImageServer.config";
+        private static Configuration _configuration;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configfile"></param>
         public ReadConfig(string configfile = "ImageServer.config")
         {
-            if (_Configuration == null)
-                this.InitConfig(configfile);
+            _configfile = configfile;
+            if (_configuration == null)
+                InitConfig(_configfile);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Configuration Configuration
         {
-            get { return _Configuration; }
+            get
+            {
+                if (_configuration == null)
+                    InitConfig(_configfile);
+                return _configuration;
+            }
         }
 
-        private void InitConfig(string configfile)
+        private static void InitConfig(string configfile)
         {
             string applicationBaseDirectory = null;
             //try
@@ -55,12 +69,12 @@ namespace Dev.Framework.FileServer.Config
             //    fullPath2ConfigFile = m_configFile;
             //}
 
-            var mySerializer = new XmlSerializer(typeof (Configuration));
+            var mySerializer = new XmlSerializer(typeof(Configuration));
             // To read the file, create a FileStream.
             FileStream myFileStream = File.OpenRead(fullPath2ConfigFile);
 
             // Call the Deserialize method and cast to the object type.
-            _Configuration = (Configuration) mySerializer.Deserialize(myFileStream);
+            _configuration = (Configuration)mySerializer.Deserialize(myFileStream);
 
             myFileStream.Close();
         }

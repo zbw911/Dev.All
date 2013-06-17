@@ -58,6 +58,7 @@
     <Compile Include="ImageFileKeyTest.cs" />
     <Compile Include="TestThumbnailAndWatorMark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestLocalUploadFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Comm\Dev.Comm.Core\Dev.Comm.Core.csproj">
@@ -67,6 +68,10 @@
     <ProjectReference Include="..\Dev.FileServer.Factory\Dev.FileServer.Factory.csproj">
       <Project>{636AAA85-E08F-4466-AA32-B35733764F92}</Project>
       <Name>Dev.FileServer.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dev.Framework.FileServer.Impl\Dev.Framework.FileServer.Impl.csproj">
+      <Project>{6200A6FE-4535-44A5-8774-9AA438179388}</Project>
+      <Name>Dev.Framework.FileServer.Impl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Kt.Framework.ImageServer\Dev.Framework.FileServer.csproj">
       <Project>{4F9A6922-FE07-4E38-92D4-00ADB7F0D07C}</Project>
@@ -81,6 +86,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <Content Include="TestLocalUploadFile.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

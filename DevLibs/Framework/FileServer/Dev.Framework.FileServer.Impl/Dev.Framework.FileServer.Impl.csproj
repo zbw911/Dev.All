@@ -66,9 +66,11 @@
     <Compile Include="HashServer\HashImageServer.cs" />
     <Compile Include="HashServer\HashPath.cs" />
     <Compile Include="ImageFile\ImageUploader.cs" />
+    <Compile Include="LocalUploaderFileImpl\LocalUploadFile.cs" />
+    <Compile Include="LocalUploaderFileImpl\LocalFileKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShareImpl\ShareFileKey.cs" />
-    <Compile Include="ShareImpl\ShareUploadFile.cs" />
+    <Compile Include="ShareUploaderImpl\ShareFileKey.cs" />
+    <Compile Include="ShareUploaderImpl\ShareUploadFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kt.Framework.ImageServer\Dev.Framework.FileServer.csproj">

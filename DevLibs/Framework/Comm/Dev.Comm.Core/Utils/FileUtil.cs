@@ -179,7 +179,7 @@ namespace Dev.Comm
                 FileExtension extension;
                 try
                 {
-                    extension = (FileExtension) Enum.Parse(typeof (FileExtension), fileType);
+                    extension = (FileExtension)Enum.Parse(typeof(FileExtension), fileType);
                 }
                 catch
                 {
@@ -213,11 +213,11 @@ namespace Dev.Comm
             try
             {
                 int i = 0;
-                var length = (int) fs.Length;
+                var length = (int)fs.Length;
                 byte data;
                 while (i < length && isTextFile)
                 {
-                    data = (byte) fs.ReadByte();
+                    data = (byte)fs.ReadByte();
                     isTextFile = (data != 0);
                     i++;
                 }
@@ -243,13 +243,15 @@ namespace Dev.Comm
         /// <param name="stream">文件流</param>
         /// <param name="fileName">文件上传的路径</param>
         /// <returns></returns>
-        private static void StreamToFile(Stream stream, string fileName)
+        public static void StreamToFile(Stream stream, string fileName)
         {
             // 把 Stream 转换成 byte[]
             var bytes = new byte[stream.Length];
             stream.Read(bytes, 0, bytes.Length);
             // 设置当前流的位置为流的开始
             stream.Seek(0, SeekOrigin.Begin);
+
+            FolderCreate(fileName);
             // 把 byte[] 写入文件
             var fs = new FileStream(fileName, FileMode.Create);
             var bw = new BinaryWriter(fs);
@@ -304,5 +306,33 @@ namespace Dev.Comm
         }
 
         #endregion
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="bytefile"></param>
+        ///// <returns></returns>
+        //public static Stream ByteToStream(byte[] bytefile)
+        //{
+        //    var stream = new MemoryStream(bytefile);
+
+        //    stream.Seek(0, SeekOrigin.Begin);
+
+        //    return stream;
+        //}
+
+        /// <summary>
+        /// Byte to Stream
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <returns></returns>
+        public static Stream BytesToStream(byte[] bytefile)
+        {
+            var stream = new MemoryStream(bytefile);
+
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return stream;
+        }
     }
 }
