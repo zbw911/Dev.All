@@ -28,7 +28,7 @@ using Dev.CasServer.jasig.authentication;
  * @version $Revision$ $Date$
  * @since 3.0.5
  */
-namespace Dev.CasServer.jasig.ticket
+namespace NCAS.jasig.ticket
 {
     public interface TicketState {
 

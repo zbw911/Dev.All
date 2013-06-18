@@ -35,9 +35,16 @@
  * This is a published and supported CAS Server 3 API.
  * </p>
  */
-public interface AuthenticationMetaDataPopulator {
 
-    /**
+using Dev.CasServer.jasig.authentication;
+using Dev.CasServer.principal;
+
+namespace NCAS.jasig.authentication
+{
+    public interface AuthenticationMetaDataPopulator
+    {
+
+        /**
      * Provided with an Authentication object and the original credentials
      * presented, provide any additional attributes to the Authentication
      * object. Implementations have the option of returning the same
@@ -48,6 +55,7 @@ public interface AuthenticationMetaDataPopulator {
      * @return the original Authentication object or a new Authentication
      * object.
      */
-    Authentication populateAttributes(Authentication authentication,
-        Credentials credentials);
+        Authentication populateAttributes(Authentication authentication,
+                                          Credentials credentials);
+    }
 }

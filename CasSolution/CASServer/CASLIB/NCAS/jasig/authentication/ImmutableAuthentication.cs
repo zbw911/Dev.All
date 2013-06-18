@@ -37,15 +37,20 @@
  * @version $Revision$ $Date$
  * @since 3.0
  */
-public  class ImmutableAuthentication : AbstractAuthentication {
+using Dev.CasServer.principal;
+using NCAS.jasig.authentication;
+using System;
+using System.Collections.Generic;
+public class ImmutableAuthentication : AbstractAuthentication
+{
 
     /** UID for serializing. */
-    private static  long serialVersionUID = 3906647483978365235L;
-    
-    private static  Map<string, Object> EMPTY_MAP = Collections.unmodifiableMap(new HashMap<string, Object>());
+    private static long serialVersionUID = 3906647483978365235L;
+
+    private static Dictionary<string, Object> EMPTY_MAP = new Dictionary<string, Object>();
 
     /** The date/time this authentication object became valid. */
-     Date authenticatedDate;
+    DateTime authenticatedDate;
 
     /**
      * Constructor that accepts both a principal and a map.
@@ -54,12 +59,14 @@ public  class ImmutableAuthentication : AbstractAuthentication {
      * @param attributes Authentication attributes map.
      * @throws IllegalArgumentException if the principal is null.
      */
-    public ImmutableAuthentication( Principal principal,
-         Map<string, Object> attributes) {
-        super(principal, attributes == null || attributes.isEmpty()
-            ? EMPTY_MAP : Collections.unmodifiableMap(attributes));
+    public ImmutableAuthentication(Principal principal,
+         Dictionary<string, Object> attributes)
+        : base(principal, new Dictionary<string, object>())
+    {
+        //super(principal, attributes == null || attributes.isEmpty()
+        //    ? EMPTY_MAP : Collections.unmodifiableMap(attributes));
 
-        this.authenticatedDate = new Date();
+        this.authenticatedDate = System.DateTime.Now;
     }
 
     /**
@@ -68,11 +75,14 @@ public  class ImmutableAuthentication : AbstractAuthentication {
      * 
      * @param principal the Principal representing the authenticated entity.
      */
-    public ImmutableAuthentication( Principal principal) {
-        this(principal, null);
+    public ImmutableAuthentication(Principal principal)
+        : this(principal, null)
+    {
+        ;
     }
 
-    public Date getAuthenticatedDate() {
-        return new Date(this.authenticatedDate.getTime());
+    public override DateTime getAuthenticatedDate()
+    {
+        return this.authenticatedDate;
     }
 }

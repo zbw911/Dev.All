@@ -27,7 +27,14 @@
  * @since 3.2.1
  *
  */
-public interface NamedAuthenticationHandler : AuthenticationHandler {
-    
-    string getName();
+
+using Dev.CasServer.handler;
+
+namespace NCAS.jasig.authentication.handler
+{
+    public interface NamedAuthenticationHandler : AuthenticationHandler
+    {
+
+        string getName();
+    }
 }

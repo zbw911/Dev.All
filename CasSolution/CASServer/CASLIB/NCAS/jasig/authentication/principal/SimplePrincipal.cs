@@ -32,60 +32,73 @@
  * @version $Revision: 1.3 $ $Date: 2007/04/19 20:13:01 $
  * @since 3.1
  */
-public class SimplePrincipal : Principal {
+using Dev.CasServer.principal;
+using System;
+using System.Collections.Generic;
+public class SimplePrincipal : Principal
+{
 
-    private static  Map<string, Object> EMPTY_MAP = Collections
-        .unmodifiableMap(new HashMap<string, Object>());
+    private static Dictionary<string, Object> EMPTY_MAP = new Dictionary<string, Object>();
 
     /**
      * Unique Id for Serialization.
      */
-    private static  long serialVersionUID = -5265620187476296219L;
+    private static long serialVersionUID = -5265620187476296219L;
 
     /** The unique identifier for the principal. */
-    private  string id;
+    private string id;
 
     /** Map of attributes for the Principal. */
-    private Map<string, Object> attributes;
+    private Dictionary<string, Object> attributes;
 
-    public SimplePrincipal( string id) {
-        this(id, null);
+    public SimplePrincipal(string id)
+        : this(id, null)
+    {
+        //this(id, null);
+
     }
 
-    public SimplePrincipal( string id,  Map<string, Object> attributes) {
-        Assert.notNull(id, "id cannot be null");
+    public SimplePrincipal(string id, Dictionary<string, Object> attributes)
+    {
+        //Assert.notNull(id, "id cannot be null");
         this.id = id;
 
-        this.attributes = attributes == null || attributes.isEmpty()
-            ? EMPTY_MAP : Collections.unmodifiableMap(attributes);
+        this.attributes = attributes == null || attributes.Count == 0
+            ? EMPTY_MAP : attributes;
     }
 
     /**
      * Returns an immutable map.
      */
-    public Map<string, Object> getAttributes() {
+    public Dictionary<string, Object> getAttributes()
+    {
         return this.attributes;
     }
 
-    public string toString() {
+    public string toString()
+    {
         return this.id;
     }
 
-    public int hashCode() {
-        return super.hashCode() ^ this.id.hashCode();
+    public int hashCode()
+    {
+        return base.GetHashCode() ^ this.id.GetHashCode();
     }
 
-    public  string getId() {
+    public string getId()
+    {
         return this.id;
     }
 
-    public bool equals( Object o) {
-        if (o == null || !this.getClass().equals(o.getClass())) {
+    public bool equals(Object o)
+    {
+        if (o == null || !this.GetType().Equals(o.GetType()))
+        {
             return false;
         }
 
-         SimplePrincipal p = (SimplePrincipal) o;
+        SimplePrincipal p = (SimplePrincipal)o;
 
-        return this.id.equals(p.getId());
+        return this.id.Equals(p.getId());
     }
 }

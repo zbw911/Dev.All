@@ -30,7 +30,7 @@
 
 using System;
 
-namespace Dev.CasServer.jasig.ticket
+namespace NCAS.jasig.ticket
 {
     public interface Ticket  {
 

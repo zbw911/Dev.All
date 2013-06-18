@@ -21,6 +21,7 @@
 ////import org.jasig.cas.authentication.handler.AuthenticationException;
 ////import org.jasig.cas.authentication.principal.Credentials;
 
+using System;
 using Dev.CasServer.principal;
 /**
  * The AuthenticationManager class is the entity that determines the
@@ -37,10 +38,10 @@ using Dev.CasServer.principal;
 
 namespace Dev.CasServer.jasig.authentication
 {
-    public interface AuthenticationManager
+    public abstract class AuthenticationManager
     {
 
-        //String AUTHENTICATION_METHOD_ATTRIBUTE = "authenticationMethod";
+        public static String AUTHENTICATION_METHOD_ATTRIBUTE = "authenticationMethod";
 
         /**
      * Method to validate the credentials provided. On successful validation, a
@@ -56,7 +57,7 @@ namespace Dev.CasServer.jasig.authentication
      * credentials or there is an extenuating circumstance related to
      * credentials (i.e. Account locked).
      */
-        Authentication authenticate(Credentials credentials);
+        public abstract Authentication authenticate(Credentials credentials);
         //throws AuthenticationException;
     }
 }

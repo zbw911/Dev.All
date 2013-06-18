@@ -42,47 +42,49 @@
 
 using System;
 using Dev.CasServer.jasig.authentication;
-using Dev.CasServer.jasig.ticket;
-public abstract class AbstractTicket : Ticket, TicketState
+
+namespace NCAS.jasig.ticket
 {
-
-    /** The ExpirationPolicy this ticket will be following. */
-    // XXX removed 
-    //@Lob
-    //@Column(name="EXPIRATION_POLICY", nullable=false)
-    private ExpirationPolicy expirationPolicy;
-
-    /** The unique identifier for this ticket. */
-    //@Id
-    //@Column(name="ID", nullable=false)
-    private String id;
-
-    /** The TicketGrantingTicket this is associated with. */
-    //@ManyToOne
-    private TicketGrantingTicketImpl ticketGrantingTicket;
-
-    /** The last time this ticket was used. */
-    //@Column(name="LAST_TIME_USED")
-    private long lastTimeUsed;
-
-    /** The previous last time this ticket was used. */
-    //@Column(name="PREVIOUS_LAST_TIME_USED")
-    private long previousLastTimeUsed;
-
-    /** The time the ticket was created. */
-    //@Column(name="CREATION_TIME")
-    private long creationTime;
-
-    /** The number of times this was used. */
-    //@Column(name="NUMBER_OF_TIMES_USED")
-    private int countOfUses;
-
-    protected AbstractTicket()
+    public abstract class AbstractTicket : Ticket, TicketState
     {
-        // nothing to do
-    }
 
-    /**
+        /** The ExpirationPolicy this ticket will be following. */
+        // XXX removed 
+        //@Lob
+        //@Column(name="EXPIRATION_POLICY", nullable=false)
+        private ExpirationPolicy expirationPolicy;
+
+        /** The unique identifier for this ticket. */
+        //@Id
+        //@Column(name="ID", nullable=false)
+        private String id;
+
+        /** The TicketGrantingTicket this is associated with. */
+        //@ManyToOne
+        private TicketGrantingTicketImpl ticketGrantingTicket;
+
+        /** The last time this ticket was used. */
+        //@Column(name="LAST_TIME_USED")
+        private long lastTimeUsed;
+
+        /** The previous last time this ticket was used. */
+        //@Column(name="PREVIOUS_LAST_TIME_USED")
+        private long previousLastTimeUsed;
+
+        /** The time the ticket was created. */
+        //@Column(name="CREATION_TIME")
+        private long creationTime;
+
+        /** The number of times this was used. */
+        //@Column(name="NUMBER_OF_TIMES_USED")
+        private int countOfUses;
+
+        protected AbstractTicket()
+        {
+            // nothing to do
+        }
+
+        /**
      * Constructs a new Ticket with a unique id, a possible parent Ticket (can
      * be null) and a specified Expiration Policy.
      * 
@@ -91,75 +93,76 @@ public abstract class AbstractTicket : Ticket, TicketState
      * @param expirationPolicy the expiration policy for the ticket.
      * @throws IllegalArgumentException if the id or expiration policy is null.
      */
-    public AbstractTicket(String id, TicketGrantingTicketImpl ticket,
-         ExpirationPolicy expirationPolicy)
-    {
-        //Assert.notNull(expirationPolicy, "expirationPolicy cannot be null");
-        //Assert.notNull(id, "id cannot be null");
+        public AbstractTicket(String id, TicketGrantingTicketImpl ticket,
+                              ExpirationPolicy expirationPolicy)
+        {
+            //Assert.notNull(expirationPolicy, "expirationPolicy cannot be null");
+            //Assert.notNull(id, "id cannot be null");
 
-        this.id = id;
-        this.creationTime = System.DateTime.Now.Ticks;
-        this.lastTimeUsed = System.DateTime.Now.Ticks;
-        this.expirationPolicy = expirationPolicy;
-        this.ticketGrantingTicket = ticket;
-    }
+            this.id = id;
+            this.creationTime = System.DateTime.Now.Ticks;
+            this.lastTimeUsed = System.DateTime.Now.Ticks;
+            this.expirationPolicy = expirationPolicy;
+            this.ticketGrantingTicket = ticket;
+        }
 
-    public String getId()
-    {
-        return this.id;
-    }
+        public String getId()
+        {
+            return this.id;
+        }
 
-    protected void updateState()
-    {
-        this.previousLastTimeUsed = this.lastTimeUsed;
-        this.lastTimeUsed = System.DateTime.Now.Ticks;
-        this.countOfUses++;
-    }
+        protected void updateState()
+        {
+            this.previousLastTimeUsed = this.lastTimeUsed;
+            this.lastTimeUsed = System.DateTime.Now.Ticks;
+            this.countOfUses++;
+        }
 
-    public int getCountOfUses()
-    {
-        return this.countOfUses;
-    }
+        public int getCountOfUses()
+        {
+            return this.countOfUses;
+        }
 
-    public long getCreationTime()
-    {
-        return this.creationTime;
-    }
+        public long getCreationTime()
+        {
+            return this.creationTime;
+        }
 
-    public abstract Authentication getAuthentication();
+        public abstract Authentication getAuthentication();
 
-    public TicketGrantingTicket getGrantingTicket()
-    {
-        return this.ticketGrantingTicket;
-    }
+        public TicketGrantingTicket getGrantingTicket()
+        {
+            return this.ticketGrantingTicket;
+        }
 
-    public long getLastTimeUsed()
-    {
-        return this.lastTimeUsed;
-    }
+        public long getLastTimeUsed()
+        {
+            return this.lastTimeUsed;
+        }
 
-    public long getPreviousTimeUsed()
-    {
-        return this.previousLastTimeUsed;
-    }
+        public long getPreviousTimeUsed()
+        {
+            return this.previousLastTimeUsed;
+        }
 
-    public bool isExpired()
-    {
-        return this.expirationPolicy.isExpired(this) || (getGrantingTicket() != null && getGrantingTicket().isExpired()) || isExpiredInternal();
-    }
+        public bool isExpired()
+        {
+            return this.expirationPolicy.isExpired(this) || (this.getGrantingTicket() != null && this.getGrantingTicket().isExpired()) || this.isExpiredInternal();
+        }
 
-    protected bool isExpiredInternal()
-    {
-        return false;
-    }
+        protected bool isExpiredInternal()
+        {
+            return false;
+        }
 
-    public int hashCode()
-    {
-        return 34 ^ this.getId().GetHashCode();
-    }
+        public int hashCode()
+        {
+            return 34 ^ this.getId().GetHashCode();
+        }
 
-    public String toString()
-    {
-        return this.id;
+        public String toString()
+        {
+            return this.id;
+        }
     }
 }

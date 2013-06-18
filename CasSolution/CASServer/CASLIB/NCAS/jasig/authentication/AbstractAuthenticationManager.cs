@@ -38,37 +38,52 @@
  * @version $Revision$ $Date$
  * @since 3.3.5
  */
-public abstract class AbstractAuthenticationManager : AuthenticationManager {
+
+using System;
+using System.Collections.Generic;
+using Dev.CasServer.handler;
+using Dev.CasServer.jasig.authentication;
+using Dev.CasServer.principal;
+using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.handler;
+
+public abstract class AbstractAuthenticationManager : AuthenticationManager
+{
 
     /** Log instance for logging events, errors, warnings, etc. */
-    protected  Logger log = LoggerFactory.getLogger(AuthenticationManagerImpl.class);
+    //protected  Logger log = LoggerFactory.getLogger(AuthenticationManagerImpl.class);
 
     /** An array of AuthenticationAttributesPopulators. */
-    @NotNull
-    private List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators = new ArrayList<AuthenticationMetaDataPopulator>();
+    //@NotNull
+    private List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators = new List<AuthenticationMetaDataPopulator>();
 
-    @Audit(
-        action="AUTHENTICATION",
-        actionResolverName="AUTHENTICATION_RESOLVER",
-        resourceResolverName="AUTHENTICATION_RESOURCE_RESOLVER")
-    @Profiled(tag = "AUTHENTICATE", logFailuresSeparately = false)
-    public  Authentication authenticate( Credentials credentials) throws AuthenticationException {
+    //@Audit(
+    //    action="AUTHENTICATION",
+    //    actionResolverName="AUTHENTICATION_RESOLVER",
+    //    resourceResolverName="AUTHENTICATION_RESOURCE_RESOLVER")
+    //@Profiled(tag = "AUTHENTICATE", logFailuresSeparately = false)
+    public override Authentication authenticate(Credentials credentials)
+    {
 
-         Pair<AuthenticationHandler, Principal> pair = authenticateAndObtainPrincipal(credentials);
+        Pair<AuthenticationHandler, Principal> pair = authenticateAndObtainPrincipal(credentials);
+
+
 
         // we can only get here if the above method doesn't throw an exception. And if it doesn't, then the pair must not be null.
-         Principal p = pair.getSecond();
-        log.info("{} authenticated {} with credential {}.", pair.getFirst(), p, credentials);
-        log.debug("Attribute map for {}: {}", p.getId(), p.getAttributes());
+        Principal p = pair.getSecond();
+        //log.info("{} authenticated {} with credential {}.", pair.getFirst(), p, credentials);
+        //log.debug("Attribute map for {}: {}", p.getId(), p.getAttributes());
 
         Authentication authentication = new MutableAuthentication(p);
 
-        if (pair.getFirst()instanceof NamedAuthenticationHandler) {
-             NamedAuthenticationHandler a = (NamedAuthenticationHandler) pair.getFirst();
-            authentication.getAttributes().put(AuthenticationManager.AUTHENTICATION_METHOD_ATTRIBUTE, a.getName());
+        if (pair.getFirst() is NamedAuthenticationHandler)
+        {
+            NamedAuthenticationHandler a = (NamedAuthenticationHandler)pair.getFirst();
+            authentication.getAttributes().Add(AuthenticationManager.AUTHENTICATION_METHOD_ATTRIBUTE, a.getName());
         }
 
-        for ( AuthenticationMetaDataPopulator authenticationMetaDataPopulator : this.authenticationMetaDataPopulators) {
+        foreach (AuthenticationMetaDataPopulator authenticationMetaDataPopulator in this.authenticationMetaDataPopulators)
+        {
             authentication = authenticationMetaDataPopulator
                 .populateAttributes(authentication, credentials);
         }
@@ -80,7 +95,8 @@ public abstract class AbstractAuthenticationManager : AuthenticationManager {
     /**
      * @param authenticationMetaDataPopulators the authenticationMetaDataPopulators to set.
      */
-    public  void setAuthenticationMetaDataPopulators( List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators) {
+    public void setAuthenticationMetaDataPopulators(List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators)
+    {
         this.authenticationMetaDataPopulators = authenticationMetaDataPopulators;
     }
 
@@ -91,7 +107,7 @@ public abstract class AbstractAuthenticationManager : AuthenticationManager {
      * @return the pair of authentication handler and principal.  CANNOT be NULL.
      * @throws AuthenticationException if there is an error authenticating.
      */
-    protected abstract Pair<AuthenticationHandler,Principal> authenticateAndObtainPrincipal(Credentials credentials) throws AuthenticationException;
+    protected abstract Pair<AuthenticationHandler, Principal> authenticateAndObtainPrincipal(Credentials credentials);
 
 
     /**
@@ -101,38 +117,44 @@ public abstract class AbstractAuthenticationManager : AuthenticationManager {
      * @param credentials Client credentials subject to authentication. 
      * @param e The exception that has occurred during authentication attempt.
      */
-    protected void handleError( string handlerName,  Credentials credentials,  Exception e)
-            throws AuthenticationException {
-        if (e instanceof AuthenticationException) {
+    protected void handleError(string handlerName, Credentials credentials, Exception e)
+    {
+        if (e is AuthenticationException)
+        {
             // CAS-1181 Log common authentication failures at INFO without stack trace
-            log.info("{} failed authenticating {}", handlerName, credentials);
-            throw (AuthenticationException) e;
+            //log.info("{} failed authenticating {}", handlerName, credentials);
+            throw (AuthenticationException)e;
         }
-        log.error("{} threw error authenticating {}", handlerName, credentials, e);
-        throw new UncategorizedAuthenticationException(e.getClass().getName(), e) {
-            // Anonymous inner class allows us to throw uncategorized authentication error
-            // since base class is abstract.
-        };
+        //log.error("{} threw error authenticating {}", handlerName, credentials, e);
+        //throw new UncategorizedAuthenticationException(e.getClass().getName(), e)
+        //{
+        //    // Anonymous inner class allows us to throw uncategorized authentication error
+        //    // since base class is abstract.
+        //};
     }
 
 
-    protected static class Pair<A,B> {
+    protected class Pair<A, B>
+    {
 
-        private  A first;
+        private A first;
 
-        private  B second;
+        private B second;
 
-        public Pair( A first,  B second) {
-            this.first = first;
-            this.second = second;
+        public Pair(A first, B second)
+        {
+            first = first;
+            second = second;
         }
 
-        public A getFirst() {
-            return this.first;
+        public A getFirst()
+        {
+            return first;
         }
 
 
-        public B getSecond() {
+        public B getSecond()
+        {
             return this.second;
         }
     }

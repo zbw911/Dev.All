@@ -54,7 +54,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dev.CasServer.jasig.authentication;
 
-namespace Dev.CasServer.jasig.ticket
+namespace NCAS.jasig.ticket
 {
     public class TicketGrantingTicketImpl : AbstractTicket,
                                             TicketGrantingTicket

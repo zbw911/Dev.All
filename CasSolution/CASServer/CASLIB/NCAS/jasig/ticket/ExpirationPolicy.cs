@@ -33,7 +33,8 @@
  * </p>
  * @see org.jasig.cas.ticket.Ticket
  */
-namespace Dev.CasServer.jasig.ticket
+
+namespace NCAS.jasig.ticket
 {
     public interface ExpirationPolicy  {
 

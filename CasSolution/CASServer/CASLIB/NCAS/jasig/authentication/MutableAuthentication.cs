@@ -23,6 +23,7 @@
 
 //import org.jasig.cas.authentication.principal.Principal;
 
+using Dev.CasServer.principal;
 /**
  * Mutable implementation of Authentication interface.
  * <p>
@@ -33,24 +34,33 @@
  * @version $Revision$ $Date$
  * @since 3.0.3
  */
-public  class MutableAuthentication : AbstractAuthentication {
+using NCAS.jasig.authentication;
+using System;
+using System.Collections.Generic;
+public class MutableAuthentication : AbstractAuthentication
+{
 
     /** Unique Id for serialization. */
-    private static  long serialVersionUID = -4415875344376642246L;
+    private static long serialVersionUID = -4415875344376642246L;
 
     /** The date/time this authentication object became valid. */
-    private  Date authenticatedDate;
+    private DateTime authenticatedDate;
 
-    public MutableAuthentication( Principal principal) {
-        this(principal, new Date());
+    public MutableAuthentication(Principal principal)
+        : this(principal, DateTime.Now)
+    {
+        ;
     }
-    
-    public MutableAuthentication( Principal principal,  Date date) {
-        super(principal, new HashMap<string, Object>());
+
+    public MutableAuthentication(Principal principal, DateTime date)
+        : base(principal, new Dictionary<string, Object>())
+    {
+
         this.authenticatedDate = date;
     }
 
-    public Date getAuthenticatedDate() {
+    public override DateTime getAuthenticatedDate()
+    {
         return this.authenticatedDate;
     }
 }

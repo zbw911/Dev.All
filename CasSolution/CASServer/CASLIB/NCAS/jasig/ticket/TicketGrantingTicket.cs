@@ -26,6 +26,7 @@
 using System.Collections.Generic;
 using Dev.CasServer.jasig.authentication;
 using System;
+
 /**
  * Interface for a ticket granting ticket. A TicketGrantingTicket is the main
  * access into the CAS service layer. Without a TicketGrantingTicket, a user of
@@ -36,7 +37,7 @@ using System;
  * @since 3.0
  */
 
-namespace Dev.CasServer.jasig.ticket
+namespace NCAS.jasig.ticket
 {
     public interface TicketGrantingTicket : Ticket {
 

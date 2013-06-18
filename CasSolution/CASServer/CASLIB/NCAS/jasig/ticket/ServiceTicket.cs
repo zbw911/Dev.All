@@ -23,6 +23,7 @@
 
 using Dev.CasServer.jasig.authentication;
 using System;
+
 /**
  * Interface for a Service Ticket. A service ticket is used to grant access to a
  * specific service for a principal. A Service Ticket is generally a one-time
@@ -33,7 +34,7 @@ using System;
  * @since 3.0
  */
 
-namespace Dev.CasServer.jasig.ticket
+namespace NCAS.jasig.ticket
 {
     public interface ServiceTicket : Ticket
     {
