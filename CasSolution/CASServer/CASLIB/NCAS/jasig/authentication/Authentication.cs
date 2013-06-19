@@ -58,6 +58,8 @@ namespace Dev.CasServer.jasig.authentication
     public interface Authentication
     {
 
+        Dictionary<string, Object> Attributes { get; set; }
+
         /**
      * Method to obtain the Principal.
      * 
@@ -73,6 +75,8 @@ namespace Dev.CasServer.jasig.authentication
      */
         DateTime getAuthenticatedDate();
 
+
+        DateTime AuthenticatedDate { get; set; }
         /**
      * Attributes of the authentication (not the Principal).
      * 

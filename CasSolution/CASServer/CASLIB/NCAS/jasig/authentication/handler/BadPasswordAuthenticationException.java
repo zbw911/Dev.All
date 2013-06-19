@@ -43,7 +43,7 @@ public class BadPasswordAuthenticationException :
      * uses the default code as the error code for this exception.
      */
     public BadPasswordAuthenticationException() {
-        super(CODE);
+        base(CODE);
     }
 
     /**
@@ -53,7 +53,7 @@ public class BadPasswordAuthenticationException :
      * @param throwable the chained exception.
      */
     public BadPasswordAuthenticationException( Throwable throwable) {
-        super(CODE, throwable);
+        base(CODE, throwable);
     }
 
     /**
@@ -64,7 +64,7 @@ public class BadPasswordAuthenticationException :
      * @param code the custom code to use with this exception.
      */
     public BadPasswordAuthenticationException( string code) {
-        super(code);
+        base(code);
     }
 
     /**
@@ -76,6 +76,6 @@ public class BadPasswordAuthenticationException :
      */
     public BadPasswordAuthenticationException( string code,
          Throwable throwable) {
-        super(code, throwable);
+        base(code, throwable);
     }
 }

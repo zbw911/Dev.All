@@ -44,7 +44,7 @@ public  class PrivateKeyFactoryBean : AbstractFactoryBean {
     @NotNull
     private string algorithm;
 
-    protected Object createInstance() throws Exception {
+    protected Object createInstance()  {
          InputStream privKey = this.location.getInputStream();
         try {
              byte[] bytes = new byte[privKey.available()];

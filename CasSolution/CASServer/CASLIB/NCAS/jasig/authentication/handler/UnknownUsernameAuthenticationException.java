@@ -43,7 +43,7 @@ public class UnknownUsernameAuthenticationException :
      * uses the default code as the error code for this exception.
      */
     public UnknownUsernameAuthenticationException() {
-        super(CODE);
+        base(CODE);
     }
 
     /**
@@ -53,7 +53,7 @@ public class UnknownUsernameAuthenticationException :
      * @param throwable the chained exception.
      */
     public UnknownUsernameAuthenticationException( Throwable throwable) {
-        super(CODE, throwable);
+        base(CODE, throwable);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UnknownUsernameAuthenticationException :
      * @param code the custom code to use with this exception.
      */
     public UnknownUsernameAuthenticationException( string code) {
-        super(code);
+        base(code);
     }
 
     /**
@@ -76,6 +76,6 @@ public class UnknownUsernameAuthenticationException :
      */
     public UnknownUsernameAuthenticationException( string code,
          Throwable throwable) {
-        super(code, throwable);
+        base(code, throwable);
     }
 }

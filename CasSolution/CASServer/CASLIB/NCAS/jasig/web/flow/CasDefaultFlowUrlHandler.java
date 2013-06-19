@@ -21,7 +21,7 @@
 //import org.springframework.webflow.context.servlet.DefaultFlowUrlHandler;
 //import org.springframework.webflow.core.collection.AttributeMap;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 
 /**
  * Provides special handling for parameters in requests made to the CAS login
@@ -34,7 +34,7 @@
 public class CasDefaultFlowUrlHandler : DefaultFlowUrlHandler {
 
     @Override
-    public String createFlowExecutionUrl( String flowId,  String flowExecutionKey,  HttpServletRequest request) {
+    public String createFlowExecutionUrl( String flowId,  String flowExecutionKey,  HttpRequest request) {
          StringBuffer builder = new StringBuffer();
         builder.append(request.getRequestURI());
         builder.append("?");
@@ -43,7 +43,7 @@ public class CasDefaultFlowUrlHandler : DefaultFlowUrlHandler {
     }
 
     @Override
-    public String createFlowDefinitionUrl( String flowId,  AttributeMap input,  HttpServletRequest request) {
+    public String createFlowDefinitionUrl( String flowId,  AttributeMap input,  HttpRequest request) {
         return request.getRequestURI()
             + (request.getQueryString() != null ? "?"
             + request.getQueryString() : "");

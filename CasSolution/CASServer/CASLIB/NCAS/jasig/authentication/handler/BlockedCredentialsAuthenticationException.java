@@ -43,7 +43,7 @@ public class BlockedCredentialsAuthenticationException :
      * uses the default code as the error code for this exception.
      */
     public BlockedCredentialsAuthenticationException() {
-        super(CODE);
+        base(CODE);
     }
 
     /**
@@ -53,7 +53,7 @@ public class BlockedCredentialsAuthenticationException :
      * @param throwable the chained exception.
      */
     public BlockedCredentialsAuthenticationException( Throwable throwable) {
-        super(CODE, throwable);
+        base(CODE, throwable);
     }
 
     /**
@@ -64,7 +64,7 @@ public class BlockedCredentialsAuthenticationException :
      * @param code the custom code to use with this exception.
      */
     public BlockedCredentialsAuthenticationException( string code) {
-        super(code);
+        base(code);
     }
 
     /**
@@ -76,6 +76,6 @@ public class BlockedCredentialsAuthenticationException :
      */
     public BlockedCredentialsAuthenticationException( string code,
          Throwable throwable) {
-        super(code, throwable);
+        base(code, throwable);
     }
 }

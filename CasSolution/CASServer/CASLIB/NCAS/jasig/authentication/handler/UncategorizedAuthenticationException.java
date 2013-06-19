@@ -37,7 +37,7 @@ public abstract class UncategorizedAuthenticationException :
      * @param code the custom code to use with this exception.
      */
     public UncategorizedAuthenticationException( string code) {
-        super(code);
+        base(code);
     }
 
     /**
@@ -49,6 +49,6 @@ public abstract class UncategorizedAuthenticationException :
      */
     public UncategorizedAuthenticationException( string code,
          Throwable throwable) {
-        super(code, throwable);
+        base(code, throwable);
     }
 }

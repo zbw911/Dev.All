@@ -47,7 +47,7 @@ public class PoolStatus : Status {
      * @see #getCode()
      */
     public PoolStatus( StatusCode code,  string desc,  int active,  int idle) {
-        super(code, buildDescription(desc, active, idle));
+        base(code, buildDescription(desc, active, idle));
         this.activeCount = active;
         this.idleCount = idle;
     }

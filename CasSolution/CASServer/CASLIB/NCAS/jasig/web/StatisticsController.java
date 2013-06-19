@@ -25,8 +25,8 @@
 //import org.springframework.web.servlet.ModelAndView;
 //import org.springframework.web.servlet.mvc.AbstractController;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 //import java.util.*;
 
 /**
@@ -59,7 +59,7 @@ public  class StatisticsController : AbstractController {
     }
 
     @Override
-    protected ModelAndView handleRequestInternal( HttpServletRequest httpServletRequest,  HttpServletResponse httpServletResponse) throws Exception {
+    protected ModelAndView handleRequestInternal( HttpRequest HttpRequest,  HttpResponse HttpResponse)  {
          ModelAndView modelAndView = new ModelAndView("viewStatisticsView");
         modelAndView.addObject("startTime", this.upTimeStartDate);
          double difference = System.currentTimeMillis() - this.upTimeStartDate.getTime();
@@ -69,8 +69,8 @@ public  class StatisticsController : AbstractController {
         modelAndView.addObject("maxMemory", Runtime.getRuntime().maxMemory() / 1024 / 1024);
         modelAndView.addObject("freeMemory", Runtime.getRuntime().freeMemory() / 1024 / 1024);
         modelAndView.addObject("availableProcessors", Runtime.getRuntime().availableProcessors());
-        modelAndView.addObject("serverHostName", httpServletRequest.getServerName());
-        modelAndView.addObject("serverIpAddress", httpServletRequest.getLocalAddr());
+        modelAndView.addObject("serverHostName", HttpRequest.getServerName());
+        modelAndView.addObject("serverIpAddress", HttpRequest.getLocalAddr());
         modelAndView.addObject("casTicketSuffix", this.casTicketSuffix);
 
         int unexpiredTgts = 0;

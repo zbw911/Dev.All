@@ -63,7 +63,7 @@ public abstract class AuthenticationException : Exception
     public AuthenticationException(String code, String msg)
         : base(msg)
     {
-        //super(msg);
+        //base(msg);
         this.code = code;
     }
 

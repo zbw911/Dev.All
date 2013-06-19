@@ -51,7 +51,7 @@ public class BadCredentialsAuthenticationException :
      * uses the default code as the error code for this exception.
      */
     public BadCredentialsAuthenticationException() {
-        super(CODE);
+        base(CODE);
     }
 
     /**
@@ -61,7 +61,7 @@ public class BadCredentialsAuthenticationException :
      * @param throwable the chainable exception.
      */
     public BadCredentialsAuthenticationException( Throwable throwable) {
-        super(CODE, throwable);
+        base(CODE, throwable);
     }
 
     /**
@@ -71,7 +71,7 @@ public class BadCredentialsAuthenticationException :
      * @param code the code to use.
      */
     public BadCredentialsAuthenticationException( string code) {
-        super(code);
+        base(code);
     }
 
     /**
@@ -83,6 +83,6 @@ public class BadCredentialsAuthenticationException :
      */
     public BadCredentialsAuthenticationException( string code,
          Throwable throwable) {
-        super(code, throwable);
+        base(code, throwable);
     }
 }

@@ -21,7 +21,7 @@
 //import java.security.PrivateKey;
 //import java.security.PublicKey;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 //import javax.validation.constraints.NotNull;
 
 //import org.jasig.cas.authentication.principal.GoogleAccountsService;
@@ -45,7 +45,7 @@ public  class GoogleAccountsArgumentExtractor : AbstractSingleSignOutEnabledArgu
 
     private String alternateUsername;
 
-    public WebApplicationService extractServiceInternal( HttpServletRequest request) {
+    public WebApplicationService extractServiceInternal( HttpRequest request) {
         return GoogleAccountsService.createServiceFrom(request,
             this.privateKey, this.publicKey, this.alternateUsername);
     }

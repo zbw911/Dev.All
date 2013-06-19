@@ -22,7 +22,7 @@
 //import org.jdom.Document;
 //import org.springframework.util.StringUtils;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 //import java.io.ByteArrayInputStream;
 //import java.io.ByteArrayOutputStream;
 //import java.io.UnsupportedEncodingException;
@@ -116,7 +116,7 @@ public class GoogleAccountsService : AbstractWebApplicationService {
     protected GoogleAccountsService( string id,  string originalUrl,
          string artifactId,  string relayState,  string requestId,
          PrivateKey privateKey,  PublicKey publicKey,  string alternateUserName) {
-        super(id, originalUrl, artifactId, null);
+        base(id, originalUrl, artifactId, null);
         this.relayState = relayState;
         this.privateKey = privateKey;
         this.publicKey = publicKey;
@@ -125,7 +125,7 @@ public class GoogleAccountsService : AbstractWebApplicationService {
     }
 
     public static GoogleAccountsService createServiceFrom(
-         HttpServletRequest request,  PrivateKey privateKey,
+         HttpRequest request,  PrivateKey privateKey,
          PublicKey publicKey,  string alternateUserName) {
          string relayState = request.getParameter(CONST_RELAY_STATE);
 

@@ -63,7 +63,7 @@ public class ImmutableAuthentication : AbstractAuthentication
          Dictionary<string, Object> attributes)
         : base(principal, new Dictionary<string, object>())
     {
-        //super(principal, attributes == null || attributes.isEmpty()
+        //base(principal, attributes == null || attributes.isEmpty()
         //    ? EMPTY_MAP : Collections.unmodifiableMap(attributes));
 
         this.authenticatedDate = System.DateTime.Now;
@@ -84,5 +84,12 @@ public class ImmutableAuthentication : AbstractAuthentication
     public override DateTime getAuthenticatedDate()
     {
         return this.authenticatedDate;
+    }
+
+    public override DateTime AuthenticatedDate
+    {
+        get { return authenticatedDate; }
+        set { authenticatedDate = value; }
+
     }
 }

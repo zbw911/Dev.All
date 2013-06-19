@@ -26,8 +26,8 @@
 //import org.springframework.util.StringUtils;
 //import org.springframework.web.servlet.theme.AbstractThemeResolver;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 //import java.util.*;
 //import java.util.regex.Pattern;
 
@@ -51,7 +51,7 @@ public  class ServiceThemeResolver : AbstractThemeResolver {
 
     private Map<Pattern,string> overrides = new HashMap<Pattern,string>();
 
-    public string resolveThemeName( HttpServletRequest request) {
+    public string resolveThemeName( HttpRequest request) {
         if (this.servicesManager == null) {
             return getDefaultThemeName();
         }
@@ -78,7 +78,7 @@ public  class ServiceThemeResolver : AbstractThemeResolver {
         return service != null && rService != null && StringUtils.hasText(rService.getTheme()) ? rService.getTheme() : getDefaultThemeName();
     }
 
-    public void setThemeName( HttpServletRequest request,  HttpServletResponse response,  string themeName) {
+    public void setThemeName( HttpRequest request,  HttpResponse response,  string themeName) {
         // nothing to do here
     }
 

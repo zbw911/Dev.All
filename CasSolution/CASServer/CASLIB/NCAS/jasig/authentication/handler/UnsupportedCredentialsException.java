@@ -44,7 +44,7 @@ public  class UnsupportedCredentialsException :
      * uses the default code as the error code for this exception.
      */
     public UnsupportedCredentialsException() {
-        super(CODE);
+        base(CODE);
     }
 
     /**
@@ -54,6 +54,6 @@ public  class UnsupportedCredentialsException :
      * @param throwable the chained exception.
      */
     public UnsupportedCredentialsException( Throwable throwable) {
-        super(CODE, throwable);
+        base(CODE, throwable);
     }
 }

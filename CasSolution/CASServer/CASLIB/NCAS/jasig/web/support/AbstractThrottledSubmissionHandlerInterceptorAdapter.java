@@ -23,10 +23,10 @@
 //import org.springframework.beans.factory.InitializingBean;
 //import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 //import org.springframework.web.servlet.ModelAndView;
-//import org.springframework.webflow.execution.RequestContext;
+//import org.springframework.webflow.execution.HttpContext;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 //import javax.validation.constraints.Min;
 //import javax.validation.constraints.NotNull;
 
@@ -61,13 +61,13 @@ public abstract class AbstractThrottledSubmissionHandlerInterceptorAdapter : Han
     private double thresholdRate;
 
 
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet()  {
         this.thresholdRate = (double) failureThreshold / (double) failureRangeInSeconds;
     }
 
 
     @Override
-    public  bool preHandle( HttpServletRequest request,  HttpServletResponse response,  Object o) throws Exception {
+    public  bool preHandle( HttpRequest request,  HttpResponse response,  Object o)  {
         // we only care about post because that's the only instance where we can get anything useful besides IP address.
         if (!"POST".equals(request.getMethod())) {
             return true;
@@ -83,12 +83,12 @@ public abstract class AbstractThrottledSubmissionHandlerInterceptorAdapter : Han
     }
 
     @Override
-    public  void postHandle( HttpServletRequest request,  HttpServletResponse response,  Object o,  ModelAndView modelAndView) throws Exception {
+    public  void postHandle( HttpRequest request,  HttpResponse response,  Object o,  ModelAndView modelAndView)  {
         if (!"POST".equals(request.getMethod())) {
             return;
         }
 
-        RequestContext context = (RequestContext) request.getAttribute("flowRequestContext");
+        HttpContext context = (HttpContext) request.getAttribute("flowRequestContext");
         
         if (context == null || context.getCurrentEvent() == null) {
             return;
@@ -131,12 +131,12 @@ public abstract class AbstractThrottledSubmissionHandlerInterceptorAdapter : Han
         return this.usernameParameter;
     }
 
-    protected void recordThrottle( HttpServletRequest request) {
+    protected void recordThrottle( HttpRequest request) {
         log.warn("Throttling submission from {}.  More than {} failed login attempts within {} seconds.",
                 new Object[] {request.getRemoteAddr(), failureThreshold, failureRangeInSeconds});
     }
 
-    protected abstract void recordSubmissionFailure(HttpServletRequest request);
+    protected abstract void recordSubmissionFailure(HttpRequest request);
 
-    protected abstract bool exceedsThreshold(HttpServletRequest request);
+    protected abstract bool exceedsThreshold(HttpRequest request);
 }

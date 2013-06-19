@@ -18,7 +18,7 @@
  */
 //package org.jasig.cas.web.support;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 
 /**
  * Attempts to throttle by both IP Address and username.  Protects against instances where there is a NAT, such as
@@ -31,7 +31,7 @@
 public  class InMemoryThrottledSubmissionByIpAddressAndUsernameHandlerInterceptorAdapter : AbstractInMemoryThrottledSubmissionHandlerInterceptorAdapter {
 
     @Override
-    protected String constructKey( HttpServletRequest request) {
+    protected String constructKey( HttpRequest request) {
          String username = request.getParameter(getUsernameParameter());
 
         if (username == null) {

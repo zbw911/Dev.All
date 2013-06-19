@@ -23,8 +23,8 @@
 //import java.util.List;
 //import java.util.Map;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 //import javax.validation.constraints.NotNull;
 
 //import org.apache.commons.lang.math.NumberUtils;
@@ -63,7 +63,7 @@ public  class ManageRegisteredServicesMultiActionController : MultiActionControl
      */
     public ManageRegisteredServicesMultiActionController(
          ServicesManager servicesManager,  string defaultServiceUrl) {
-        super();
+        base();
         this.servicesManager = servicesManager;
         this.defaultServiceUrl = defaultServiceUrl;
     }
@@ -71,12 +71,12 @@ public  class ManageRegisteredServicesMultiActionController : MultiActionControl
     /**
      * Method to delete the RegisteredService by its ID.
      * 
-     * @param request the HttpServletRequest
-     * @param response the HttpServletResponse
+     * @param request the HttpRequest
+     * @param response the HttpResponse
      * @return the Model and View to go to after the service is deleted.
      */
     public ModelAndView deleteRegisteredService(
-         HttpServletRequest request,  HttpServletResponse response) {
+         HttpRequest request,  HttpResponse response) {
          string id = request.getParameter("id");
          long idAsLong = Long.parseLong(id);
 
@@ -94,12 +94,12 @@ public  class ManageRegisteredServicesMultiActionController : MultiActionControl
     /**
      * Method to show the RegisteredServices.
      * 
-     * @param request the HttpServletRequest
-     * @param response the HttpServletResponse
+     * @param request the HttpRequest
+     * @param response the HttpResponse
      * @return the Model and View to go to after the services are loaded.
      */
-    public ModelAndView manage( HttpServletRequest request,
-         HttpServletResponse response) {
+    public ModelAndView manage( HttpRequest request,
+         HttpResponse response) {
          Map<string, Object> model = new HashMap<string, Object>();
 
          List<RegisteredService> services = new ArrayList<RegisteredService>(this.servicesManager.getAllServices());
@@ -127,7 +127,7 @@ public  class ManageRegisteredServicesMultiActionController : MultiActionControl
     * @throws IllegalArgumentException If either of the <code>id</code> or <code>evaluationOrder</code> are invalid
     *         or if the service cannot be located for that id by the active implementation of the {@link ServicesManager}.  
     */
-    public ModelAndView updateRegisteredServiceEvaluationOrder( HttpServletRequest request,  HttpServletResponse response) {
+    public ModelAndView updateRegisteredServiceEvaluationOrder( HttpRequest request,  HttpResponse response) {
         long id = Long.parseLong(request.getParameter("id"));
         int evaluationOrder = Integer.parseInt(request.getParameter("evaluationOrder"));
         

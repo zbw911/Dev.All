@@ -35,38 +35,41 @@
 
 using System;
 
-public class RegexRegisteredService : AbstractRegisteredService
+namespace NCAS.jasig.services
 {
-    /** Serialization version marker */
-    private static long serialVersionUID = -8258660210826975771L;
-
-    //private transient Pattern servicePattern;
-
-    public override void setServiceId(String id)
+    public class RegexRegisteredService : AbstractRegisteredService
     {
-        //servicePattern = createPattern(id);
-        serviceId = id;
-    }
+        /** Serialization version marker */
+        private static long serialVersionUID = -8258660210826975771L;
 
-    public override bool matches(Service service)
-    {
-        //if (servicePattern == null) {
-        //    servicePattern = createPattern(serviceId);
+        //private transient Pattern servicePattern;
+
+        public override void setServiceId(String id)
+        {
+            //servicePattern = createPattern(id);
+            this.serviceId = id;
+        }
+
+        public override bool matches(Service service)
+        {
+            //if (servicePattern == null) {
+            //    servicePattern = createPattern(serviceId);
+            //}
+            //return service != null && servicePattern.matcher(service.getId()).matches();
+
+            throw new NotImplementedException();
+        }
+
+        protected override AbstractRegisteredService newInstance()
+        {
+            return new RegexRegisteredService();
+        }
+
+        //private Pattern createPattern( String pattern) {
+        //    if (pattern == null) {
+        //        throw new IllegalArgumentException("Pattern cannot be null.");
+        //    }
+        //    return Pattern.compile(pattern);
         //}
-        //return service != null && servicePattern.matcher(service.getId()).matches();
-
-        throw new NotImplementedException();
     }
-
-    protected override AbstractRegisteredService newInstance()
-    {
-        return new RegexRegisteredService();
-    }
-
-    //private Pattern createPattern( String pattern) {
-    //    if (pattern == null) {
-    //        throw new IllegalArgumentException("Pattern cannot be null.");
-    //    }
-    //    return Pattern.compile(pattern);
-    //}
 }

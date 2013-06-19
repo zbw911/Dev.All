@@ -25,7 +25,7 @@
 //import java.util.concurrent.ConcurrentMap;
 //import java.util.concurrent.atomic.AtomicInteger;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 
 /**
  * Implementation of a HandlerInterceptorAdapter that keeps track of a mapping
@@ -43,8 +43,8 @@ public abstract class AbstractInMemoryThrottledSubmissionHandlerInterceptorAdapt
 
     private  ConcurrentMap<String, Date> ipMap = new ConcurrentHashMap<String, Date>();
 
-    @Override
-    protected  bool exceedsThreshold( HttpServletRequest request) {
+    //@Override
+    protected  bool exceedsThreshold( HttpRequest request) {
          Date last = this.ipMap.get(constructKey(request));
         if (last == null) {
             return false;
@@ -53,11 +53,11 @@ public abstract class AbstractInMemoryThrottledSubmissionHandlerInterceptorAdapt
     }
 
     @Override
-    protected  void recordSubmissionFailure( HttpServletRequest request) {
+    protected  void recordSubmissionFailure( HttpRequest request) {
         this.ipMap.put(constructKey(request), new Date());
     }
 
-    protected abstract String constructKey(HttpServletRequest request);
+    protected abstract String constructKey(HttpRequest request);
 
     /**
      * This class relies on an external configuration to clean it up. It ignores the threshold data in the parent class.

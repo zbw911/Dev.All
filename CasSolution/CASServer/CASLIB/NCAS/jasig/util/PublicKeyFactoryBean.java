@@ -43,7 +43,7 @@ public class PublicKeyFactoryBean : AbstractFactoryBean {
     @NotNull
     private string algorithm;
 
-    protected  Object createInstance() throws Exception {
+    protected  Object createInstance()  {
          InputStream pubKey = this.resource.getInputStream();
         try {
              byte[] bytes = new byte[pubKey.available()];

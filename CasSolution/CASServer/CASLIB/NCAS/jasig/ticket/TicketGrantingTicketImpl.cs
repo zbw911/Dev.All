@@ -96,7 +96,7 @@ namespace NCAS.jasig.ticket
                                         TicketGrantingTicketImpl ticketGrantingTicket,
                                         Authentication authentication, ExpirationPolicy policy)
         {
-            //super(id, ticketGrantingTicket, policy);
+            //base(id, ticketGrantingTicket, policy);
 
             //Assert.notNull(authentication, "authentication cannot be null");
 
@@ -116,6 +116,12 @@ namespace NCAS.jasig.ticket
             : this(id, null, authentication, policy)
         {
             ;
+        }
+
+        public string PREFIX
+        {
+            get { return "TGT"; }
+
         }
 
         public override Authentication getAuthentication()

@@ -20,8 +20,8 @@
 
 //import java.util.Map;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 
 //import org.jasig.cas.validation.Assertion;
 
@@ -43,8 +43,8 @@ public  class Cas10ResponseView : AbstractCasView {
     private bool successResponse;
 
     protected void renderMergedOutputModel( Map model,
-         HttpServletRequest request,  HttpServletResponse response)
-        throws Exception {
+         HttpRequest request,  HttpResponse response)
+         {
          Assertion assertion = getAssertionFrom(model);
 
         if (this.successResponse) {

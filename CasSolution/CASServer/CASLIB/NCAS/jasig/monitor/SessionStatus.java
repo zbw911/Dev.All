@@ -55,7 +55,7 @@ public class SessionStatus : Status {
      * @see #getCode()
      */
      public SessionStatus( StatusCode code,  string desc,  int sessions,  int serviceTickets) {
-        super(code, desc);
+        base(code, desc);
         this.sessionCount = sessions;
         this.serviceTicketCount = serviceTickets;
     }

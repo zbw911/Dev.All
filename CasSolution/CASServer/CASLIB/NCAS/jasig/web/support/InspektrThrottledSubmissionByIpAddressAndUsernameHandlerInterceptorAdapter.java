@@ -26,7 +26,7 @@
 //import java.util.Calendar;
 //import java.util.Date;
 //import java.util.List;
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 //import javax.sql.DataSource;
 
 //import com.github.inspektr.audit.AuditActionContext;
@@ -72,7 +72,7 @@ public class InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptor
     }
 
     @Override
-    protected bool exceedsThreshold( HttpServletRequest request) {
+    protected bool exceedsThreshold( HttpRequest request) {
          String query = "SELECT AUD_DATE FROM COM_AUDIT_TRAIL WHERE AUD_CLIENT_IP = ? AND AUD_USER = ? " +
                 "AND AUD_ACTION = ? AND APPLIC_CD = ? AND AUD_DATE >= ? ORDER BY AUD_DATE DESC";
          String userToUse = constructUsername(request, getUsernameParameter());
@@ -95,12 +95,12 @@ public class InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptor
     }
 
     @Override
-    protected void recordSubmissionFailure( HttpServletRequest request) {
+    protected void recordSubmissionFailure( HttpRequest request) {
         // No internal counters to update
     }
 
     @Override
-    protected void recordThrottle( HttpServletRequest request) {
+    protected void recordThrottle( HttpRequest request) {
         super.recordThrottle(request);
          String userToUse = constructUsername(request, getUsernameParameter());
          ClientInfo clientInfo = ClientInfoHolder.getClientInfo();
@@ -129,7 +129,7 @@ public class InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptor
         this.authenticationFailureCode = authenticationFailureCode;
     }
 
-    protected String constructUsername(HttpServletRequest request, String usernameParameter) {
+    protected String constructUsername(HttpRequest request, String usernameParameter) {
          String username = request.getParameter(usernameParameter);
         return "[username: " + (username != null ? username : "") + "]";
     }

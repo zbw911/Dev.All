@@ -37,7 +37,7 @@ public class CacheStatus : Status {
      * @param statistics One or more sets of cache statistics.
      */
     public CacheStatus( StatusCode code,  string description,  CacheStatistics... statistics) {
-        super(code, buildDescription(description, statistics));
+        base(code, buildDescription(description, statistics));
         this.statistics = statistics;
     }
 
@@ -48,7 +48,7 @@ public class CacheStatus : Status {
      * @param e Cause of unavailable statistics.
      */
     public CacheStatus( Exception e) {
-        super(StatusCode.ERROR,
+        base(StatusCode.ERROR,
                 string.format("Error fetching cache status: %s::%s", e.getClass().getSimpleName(), e.getMessage()));
         this.statistics = null;
     }

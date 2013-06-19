@@ -63,4 +63,11 @@ public class MutableAuthentication : AbstractAuthentication
     {
         return this.authenticatedDate;
     }
+
+    public override DateTime AuthenticatedDate
+    {
+        get { return authenticatedDate; }
+        set { authenticatedDate = value; }
+
+    }
 }

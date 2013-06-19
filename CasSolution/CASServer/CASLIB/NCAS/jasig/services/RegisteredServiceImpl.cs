@@ -38,7 +38,7 @@
 
 using System;
 
-namespace Dev.CasServer.jasig.services
+namespace NCAS.jasig.services
 {
     public class RegisteredServiceImpl : AbstractRegisteredService
     {

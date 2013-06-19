@@ -93,9 +93,9 @@ public abstract class AbstractPoolMonitor : AbstractNamedMonitor<PoolStatus> {
      *
      * @return Status code describing pool health.
      *
-     * @throws Exception Thrown to indicate a serious problem with pool validation.
+     * @ Thrown to indicate a serious problem with pool validation.
      */
-    protected abstract StatusCode checkPool() throws Exception;
+    protected abstract StatusCode checkPool() ;
 
 
     /**
@@ -115,7 +115,7 @@ public abstract class AbstractPoolMonitor : AbstractNamedMonitor<PoolStatus> {
 
 
     private class Validator : Callable<StatusCode> {
-        public StatusCode call() throws Exception {
+        public StatusCode call()  {
             return checkPool();
         }
     }

@@ -27,7 +27,7 @@ using Dev.CasServer.jasig.util;
 ////import java.util.HashMap;
 ////import java.util.Map;
 
-////import javax.servlet.http.HttpServletRequest;
+////import javax.servlet.http.HttpRequest;
 
 ////import org.jasig.cas.authentication.principal.Response.ResponseType;
 ////import org.jasig.cas.util.HttpClient;

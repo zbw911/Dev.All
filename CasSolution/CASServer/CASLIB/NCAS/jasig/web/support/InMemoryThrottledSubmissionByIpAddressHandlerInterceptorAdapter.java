@@ -18,7 +18,7 @@
  */
 //package org.jasig.cas.web.support;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 
 /**
  * Throttles access attempts for failed logins by IP Address.  This stores the attempts in memory.  This is not good for a
@@ -31,7 +31,7 @@
 public  class InMemoryThrottledSubmissionByIpAddressHandlerInterceptorAdapter : AbstractInMemoryThrottledSubmissionHandlerInterceptorAdapter {
 
     @Override
-    protected String constructKey( HttpServletRequest request) {
+    protected String constructKey( HttpRequest request) {
         return request.getRemoteAddr();
     }
 }

@@ -43,7 +43,7 @@ public class BadUsernameOrPasswordAuthenticationException :
      * uses the default code as the error code for this exception.
      */
     public BadUsernameOrPasswordAuthenticationException() {
-        super(CODE);
+        base(CODE);
     }
 
     /**
@@ -54,7 +54,7 @@ public class BadUsernameOrPasswordAuthenticationException :
      */
     public BadUsernameOrPasswordAuthenticationException(
          Throwable throwable) {
-        super(CODE, throwable);
+        base(CODE, throwable);
     }
 
     /**
@@ -65,7 +65,7 @@ public class BadUsernameOrPasswordAuthenticationException :
      * @param code the custom code to use with this exception.
      */
     public BadUsernameOrPasswordAuthenticationException( string code) {
-        super(code);
+        base(code);
     }
 
     /**
@@ -77,6 +77,6 @@ public class BadUsernameOrPasswordAuthenticationException :
      */
     public BadUsernameOrPasswordAuthenticationException( string code,
          Throwable throwable) {
-        super(code, throwable);
+        base(code, throwable);
     }
 }

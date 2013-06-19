@@ -27,7 +27,7 @@
 //import org.springframework.util.StringUtils;
 //import org.springframework.webflow.action.AbstractAction;
 //import org.springframework.webflow.execution.Event;
-//import org.springframework.webflow.execution.RequestContext;
+//import org.springframework.webflow.execution.HttpContext;
 
 //import javax.validation.constraints.NotNull;
 
@@ -46,11 +46,11 @@ public abstract class AbstractNonInteractiveCredentialsAction :
     @NotNull
     private CentralAuthenticationService centralAuthenticationService;
     
-    protected  bool isRenewPresent( RequestContext context) {
+    protected  bool isRenewPresent( HttpContext context) {
         return StringUtils.hasText(context.getRequestParameters().get("renew"));
     }
 
-    protected  Event doExecute( RequestContext context) {
+    protected  Event doExecute( HttpContext context) {
          Credentials credentials = constructCredentialsFromRequest(context);
 
         if (credentials == null) {
@@ -115,7 +115,7 @@ public abstract class AbstractNonInteractiveCredentialsAction :
      * @param context the context for this specific request.
      * @param credentials the credentials for this request.
      */
-    protected void onError( RequestContext context,
+    protected void onError( HttpContext context,
          Credentials credentials) {
         // default implementation does nothing
     }
@@ -127,7 +127,7 @@ public abstract class AbstractNonInteractiveCredentialsAction :
      * @param context the context for this specific request.
      * @param credentials the credentials for this request.
      */
-    protected void onSuccess( RequestContext context,
+    protected void onSuccess( HttpContext context,
          Credentials credentials) {
         // default implementation does nothing
     }
@@ -141,5 +141,5 @@ public abstract class AbstractNonInteractiveCredentialsAction :
      * from the request.
      */
     protected abstract Credentials constructCredentialsFromRequest(
-         RequestContext context);
+         HttpContext context);
 }

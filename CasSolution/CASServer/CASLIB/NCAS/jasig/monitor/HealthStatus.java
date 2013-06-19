@@ -41,7 +41,7 @@ public class HealthStatus : Status {
      * @see #getCode()
      */
     public HealthStatus( StatusCode code,  Map<string, Status> detailMap) {
-        super(code);
+        base(code);
         this.details = Collections.unmodifiableMap(detailMap);
     }
 

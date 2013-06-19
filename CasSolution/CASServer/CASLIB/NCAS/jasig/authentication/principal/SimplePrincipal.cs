@@ -32,73 +32,78 @@
  * @version $Revision: 1.3 $ $Date: 2007/04/19 20:13:01 $
  * @since 3.1
  */
+
 using Dev.CasServer.principal;
 using System;
 using System.Collections.Generic;
-public class SimplePrincipal : Principal
+
+namespace NCAS.jasig.authentication.principal
 {
+    public class SimplePrincipal : Principal
+    {
 
-    private static Dictionary<string, Object> EMPTY_MAP = new Dictionary<string, Object>();
+        private static Dictionary<string, Object> EMPTY_MAP = new Dictionary<string, Object>();
 
-    /**
+        /**
      * Unique Id for Serialization.
      */
-    private static long serialVersionUID = -5265620187476296219L;
+        private static long serialVersionUID = -5265620187476296219L;
 
-    /** The unique identifier for the principal. */
-    private string id;
+        /** The unique identifier for the principal. */
+        private string id;
 
-    /** Map of attributes for the Principal. */
-    private Dictionary<string, Object> attributes;
+        /** Map of attributes for the Principal. */
+        private Dictionary<string, Object> attributes;
 
-    public SimplePrincipal(string id)
-        : this(id, null)
-    {
-        //this(id, null);
-
-    }
-
-    public SimplePrincipal(string id, Dictionary<string, Object> attributes)
-    {
-        //Assert.notNull(id, "id cannot be null");
-        this.id = id;
-
-        this.attributes = attributes == null || attributes.Count == 0
-            ? EMPTY_MAP : attributes;
-    }
-
-    /**
-     * Returns an immutable map.
-     */
-    public Dictionary<string, Object> getAttributes()
-    {
-        return this.attributes;
-    }
-
-    public string toString()
-    {
-        return this.id;
-    }
-
-    public int hashCode()
-    {
-        return base.GetHashCode() ^ this.id.GetHashCode();
-    }
-
-    public string getId()
-    {
-        return this.id;
-    }
-
-    public bool equals(Object o)
-    {
-        if (o == null || !this.GetType().Equals(o.GetType()))
+        public SimplePrincipal(string id)
+            : this(id, null)
         {
-            return false;
+            //this(id, null);
+
         }
 
-        SimplePrincipal p = (SimplePrincipal)o;
+        public SimplePrincipal(string id, Dictionary<string, Object> attributes)
+        {
+            //Assert.notNull(id, "id cannot be null");
+            this.id = id;
 
-        return this.id.Equals(p.getId());
+            this.attributes = attributes == null || attributes.Count == 0
+                                  ? EMPTY_MAP : attributes;
+        }
+
+        /**
+     * Returns an immutable map.
+     */
+        public Dictionary<string, Object> getAttributes()
+        {
+            return this.attributes;
+        }
+
+        public string toString()
+        {
+            return this.id;
+        }
+
+        public int hashCode()
+        {
+            return base.GetHashCode() ^ this.id.GetHashCode();
+        }
+
+        public string getId()
+        {
+            return this.id;
+        }
+
+        public bool equals(Object o)
+        {
+            if (o == null || !this.GetType().Equals(o.GetType()))
+            {
+                return false;
+            }
+
+            SimplePrincipal p = (SimplePrincipal)o;
+
+            return this.id.Equals(p.getId());
+        }
     }
 }

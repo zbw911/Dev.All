@@ -32,8 +32,9 @@
  */
 
 using System.Collections.ObjectModel;
+using Dev.CasServer.jasig.services;
 
-namespace Dev.CasServer.jasig.services
+namespace NCAS.jasig.services
 {
     public interface ServicesManager
     {

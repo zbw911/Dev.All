@@ -22,8 +22,8 @@
 //import java.lang.reflect.Field;
 //import java.security.NoSuchAlgorithmException;
 //import java.util.Map;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 //import javax.validation.constraints.NotNull;
 //import javax.xml.namespace.QName;
 
@@ -96,7 +96,7 @@ public abstract class AbstractSaml10ResponseView : AbstractCasView {
     }
 
     protected void renderMergedOutputModel(
-             Map<String, Object> model,  HttpServletRequest request,  HttpServletResponse response) throws Exception {
+             Map<String, Object> model,  HttpRequest request,  HttpResponse response)  {
 
         response.setCharacterEncoding(this.encoding);
 

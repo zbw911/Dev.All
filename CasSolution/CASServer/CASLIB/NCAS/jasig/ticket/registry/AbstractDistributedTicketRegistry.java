@@ -125,7 +125,7 @@ public abstract class AbstractDistributedTicketRegistry : AbstractTicketRegistry
         private static  long serialVersionUID = 8160636219307822967L;
 
         protected ServiceTicketDelegator( AbstractDistributedTicketRegistry ticketRegistry,  ServiceTicket serviceTicket,  bool callback) {
-            super(ticketRegistry, serviceTicket, callback);
+            base(ticketRegistry, serviceTicket, callback);
         }
 
 
@@ -155,7 +155,7 @@ public abstract class AbstractDistributedTicketRegistry : AbstractTicketRegistry
         private static  long serialVersionUID = 3946038899057626741L;
 
         protected TicketGrantingTicketDelegator( AbstractDistributedTicketRegistry ticketRegistry,  TicketGrantingTicket ticketGrantingTicket,  bool callback) {
-            super(ticketRegistry, ticketGrantingTicket, callback);
+            base(ticketRegistry, ticketGrantingTicket, callback);
         }
 
         public Authentication getAuthentication() {

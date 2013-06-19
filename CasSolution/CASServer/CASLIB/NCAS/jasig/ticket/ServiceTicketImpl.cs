@@ -101,6 +101,14 @@ namespace NCAS.jasig.ticket
             return this.fromNewLogin;
         }
 
+        public string PREFIX
+        {
+            get
+            {
+                return "ST";
+            }
+        }
+
         public Service getService()
         {
             return this.service;

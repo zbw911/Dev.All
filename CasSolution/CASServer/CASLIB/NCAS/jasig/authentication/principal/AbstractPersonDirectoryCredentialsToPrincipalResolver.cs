@@ -44,6 +44,7 @@ using Dev.CasServer.jasig.authentication.principal;
 using Dev.CasServer.jasig.authentication.principal.support;
 using Dev.CasServer.jasig.services.persondir;
 using Dev.CasServer.principal;
+using SimplePrincipal = NCAS.jasig.authentication.principal.SimplePrincipal;
 
 public abstract class AbstractPersonDirectoryCredentialsToPrincipalResolver
     : CredentialsToPrincipalResolver

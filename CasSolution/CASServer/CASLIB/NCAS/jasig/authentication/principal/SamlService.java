@@ -22,7 +22,7 @@
 //import java.util.HashMap;
 //import java.util.Map;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 
 //import org.apache.commons.logging.Log;
 //import org.apache.commons.logging.LogFactory;
@@ -64,11 +64,11 @@ public  class SamlService : AbstractWebApplicationService {
     private static  long serialVersionUID = -6867572626767140223L;
 
     protected SamlService( string id) {
-        super(id, id, null, new HttpClient());
+        base(id, id, null, new HttpClient());
     }
 
     protected SamlService( string id,  string originalUrl,  string artifactId,  HttpClient httpClient,  string requestId) {
-        super(id, originalUrl, artifactId, httpClient);
+        base(id, originalUrl, artifactId, httpClient);
         this.requestId = requestId;
     }
 
@@ -84,7 +84,7 @@ public  class SamlService : AbstractWebApplicationService {
     }
 
     public static SamlService createServiceFrom(
-         HttpServletRequest request,  HttpClient httpClient) {
+         HttpRequest request,  HttpClient httpClient) {
          string service = request.getParameter(CONST_PARAM_SERVICE);
          string artifactId;
          string requestBody = getRequestBody(request);
@@ -121,7 +121,7 @@ public  class SamlService : AbstractWebApplicationService {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("Attempted to extract Request from HttpServletRequest.  Results:");
+            log.debug("Attempted to extract Request from HttpRequest.  Results:");
             log.debug(string.format("Request Body: %s", requestBody));
             log.debug(string.format("Extracted ArtifactId: %s", artifactId));
             log.debug(string.format("Extracted Request Id: %s", requestId));
@@ -155,7 +155,7 @@ public  class SamlService : AbstractWebApplicationService {
         }
     }
     
-    protected static string getRequestBody( HttpServletRequest request) {
+    protected static string getRequestBody( HttpRequest request) {
          StringBuilder builder = new StringBuilder();
         try {
              BufferedReader reader = request.getReader();

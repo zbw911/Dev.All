@@ -32,6 +32,7 @@
  */
 
 using System.Collections.Generic;
+using NCAS.jasig.services;
 
 namespace Dev.CasServer.jasig.services
 {

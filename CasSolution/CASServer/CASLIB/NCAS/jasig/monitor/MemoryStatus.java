@@ -45,7 +45,7 @@ public class MemoryStatus : Status {
      * @see #getCode()
      */
     public MemoryStatus( StatusCode code,  long free,  long total) {
-        super(code, string.format("%.2fMB free, %.2fMB total.", free / BYTES_PER_MB, total / BYTES_PER_MB));
+        base(code, string.format("%.2fMB free, %.2fMB total.", free / BYTES_PER_MB, total / BYTES_PER_MB));
         this.freeMemory = free;
         this.totalMemory = total;
     }

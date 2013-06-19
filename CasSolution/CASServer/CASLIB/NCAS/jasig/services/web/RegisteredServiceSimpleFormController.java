@@ -24,8 +24,8 @@
 //import java.util.HashMap;
 //import java.util.List;
 //import java.util.Map;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 //import javax.validation.constraints.NotNull;
 
 //import org.jasig.cas.services.RegexRegisteredService;
@@ -67,13 +67,13 @@ public  class RegisteredServiceSimpleFormController : SimpleFormController {
 
     /**
      * Sets the require fields and the disallowed fields from the
-     * HttpServletRequest.
+     * HttpRequest.
      * 
-     * @see org.springframework.web.servlet.mvc.BaseCommandController#initBinder(javax.servlet.http.HttpServletRequest,
+     * @see org.springframework.web.servlet.mvc.BaseCommandController#initBinder(javax.servlet.http.HttpRequest,
      * org.springframework.web.bind.ServletRequestDataBinder)
      */
-    protected  void initBinder( HttpServletRequest request,
-         ServletRequestDataBinder binder) throws Exception {
+    protected  void initBinder( HttpRequest request,
+         ServletRequestDataBinder binder)  {
         binder.setRequiredFields(new string[] {"description", "serviceId",
             "name", "allowedToProxy", "enabled", "ssoEnabled",
             "anonymousAccess", "evaluationOrder"});
@@ -84,13 +84,13 @@ public  class RegisteredServiceSimpleFormController : SimpleFormController {
     /**
      * Adds the service to the ServiceRegistry via the ServiceRegistryManager.
      * 
-     * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse, java.lang.Object,
+     * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpRequest,
+     * javax.servlet.http.HttpResponse, java.lang.Object,
      * org.springframework.validation.BindException)
      */
-    protected  ModelAndView onSubmit( HttpServletRequest request,
-         HttpServletResponse response,  Object command,
-         BindException errors) throws Exception {
+    protected  ModelAndView onSubmit( HttpRequest request,
+         HttpResponse response,  Object command,
+         BindException errors)  {
         RegisteredService service = (RegisteredService) command;
 
         // only change object class if there isn't an explicit RegisteredService class set
@@ -115,8 +115,8 @@ public  class RegisteredServiceSimpleFormController : SimpleFormController {
         return modelAndView;
     }
 
-    protected Object formBackingObject( HttpServletRequest request)
-        throws Exception {
+    protected Object formBackingObject( HttpRequest request)
+         {
          string id = request.getParameter("id");
 
         if (!StringUtils.hasText(id)) {
@@ -145,9 +145,9 @@ public  class RegisteredServiceSimpleFormController : SimpleFormController {
     /**
      * Returns the attributes, page title, and command name.
      * 
-     * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
+     * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpRequest)
      */
-    protected  Map referenceData( HttpServletRequest request) throws Exception {
+    protected  Map referenceData( HttpRequest request)  {
         
          Map<string, Object> model = new HashMap<string, Object>();
 

@@ -18,7 +18,7 @@
  */
 //package org.jasig.cas.web.flow;
 
-//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpRequest;
 //import javax.servlet.http.HttpSession;
 //import javax.validation.constraints.Min;
 //import javax.validation.constraints.NotNull;
@@ -30,7 +30,7 @@
 //import org.springframework.webflow.core.collection.AttributeMap;
 //import org.springframework.webflow.execution.FlowExecutionListenerAdapter;
 //import org.springframework.webflow.execution.FlowSession;
-//import org.springframework.webflow.execution.RequestContext;
+//import org.springframework.webflow.execution.HttpContext;
 
 /**
  * Listener to expire web session as soon as the webflow is ended. The goal is to decrease memory consumption by deleting as soon as
@@ -55,7 +55,7 @@ public  class TerminateWebSessionListener : FlowExecutionListenerAdapter {
     private String serviceManagerUrl;
 
     @Override
-    public void sessionStarted( RequestContext context,  FlowSession session) {
+    public void sessionStarted( HttpContext context,  FlowSession session) {
          Service service;
         // Guard against exceptions that arise from attempts to access terminated flow sessions
         try {
@@ -75,10 +75,10 @@ public  class TerminateWebSessionListener : FlowExecutionListenerAdapter {
     }
 
     @Override
-    public void sessionEnded( RequestContext context,  FlowSession session,  String outcome,
+    public void sessionEnded( HttpContext context,  FlowSession session,  String outcome,
                               AttributeMap output) {
 
-         HttpServletRequest request = WebUtils.getHttpServletRequest(context);
+         HttpRequest request = WebUtils.getHttpServletRequest(context);
         // get session but don't create it if it doesn't already exist
          HttpSession webSession = request.getSession(false);
 

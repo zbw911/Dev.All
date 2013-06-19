@@ -206,7 +206,7 @@ namespace Dev.CasServer.jasig.util
         //    this.followRedirects = follow;
         //}
 
-        //public void destroy() throws Exception {
+        //public void destroy()  {
         //    EXECUTOR_SERVICE.shutdown();
         //}
 
@@ -230,7 +230,7 @@ namespace Dev.CasServer.jasig.util
         //        this.followRedirects = followRedirects;
         //    }
 
-        //    public bool call() throws Exception {
+        //    public bool call()  {
         //        HttpURLConnection connection = null;
         //        BufferedReader in = null;
         //        try {

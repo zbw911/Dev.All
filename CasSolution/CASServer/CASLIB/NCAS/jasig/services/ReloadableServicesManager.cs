@@ -27,7 +27,9 @@
  * @since 3.1
  */
 
-namespace Dev.CasServer.jasig.services
+using Dev.CasServer.jasig.services;
+
+namespace NCAS.jasig.services
 {
     public interface ReloadableServicesManager : ServicesManager {
 

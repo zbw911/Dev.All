@@ -28,7 +28,7 @@ using System.Collections.Generic;
  * @version $Revision$ $Date$
  * @since 3.1
  */
-namespace Dev.CasServer.jasig.services
+namespace NCAS.jasig.services
 {
     public interface RegisteredService : ICloneable
     {

@@ -39,11 +39,12 @@ using System;
 
 namespace NCAS.jasig.ticket
 {
-    public interface TicketGrantingTicket : Ticket {
+    public interface TicketGrantingTicket : Ticket
+    {
 
         /** The prefix to use when generating an id for a TicketGrantingTicket. */
         //String PREFIX = "TGT";
-
+        //string PREFIX { get; }
         /**
      * Method to retrieve the authentication.
      * 

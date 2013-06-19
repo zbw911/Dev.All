@@ -57,10 +57,23 @@ namespace NCAS.jasig.authentication
         }
 
         public abstract DateTime getAuthenticatedDate();
+        public abstract DateTime AuthenticatedDate { get; set; }
 
         public Dictionary<string, Object> getAttributes()
         {
             return this.attributes;
+        }
+
+        public Dictionary<string, object> Attributes
+        {
+            get
+            {
+                return this.attributes;
+            }
+            set
+            {
+                this.attributes = value;
+            }
         }
 
         public Principal getPrincipal()

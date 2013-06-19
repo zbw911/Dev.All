@@ -19,8 +19,8 @@
 //package org.jasig.cas.web;
 
 //import java.util.Map;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpRequest;
+//import javax.servlet.http.HttpResponse;
 //import javax.validation.constraints.NotNull;
 
 //import org.jasig.cas.monitor.HealthCheckMonitor;
@@ -56,8 +56,8 @@ public class HealthCheckController : AbstractController {
 
     /** {@inheritDoc} */
     protected ModelAndView handleRequestInternal(
-             HttpServletRequest request,  HttpServletResponse response)
-            throws Exception {
+             HttpRequest request,  HttpResponse response)
+             {
 
          HealthStatus healthStatus = this.healthCheckMonitor.observe();
          StringBuilder sb = new StringBuilder();
