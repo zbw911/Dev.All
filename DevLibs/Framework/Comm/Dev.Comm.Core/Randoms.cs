@@ -35,7 +35,7 @@ namespace Dev.Comm
                 if (temp != -1)
                 {
                     //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                    var s = (int) DateTime.Now.Ticks;
+                    var s = (int)DateTime.Now.Ticks;
                     rand = new Random(GetRandomSeed());
                 }
                 int t = rand.Next(29);
@@ -47,6 +47,18 @@ namespace Dev.Comm
                 randomCode += allCharArray[t];
             }
             return randomCode;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static int CreateRandomNumber(int max)
+        {
+            var rand = new Random(GetRandomSeed());
+            return rand.Next(max);
         }
 
         ///// <summary>
@@ -156,7 +168,7 @@ namespace Dev.Comm
             if (temp != -1)
             {
                 //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                var s = (int) DateTime.Now.Ticks;
+                var s = (int)DateTime.Now.Ticks;
                 rand = new Random(GetRandomSeed());
             }
             int t = rand.Next(80);

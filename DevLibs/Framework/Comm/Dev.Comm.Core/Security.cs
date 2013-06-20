@@ -35,84 +35,84 @@ namespace Dev.Comm
 
         //private static readonly string strkey = ConfigurationSettings.AppSettings["DescKey"];
 
-        /// <summary>
-        /// 生成随机数
-        /// </summary>
-        /// <param name="codeCount">随机数个数</param>
-        /// <returns>STRING</returns>
-        public static string CreateRandomCode(int codeCount)
-        {
-            string allChar = "2,3,4,5,6,7,8,a,b,c,d,e,f,g,h,i,j,k,m,n,p,q,r,s,t,u,w,x,y";
-            //"A,B,C,D,E,F,G,H,I,J,K,M,N,P,Q,R,S,T,U,W,X,Y";
-            string[] allCharArray = allChar.Split(',');
-            string randomCode = "";
-            int temp = -1;
+        ///// <summary>
+        ///// 生成随机数
+        ///// </summary>
+        ///// <param name="codeCount">随机数个数</param>
+        ///// <returns>STRING</returns>
+        //public static string CreateRandomCode(int codeCount)
+        //{
+        //    string allChar = "2,3,4,5,6,7,8,a,b,c,d,e,f,g,h,i,j,k,m,n,p,q,r,s,t,u,w,x,y";
+        //    //"A,B,C,D,E,F,G,H,I,J,K,M,N,P,Q,R,S,T,U,W,X,Y";
+        //    string[] allCharArray = allChar.Split(',');
+        //    string randomCode = "";
+        //    int temp = -1;
 
-            var rand = new Random();
-            for (int i = 0; i < codeCount; i++)
-            {
-                if (temp != -1)
-                {
-                    //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                    var s = (int) DateTime.Now.Ticks;
-                    rand = new Random(GetRandomSeed());
-                }
-                int t = rand.Next(29);
-                if (temp == t)
-                {
-                    return CreateRandomCode(codeCount);
-                }
-                temp = t;
-                randomCode += allCharArray[t];
-            }
-            return randomCode;
-        }
+        //    var rand = new Random();
+        //    for (int i = 0; i < codeCount; i++)
+        //    {
+        //        if (temp != -1)
+        //        {
+        //            //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
+        //            var s = (int) DateTime.Now.Ticks;
+        //            rand = new Random(GetRandomSeed());
+        //        }
+        //        int t = rand.Next(29);
+        //        if (temp == t)
+        //        {
+        //            return CreateRandomCode(codeCount);
+        //        }
+        //        temp = t;
+        //        randomCode += allCharArray[t];
+        //    }
+        //    return randomCode;
+        //}
 
-        public static int GetRandomSeed()
-        {
-            var bytes = new byte[4];
-            var rng = new RNGCryptoServiceProvider();
-            rng.GetBytes(bytes);
-            return BitConverter.ToInt32(bytes, 0);
-        }
+        //public static int GetRandomSeed()
+        //{
+        //    var bytes = new byte[4];
+        //    var rng = new RNGCryptoServiceProvider();
+        //    rng.GetBytes(bytes);
+        //    return BitConverter.ToInt32(bytes, 0);
+        //}
 
 
-        public static int CreateRandomNumber(int max)
-        {
-            var rand = new Random(GetRandomSeed());
-            return rand.Next(max);
-        }
+        //public static int CreateRandomNumber(int max)
+        //{
+        //    var rand = new Random(GetRandomSeed());
+        //    return rand.Next(max);
+        //}
 
-        /// <summary>
-        /// 生成随机数
-        /// </summary>
-        /// <param name="codeCount">随机数个数</param>
-        /// <returns>STRING</returns>
-        public static string CreateRandomCode()
-        {
-            string allChar = "0,1,2,3,4,5,6,7,8,9";
-            string[] allCharArray = allChar.Split(',');
-            string randomCode = "";
-            int temp = -1;
+        ///// <summary>
+        ///// 生成随机数
+        ///// </summary>
+        ///// <param name="codeCount">随机数个数</param>
+        ///// <returns>STRING</returns>
+        //public static string CreateRandomCode()
+        //{
+        //    string allChar = "0,1,2,3,4,5,6,7,8,9";
+        //    string[] allCharArray = allChar.Split(',');
+        //    string randomCode = "";
+        //    int temp = -1;
 
-            var rand = new Random();
-            for (int i = 0; i < 4; i++)
-            {
-                if (temp != -1)
-                {
-                    //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                    rand = new Random(GetRandomSeed());
-                }
-                int t = rand.Next(10);
-                //if (temp == t)
-                //{
-                //    return CreateRandomCode();
-                //}
-                temp = t;
-                randomCode += allCharArray[t];
-            }
-            return randomCode;
-        }
+        //    var rand = new Random();
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        if (temp != -1)
+        //        {
+        //            //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
+        //            rand = new Random(GetRandomSeed());
+        //        }
+        //        int t = rand.Next(10);
+        //        //if (temp == t)
+        //        //{
+        //        //    return CreateRandomCode();
+        //        //}
+        //        temp = t;
+        //        randomCode += allCharArray[t];
+        //    }
+        //    return randomCode;
+        //}
 
         /// <summary>
         /// 检测是否有Sql危险字符

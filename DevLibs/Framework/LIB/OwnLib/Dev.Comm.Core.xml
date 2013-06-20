@@ -373,6 +373,13 @@
             <param name="fileName">文件上传的路径</param>
             <returns></returns>
         </member>
+        <member name="M:Dev.Comm.FileUtil.BytesToStream(System.Byte[])">
+            <summary>
+            Byte to Stream
+            </summary>
+            <param name="bytefile"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.ImageHelper">
             <summary>
             图片帮助方法
@@ -525,6 +532,13 @@
             <param name="codeCount">随机数个数</param>
             <returns>STRING</returns>
         </member>
+        <member name="M:Dev.Comm.Randoms.CreateRandomNumber(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dev.Comm.Randoms.CreateRandomCode">
             <summary>
             生成随机数
@@ -580,20 +594,6 @@
             <param name="content"></param>
             <param name="pattern"></param>
             <returns></returns>
-        </member>
-        <member name="M:Dev.Comm.Security.CreateRandomCode(System.Int32)">
-            <summary>
-            生成随机数
-            </summary>
-            <param name="codeCount">随机数个数</param>
-            <returns>STRING</returns>
-        </member>
-        <member name="M:Dev.Comm.Security.CreateRandomCode">
-            <summary>
-            生成随机数
-            </summary>
-            <param name="codeCount">随机数个数</param>
-            <returns>STRING</returns>
         </member>
         <member name="M:Dev.Comm.Security.IsSafeSqlString(System.String)">
             <summary>

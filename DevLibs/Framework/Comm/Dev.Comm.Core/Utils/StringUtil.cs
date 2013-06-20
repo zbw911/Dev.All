@@ -1362,7 +1362,7 @@ namespace Dev.Comm
             var clr = "#";
             for (var i = 0; i < 6; i++)
             {
-                var n = Dev.Comm.Security.CreateRandomNumber(6);
+                var n = Dev.Comm.Randoms.CreateRandomNumber(6);
                 clr = clr + nums[n];
             }
             return clr;
