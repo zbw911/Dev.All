@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System;
 using System.Web;
 using Dev.CasServer.jasig.util;
+using NCAS.jasig.authentication.principal;
+using NCAS.jasig.util;
 
 ////package org.jasig.cas.authentication.principal;
 

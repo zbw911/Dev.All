@@ -23,6 +23,8 @@
 
 using System;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication.principal;
+
 /**
  * The AuthenticationManager class is the entity that determines the
  * authenticity of the credentials provided. It (or a class it delegates to) is

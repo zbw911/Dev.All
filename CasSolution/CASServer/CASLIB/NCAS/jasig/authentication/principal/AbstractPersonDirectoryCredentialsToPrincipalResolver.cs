@@ -41,84 +41,86 @@
 using System;
 using System.Collections.Generic;
 using Dev.CasServer.jasig.authentication.principal;
-using Dev.CasServer.jasig.authentication.principal.support;
 using Dev.CasServer.jasig.services.persondir;
 using Dev.CasServer.principal;
-using SimplePrincipal = NCAS.jasig.authentication.principal.SimplePrincipal;
+using NCAS.jasig.authentication.principal.support;
 
-public abstract class AbstractPersonDirectoryCredentialsToPrincipalResolver
-    : CredentialsToPrincipalResolver
+namespace NCAS.jasig.authentication.principal
 {
+    public abstract class AbstractPersonDirectoryCredentialsToPrincipalResolver
+        : CredentialsToPrincipalResolver
+    {
 
-    /** Log instance. */
-    //protected  Logger log = LoggerFactory.getLogger(this.getClass());
+        /** Log instance. */
+        //protected  Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private bool returnNullIfNoAttributes = false;
+        private bool returnNullIfNoAttributes = false;
 
-    /** Repository of principal attributes to be retrieved */
-    //@NotNull
-    private IPersonAttributeDao attributeRepository = new StubPersonAttributeDao(new Dictionary<string, List<Object>>());
+        /** Repository of principal attributes to be retrieved */
+        ////@NotNull
+        private IPersonAttributeDao attributeRepository = new StubPersonAttributeDao(new Dictionary<string, List<Object>>());
 
-    public Principal resolvePrincipal(Credentials credentials) {
-        //if (log.isDebugEnabled()) {
-        //    log.debug("Attempting to resolve a principal...");
-        //}
+        public Principal resolvePrincipal(Credentials credentials) {
+            //if (log.isDebugEnabled()) {
+            //    log.debug("Attempting to resolve a principal...");
+            //}
 
-         string principalId = extractPrincipalId(credentials);
+            string principalId = this.extractPrincipalId(credentials);
         
-        if (principalId == null) {
-            return null;
-        }
+            if (principalId == null) {
+                return null;
+            }
         
-        //if (log.isDebugEnabled()) {
-        //    log.debug("Creating SimplePrincipal for ["
-        //        + principalId + "]");
-        //}
+            //if (log.isDebugEnabled()) {
+            //    log.debug("Creating SimplePrincipal for ["
+            //        + principalId + "]");
+            //}
 
-         IPersonAttributes personAttributes = this.attributeRepository.getPerson(principalId);
-         Dictionary<string, List<Object>> attributes;
+            IPersonAttributes personAttributes = this.attributeRepository.getPerson(principalId);
+            Dictionary<string, List<Object>> attributes;
 
-        if (personAttributes == null) {
-            attributes = null;
-        } else {
-            attributes = personAttributes.getAttributes();
-        }
+            if (personAttributes == null) {
+                attributes = null;
+            } else {
+                attributes = personAttributes.getAttributes();
+            }
 
-        if (attributes == null & !this.returnNullIfNoAttributes) {
-            return new SimplePrincipal(principalId);
-        }
+            if (attributes == null & !this.returnNullIfNoAttributes) {
+                return new SimplePrincipal(principalId);
+            }
 
-        if (attributes == null) {
-            return null;
-        }
+            if (attributes == null) {
+                return null;
+            }
         
-         Dictionary<string, Object> convertedAttributes = new Dictionary<string, Object>();
+            Dictionary<string, Object> convertedAttributes = new Dictionary<string, Object>();
         
-        foreach ( var entry in attributes) {
-             string key = entry.Key;
-             Object value = entry.Value.Count == 1 ? entry.Value[0] : entry.Value;
-            convertedAttributes.Add(key, value);
+            foreach ( var entry in attributes) {
+                string key = entry.Key;
+                Object value = entry.Value.Count == 1 ? entry.Value[0] : entry.Value;
+                convertedAttributes.Add(key, value);
+            }
+            return new SimplePrincipal(principalId, convertedAttributes);
         }
-        return new SimplePrincipal(principalId, convertedAttributes);
-    }
 
-    public abstract bool supports(Credentials credentials);
+        public abstract bool supports(Credentials credentials);
 
-    /**
+        /**
      * Extracts the id of the user from the provided credentials.
      * 
      * @param credentials the credentials provided by the user.
      * @return the username, or null if it could not be resolved.
      */
-    protected abstract string extractPrincipalId(Credentials credentials);
+        protected abstract string extractPrincipalId(Credentials credentials);
 
-    public void setAttributeRepository(IPersonAttributeDao attributeRepository)
-    {
-        this.attributeRepository = attributeRepository;
-    }
+        public void setAttributeRepository(IPersonAttributeDao attributeRepository)
+        {
+            this.attributeRepository = attributeRepository;
+        }
 
-    public void setReturnNullIfNoAttributes(bool returnNullIfNoAttributes)
-    {
-        this.returnNullIfNoAttributes = returnNullIfNoAttributes;
+        public void setReturnNullIfNoAttributes(bool returnNullIfNoAttributes)
+        {
+            this.returnNullIfNoAttributes = returnNullIfNoAttributes;
+        }
     }
 }

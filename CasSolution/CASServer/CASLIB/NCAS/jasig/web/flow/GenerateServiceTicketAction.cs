@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using System.Web.Routing;
 using Dev.CasServer.jasig;
+using NCAS.jasig;
 using NCAS.jasig.ticket;
 using NCAS.jasig.web.flow;
 /*
@@ -47,7 +48,7 @@ public class GenerateServiceTicketAction : AbstractAction
 {
 
     /** Instance of CentralAuthenticationService. */
-    //@NotNull
+    ////@NotNull
     private CentralAuthenticationService centralAuthenticationService;
 
     protected Event doExecute(HttpContext context)

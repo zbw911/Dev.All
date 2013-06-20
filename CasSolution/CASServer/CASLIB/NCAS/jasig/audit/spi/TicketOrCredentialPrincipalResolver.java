@@ -43,7 +43,7 @@
  */
 public  class TicketOrCredentialPrincipalResolver : PrincipalResolver {
     
-    @NotNull
+    //@NotNull
     private  TicketRegistry ticketRegistry;
 
     public TicketOrCredentialPrincipalResolver( TicketRegistry ticketRegistry) {
@@ -64,14 +64,14 @@ public  class TicketOrCredentialPrincipalResolver : PrincipalResolver {
     
     protected string resolveFromInternal( JoinPoint joinPoint) {
          Object arg1 = joinPoint.getArgs()[0];
-        if (arg1 instanceof Credentials) {
+        if (arg1 is Credentials) {
            return arg1.toString();
-        } else if (arg1 instanceof string) {
+        } else if (arg1 is string) {
              Ticket ticket = this.ticketRegistry.getTicket((string) arg1);
-            if (ticket instanceof ServiceTicket) {
+            if (ticket is ServiceTicket) {
                  ServiceTicket serviceTicket = (ServiceTicket) ticket;
                 return serviceTicket.getGrantingTicket().getAuthentication().getPrincipal().getId();
-            } else if (ticket instanceof TicketGrantingTicket) {
+            } else if (ticket is TicketGrantingTicket) {
                  TicketGrantingTicket tgt = (TicketGrantingTicket) ticket;
                 return tgt.getAuthentication().getPrincipal().getId();
             }

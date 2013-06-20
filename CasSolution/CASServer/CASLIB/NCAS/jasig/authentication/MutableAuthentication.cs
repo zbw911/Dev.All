@@ -37,6 +37,8 @@ using Dev.CasServer.principal;
 using NCAS.jasig.authentication;
 using System;
 using System.Collections.Generic;
+using NCAS.jasig.authentication.principal;
+
 public class MutableAuthentication : AbstractAuthentication
 {
 

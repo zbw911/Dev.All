@@ -51,6 +51,7 @@ using System;
 using System.Web;
 using Dev.CasServer.jasig;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication.principal;
 using NCAS.jasig.ticket;
 using NCAS.jasig.web.MOCK2JAVA;
 
@@ -66,10 +67,10 @@ namespace NCAS.jasig.web.flow
         private CredentialsBinder credentialsBinder;
 
         /** Core we delegate to for handling all ticket related tasks. */
-        //@NotNull
+        ////@NotNull
         private CentralAuthenticationService centralAuthenticationService;
 
-        //@NotNull
+        ////@NotNull
         private CookieGenerator warnCookieGenerator;
 
         //protected Logger logger = LoggerFactory.getLogger(getClass());

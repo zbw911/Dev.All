@@ -40,7 +40,7 @@ public class HealthCheckController : AbstractController {
     /** Prefix for custom response headers with health check details. */
     private static  String HEADER_PREFIX = "X-CAS-";
 
-    @NotNull
+    //@NotNull
     private HealthCheckMonitor healthCheckMonitor;
 
 
@@ -61,7 +61,7 @@ public class HealthCheckController : AbstractController {
 
          HealthStatus healthStatus = this.healthCheckMonitor.observe();
          StringBuilder sb = new StringBuilder();
-        sb.append("Health: ").append(healthStatus.getCode());
+        sb.Append("Health: ").Append(healthStatus.getCode());
         String name;
         Status status;
         int i = 0;
@@ -70,10 +70,10 @@ public class HealthCheckController : AbstractController {
             status = entry.getValue();
             response.addHeader("X-CAS-" + name, String.format("%s;%s", status.getCode(), status.getDescription()));
 
-            sb.append("\n\n\t").append(++i).append('.').append(name).append(": ");
-            sb.append(status.getCode());
+            sb.Append("\n\n\t").Append(++i).Append('.').Append(name).Append(": ");
+            sb.Append(status.getCode());
             if (status.getDescription() != null) {
-                sb.append(" - ").append(status.getDescription());
+                sb.Append(" - ").Append(status.getDescription());
             }
         }
         response.setStatus(healthStatus.getCode().value());

@@ -143,10 +143,10 @@ namespace Dev.CasServer.jasig.util
 
         //        // Create the SignatureMethod based on the type of key
         //        SignatureMethod signatureMethod;
-        //        if (pubKey instanceof DSAPublicKey) {
+        //        if (pubKey is DSAPublicKey) {
         //            signatureMethod = sigFactory.newSignatureMethod(
         //                SignatureMethod.DSA_SHA1, null);
-        //        } else if (pubKey instanceof RSAPublicKey) {
+        //        } else if (pubKey is RSAPublicKey) {
         //            signatureMethod = sigFactory.newSignatureMethod(
         //                SignatureMethod.RSA_SHA1, null);
         //        } else {

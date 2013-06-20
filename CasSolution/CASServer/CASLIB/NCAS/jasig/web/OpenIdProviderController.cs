@@ -42,7 +42,7 @@ namespace NCAS.jasig.web
     public class OpenIdProviderController : AbstractController
     {
 
-        //@NotNull
+        ////@NotNull
         private String loginUrl;
 
         protected ModelAndView handleRequestInternal(HttpRequest request,

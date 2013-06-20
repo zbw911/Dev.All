@@ -187,18 +187,18 @@ public abstract class AbstractRegisteredService
         AbstractRegisteredService that = (AbstractRegisteredService)o;
 
         //return new EqualsBuilder()
-        //          .append(this.allowedToProxy, that.allowedToProxy)
-        //          .append(this.anonymousAccess, that.anonymousAccess)
-        //          .append(this.enabled, that.enabled)
-        //          .append(this.evaluationOrder, that.evaluationOrder)
-        //          .append(this.ignoreAttributes, that.ignoreAttributes)
-        //          .append(this.ssoEnabled, that.ssoEnabled)
-        //          .append(this.allowedAttributes, that.allowedAttributes)
-        //          .append(this.description, that.description)
-        //          .append(this.name, that.name)
-        //          .append(this.serviceId, that.serviceId)
-        //          .append(this.theme, that.theme)
-        //          .append(this.usernameAttribute, that.usernameAttribute)
+        //          .Append(this.allowedToProxy, that.allowedToProxy)
+        //          .Append(this.anonymousAccess, that.anonymousAccess)
+        //          .Append(this.enabled, that.enabled)
+        //          .Append(this.evaluationOrder, that.evaluationOrder)
+        //          .Append(this.ignoreAttributes, that.ignoreAttributes)
+        //          .Append(this.ssoEnabled, that.ssoEnabled)
+        //          .Append(this.allowedAttributes, that.allowedAttributes)
+        //          .Append(this.description, that.description)
+        //          .Append(this.name, that.name)
+        //          .Append(this.serviceId, that.serviceId)
+        //          .Append(this.theme, that.theme)
+        //          .Append(this.usernameAttribute, that.usernameAttribute)
         //          .isEquals();
         throw new NotImplementedException();
     }
@@ -206,17 +206,17 @@ public abstract class AbstractRegisteredService
     public int hashCode()
     {
         //return new HashCodeBuilder(7, 31)
-        //          .append(this.allowedAttributes)
-        //          .append(this.description)
-        //          .append(this.serviceId)
-        //          .append(this.name)
-        //          .append(this.theme)
-        //          .append(this.enabled)
-        //          .append(this.ssoEnabled)
-        //          .append(this.anonymousAccess)
-        //          .append(this.ignoreAttributes)
-        //          .append(this.evaluationOrder)
-        //          .append(this.usernameAttribute)
+        //          .Append(this.allowedAttributes)
+        //          .Append(this.description)
+        //          .Append(this.serviceId)
+        //          .Append(this.name)
+        //          .Append(this.theme)
+        //          .Append(this.enabled)
+        //          .Append(this.ssoEnabled)
+        //          .Append(this.anonymousAccess)
+        //          .Append(this.ignoreAttributes)
+        //          .Append(this.evaluationOrder)
+        //          .Append(this.usernameAttribute)
         //          .toHashCode();
 
         throw new NotImplementedException();
@@ -361,8 +361,8 @@ public abstract class AbstractRegisteredService
     public int compareTo(RegisteredService other)
     {
         //return new CompareToBuilder()
-        //          .append(this.getEvaluationOrder(), other.getEvaluationOrder())
-        //          .append(this.getName().toLowerCase(), other.getName().toLowerCase())
+        //          .Append(this.getEvaluationOrder(), other.getEvaluationOrder())
+        //          .Append(this.getName().toLowerCase(), other.getName().toLowerCase())
         //          .toComparison();
 
         throw new NotImplementedException();

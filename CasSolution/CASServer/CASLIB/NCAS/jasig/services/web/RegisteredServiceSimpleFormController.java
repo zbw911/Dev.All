@@ -51,11 +51,11 @@
 public  class RegisteredServiceSimpleFormController : SimpleFormController {
 
     /** Instance of ServiceRegistryManager */
-    @NotNull
+    //@NotNull
     private  ServicesManager servicesManager;
 
     /** Instance of AttributeRegistry. */
-    @NotNull
+    //@NotNull
     private  IPersonAttributeDao personAttributeDao;
 
     public RegisteredServiceSimpleFormController(

@@ -38,7 +38,7 @@
 public class LogAspect {
 
     @Around("(execution (public * org.jasig.cas..*.*(..))) && !(execution( * org.jasig.cas..*.set*(..)))")
-    public Object traceMethod( ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object traceMethod( ProceedingJoinPoint proceedingJoinPoint) throws Exception {
         Object returnVal = null;
          Logger log = getLog(proceedingJoinPoint);
          string methodName = proceedingJoinPoint.getSignature().getName();

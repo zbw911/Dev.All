@@ -44,7 +44,7 @@ public  class RegisteredServiceValidator : Validator {
     private static  int DEFAULT_MAX_DESCRIPTION_LENGTH = 300;
 
     /** {@link ServicesManager} to look up services. */
-    @NotNull
+    //@NotNull
     private ServicesManager servicesManager;
 
     /** The maximum length of the description we will accept. */
@@ -52,7 +52,7 @@ public  class RegisteredServiceValidator : Validator {
     private int maxDescriptionLength = DEFAULT_MAX_DESCRIPTION_LENGTH;
 
     /** {@link IPersonAttributeDao} to manage person attributes */
-    @NotNull
+    //@NotNull
     private IPersonAttributeDao personAttributeDao;
 
     /**
@@ -79,7 +79,7 @@ public  class RegisteredServiceValidator : Validator {
         }
 
         if (r.getDescription() != null
-            && r.getDescription().length() > this.maxDescriptionLength) {
+            && r.getDescription().Length > this.maxDescriptionLength) {
             errors.rejectValue("description",
                 "registeredService.description.length", null);
         }

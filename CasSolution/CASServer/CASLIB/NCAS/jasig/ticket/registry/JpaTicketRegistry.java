@@ -45,11 +45,11 @@
  */
 public  class JpaTicketRegistry : AbstractDistributedTicketRegistry {
     
-    @NotNull
+    //@NotNull
     @PersistenceContext
     private EntityManager entityManager;
         
-    @NotNull
+    //@NotNull
     private string ticketGrantingTicketPrefix = "TGT";
 
 
@@ -72,7 +72,7 @@ public  class JpaTicketRegistry : AbstractDistributedTicketRegistry {
             return false;
         }
         
-        if (ticket instanceof ServiceTicket) {
+        if (ticket is ServiceTicket) {
             removeTicket(ticket);
             log.debug("Deleted ticket [{}] from the registry.", ticket);
             return true;
@@ -172,9 +172,9 @@ public  class JpaTicketRegistry : AbstractDistributedTicketRegistry {
 
     private int countToInt( Object result) {
          int intval;
-        if (result instanceof Long) {
+        if (result is Long) {
             intval = ((Long) result).intValue();
-        } else if (result instanceof Integer) {
+        } else if (result is Integer) {
             intval = (Integer) result;
         } else {
             // Must be a Number of some kind

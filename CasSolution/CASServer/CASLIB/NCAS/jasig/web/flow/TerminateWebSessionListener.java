@@ -51,7 +51,7 @@ public  class TerminateWebSessionListener : FlowExecutionListenerAdapter {
     private int timeToDieInSeconds = 2;
 
     /** URL to service manager Web application. */
-    @NotNull
+    //@NotNull
     private String serviceManagerUrl;
 
     @Override

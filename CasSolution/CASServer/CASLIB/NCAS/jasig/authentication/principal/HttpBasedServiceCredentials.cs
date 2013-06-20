@@ -23,6 +23,7 @@
 ////import org.springframework.util.Assert;
 
 using System;
+
 /**
  * The Credentials representing an HTTP-based service. HTTP-based services (such
  * as web applications) are often represented by the URL entry point of the
@@ -33,7 +34,7 @@ using System;
  * @since 3.0
  */
 
-namespace Dev.CasServer.principal
+namespace NCAS.jasig.authentication.principal
 {
     public class HttpBasedServiceCredentials : Credentials
     {

@@ -13,5 +13,14 @@ namespace NCAS.jasig.web.MOCK2JAVA
             return request.QueryString[parms];
         }
 
+
+
+        public static string getRemoteAddr(this  HttpRequest request)
+        {
+            //return Dev.Comm.
+
+            return "clientip";
+            //return request.QueryString[parms];
+        }
     }
 }

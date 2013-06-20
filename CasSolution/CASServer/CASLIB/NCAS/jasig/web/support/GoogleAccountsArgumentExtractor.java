@@ -37,10 +37,10 @@
  */
 public  class GoogleAccountsArgumentExtractor : AbstractSingleSignOutEnabledArgumentExtractor {
 
-    @NotNull
+    //@NotNull
     private PublicKey publicKey;
 
-    @NotNull
+    //@NotNull
     private PrivateKey privateKey;
 
     private String alternateUsername;

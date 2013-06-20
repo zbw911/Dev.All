@@ -43,10 +43,10 @@ public class RememberMeDelegatingExpirationPolicy : ExpirationPolicy
     /** Unique Id for Serialization */
     private static long serialVersionUID = -575145836880428365L;
 
-    //@NotNull
+    ////@NotNull
     private ExpirationPolicy rememberMeExpirationPolicy;
 
-    //@NotNull
+    ////@NotNull
     private ExpirationPolicy sessionExpirationPolicy;
 
     public bool isExpired(TicketState ticketState)

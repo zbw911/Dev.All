@@ -44,6 +44,7 @@ using System.Web;
 using Dev.CasServer.jasig;
 using Dev.CasServer.jasig.validation;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication.principal;
 using NCAS.jasig.services;
 using NCAS.jasig.ticket;
 using NCAS.jasig.ticket.proxy;
@@ -82,27 +83,27 @@ namespace NCAS.jasig.web
         private static String MODEL_ASSERTION = "assertion";
 
         /** The CORE which we will delegate all requests to. */
-        //@NotNull
+        ////@NotNull
         private CentralAuthenticationService centralAuthenticationService;
 
         /** The validation protocol we want to use. */
-        //@NotNull
+        ////@NotNull
         private Type validationSpecificationClass = typeof(Cas20ProtocolValidationSpecification);
 
         /** The proxy handler we want to use with the controller. */
-        //@NotNull
+        ////@NotNull
         private ProxyHandler proxyHandler;
 
         /** The view to redirect to on a successful validation. */
-        //@NotNull
+        ////@NotNull
         private String successView = DEFAULT_SERVICE_SUCCESS_VIEW_NAME;
 
         /** The view to redirect to on a validation failure. */
-        //@NotNull
+        ////@NotNull
         private String failureView = DEFAULT_SERVICE_FAILURE_VIEW_NAME;
 
         /** Extracts parameters from Request object. */
-        //@NotNull
+        ////@NotNull
         private ArgumentExtractor argumentExtractor;
 
         /**

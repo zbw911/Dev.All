@@ -52,7 +52,7 @@ namespace NCAS.jasig.web.flow
         //private  Log logger = LogFactory.getLog(getClass());
 
 
-        //@NotNull
+        ////@NotNull
         private UniqueTicketIdGenerator ticketIdGenerator;
 
         public String generate(HttpContext context)

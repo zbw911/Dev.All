@@ -46,6 +46,7 @@ using Dev.CasServer.jasig.authentication;
 using Dev.CasServer.principal;
 using NCAS.jasig.authentication;
 using NCAS.jasig.authentication.handler;
+using NCAS.jasig.authentication.principal;
 
 public abstract class AbstractAuthenticationManager : AuthenticationManager
 {
@@ -54,7 +55,7 @@ public abstract class AbstractAuthenticationManager : AuthenticationManager
     //protected  Logger log = LoggerFactory.getLogger(AuthenticationManagerImpl.class);
 
     /** An array of AuthenticationAttributesPopulators. */
-    //@NotNull
+    ////@NotNull
     private List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators = new List<AuthenticationMetaDataPopulator>();
 
     //@Audit(

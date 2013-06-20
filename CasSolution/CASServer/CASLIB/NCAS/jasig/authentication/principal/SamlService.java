@@ -108,7 +108,7 @@ public  class SamlService : AbstractWebApplicationService {
                 tagEnd = CONST_END_ARTIFACT_XML_TAG_NO_NAMESPACE;
             }
              int startTagLocation = requestBody.indexOf(tagStart);
-             int artifactStartLocation = startTagLocation + tagStart.length();
+             int artifactStartLocation = startTagLocation + tagStart.Length;
              int endTagLocation = requestBody.indexOf(tagEnd);
 
             artifactId = requestBody.substring(artifactStartLocation, endTagLocation).trim();
@@ -162,7 +162,7 @@ public  class SamlService : AbstractWebApplicationService {
             
             string line;
             while ((line = reader.readLine()) != null) {
-                builder.append(line);
+                builder.Append(line);
             }
             return builder.toString();
         } catch ( Exception e) {

@@ -40,6 +40,8 @@ using System;
  * @deprecated Future versions of CAS will provide a mechanism to gain access to standard items from the Request object.
  */
 using System.Web;
+using NCAS.jasig.authentication.principal;
+
 //@Deprecated
 [Obsolete]
 public interface CredentialsBinder

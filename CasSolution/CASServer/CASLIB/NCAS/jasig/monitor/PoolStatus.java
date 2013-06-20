@@ -76,19 +76,19 @@ public class PoolStatus : Status {
     private static string buildDescription( string desc,  int active,  int idle) {
          StringBuilder sb = new StringBuilder();
         if (desc != null) {
-            sb.append(desc);
+            sb.Append(desc);
             if (!desc.endsWith(".")) {
-                sb.append('.');
+                sb.Append('.');
             }
-            sb.append(' ');
+            sb.Append(' ');
         }
         if (active != UNKNOWN_COUNT) {
-            sb.append(active).append(" active");
+            sb.Append(active).Append(" active");
         }
         if (idle != UNKNOWN_COUNT) {
-            sb.append(", ").append(idle).append(" idle.");
+            sb.Append(", ").Append(idle).Append(" idle.");
         }
-        if (sb.length() > 0) {
+        if (sb.Length > 0) {
             return sb.toString();
         }
         return null;

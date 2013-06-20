@@ -36,8 +36,8 @@ public class CasDefaultFlowUrlHandler : DefaultFlowUrlHandler {
     @Override
     public String createFlowExecutionUrl( String flowId,  String flowExecutionKey,  HttpRequest request) {
          StringBuffer builder = new StringBuffer();
-        builder.append(request.getRequestURI());
-        builder.append("?");
+        builder.Append(request.getRequestURI());
+        builder.Append("?");
         appendQueryParameters(builder, request.getParameterMap(), getEncodingScheme(request));
         return builder.toString();
     }

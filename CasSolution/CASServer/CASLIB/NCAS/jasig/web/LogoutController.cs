@@ -46,6 +46,7 @@ using System;
 using System.Web;
 using Dev.CasServer.jasig;
 using Dev.CasServer.principal;
+using NCAS.jasig;
 using NCAS.jasig.services;
 using NCAS.jasig.web;
 using NCAS.jasig.web.MOCK2JAVA;
@@ -54,22 +55,22 @@ public class LogoutController : AbstractController
 {
 
     /** The CORE to which we delegate for all CAS functionality. */
-    //@NotNull
+    ////@NotNull
     private CentralAuthenticationService centralAuthenticationService;
 
     /** CookieGenerator for TGT Cookie */
-    //@NotNull
+    ////@NotNull
     private CookieRetrievingCookieGenerator ticketGrantingTicketCookieGenerator;
 
     /** CookieGenerator for Warn Cookie */
-    //@NotNull
+    ////@NotNull
     private CookieRetrievingCookieGenerator warnCookieGenerator;
 
     /** Logout view name. */
-    //@NotNull
+    ////@NotNull
     private String logoutView;
 
-    //@NotNull
+    ////@NotNull
     private ServicesManager servicesManager;
 
     /**

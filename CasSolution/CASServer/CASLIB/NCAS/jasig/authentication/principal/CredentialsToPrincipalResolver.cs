@@ -55,9 +55,10 @@
 
 using Dev.CasServer.principal;
 
-namespace Dev.CasServer.jasig.authentication.principal
+namespace NCAS.jasig.authentication.principal
 {
-    public interface CredentialsToPrincipalResolver {
+    public interface CredentialsToPrincipalResolver
+    {
 
         /**
      * Turn Credentials into a Principal object by analyzing the information

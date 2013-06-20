@@ -91,10 +91,10 @@ public abstract class AuthenticationException : Exception
      * messages file for the internationalization of error messages.
      *
      * @param code The short unique identifier for this error.
-     * @param throwable The chained exception for this AuthenticationException
+     * @param Exception The chained exception for this AuthenticationException
      */
-    public AuthenticationException(String code, Exception throwable)
-        : base(code, throwable)
+    public AuthenticationException(String code, Exception Exception)
+        : base(code, Exception)
     {
         ;
         this.code = code;

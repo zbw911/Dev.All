@@ -90,23 +90,23 @@ public class JdbcLockingStrategy
     private static  string EXPIRATION_DATE_COLUMN_NAME = "EXPIRATION_DATE";
 
     /** Database table name that stores locks */
-    @NotNull
+    //@NotNull
     private string tableName = DEFAULT_TABLE_NAME;
 
     /** Database column name that holds unique identifier */
-    @NotNull
+    //@NotNull
     private string uniqueIdColumnName = UNIQUE_ID_COLUMN_NAME;
 
     /** Database column name that holds application identifier */
-    @NotNull
+    //@NotNull
     private string applicationIdColumnName = APPLICATION_ID_COLUMN_NAME;
 
     /** Database column name that holds expiration date */
-    @NotNull
+    //@NotNull
     private string expirationDateColumnName = EXPIRATION_DATE_COLUMN_NAME;
 
     /** Unique identifier that identifies the client using this lock instance */
-    @NotNull
+    //@NotNull
     private string uniqueId;
 
     /**
@@ -114,18 +114,18 @@ public class JdbcLockingStrategy
      * each one of which may be for a different application or usage within
      * a single application.
      */
-    @NotNull
+    //@NotNull
     private string applicationId;
 
     /** Amount of time in seconds lock may be held */
     private int lockTimeout = DEFAULT_LOCK_TIMEOUT;
 
     /** JDBC data source */
-    @NotNull
+    //@NotNull
     private DataSource dataSource;
 
     /** Database platform */
-    @NotNull
+    //@NotNull
     private DatabasePlatform platform = DEFAULT_PLATFORM;
 
     /** Spring JDBC template used to execute SQL statements */
@@ -268,7 +268,7 @@ public class JdbcLockingStrategy
 
         // Support platform-specific syntax for select query
          StringBuilder sb = new StringBuilder();
-        sb.append(string.format("SELECT %s, %s FROM %s WHERE %s=?",
+        sb.Append(string.format("SELECT %s, %s FROM %s WHERE %s=?",
             this.uniqueIdColumnName,
             this.expirationDateColumnName,
             this.tableName,
@@ -280,7 +280,7 @@ public class JdbcLockingStrategy
             break;
         default:
             // SQL-92 compliant platforms support FOR UPDATE updatability clause
-            sb.append(" FOR UPDATE");
+            sb.Append(" FOR UPDATE");
             break;
         }
         this.selectSql = sb.toString();

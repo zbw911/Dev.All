@@ -76,14 +76,14 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
     private  XSStringBuilder attrValueBuilder = new XSStringBuilder();
 
     /** The issuer, generally the hostname. */
-    @NotNull
+    //@NotNull
     private String issuer;
 
     /** The amount of time in milliseconds this is valid for. */
     @Min(1000)
     private long issueLength = 30000;
 
-    @NotNull
+    //@NotNull
     private String rememberMeAttributeName = REMEMBER_ME_ATTRIBUTE_NAME;
 
     @Override
@@ -156,7 +156,7 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
          AttributeStatement attrStatement = newSamlObject(AttributeStatement.class);
         attrStatement.setSubject(subject);
         for ( Entry<String, Object> e : attributes.entrySet()) {
-            if (e.getValue() instanceof Collection<?> && ((Collection<?>) e.getValue()).isEmpty()) {
+            if (e.getValue() is Collection<?> && ((Collection<?>) e.getValue()).isEmpty()) {
                 // bnoordhuis: don't add the attribute, it causes a org.opensaml.MalformedException
                 log.info("Skipping attribute {} because it does not have any values.", e.getKey());
                 continue;
@@ -164,7 +164,7 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
              Attribute attribute = newSamlObject(Attribute.class);
             attribute.setAttributeName(e.getKey());
             attribute.setAttributeNamespace(NAMESPACE);
-            if (e.getValue() instanceof Collection<?>) {
+            if (e.getValue() is Collection<?>) {
                  Collection<?> c = (Collection<?>) e.getValue();
                 for ( Object value : c) {
                     attribute.getAttributeValues().add(newAttributeValue(value));
@@ -187,7 +187,7 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
 
     private XSString newAttributeValue( Object value) {
          XSString stringValue = this.attrValueBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
-        if (value instanceof String) {
+        if (value is String) {
             stringValue.setValue((String) value);
         } else {
             stringValue.setValue(value.toString());

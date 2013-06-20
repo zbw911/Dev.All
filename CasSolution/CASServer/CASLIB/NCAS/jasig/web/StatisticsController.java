@@ -82,7 +82,7 @@ public  class StatisticsController : AbstractController {
              Collection<Ticket> tickets = this.ticketRegistry.getTickets();
 
             for ( Ticket ticket : tickets) {
-                if (ticket instanceof ServiceTicket) {
+                if (ticket is ServiceTicket) {
                     if (ticket.isExpired()) {
                         expiredSts++;
                     } else {

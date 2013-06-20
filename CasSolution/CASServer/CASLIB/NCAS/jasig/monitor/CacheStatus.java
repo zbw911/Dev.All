@@ -70,21 +70,21 @@ public class CacheStatus : Status {
         }
          StringBuilder sb = new StringBuilder();
         if (desc != null) {
-            sb.append(desc);
+            sb.Append(desc);
             if (!desc.endsWith(".")) {
-                sb.append('.');
+                sb.Append('.');
             }
-            sb.append(' ');
+            sb.Append(' ');
         }
-        sb.append("Cache statistics: [");
+        sb.Append("Cache statistics: [");
         int i = 0;
         for ( CacheStatistics stats : statistics) {
             if (i++ > 0) {
-                sb.append('|');
+                sb.Append('|');
             }
             stats.toString(sb);
         }
-        sb.append(']');
+        sb.Append(']');
         return sb.toString();
     }
 }

@@ -76,7 +76,7 @@
 //        try {
 //            this.delegate.init(config);
 
-//        } catch ( Throwable t) {
+//        } catch ( Exception t) {
 //            // let the service method know initialization failed.
 //            this.initSuccess = false;
 
@@ -157,7 +157,7 @@ public class SafeDispatcherServlet : IHttpHandler
     //    try {
     //        this.delegate.init(config);
 
-    //    } catch ( Throwable t) {
+    //    } catch ( Exception t) {
     //        // let the service method know initialization failed.
     //        this.initSuccess = false;
 

@@ -33,7 +33,7 @@
  */
 public class HealthCheckMonitor : Monitor<HealthStatus> {
     /** Individual monitors that comprise health check. */
-    @NotNull
+    //@NotNull
     private Collection<Monitor> monitors = Collections.emptySet();
 
 

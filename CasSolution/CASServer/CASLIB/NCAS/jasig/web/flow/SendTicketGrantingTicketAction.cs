@@ -46,11 +46,11 @@ namespace NCAS.jasig.web.flow
     public class SendTicketGrantingTicketAction : AbstractAction
     {
 
-        //@NotNull
+        ////@NotNull
         private CookieRetrievingCookieGenerator ticketGrantingTicketCookieGenerator;
 
         /** Instance of CentralAuthenticationService. */
-        //@NotNull
+        ////@NotNull
         private CentralAuthenticationService centralAuthenticationService;
 
         protected Event doExecute(HttpContext context)

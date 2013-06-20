@@ -47,9 +47,9 @@
 
 using System;
 using Dev.CasServer.jasig.validation;
-using Dev.CasServer.principal;
+using NCAS.jasig.authentication.principal;
 
-namespace Dev.CasServer.jasig
+namespace NCAS.jasig
 {
     public interface CentralAuthenticationService
     {

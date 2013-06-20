@@ -33,6 +33,8 @@
  */
 using Dev.CasServer.principal;
 using System;
+using NCAS.jasig.authentication.principal;
+
 public interface Service : Principal
 {
 

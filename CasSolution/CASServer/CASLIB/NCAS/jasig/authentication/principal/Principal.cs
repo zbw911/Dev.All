@@ -42,16 +42,17 @@ using System.Collections.Generic;
  * This is a published and supported CAS Server 3 API.
  * </p>
  */
-namespace Dev.CasServer.principal
+namespace NCAS.jasig.authentication.principal
 {
-    public interface Principal  {
+    public interface Principal
+    {
 
         /**
      * Returns the unique id for the Principal
      * @return the unique id for the Principal.
      */
         String getId();
-    
+
         /**
      * 
      * @return

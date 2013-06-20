@@ -50,8 +50,9 @@
  */
 
 using System;
+using System.Net;
 
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public sealed class HttpClient
     {
@@ -60,10 +61,10 @@ namespace Dev.CasServer.jasig.util
         //private static  long serialVersionUID = -5306738686476129516L;
 
         ///** The default status codes we accept. */
-        //private static  int[] DEFAULT_ACCEPTABLE_CODES = new int[] {
-        //    HttpURLConnection.HTTP_OK, HttpURLConnection.HTTP_NOT_MODIFIED,
-        //    HttpURLConnection.HTTP_MOVED_TEMP, HttpURLConnection.HTTP_MOVED_PERM,
-        //    HttpURLConnection.HTTP_ACCEPTED};
+        private static HttpStatusCode[] DEFAULT_ACCEPTABLE_CODES = new[] {
+            HttpStatusCode .OK, HttpStatusCode.NotModified,
+            HttpStatusCode.Moved, HttpStatusCode.Redirect,
+            HttpStatusCode.Accepted};
 
         //private static  Logger log = LoggerFactory.getLogger(HttpClient.class);
 
@@ -71,7 +72,7 @@ namespace Dev.CasServer.jasig.util
 
 
         ///** List of HTTP status codes considered valid by this AuthenticationHandler. */
-        //@NotNull
+        ////@NotNull
         //@Size(min=1)
         //private int[] acceptableCodes = DEFAULT_ACCEPTABLE_CODES;
 
@@ -126,58 +127,68 @@ namespace Dev.CasServer.jasig.util
             return true;
         }
 
-        //public bool isValidEndPoint( String url) {
-        //    try {
-        //         URL u = new URL(url);
-        //        return isValidEndPoint(u);
-        //    } catch ( MalformedURLException e) {
-        //        log.error(e.getMessage(),e);
-        //        return false;
-        //    }
-        //}
+        public bool isValidEndPoint(String url)
+        {
+            try
+            {
+                Uri u = new Uri(url);
+                return this.isValidEndPoint(u);
+            }
+            catch (Exception e)
+            {
+                //log.error(e.getMessage(), e);
+                //return false;
 
-        //public bool isValidEndPoint( URL url) {
-        //    HttpURLConnection connection = null;
-        //    InputStream is = null;
-        //    try {
-        //        connection = (HttpURLConnection) url.openConnection();
-        //        connection.setConnectTimeout(this.connectionTimeout);
-        //        connection.setReadTimeout(this.readTimeout);
-        //        connection.setInstanceFollowRedirects(this.followRedirects);
+                throw;
+            }
+        }
 
-        //        connection.connect();
+        public bool isValidEndPoint(Uri url)
+        {
+            //HttpURLConnection connection = null;
+            //InputStream is = null;
+            //try {
+            //    connection = (HttpURLConnection) url.openConnection();
+            //    connection.setConnectTimeout(this.connectionTimeout);
+            //    connection.setReadTimeout(this.readTimeout);
+            //    connection.setInstanceFollowRedirects(this.followRedirects);
 
-        //         int responseCode = connection.getResponseCode();
+            //    connection.connect();
 
-        //        for ( int acceptableCode : this.acceptableCodes) {
-        //            if (responseCode == acceptableCode) {
-        //                if (log.isDebugEnabled()) {
-        //                    log.debug("Response code from server matched " + responseCode + ".");
-        //                }
-        //                return true;
-        //            }
-        //        }
+            //     int responseCode = connection.getResponseCode();
 
-        //        if (log.isDebugEnabled()) {
-        //            log.debug("Response Code did not match any of the acceptable response codes.  Code returned was " + responseCode);
-        //        }
+            //    for ( int acceptableCode : this.acceptableCodes) {
+            //        if (responseCode == acceptableCode) {
+            //            if (log.isDebugEnabled()) {
+            //                log.debug("Response code from server matched " + responseCode + ".");
+            //            }
+            //            return true;
+            //        }
+            //    }
 
-        //        // if the response code is an error and we don't find that error acceptable above:
-        //        if (responseCode == 500) {
-        //            is = connection.getInputStream();
-        //             String value = IOUtils.toString(is);
-        //            log.error(String.format("There was an error contacting the endpoint: %s; The error was:\n%s", url.toExternalForm(), value));
-        //        }
-        //    } catch ( IOException e) {
-        //        log.error(e.getMessage(),e);
-        //    } ly {
-        //        IOUtils.closeQuietly(is);
-        //        if (connection != null) {
-        //            connection.disconnect();
-        //        }
-        //    }
-        //    return false;
-        //}
+            //    if (log.isDebugEnabled()) {
+            //        log.debug("Response Code did not match any of the acceptable response codes.  Code returned was " + responseCode);
+            //    }
+
+            //    // if the response code is an error and we don't find that error acceptable above:
+            //    if (responseCode == 500) {
+            //        is = connection.getInputStream();
+            //         String value = IOUtils.toString(is);
+            //        log.error(String.format("There was an error contacting the endpoint: %s; The error was:\n%s", url.toExternalForm(), value));
+            //    }
+            //} catch ( IOException e) {
+            //    log.error(e.getMessage(),e);
+            //} finlly {
+            //    IOUtils.closeQuietly(is);
+            //    if (connection != null) {
+            //        connection.disconnect();
+            //    }
+            //}
+
+            throw new NotImplementedException();
+
+            return false;
+        }
 
         ///**
         // * Set the acceptable HTTP status codes that we will use to determine if the

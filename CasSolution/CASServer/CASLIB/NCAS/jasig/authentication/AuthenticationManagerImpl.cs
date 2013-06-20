@@ -71,17 +71,18 @@ using Dev.CasServer.handler;
 using Dev.CasServer.jasig.authentication.principal;
 using System.Collections.Generic;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication.principal;
 
 public class AuthenticationManagerImpl : AbstractAuthenticationManager
 {
 
     /** An array of authentication handlers. */
-    //@NotNull
+    ////@NotNull
     //@Size(min=1)
     private List<AuthenticationHandler> authenticationHandlers;
 
     /** An array of CredentialsToPrincipalResolvers. */
-    //@NotNull
+    ////@NotNull
     //@Size(min=1)
     private List<CredentialsToPrincipalResolver> credentialsToPrincipalResolvers;
 

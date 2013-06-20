@@ -29,7 +29,7 @@
 /**
  * A {@link ServletContextListener} which wraps Spring's
  * {@link ContextLoaderListener} and catches anything that delegate throws so as
- * to prevent its having thrown a Throwable from aborting the initialization of
+ * to prevent its having thrown a Exception from aborting the initialization of
  * our entire web application context. Use of this ContextListener will not be
  * appropriate for all deployments of a web application. Sometimes, a context
  * listener's aborting context initialization is exactly the desired behavior.
@@ -73,7 +73,7 @@
 //    public void contextInitialized( ServletContextEvent sce) {
 //        try {
 //            this.delegate.contextInitialized(sce);
-//        } catch (Throwable t) {
+//        } catch (Exception t) {
 //            /*
 //             * no matter what went wrong, our role is to capture this error and
 //             * prevent it from blocking initialization of the context. logging
@@ -139,7 +139,7 @@ namespace NCAS.jasig.web.init
         {
             //try {
             //    this.delegate.this.contextInitialized(sce);
-            //} catch (Throwable t) {
+            //} catch (Exception t) {
             //    /*
             // * no matter what went wrong, our role is to capture this error and
             // * prevent it from blocking initialization of the context. logging

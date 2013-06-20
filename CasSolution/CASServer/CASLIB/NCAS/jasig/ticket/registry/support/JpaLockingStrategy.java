@@ -50,7 +50,7 @@ public class JpaLockingStrategy : LockingStrategy {
     public static  int DEFAULT_LOCK_TIMEOUT = 3600;
 
     /** Transactional entity manager from Spring context. */
-    @NotNull
+    //@NotNull
     @PersistenceContext
     protected EntityManager entityManager;
 
@@ -62,11 +62,11 @@ public class JpaLockingStrategy : LockingStrategy {
      * each one of which may be for a different application or usage within
      * a single application.
      */
-    @NotNull
+    //@NotNull
     private string applicationId;
 
     /** Unique identifier that identifies the client using this lock instance */
-    @NotNull
+    //@NotNull
     private string uniqueId;
 
     /** Amount of time in seconds lock may be held */

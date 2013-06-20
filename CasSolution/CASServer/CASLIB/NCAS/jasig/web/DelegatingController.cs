@@ -48,7 +48,7 @@ public class DelegatingController : AbstractController
     private static String DEFAULT_ERROR_VIEW_NAME = "casServiceFailureView";
 
     /** The view to redirect if no delegate can handle the request. */
-    //@NotNull
+    ////@NotNull
     private String failureView = DEFAULT_ERROR_VIEW_NAME;
 
     /**
@@ -88,7 +88,7 @@ public class DelegatingController : AbstractController
     /**
      * @param delegates the delegate controllers to set
      */
-    //@NotNull
+    ////@NotNull
     public void setDelegates(List<DelegateController> delegates)
     {
         this.delegates = delegates;

@@ -38,7 +38,7 @@ namespace NCAS.jasig.authentication.principal
         //string AUTHENTICATION_ATTRIBUTE_REMEMBER_ME = "org.jasig.cas.authentication.principal.REMEMBER_ME";
 
         //string REQUEST_PARAMETER_REMEMBER_ME = "rememberMe";
-
+ 
         bool isRememberMe();
 
         void setRememberMe(bool rememberMe);

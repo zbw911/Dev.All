@@ -34,13 +34,15 @@
  */
 using System;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication.principal;
+
 public class ShibbolethCompatiblePersistentIdGenerator :
     PersistentIdGenerator
 {
 
     private static byte CONST_SEPARATOR = (byte)'!';
 
-    //@NotNull
+    ////@NotNull
     private byte[] salt;
 
     public string generate(Principal principal, Service service)

@@ -35,10 +35,10 @@
  */
 public class DataSourceMonitor : AbstractPoolMonitor {
 
-    @NotNull
+    //@NotNull
     private  JdbcTemplate jdbcTemplate;
 
-    @NotNull
+    //@NotNull
     private string validationQuery;
 
 

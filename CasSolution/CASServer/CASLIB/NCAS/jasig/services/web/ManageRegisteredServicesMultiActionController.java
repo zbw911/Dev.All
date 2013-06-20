@@ -48,10 +48,10 @@ public  class ManageRegisteredServicesMultiActionController : MultiActionControl
     private static  string VIEW_NAME = "manageServiceView";
 
     /** Instance of ServicesManager. */
-    @NotNull
+    //@NotNull
     private  ServicesManager servicesManager;
 
-    @NotNull
+    //@NotNull
     private  string defaultServiceUrl;
     
     /**

@@ -52,10 +52,10 @@ namespace NCAS.jasig.ticket
      * Constructs a InvalidTicketException with the default exception code and
      * the original exception that was thrown.
      * 
-     * @param throwable the chained exception
+     * @param Exception the chained exception
      */
-        public InvalidTicketException(Exception throwable)
-            : base(CODE, throwable)
+        public InvalidTicketException(Exception Exception)
+            : base(CODE, Exception)
         {
             ;
         }

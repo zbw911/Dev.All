@@ -29,10 +29,9 @@
  */
 
 using System;
-using System.Diagnostics;
 using System.Reflection;
 
-namespace Dev.CasServer.jasig
+namespace NCAS.jasig
 {
     public class CasVersion
     {

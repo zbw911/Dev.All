@@ -38,10 +38,10 @@
  */
 public  class PrivateKeyFactoryBean : AbstractFactoryBean {
 
-    @NotNull
+    //@NotNull
     private Resource location;
     
-    @NotNull
+    //@NotNull
     private string algorithm;
 
     protected Object createInstance()  {

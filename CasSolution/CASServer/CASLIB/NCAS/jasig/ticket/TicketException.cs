@@ -52,15 +52,15 @@ namespace NCAS.jasig.ticket
 
         /**
      * Constructs a new TicketException with the code identifying the exception
-     * and the original Throwable.
+     * and the original Exception.
      * 
      * @param code the code to describe what type of exception this is.
-     * @param throwable the original exception we are chaining.
+     * @param Exception the original exception we are chaining.
      */
-        public TicketException(string code, Exception throwable)
-            : base(code, throwable)
+        public TicketException(string code, Exception Exception)
+            : base(code, Exception)
         {
-            //this.InnerException = throwable;
+            //this.InnerException = Exception;
             this.code = code;
         }
 

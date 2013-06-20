@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Dev.CasServer.jasig.services.persondir;
 
-namespace Dev.CasServer.jasig.authentication.principal.support
+namespace NCAS.jasig.authentication.principal.support
 {
     class StubPersonAttributeDao : IPersonAttributeDao
     {

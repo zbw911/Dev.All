@@ -37,6 +37,7 @@
 
 using System.Web;
 using Dev.CasServer.jasig.util;
+using NCAS.jasig.util;
 using NCAS.jasig.web.support;
 
 public abstract class AbstractSingleSignOutEnabledArgumentExtractor :
@@ -49,7 +50,7 @@ public abstract class AbstractSingleSignOutEnabledArgumentExtractor :
     private bool disableSingleSignOut = false;
 
     /** Default instance of HttpClient. */
-    //@NotNull
+    ////@NotNull
     private HttpClient httpClient;
 
     public void setHttpClient(HttpClient httpClient)

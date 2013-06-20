@@ -58,15 +58,15 @@ namespace NCAS.jasig.web.flow
     {
 
         /** CookieGenerator for the Warnings. */
-        //@NotNull
+        ////@NotNull
         private CookieRetrievingCookieGenerator warnCookieGenerator;
 
         /** CookieGenerator for the TicketGrantingTickets. */
-        //@NotNull
+        ////@NotNull
         private CookieRetrievingCookieGenerator ticketGrantingTicketCookieGenerator;
 
         /** Extractors for finding the service. */
-        //@NotNull
+        ////@NotNull
         //@Size(min=1)
         private List<ArgumentExtractor> argumentExtractors;
 

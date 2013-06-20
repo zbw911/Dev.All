@@ -52,6 +52,7 @@
 using System.Collections.Generic;
 using Dev.CasServer.principal;
 using System;
+using NCAS.jasig.authentication.principal;
 
 namespace Dev.CasServer.jasig.authentication
 {

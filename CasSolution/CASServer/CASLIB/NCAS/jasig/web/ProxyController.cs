@@ -52,6 +52,7 @@ using System;
 using System.Web;
 using Dev.CasServer.jasig;
 using Dev.CasServer.principal;
+using NCAS.jasig;
 using NCAS.jasig.services;
 using NCAS.jasig.ticket;
 using NCAS.jasig.web;
@@ -69,7 +70,7 @@ public  class ProxyController : AbstractController {
     private static  String MODEL_SERVICE_TICKET = "ticket";
 
     /** CORE to delegate all non-web tier functionality to. */
-    //@NotNull    //@NotNull
+    ////@NotNull    ////@NotNull
     private CentralAuthenticationService centralAuthenticationService;
 
     public ProxyController() {

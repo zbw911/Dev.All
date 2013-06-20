@@ -28,6 +28,8 @@ using Dev.CasServer.principal;
  * @since 3.1
  */
 using System;
+using NCAS.jasig.authentication.principal;
+
 public interface PersistentIdGenerator {
 
     /**

@@ -63,7 +63,7 @@ public class JaasAuthenticationHandler :
     private static  string DEFAULT_REALM = "CAS";
 
     /** The realm that contains the login module information. */
-    @NotNull
+    //@NotNull
     private string realm = DEFAULT_REALM;
     
     public JaasAuthenticationHandler() {

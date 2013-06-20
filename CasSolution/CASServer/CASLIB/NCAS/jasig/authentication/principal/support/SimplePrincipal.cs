@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dev.CasServer.principal;
 
-namespace Dev.CasServer.jasig.authentication.principal
+namespace NCAS.jasig.authentication.principal.support
 {
     class SimplePrincipal : Principal
     {

@@ -96,13 +96,13 @@ public class SimpleCacheStatistics : CacheStatistics {
 
     public void toString( StringBuilder builder) {
         if (this.name != null) {
-            builder.append(this.name).append(':');
+            builder.Append(this.name).Append(':');
         }
          Formatter formatter = new Formatter(builder);
         formatter.format("%.2f", this.size / BYTES_PER_MB);
-        builder.append("MB used, ");
-        builder.append(getPercentFree()).append("% free, ");
-        builder.append(this.evictions).append(" evictions");
+        builder.Append("MB used, ");
+        builder.Append(getPercentFree()).Append("% free, ");
+        builder.Append(this.evictions).Append(" evictions");
     }
 
 

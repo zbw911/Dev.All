@@ -30,7 +30,7 @@
  */
 public class SessionMonitor : Monitor<SessionStatus> {
     /** Ticket registry instance that exposes state info. */
-    @NotNull
+    //@NotNull
     private TicketRegistryState registryState;
 
     /** Threshold above which warnings are issued for session count. */
@@ -92,19 +92,19 @@ public class SessionMonitor : Monitor<SessionStatus> {
             StatusCode code = StatusCode.OK;
             if (this.sessionCountWarnThreshold > -1 && sessionCount > this.sessionCountWarnThreshold) {
                 code = StatusCode.WARN;
-                msg.append(string.format(
+                msg.Append(string.format(
                         "Session count (%s) is above threshold %s. ", sessionCount, this.sessionCountWarnThreshold));
             } else {
-                msg.append(sessionCount).append(" sessions. ");
+                msg.Append(sessionCount).Append(" sessions. ");
             }
             if (this.serviceTicketCountWarnThreshold > -1 && ticketCount > this.serviceTicketCountWarnThreshold) {
                 code = StatusCode.WARN;
-                msg.append(string.format(
+                msg.Append(string.format(
                         "Service ticket count (%s) is above threshold %s.",
                         ticketCount,
                         this.serviceTicketCountWarnThreshold));
             } else {
-                msg.append(ticketCount).append(" service tickets.");
+                msg.Append(ticketCount).Append(" service tickets.");
             }
             return new SessionStatus(code, msg.toString(), sessionCount, ticketCount);
         } catch ( Exception e) {

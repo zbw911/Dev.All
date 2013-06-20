@@ -45,7 +45,7 @@ namespace NCAS.jasig.ticket
      * Constructs a TicketValidationException with the default exception code
      * and the original exception that was thrown.
      * 
-     * @param throwable the chained exception
+     * @param Exception the chained exception
      */
         public TicketValidationException(Service service)
             : base(CODE)

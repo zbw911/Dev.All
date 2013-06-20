@@ -114,45 +114,45 @@ namespace NCAS.jasig
         //private  Logger log = LoggerFactory.getLogger(this.getClass());
 
         /** TicketRegistry for storing and retrieving tickets as needed. */
-        //// @NotNull
+        //// //@NotNull
         private TicketRegistry ticketRegistry;
 
         /** New Ticket Registry for storing and retrieving services tickets. Can point to the same one as the ticketRegistry variable. */
-        // @NotNull
+        // //@NotNull
         private TicketRegistry serviceTicketRegistry;
 
         /**
      * AuthenticationManager for authenticating credentials for purposes of
      * obtaining tickets.
      */
-        // @NotNull
+        // //@NotNull
         private AuthenticationManager authenticationManager;
 
         /**
      * UniqueTicketIdGenerator to generate ids for TicketGrantingTickets
      * created.
      */
-        // @NotNull
+        // //@NotNull
         private UniqueTicketIdGenerator ticketGrantingTicketUniqueTicketIdGenerator;
 
         /** Map to contain the mappings of service->UniqueTicketIdGenerators */
-        // @NotNull
+        // //@NotNull
         private Dictionary<string, UniqueTicketIdGenerator> uniqueTicketIdGeneratorsForService;
 
         /** Expiration policy for ticket granting tickets. */
-        // @NotNull
+        // //@NotNull
         private ExpirationPolicy ticketGrantingTicketExpirationPolicy;
 
         /** ExpirationPolicy for Service Tickets. */
-        // @NotNull
+        // //@NotNull
         private ExpirationPolicy serviceTicketExpirationPolicy;
 
         /** Implementation of Service Manager */
-        // @NotNull
+        // //@NotNull
         private ServicesManager servicesManager;
 
         /** Encoder to generate PseudoIds. */
-        // @NotNull
+        // //@NotNull
         private PersistentIdGenerator persistentIdGenerator = new ShibbolethCompatiblePersistentIdGenerator();
 
         /**

@@ -42,8 +42,10 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Dev.CasServer.jasig.util;
+using Dev.CasServer.principal;
+using NCAS.jasig.util;
 
-namespace Dev.CasServer.principal
+namespace NCAS.jasig.authentication.principal
 {
     public abstract class AbstractWebApplicationService : WebApplicationService
     {

@@ -52,12 +52,12 @@ namespace NCAS.jasig.ticket
      * Constructs a TicketCreationException with the default exception code and
      * the original exception that was thrown.
      * 
-     * @param throwable the chained exception
+     * @param Exception the chained exception
      */
-        public TicketCreationException(Exception throwable)
-            : base(CODE, throwable)
+        public TicketCreationException(Exception Exception)
+            : base(CODE, Exception)
         {
-            //base(CODE, throwable);
+            //base(CODE, Exception);
         }
     }
 }

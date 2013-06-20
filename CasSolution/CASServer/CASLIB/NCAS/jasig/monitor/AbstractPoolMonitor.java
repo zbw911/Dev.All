@@ -40,7 +40,7 @@ public abstract class AbstractPoolMonitor : AbstractNamedMonitor<PoolStatus> {
     private int maxWait = DEFAULT_MAX_WAIT;
 
     /** Executor that performs pool resource validation. */
-    @NotNull
+    //@NotNull
     private ExecutorService executor;
 
 

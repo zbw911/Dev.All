@@ -45,7 +45,7 @@
  * </p>
  */
 
-namespace Dev.CasServer.principal
+namespace NCAS.jasig.authentication.principal
 {
     public interface Credentials
     {

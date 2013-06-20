@@ -35,6 +35,7 @@
 
 using System;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication.principal;
 
 namespace Dev.CasServer.jasig.authentication.principal
 {
@@ -45,12 +46,12 @@ namespace Dev.CasServer.jasig.authentication.principal
         private static long serialVersionUID = -8343864967200862794L;
 
         /** The username. */
-        //@NotNull
+        ////@NotNull
         //@Size(min=1,message = "required.username")
         private string username;
 
         /** The password. */
-        //@NotNull
+        ////@NotNull
         //@Size(min=1, message = "required.password")
         private string password;
 

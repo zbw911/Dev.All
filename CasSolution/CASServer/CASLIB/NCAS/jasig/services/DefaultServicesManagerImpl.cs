@@ -52,7 +52,7 @@ namespace NCAS.jasig.services
         //private  Logger log = LoggerFactory.getLogger(getClass());
 
         /** Instance of ServiceRegistryDao. */
-        //@NotNull
+        ////@NotNull
         private ServiceRegistryDao serviceRegistryDao;
 
         /** Map to store all services. */
