@@ -25,7 +25,7 @@
     <param name="FlashVars" value="">
     <param name="Movie" value="@arg">
     <param name="Src" value="@arg">
-    <param name="WMode" value="Transparent">
+    <param name="wmode" value="opaque" />
     <param name="Play" value="0">
     <param name="Loop" value="-1">
     <param name="Quality" value="High">
@@ -47,11 +47,9 @@
     <param name="AllowFullScreen" value="false">
     <param name="AllowFullScreenInteractive" value="">
     <param name="IsDependent" value="0">
-    <embed  Movie="@arg"
-            Src="@arg"
-            quality="high" width="@width" height="@height"
-            id="mycamera" name="mycamera"   type="application/x-shockwave-flash"
-            pluginspage="http://www.macromedia.com/go/getflashplayer"> 
+    <embed   movie="@arg" src="@arg" quality="high" width="@width" height="@height" wmode="opaque"
+       id="mycamera" name="mycamera"   type="application/x-shockwave-flash"
+        pluginspage="http://www.macromedia.com/go/getflashplayer"> 
     </embed>
 </object>
 
