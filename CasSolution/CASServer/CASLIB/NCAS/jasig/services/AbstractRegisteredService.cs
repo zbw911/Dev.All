@@ -61,10 +61,10 @@
 //@Table(name = "RegisteredServiceImpl")
 
 using System.Collections.Generic;
-using Dev.CasServer.Juntil;
 using Dev.CasServer.jasig.services;
 using System;
 using System.Runtime.Serialization;
+using NCAS.Juntil;
 using NCAS.jasig.services;
 
 public abstract class AbstractRegisteredService
