@@ -46,6 +46,7 @@ namespace Dev.Comm
             {
                 pathImageFrom.Seek(0, SeekOrigin.Begin);
                 imageFrom = Image.FromStream(pathImageFrom);
+                pathImageFrom.Seek(0, SeekOrigin.Begin);
                 return imageFrom.Size;
             }
             catch
