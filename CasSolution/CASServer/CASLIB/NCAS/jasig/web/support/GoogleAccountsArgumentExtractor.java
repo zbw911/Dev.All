@@ -43,7 +43,7 @@ public  class GoogleAccountsArgumentExtractor : AbstractSingleSignOutEnabledArgu
     //@NotNull
     private PrivateKey privateKey;
 
-    private String alternateUsername;
+    private string alternateUsername;
 
     public WebApplicationService extractServiceInternal( HttpRequest request) {
         return GoogleAccountsService.createServiceFrom(request,
@@ -66,7 +66,7 @@ public  class GoogleAccountsArgumentExtractor : AbstractSingleSignOutEnabledArgu
      *
      * @param alternateUsername the alternate username.  This is OPTIONAL.
      */
-    public void setAlternateUsername( String alternateUsername) {
+    public void setAlternateUsername( string alternateUsername) {
         this.alternateUsername = alternateUsername;
     }
 }

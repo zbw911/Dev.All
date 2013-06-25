@@ -41,94 +41,95 @@
 
 using System;
 using System.Collections.Generic;
-using Dev.CasServer.handler;
-using Dev.CasServer.principal;
 using System.Linq;
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 
-public class DirectMappingAuthenticationManagerImpl : AbstractAuthenticationManager
+namespace NCAS.jasig.authentication
 {
+    public class DirectMappingAuthenticationManagerImpl : AbstractAuthenticationManager
+    {
 
-    //@NotNull
-    //@Size(min=1)
-    private Dictionary<Credentials, DirectAuthenticationHandlerMappingHolder> credentialsMapping;
+        //@NotNull
+        //@Size(min=1)
+        private Dictionary<Credentials, DirectAuthenticationHandlerMappingHolder> credentialsMapping;
 
-    /**
+        /**
      * @throws IllegalArgumentException if a mapping cannot be found.
      * @see org.jasig.cas.authentication.AuthenticationManager#authenticate(org.jasig.cas.authentication.principal.Credentials)
      */
-    //@Override
-    protected override Pair<AuthenticationHandler, Principal> authenticateAndObtainPrincipal(Credentials credentials)
-    {
-        Type credentialsClass = credentials.GetType();
-        DirectAuthenticationHandlerMappingHolder d = this.credentialsMapping.FirstOrDefault(x => x.Key == credentialsClass).Value;
-
-        ////Assert.notNull(d, "no mapping found for: " + credentialsClass.getName());
-
-        string handlerName = d.getAuthenticationHandler().GetType().FullName;
-        bool authenticated = false;
-
-        try
+        //@Override
+        protected override Pair<AuthenticationHandler, Principal> authenticateAndObtainPrincipal(Credentials credentials)
         {
-            authenticated = d.getAuthenticationHandler().authenticate(credentials);
+            Type credentialsClass = credentials.GetType();
+            DirectAuthenticationHandlerMappingHolder d = this.credentialsMapping.FirstOrDefault(x => x.Key == credentialsClass).Value;
+
+            ////Assert.notNull(d, "no mapping found for: " + credentialsClass.getName());
+
+            string handlerName = d.getAuthenticationHandler().GetType().FullName;
+            bool authenticated = false;
+
+            try
+            {
+                authenticated = d.getAuthenticationHandler().authenticate(credentials);
+            }
+            catch (Exception e)
+            {
+                this.handleError(handlerName, credentials, e);
+            }
+
+            if (!authenticated)
+            {
+                //log.info("{} failed to authenticate {}", handlerName, credentials);
+                throw BadCredentialsAuthenticationException.ERROR;
+            }
+            //log.info("{} successfully authenticated {}", handlerName, credentials);
+
+            Principal p = d.getCredentialsToPrincipalResolver().resolvePrincipal(credentials);
+
+            return new Pair<AuthenticationHandler, Principal>(d.getAuthenticationHandler(), p);
         }
-        catch (Exception e)
+
+        public void setCredentialsMapping(
+            Dictionary<Credentials, DirectAuthenticationHandlerMappingHolder> credentialsMapping)
         {
-            handleError(handlerName, credentials, e);
+            this.credentialsMapping = credentialsMapping;
         }
 
-        if (!authenticated)
+        public class DirectAuthenticationHandlerMappingHolder
         {
-            //log.info("{} failed to authenticate {}", handlerName, credentials);
-            throw BadCredentialsAuthenticationException.ERROR;
+
+            private AuthenticationHandler authenticationHandler;
+
+            private CredentialsToPrincipalResolver credentialsToPrincipalResolver;
+
+            public DirectAuthenticationHandlerMappingHolder()
+            {
+                // nothing to do
+            }
+
+            public AuthenticationHandler getAuthenticationHandler()
+            {
+                return this.authenticationHandler;
+            }
+
+            public void setAuthenticationHandler(
+                AuthenticationHandler authenticationHandler)
+            {
+                this.authenticationHandler = authenticationHandler;
+            }
+
+            public CredentialsToPrincipalResolver getCredentialsToPrincipalResolver()
+            {
+                return this.credentialsToPrincipalResolver;
+            }
+
+            public void setCredentialsToPrincipalResolver(
+                CredentialsToPrincipalResolver credentialsToPrincipalResolver)
+            {
+                this.credentialsToPrincipalResolver = credentialsToPrincipalResolver;
+            }
         }
-        //log.info("{} successfully authenticated {}", handlerName, credentials);
 
-        Principal p = d.getCredentialsToPrincipalResolver().resolvePrincipal(credentials);
-
-        return new Pair<AuthenticationHandler, Principal>(d.getAuthenticationHandler(), p);
     }
-
-    public void setCredentialsMapping(
-         Dictionary<Credentials, DirectAuthenticationHandlerMappingHolder> credentialsMapping)
-    {
-        this.credentialsMapping = credentialsMapping;
-    }
-
-    public class DirectAuthenticationHandlerMappingHolder
-    {
-
-        private AuthenticationHandler authenticationHandler;
-
-        private CredentialsToPrincipalResolver credentialsToPrincipalResolver;
-
-        public DirectAuthenticationHandlerMappingHolder()
-        {
-            // nothing to do
-        }
-
-        public AuthenticationHandler getAuthenticationHandler()
-        {
-            return this.authenticationHandler;
-        }
-
-        public void setAuthenticationHandler(
-             AuthenticationHandler authenticationHandler)
-        {
-            this.authenticationHandler = authenticationHandler;
-        }
-
-        public CredentialsToPrincipalResolver getCredentialsToPrincipalResolver()
-        {
-            return this.credentialsToPrincipalResolver;
-        }
-
-        public void setCredentialsToPrincipalResolver(
-             CredentialsToPrincipalResolver credentialsToPrincipalResolver)
-        {
-            this.credentialsToPrincipalResolver = credentialsToPrincipalResolver;
-        }
-    }
-
 }

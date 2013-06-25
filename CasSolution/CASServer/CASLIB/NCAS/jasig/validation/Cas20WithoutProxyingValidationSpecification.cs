@@ -28,7 +28,8 @@
  * @version $Revision$ $Date$
  * @since 3.0
  */
-namespace Dev.CasServer.jasig.validation
+
+namespace NCAS.jasig.validation
 {
     public class Cas20WithoutProxyingValidationSpecification :
         AbstractCasProtocolValidationSpecification

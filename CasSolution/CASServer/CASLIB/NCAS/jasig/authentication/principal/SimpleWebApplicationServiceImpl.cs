@@ -18,10 +18,8 @@
  */
 
 using System.Collections.Generic;
-using System;
 using System.Web;
-using Dev.CasServer.jasig.util;
-using NCAS.jasig.authentication.principal;
+using Dev.CasServer.principal;
 using NCAS.jasig.util;
 
 ////package org.jasig.cas.authentication.principal;
@@ -42,18 +40,18 @@ using NCAS.jasig.util;
  * @version $Revision: 1.3 $ $Date: 2007/04/24 18:19:22 $
  * @since 3.1
  */
-namespace Dev.CasServer.principal
+namespace NCAS.jasig.authentication.principal
 {
     public class SimpleWebApplicationServiceImpl : AbstractWebApplicationService
     {
 
-        private static String CONST_PARAM_SERVICE = "service";
+        private static string CONST_PARAM_SERVICE = "service";
 
-        private static String CONST_PARAM_TARGET_SERVICE = "targetService";
+        private static string CONST_PARAM_TARGET_SERVICE = "targetService";
 
-        private static String CONST_PARAM_TICKET = "ticket";
+        private static string CONST_PARAM_TICKET = "ticket";
 
-        private static String CONST_PARAM_METHOD = "method";
+        private static string CONST_PARAM_METHOD = "method";
 
         private Dev.CasServer.principal.Response.ResponseType responseType;
 
@@ -62,20 +60,20 @@ namespace Dev.CasServer.principal
      */
         private static long serialVersionUID = 8334068957483758042L;
 
-        public SimpleWebApplicationServiceImpl(String id)
+        public SimpleWebApplicationServiceImpl(string id)
             : this(id, id, null, Response.ResponseType.REDIRECT, null)
         {
             ;
         }
 
-        public SimpleWebApplicationServiceImpl(String id, HttpClient httpClient)
+        public SimpleWebApplicationServiceImpl(string id, HttpClient httpClient)
             : this(id, id, null, Response.ResponseType.REDIRECT, httpClient)
         {
             ;
         }
 
-        private SimpleWebApplicationServiceImpl(String id,
-                                                String originalUrl, String artifactId,
+        private SimpleWebApplicationServiceImpl(string id,
+                                                string originalUrl, string artifactId,
                                                 Response.ResponseType responseType, HttpClient httpClient)
             : base(id, originalUrl, artifactId, httpClient)
         {
@@ -91,9 +89,9 @@ namespace Dev.CasServer.principal
         public static SimpleWebApplicationServiceImpl createServiceFrom(
             HttpRequest request, HttpClient httpClient)
         {
-            String targetService = request.Params[CONST_PARAM_TARGET_SERVICE];
-            String method = request.Params[CONST_PARAM_METHOD];
-            String serviceToUse = !string.IsNullOrEmpty(targetService)
+            string targetService = request.Params[CONST_PARAM_TARGET_SERVICE];
+            string method = request.Params[CONST_PARAM_METHOD];
+            string serviceToUse = !string.IsNullOrEmpty(targetService)
                                       ? targetService : request.Params[CONST_PARAM_SERVICE];
 
             if (!string.IsNullOrEmpty(serviceToUse))
@@ -101,8 +99,8 @@ namespace Dev.CasServer.principal
                 return null;
             }
 
-            String id = cleanupUrl(serviceToUse);
-            String artifactId = request.Params[CONST_PARAM_TICKET];
+            string id = cleanupUrl(serviceToUse);
+            string artifactId = request.Params[CONST_PARAM_TICKET];
 
             return new SimpleWebApplicationServiceImpl(id, serviceToUse,
                                                        artifactId, "POST".Equals(method)
@@ -110,9 +108,9 @@ namespace Dev.CasServer.principal
                                                                        : Response.ResponseType.REDIRECT, httpClient);
         }
 
-        public override Response getResponse(String ticketId)
+        public override Response getResponse(string ticketId)
         {
-            Dictionary<String, String> parameters = new Dictionary<String, String>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
 
             if (!string.IsNullOrEmpty(ticketId))
             {

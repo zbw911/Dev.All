@@ -26,66 +26,71 @@
  * @version $Revision$ $Date$
  * @since 3.0
  */
+
 using System;
-public class BlockedCredentialsAuthenticationException :
-    AuthenticationException
+
+namespace NCAS.jasig.authentication.handler
 {
+    public class BlockedCredentialsAuthenticationException :
+        AuthenticationException
+    {
 
-    /** Static instance of BlockedCredentialsAuthenticationException. */
-    public static BlockedCredentialsAuthenticationException ERROR = new BlockedCredentialsAuthenticationException();
+        /** Static instance of BlockedCredentialsAuthenticationException. */
+        public static BlockedCredentialsAuthenticationException ERROR = new BlockedCredentialsAuthenticationException();
 
-    /** Unique ID for serialization. */
-    private static long serialVersionUID = 3544669598642420017L;
+        /** Unique ID for serialization. */
+        private static long serialVersionUID = 3544669598642420017L;
 
-    /** The default code for this exception used for message resolving. */
-    private static string CODE = "error.authentication.credentials.blocked";
+        /** The default code for this exception used for message resolving. */
+        private static string CODE = "error.authentication.credentials.blocked";
 
-    /**
+        /**
      * Default constructor that does not allow the chaining of exceptions and
      * uses the default code as the error code for this exception.
      */
-    public BlockedCredentialsAuthenticationException()
-        : base(CODE)
-    {
-        ;
-    }
+        public BlockedCredentialsAuthenticationException()
+            : base(CODE)
+        {
+            ;
+        }
 
-    /**
+        /**
      * Constructor that allows for the chaining of exceptions. Defaults to the
      * default code provided for this exception.
      * 
      * @param Exception the chained exception.
      */
-    public BlockedCredentialsAuthenticationException(Exception Exception)
-        : base(CODE, Exception)
-    {
-        ;
-    }
+        public BlockedCredentialsAuthenticationException(Exception Exception)
+            : base(CODE, Exception)
+        {
+            ;
+        }
 
-    /**
+        /**
      * Constructor that allows for providing a custom error code for this class.
      * Error codes are often used to resolve exceptions into messages. Providing
      * a custom error code allows the use of a different message.
      * 
      * @param code the custom code to use with this exception.
      */
-    public BlockedCredentialsAuthenticationException(string code)
-        : base(code)
-    {
-        ;
-    }
+        public BlockedCredentialsAuthenticationException(string code)
+            : base(code)
+        {
+            ;
+        }
 
-    /**
+        /**
      * Constructor that allows for chaining of exceptions and a custom error
      * code.
      * 
      * @param code the custom error code to use in message resolving.
      * @param Exception the chained exception.
      */
-    public BlockedCredentialsAuthenticationException(string code,
-         Exception Exception)
-        : base(code, Exception)
-    {
-        ;
+        public BlockedCredentialsAuthenticationException(string code,
+                                                         Exception Exception)
+            : base(code, Exception)
+        {
+            ;
+        }
     }
 }

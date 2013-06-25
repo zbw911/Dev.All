@@ -44,11 +44,11 @@ public  class SpringAwareMessageMessageInterpolator : MessageInterpolator, Messa
         this.messageSource = messageSource;
     }
 
-    public String interpolate( String s,  Context context) {
+    public string interpolate( string s,  Context context) {
         return interpolate(s, context, LocaleContextHolder.getLocale());
     }
 
-    public String interpolate( String s,  Context context,  Locale locale) {
+    public string interpolate( string s,  Context context,  Locale locale) {
         try {
             return this.messageSource.getMessage(s, context.getConstraintDescriptor().getAttributes().values().toArray(new Object[context.getConstraintDescriptor().getAttributes().size()]), locale);
         } catch ( NoSuchMessageException e) {

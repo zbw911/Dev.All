@@ -24,12 +24,12 @@
 
 using System;
 
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public class CalendarUtils
     {
 
-        public static String[] WEEKDAYS = new String[] { "UNDEFINED", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        public static string[] WEEKDAYS = new string[] { "UNDEFINED", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
         private CalendarUtils()
         {

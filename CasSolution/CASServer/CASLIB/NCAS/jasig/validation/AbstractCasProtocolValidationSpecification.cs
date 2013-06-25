@@ -28,7 +28,7 @@
  * @since 3.0
  */
 
-namespace Dev.CasServer.jasig.validation
+namespace NCAS.jasig.validation
 {
     public abstract class AbstractCasProtocolValidationSpecification :
         ValidationSpecification

@@ -65,26 +65,26 @@
 
 using System;
 
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public class SamlUtils
     {
 
-        private static String JSR_105_PROVIDER = "org.jcp.xml.dsig.internal.dom.XMLDSigRI";
+        private static string JSR_105_PROVIDER = "org.jcp.xml.dsig.internal.dom.XMLDSigRI";
 
-        private static String SAML_PROTOCOL_NS_URI_V20 = "urn:oasis:names:tc:SAML:2.0:protocol";
+        private static string SAML_PROTOCOL_NS_URI_V20 = "urn:oasis:names:tc:SAML:2.0:protocol";
 
         private SamlUtils()
         {
             // nothing to do
         }
 
-        public static String getCurrentDateAndTime()
+        public static string getCurrentDateAndTime()
         {
             return getFormattedDateAndTime(new DateTime());
         }
 
-        public static String getFormattedDateAndTime(DateTime date)
+        public static string getFormattedDateAndTime(DateTime date)
         {
             //DateFormat dateFormat = new SimpleDateFormat(
             //   "yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -95,7 +95,7 @@ namespace Dev.CasServer.jasig.util
             return date.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'");
         }
 
-        //public static String signSamlResponse(String samlResponse,
+        //public static string signSamlResponse(string samlResponse,
         //                                      PrivateKey privateKey, PublicKey publicKey)
         //{
         //    Document doc = constructDocumentFromXmlString(samlResponse);
@@ -110,7 +110,7 @@ namespace Dev.CasServer.jasig.util
         //    throw new RuntimeException("Error signing SAML Response: Null document");
         //}
 
-        //public static Document constructDocumentFromXmlString(String xmlString)
+        //public static Document constructDocumentFromXmlString(string xmlString)
         //{
         //    try
         //    {
@@ -127,7 +127,7 @@ namespace Dev.CasServer.jasig.util
         //private static Element signSamlElement(Element element, PrivateKey privKey,
         //                                       PublicKey pubKey) {
         //    try {
-        //        String providerName = System.getProperty("jsr105Provider",
+        //        string providerName = System.getProperty("jsr105Provider",
         //                                                 JSR_105_PROVIDER);
         //        XMLSignatureFactory sigFactory = XMLSignatureFactory
         //            .getInstance("DOM", (Provider) Class.forName(providerName)

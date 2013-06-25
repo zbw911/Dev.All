@@ -41,8 +41,6 @@
  * @since 3.0
  */
 
-using Dev.CasServer.handler;
-using Dev.CasServer.jasig.util;
 using Dev.CasServer.principal;
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.util;

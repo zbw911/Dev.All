@@ -18,7 +18,6 @@
  */
 ////package org.jasig.cas.authentication.principal;
 
-using Dev.CasServer.principal;
 /**
  * Generates a unique consistant Id based on the principal, a service, and some
  * algorithm.
@@ -27,12 +26,12 @@ using Dev.CasServer.principal;
  * @version $Revision: 1.1 $ $Date: 2007/04/20 19:39:31 $
  * @since 3.1
  */
-using System;
-using NCAS.jasig.authentication.principal;
 
-public interface PersistentIdGenerator {
+namespace NCAS.jasig.authentication.principal
+{
+    public interface PersistentIdGenerator {
 
-    /**
+        /**
      * Generates a PersistentId based on some algorithm plus the principal and
      * service.
      * 
@@ -40,5 +39,6 @@ public interface PersistentIdGenerator {
      * @param service the service to generate the id for.
      * @return the generated persistent id.
      */
-    String generate(Principal principal, Service service);
+        string generate(Principal principal, Service service);
+    }
 }

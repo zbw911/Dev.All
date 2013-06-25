@@ -25,6 +25,8 @@
 
 using Dev.CasServer.principal;
 using System.Web;
+using NCAS.jasig.authentication.principal;
+
 /**
  * : the traditional CAS2 protocol.  Accepts an HttpClient reference.  A default
  * one is configured that you can override.

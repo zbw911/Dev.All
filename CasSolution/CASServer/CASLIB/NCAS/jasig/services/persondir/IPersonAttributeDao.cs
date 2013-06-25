@@ -14,7 +14,7 @@ namespace Dev.CasServer.jasig.services.persondir
      */
     public interface IPersonAttributeDao
     {
-        //public static  String WILDCARD = "*";
+        //public static  string WILDCARD = "*";
         //public static  Pattern WILDCARD_PATTERN = Pattern.compile(Pattern.quote(IPersonAttributeDao.WILDCARD));
 
         /**
@@ -32,12 +32,12 @@ namespace Dev.CasServer.jasig.services.persondir
          * @return The populated {@link IPersonAttributes} for the specified uid, null if no person could be found for the uid. 
          * @throws IllegalArgumentException If <code>uid</code> is <code>null.</code>
          */
-        IPersonAttributes getPerson(String uid);
+        IPersonAttributes getPerson(string uid);
 
         /**
          * Searches for {@link IPersonAttributes}s that match the set of attributes provided in the query {@link Map}. Each
          * implementation is free to define what qualifies as a 'match' is on its own. The provided query Map contains
-         * String attribute names and single values which may be null.
+         * string attribute names and single values which may be null.
          * <br>
          * If the implementation can not execute its query for an expected reason such as not enough information in the
          * query {@link Map} null should be returned. For unexpected problems throw an exception.
@@ -46,12 +46,12 @@ namespace Dev.CasServer.jasig.services.persondir
          * @return A {@link Set} of {@link IPersonAttributes}s that match the query {@link Map}. If no matches are found an empty {@link Set} is returned. If the query could not be run null is returned.
          * @throws IllegalArgumentException If <code>query</code> is <code>null.</code>
          */
-        HashSet<IPersonAttributes> getPeople(Dictionary<String, Object> query);
+        HashSet<IPersonAttributes> getPeople(Dictionary<string, Object> query);
 
         /**
          * Searches for {@link IPersonAttributes}s that match the set of attributes provided in the query {@link Map}. Each
          * implementation is free to define what qualifies as a 'match' is on its own. The provided query Map contains
-         * String attribute names and single values which may be null.
+         * string attribute names and single values which may be null.
          * <br>
          * If the implementation can not execute its query for an expected reason such as not enough information in the
          * query {@link Map} null should be returned. For unexpected problems throw an exception.
@@ -60,7 +60,7 @@ namespace Dev.CasServer.jasig.services.persondir
          * @return A {@link Set} of {@link IPersonAttributes}s that match the query {@link Map}. If no matches are found an empty {@link Set} is returned. If the query could not be run null is returned.
          * @throws IllegalArgumentException If <code>query</code> is <code>null.</code>
          */
-        HashSet<IPersonAttributes> getPeopleWithMultivaluedAttributes(Dictionary<String, List<Object>> query);
+        HashSet<IPersonAttributes> getPeopleWithMultivaluedAttributes(Dictionary<string, List<Object>> query);
 
         /**
          * Gets a {@link Set} of attribute names that may be returned for an IPersonAttributes. The names returned represent all
@@ -71,7 +71,7 @@ namespace Dev.CasServer.jasig.services.persondir
          * 
          * @return A {@link Set} of possible attribute names for user queries.
          */
-        HashSet<String> getPossibleUserAttributeNames();
+        HashSet<string> getPossibleUserAttributeNames();
 
         /**
          * Gets a {@link Set} of attribute names that this implementation knows how to use in a query. The names returned 
@@ -82,7 +82,7 @@ namespace Dev.CasServer.jasig.services.persondir
          * 
          * @return The set of attributes that can be used to query for user ids in this dao, null if the set is unknown.
          */
-        HashSet<String> getAvailableQueryAttributes();
+        HashSet<string> getAvailableQueryAttributes();
 
 
 
@@ -95,16 +95,16 @@ namespace Dev.CasServer.jasig.services.persondir
          * @deprecated Use {@link #getPeople(Map)} instead. This method will be removed in 1.6
          */
         //@Deprecated
-        Dictionary<String, List<Object>> getMultivaluedUserAttributes(Dictionary<String, List<Object>> seed);
+        Dictionary<string, List<Object>> getMultivaluedUserAttributes(Dictionary<string, List<Object>> seed);
 
         /**
          * Returns a mutable {@link Map} of the attributes of the {@link IPersonAttributes} returned by calling
-         * {@link #getPerson(String)}
+         * {@link #getPerson(string)}
          * 
-         * @deprecated Use {@link #getPerson(String)} instead. This method will be removed in 1.6
+         * @deprecated Use {@link #getPerson(string)} instead. This method will be removed in 1.6
          */
         //@Deprecated
-        Dictionary<String, List<Object>> getMultivaluedUserAttributes(String uid);
+        Dictionary<string, List<Object>> getMultivaluedUserAttributes(string uid);
 
         /**
          * Returns a mutable {@link Map} of the single-valued attributes of the first {@link IPersonAttributes} returned by calling
@@ -113,16 +113,16 @@ namespace Dev.CasServer.jasig.services.persondir
          * @deprecated Use {@link #getPeople(Map)} instead. This method will be removed in 1.6
          */
         //@Deprecated
-        Dictionary<String, Object> getUserAttributes(Dictionary<String, Object> seed);
+        Dictionary<string, Object> getUserAttributes(Dictionary<string, Object> seed);
 
         /**
          * Returns a mutable {@link Map} of the single-valued attributes of the {@link IPersonAttributes} returned by calling
-         * {@link #getPerson(String)}
+         * {@link #getPerson(string)}
          * 
-         * @deprecated Use {@link #getPerson(String)} instead. This method will be removed in 1.6
+         * @deprecated Use {@link #getPerson(string)} instead. This method will be removed in 1.6
          */
         //@Deprecated
-        Dictionary<String, Object> getUserAttributes(String uid);
+        Dictionary<string, Object> getUserAttributes(string uid);
     }
 
 }

@@ -40,7 +40,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Dev.CasServer.handler;
+using NCAS.jasig.authentication;
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 using System;

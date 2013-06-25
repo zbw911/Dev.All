@@ -50,11 +50,10 @@
  */
 
 using System.Collections.Generic;
-using Dev.CasServer.principal;
 using System;
 using NCAS.jasig.authentication.principal;
 
-namespace Dev.CasServer.jasig.authentication
+namespace NCAS.jasig.authentication
 {
     public interface Authentication
     {
@@ -83,6 +82,6 @@ namespace Dev.CasServer.jasig.authentication
      * 
      * @return the map of attributes.
      */
-        Dictionary<String, Object> getAttributes();
+        Dictionary<string, Object> getAttributes();
     }
 }

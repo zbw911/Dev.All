@@ -33,28 +33,27 @@
  * @see org.jasig.cas.authentication.principal.SimplePrincipal
  */
 
-using Dev.CasServer.jasig.authentication.principal;
-using Dev.CasServer.principal;
-using NCAS.jasig.authentication.principal;
-
-public class UsernamePasswordCredentialsToPrincipalResolver :
-    AbstractPersonDirectoryCredentialsToPrincipalResolver
+namespace NCAS.jasig.authentication.principal
 {
-
-    protected override string extractPrincipalId(Credentials credentials)
+    public class UsernamePasswordCredentialsToPrincipalResolver :
+        AbstractPersonDirectoryCredentialsToPrincipalResolver
     {
-        UsernamePasswordCredentials usernamePasswordCredentials = (UsernamePasswordCredentials)credentials;
-        return usernamePasswordCredentials.getUsername();
-    }
 
-    /**
+        protected override string extractPrincipalId(Credentials credentials)
+        {
+            UsernamePasswordCredentials usernamePasswordCredentials = (UsernamePasswordCredentials)credentials;
+            return usernamePasswordCredentials.getUsername();
+        }
+
+        /**
      * Return true if Credentials are UsernamePasswordCredentials, false
      * otherwise.
      */
-    public override bool supports(Credentials credentials)
-    {
-        return credentials != null
-            && typeof(UsernamePasswordCredentials).IsAssignableFrom(credentials
-                .GetType());
+        public override bool supports(Credentials credentials)
+        {
+            return credentials != null
+                   && typeof(UsernamePasswordCredentials).IsAssignableFrom(credentials
+                                                                               .GetType());
+        }
     }
 }

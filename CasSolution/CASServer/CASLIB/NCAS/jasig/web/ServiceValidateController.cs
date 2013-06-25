@@ -42,12 +42,12 @@
 
 using System.Web;
 using Dev.CasServer.jasig;
-using Dev.CasServer.jasig.validation;
 using Dev.CasServer.principal;
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.services;
 using NCAS.jasig.ticket;
 using NCAS.jasig.ticket.proxy;
+using NCAS.jasig.validation;
 using NCAS.jasig.web.MOCK2JAVA;
 using NCAS.jasig.web.support;
 using System;
@@ -71,16 +71,16 @@ namespace NCAS.jasig.web
     {
 
         /** View if Service Ticket Validation Fails. */
-        private static String DEFAULT_SERVICE_FAILURE_VIEW_NAME = "casServiceFailureView";
+        private static string DEFAULT_SERVICE_FAILURE_VIEW_NAME = "casServiceFailureView";
 
         /** View if Service Ticket Validation Succeeds. */
-        private static String DEFAULT_SERVICE_SUCCESS_VIEW_NAME = "casServiceSuccessView";
+        private static string DEFAULT_SERVICE_SUCCESS_VIEW_NAME = "casServiceSuccessView";
 
         /** Constant representing the PGTIOU in the model. */
-        private static String MODEL_PROXY_GRANTING_TICKET_IOU = "pgtIou";
+        private static string MODEL_PROXY_GRANTING_TICKET_IOU = "pgtIou";
 
         /** Constant representing the Assertion in the model. */
-        private static String MODEL_ASSERTION = "assertion";
+        private static string MODEL_ASSERTION = "assertion";
 
         /** The CORE which we will delegate all requests to. */
         ////@NotNull
@@ -96,11 +96,11 @@ namespace NCAS.jasig.web
 
         /** The view to redirect to on a successful validation. */
         ////@NotNull
-        private String successView = DEFAULT_SERVICE_SUCCESS_VIEW_NAME;
+        private string successView = DEFAULT_SERVICE_SUCCESS_VIEW_NAME;
 
         /** The view to redirect to on a validation failure. */
         ////@NotNull
-        private String failureView = DEFAULT_SERVICE_FAILURE_VIEW_NAME;
+        private string failureView = DEFAULT_SERVICE_FAILURE_VIEW_NAME;
 
         /** Extracts parameters from Request object. */
         ////@NotNull
@@ -116,7 +116,7 @@ namespace NCAS.jasig.web
      */
         protected Credentials getServiceCredentialsFromRequest(HttpRequest request)
         {
-            String pgtUrl = request.getParameter("pgtUrl");
+            string pgtUrl = request.getParameter("pgtUrl");
             if (StringUtils.hasText(pgtUrl))
             {
                 try
@@ -140,12 +140,12 @@ namespace NCAS.jasig.web
         protected ModelAndView handleRequestInternal(HttpRequest request, HttpResponse response)
         {
             WebApplicationService service = this.argumentExtractor.extractService(request);
-            String serviceTicketId = service != null ? service.getArtifactId() : null;
+            string serviceTicketId = service != null ? service.getArtifactId() : null;
 
             if (service == null || serviceTicketId == null)
             {
                 //if (logger.isDebugEnabled()) {
-                //    logger.debug(String.format("Could not process request; Service: %s, Service Ticket Id: %s", service, serviceTicketId));
+                //    logger.debug(string.format("Could not process request; Service: %s, Service Ticket Id: %s", service, serviceTicketId));
                 //}
                 return this.generateErrorView("INVALID_REQUEST", "INVALID_REQUEST", null);
             }
@@ -153,7 +153,7 @@ namespace NCAS.jasig.web
             try
             {
                 Credentials serviceCredentials = this.getServiceCredentialsFromRequest(request);
-                String proxyGrantingTicketId = null;
+                string proxyGrantingTicketId = null;
 
                 // XXX should be able to validate AND THEN use
                 if (serviceCredentials != null)
@@ -193,12 +193,12 @@ namespace NCAS.jasig.web
 
                 if (serviceCredentials != null && proxyGrantingTicketId != null)
                 {
-                    String proxyIou = this.proxyHandler.handle(serviceCredentials, proxyGrantingTicketId);
+                    string proxyIou = this.proxyHandler.handle(serviceCredentials, proxyGrantingTicketId);
                     success.addObject(MODEL_PROXY_GRANTING_TICKET_IOU, proxyIou);
                 }
 
                 //if (logger.isDebugEnabled()) {
-                //    logger.debug(String.format("Successfully validated service ticket: %s", serviceTicketId));
+                //    logger.debug(string.format("Successfully validated service ticket: %s", serviceTicketId));
                 //}
 
                 return success;
@@ -219,15 +219,15 @@ namespace NCAS.jasig.web
             }
         }
 
-        protected void onSuccessfulValidation(String serviceTicketId, Assertion assertion)
+        protected void onSuccessfulValidation(string serviceTicketId, Assertion assertion)
         {
             // template method with nothing to do.
         }
 
-        private ModelAndView generateErrorView(String code, String description, Object[] args)
+        private ModelAndView generateErrorView(string code, string description, Object[] args)
         {
             ModelAndView modelAndView = new ModelAndView(this.failureView);
-            //String convertedDescription = getMessageSourceAccessor().getMessage(description, args, description);
+            //string convertedDescription = getMessageSourceAccessor().getMessage(description, args, description);
             modelAndView.addObject("code", code);
             //modelAndView.addObject("description", convertedDescription);
 
@@ -281,7 +281,7 @@ namespace NCAS.jasig.web
         /**
      * @param failureView The failureView to set.
      */
-        public void setFailureView(String failureView)
+        public void setFailureView(string failureView)
         {
             this.failureView = failureView;
         }
@@ -289,7 +289,7 @@ namespace NCAS.jasig.web
         /**
      * @param successView The successView to set.
      */
-        public void setSuccessView(String successView)
+        public void setSuccessView(string successView)
         {
             this.successView = successView;
         }

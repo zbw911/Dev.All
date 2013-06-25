@@ -78,8 +78,8 @@ namespace NCAS.jasig.web.flow
             HttpRequest request = WebUtils.getHttpServletRequest(context);
             if (!this.pathPopulated)
             {
-                String contextPath = context.Request.Path;//().getContextPath();
-                String cookiePath = StringUtils.hasText(contextPath) ? contextPath + "/" : "/";
+                string contextPath = context.Request.Path;//().getContextPath();
+                string cookiePath = StringUtils.hasText(contextPath) ? contextPath + "/" : "/";
                 //logger.info("Setting path for cookies to: "
                 //    + cookiePath);
                 this.warnCookieGenerator.setCookiePath(cookiePath);

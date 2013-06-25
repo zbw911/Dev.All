@@ -30,6 +30,9 @@
 using System;
 using System.Web;
 using Dev.CasServer.jasig;
+using NCAS.jasig.web.MOCK2JAVA;
+using NCAS.jasig.web.support;
+
 /**
  * Action that handles the TicketGrantingTicket creation and destruction. If the
  * action is given a TicketGrantingTicket and one also already exists, the old
@@ -55,8 +58,8 @@ namespace NCAS.jasig.web.flow
 
         protected Event doExecute(HttpContext context)
         {
-            String ticketGrantingTicketId = WebUtils.getTicketGrantingTicketId(context);
-            String ticketGrantingTicketValueFromCookie = (String)context.Session[("ticketGrantingTicketId")];
+            string ticketGrantingTicketId = WebUtils.getTicketGrantingTicketId(context);
+            string ticketGrantingTicketValueFromCookie = (string)context.Session[("ticketGrantingTicketId")];
 
             if (ticketGrantingTicketId == null)
             {

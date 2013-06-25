@@ -30,7 +30,8 @@
  * This is a published and supported CAS Server 3 API.
  * </p>
  */
-namespace Dev.CasServer.jasig.validation
+
+namespace NCAS.jasig.validation
 {
     public interface ValidationSpecification {
 

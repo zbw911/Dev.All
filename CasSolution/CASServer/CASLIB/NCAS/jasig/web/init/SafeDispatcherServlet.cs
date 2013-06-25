@@ -61,7 +61,7 @@
 //    private static  long serialVersionUID = 1L;
 
 //    /** Key under which we will store the exception in the ServletContext. */
-//    public static  String CAUGHT_THROWABLE_KEY = "exceptionCaughtByServlet";
+//    public static  string CAUGHT_THROWABLE_KEY = "exceptionCaughtByServlet";
 
 //    /** Instance of Commons Logging. */
 //    private static  Logger log = LoggerFactory.getLogger(SafeDispatcherServlet.class);
@@ -88,7 +88,7 @@
 //             * it.
 //             */
 
-//             String message = "SafeDispatcherServlet: \n"
+//             string message = "SafeDispatcherServlet: \n"
 //                + "The Spring DispatcherServlet we wrap threw on init.\n"
 //                + "But for our having caught this error, the servlet would not have initialized.";
 
@@ -135,89 +135,96 @@
 
 using System;
 using System.Web;
-public class SafeDispatcherServlet : IHttpHandler
+
+namespace NCAS.jasig.web.init
 {
+    /// <summary>
+    /// 在java中 使用httpServlet , 在C# 中使用 IhttpHandler
+    /// </summary>
+    public class SafeDispatcherServlet : IHttpHandler
+    {
 
-    /** Unique Id for serialization. */
-    private static long serialVersionUID = 1L;
+        /** Unique Id for serialization. */
+        private static long serialVersionUID = 1L;
 
-    /** Key under which we will store the exception in the ServletContext. */
-    public static String CAUGHT_THROWABLE_KEY = "exceptionCaughtByServlet";
+        /** Key under which we will store the exception in the ServletContext. */
+        public static string CAUGHT_THROWABLE_KEY = "exceptionCaughtByServlet";
 
-    /** Instance of Commons Logging. */
-    //private static  Logger log = LoggerFactory.getLogger(SafeDispatcherServlet.class);
+        /** Instance of Commons Logging. */
+        //private static  Logger log = LoggerFactory.getLogger(SafeDispatcherServlet.class);
 
-    ///** The actual DispatcherServlet to which we will delegate to. */
-    //private DispatcherServlet delegate = new DispatcherServlet();
+        ///** The actual DispatcherServlet to which we will delegate to. */
+        //private DispatcherServlet delegate = new DispatcherServlet();
 
-    /** bool to determine if the application deployed successfully. */
-    private bool initSuccess = true;
+        /** bool to determine if the application deployed successfully. */
+        private bool initSuccess = true;
 
-    //public void init( ServletConfig config) {
-    //    try {
-    //        this.delegate.init(config);
+        //public void init( ServletConfig config) {
+        //    try {
+        //        this.delegate.init(config);
 
-    //    } catch ( Exception t) {
-    //        // let the service method know initialization failed.
-    //        this.initSuccess = false;
+        //    } catch ( Exception t) {
+        //        // let the service method know initialization failed.
+        //        this.initSuccess = false;
 
-    //        /*
-    //         * no matter what went wrong, our role is to capture this error and
-    //         * prevent it from blocking initialization of the servlet. logging
-    //         * overkill so that our deployer will find a record of this problem
-    //         * even if unfamiliar with Commons Logging and properly configuring
-    //         * it.
-    //         */
+        //        /*
+        //         * no matter what went wrong, our role is to capture this error and
+        //         * prevent it from blocking initialization of the servlet. logging
+        //         * overkill so that our deployer will find a record of this problem
+        //         * even if unfamiliar with Commons Logging and properly configuring
+        //         * it.
+        //         */
 
-    //         String message = "SafeDispatcherServlet: \n"
-    //            + "The Spring DispatcherServlet we wrap threw on init.\n"
-    //            + "But for our having caught this error, the servlet would not have initialized.";
+        //         string message = "SafeDispatcherServlet: \n"
+        //            + "The Spring DispatcherServlet we wrap threw on init.\n"
+        //            + "But for our having caught this error, the servlet would not have initialized.";
 
-    //        // log it via Commons Logging
-    //        log.error(message, t);
+        //        // log it via Commons Logging
+        //        log.error(message, t);
 
-    //        // log it to System.err
-    //        System.err.println(message);
-    //        t.printStackTrace();
+        //        // log it to System.err
+        //        System.err.println(message);
+        //        t.printStackTrace();
 
-    //        // log it to the ServletContext
-    //        ServletContext context = config.getServletContext();
-    //        context.log(message, t);
+        //        // log it to the ServletContext
+        //        ServletContext context = config.getServletContext();
+        //        context.log(message, t);
 
-    //        /*
-    //         * record the error so that the application has access to later
-    //         * display a proper error message based on the exception.
-    //         */
-    //        context.setAttribute(CAUGHT_THROWABLE_KEY, t);
+        //        /*
+        //         * record the error so that the application has access to later
+        //         * display a proper error message based on the exception.
+        //         */
+        //        context.setAttribute(CAUGHT_THROWABLE_KEY, t);
 
-    //    }
-    //}
+        //    }
+        //}
 
-    /**
+        /**
      * @throws ApplicationContextException if the DispatcherServlet does not
      * initialize properly, but the servlet attempts to process a request.
      */
-    public void service(HttpRequest req, HttpResponse resp)
-    {
-        /*
+        public void service(HttpRequest req, HttpResponse resp)
+        {
+            /*
          * Since our container calls only this method and not any of the other
          * HttpServlet runtime methods, such as doDelete(), etc., delegating
          * this method is sufficient to delegate all of the methods in the
          * HttpServlet API.
          */
-        //if (this.initSuccess) {
-        //    this.delegate.service(req, resp);
-        //} else {
-        //    throw new ApplicationContextException(
-        //        "Unable to initialize application context.");
-        //}
-    }
-    public void ProcessRequest(HttpContext context)
-    {
-        //throw new NotImplementedException();
+            //if (this.initSuccess) {
+            //    this.delegate.service(req, resp);
+            //} else {
+            //    throw new ApplicationContextException(
+            //        "Unable to initialize application context.");
+            //}
+        }
+        public void ProcessRequest(HttpContext context)
+        {
+            //throw new NotImplementedException();
 
-        service(context.Request, context.Response);
-    }
+            this.service(context.Request, context.Response);
+        }
 
-    public bool IsReusable { get; private set; }
+        public bool IsReusable { get; private set; }
+    }
 }

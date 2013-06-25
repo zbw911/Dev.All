@@ -37,61 +37,63 @@
  * @version $Revision$ $Date$
  * @since 3.0
  */
-using Dev.CasServer.principal;
-using NCAS.jasig.authentication;
+
 using System;
 using System.Collections.Generic;
 using NCAS.jasig.authentication.principal;
 
-public class ImmutableAuthentication : AbstractAuthentication
+namespace NCAS.jasig.authentication
 {
+    public class ImmutableAuthentication : AbstractAuthentication
+    {
 
-    /** UID for serializing. */
-    private static long serialVersionUID = 3906647483978365235L;
+        /** UID for serializing. */
+        private static long serialVersionUID = 3906647483978365235L;
 
-    private static Dictionary<string, Object> EMPTY_MAP = new Dictionary<string, Object>();
+        private static Dictionary<string, Object> EMPTY_MAP = new Dictionary<string, Object>();
 
-    /** The date/time this authentication object became valid. */
-    DateTime authenticatedDate;
+        /** The date/time this authentication object became valid. */
+        DateTime authenticatedDate;
 
-    /**
+        /**
      * Constructor that accepts both a principal and a map.
      * 
      * @param principal Principal representing user
      * @param attributes Authentication attributes map.
      * @throws IllegalArgumentException if the principal is null.
      */
-    public ImmutableAuthentication(Principal principal,
-         Dictionary<string, Object> attributes)
-        : base(principal, new Dictionary<string, object>())
-    {
-        //base(principal, attributes == null || attributes.isEmpty()
-        //    ? EMPTY_MAP : Collections.unmodifiableMap(attributes));
+        public ImmutableAuthentication(Principal principal,
+                                       Dictionary<string, Object> attributes)
+            : base(principal, new Dictionary<string, object>())
+        {
+            //base(principal, attributes == null || attributes.isEmpty()
+            //    ? EMPTY_MAP : Collections.unmodifiableMap(attributes));
 
-        this.authenticatedDate = System.DateTime.Now;
-    }
+            this.authenticatedDate = System.DateTime.Now;
+        }
 
-    /**
+        /**
      * Constructor that assumes there are no additional authentication
      * attributes.
      * 
      * @param principal the Principal representing the authenticated entity.
      */
-    public ImmutableAuthentication(Principal principal)
-        : this(principal, null)
-    {
-        ;
-    }
+        public ImmutableAuthentication(Principal principal)
+            : this(principal, null)
+        {
+            ;
+        }
 
-    public override DateTime getAuthenticatedDate()
-    {
-        return this.authenticatedDate;
-    }
+        public override DateTime getAuthenticatedDate()
+        {
+            return this.authenticatedDate;
+        }
 
-    public override DateTime AuthenticatedDate
-    {
-        get { return authenticatedDate; }
-        set { authenticatedDate = value; }
+        public override DateTime AuthenticatedDate
+        {
+            get { return this.authenticatedDate; }
+            set { this.authenticatedDate = value; }
 
+        }
     }
 }

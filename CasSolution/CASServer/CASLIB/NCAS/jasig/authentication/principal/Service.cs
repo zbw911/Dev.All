@@ -40,7 +40,7 @@ public interface Service : Principal
 
     void setPrincipal(Principal principal);
 
-    bool logOutOfService(String sessionIdentifier);
+    bool logOutOfService(string sessionIdentifier);
 
     bool matches(Service service);
 }

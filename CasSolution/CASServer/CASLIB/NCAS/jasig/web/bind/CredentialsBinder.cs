@@ -21,8 +21,9 @@
 //import javax.servlet.http.HttpRequest;
 //import org.jasig.cas.authentication.principal.Credentials;
 
-using Dev.CasServer.principal;
 using System;
+using System.Web;
+using NCAS.jasig.authentication.principal;
 /**
  * Interface for a class that can bind items stored in the request to a
  * particular credentials implementation. This allows for binding beyond the
@@ -39,15 +40,15 @@ using System;
  *
  * @deprecated Future versions of CAS will provide a mechanism to gain access to standard items from the Request object.
  */
-using System.Web;
-using NCAS.jasig.authentication.principal;
 
 //@Deprecated
-[Obsolete]
-public interface CredentialsBinder
+namespace NCAS.jasig.web.bind
 {
+    [Obsolete]
+    public interface CredentialsBinder
+    {
 
-    /**
+        /**
      * Method to allow manually binding attributes from the request object to
      * properties of the credentials. Useful when there is no mapping of
      * attribute to property for the usual Spring binding to handle.
@@ -56,9 +57,9 @@ public interface CredentialsBinder
      * credentials to
      * @param credentials The credentials we will be doing custom binding to.
      */
-    void bind(HttpRequest request, Credentials credentials);
+        void bind(HttpRequest request, Credentials credentials);
 
-    /**
+        /**
      * Method to determine if a CredentialsBinder supports a specific class or
      * not.
      * 
@@ -66,5 +67,6 @@ public interface CredentialsBinder
      * @return true if this class is supported by the CredentialsBinder, false
      * otherwise.
      */
-    bool supports(Type clazz);
+        bool supports(Type clazz);
+    }
 }

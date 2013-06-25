@@ -26,7 +26,7 @@
  * @since 3.0
  */
 
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public interface LongNumericGenerator : NumericGenerator {
 

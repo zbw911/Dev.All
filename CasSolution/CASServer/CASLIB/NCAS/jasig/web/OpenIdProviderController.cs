@@ -43,7 +43,7 @@ namespace NCAS.jasig.web
     {
 
         ////@NotNull
-        private String loginUrl;
+        private string loginUrl;
 
         protected ModelAndView handleRequestInternal(HttpRequest request,
                                                       HttpResponse response)
@@ -51,7 +51,7 @@ namespace NCAS.jasig.web
             return new ModelAndView("openIdProviderView", "openid_server", this.loginUrl);
         }
 
-        public void setLoginUrl(String loginUrl)
+        public void setLoginUrl(string loginUrl)
         {
             this.loginUrl = loginUrl;
         }

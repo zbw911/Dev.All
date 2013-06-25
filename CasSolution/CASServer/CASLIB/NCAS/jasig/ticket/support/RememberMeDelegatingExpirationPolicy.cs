@@ -36,42 +36,45 @@
 
 using System.Linq;
 using NCAS.jasig.authentication.principal;
-using NCAS.jasig.ticket;
-public class RememberMeDelegatingExpirationPolicy : ExpirationPolicy
+
+namespace NCAS.jasig.ticket.support
 {
-
-    /** Unique Id for Serialization */
-    private static long serialVersionUID = -575145836880428365L;
-
-    ////@NotNull
-    private ExpirationPolicy rememberMeExpirationPolicy;
-
-    ////@NotNull
-    private ExpirationPolicy sessionExpirationPolicy;
-
-    public bool isExpired(TicketState ticketState)
+    public class RememberMeDelegatingExpirationPolicy : ExpirationPolicy
     {
-        bool b =
-            (bool)
-            ticketState.getAuthentication().getAttributes().FirstOrDefault(
-                x => x.Key == typeof(RememberMeCredentials).FullName).Value;
 
-        if (b == null || b.Equals(false))
+        /** Unique Id for Serialization */
+        private static long serialVersionUID = -575145836880428365L;
+
+        ////@NotNull
+        private ExpirationPolicy rememberMeExpirationPolicy;
+
+        ////@NotNull
+        private ExpirationPolicy sessionExpirationPolicy;
+
+        public bool isExpired(TicketState ticketState)
         {
-            return this.sessionExpirationPolicy.isExpired(ticketState);
+            bool b =
+                (bool)
+                ticketState.getAuthentication().getAttributes().FirstOrDefault(
+                    x => x.Key == typeof(RememberMeCredentials).FullName).Value;
+
+            if (b == null || b.Equals(false))
+            {
+                return this.sessionExpirationPolicy.isExpired(ticketState);
+            }
+
+            return this.rememberMeExpirationPolicy.isExpired(ticketState);
         }
 
-        return this.rememberMeExpirationPolicy.isExpired(ticketState);
-    }
+        public void setRememberMeExpirationPolicy(
+            ExpirationPolicy rememberMeExpirationPolicy)
+        {
+            this.rememberMeExpirationPolicy = rememberMeExpirationPolicy;
+        }
 
-    public void setRememberMeExpirationPolicy(
-         ExpirationPolicy rememberMeExpirationPolicy)
-    {
-        this.rememberMeExpirationPolicy = rememberMeExpirationPolicy;
-    }
-
-    public void setSessionExpirationPolicy(ExpirationPolicy sessionExpirationPolicy)
-    {
-        this.sessionExpirationPolicy = sessionExpirationPolicy;
+        public void setSessionExpirationPolicy(ExpirationPolicy sessionExpirationPolicy)
+        {
+            this.sessionExpirationPolicy = sessionExpirationPolicy;
+        }
     }
 }

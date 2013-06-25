@@ -65,7 +65,7 @@
 //     * The name of the ServletContext attribute whereat we will place a List of
 //     * Throwables that we caught from our delegate context listeners.
 //     */
-//    public static  String CAUGHT_THROWABLE_KEY = "exceptionCaughtByListener";
+//    public static  string CAUGHT_THROWABLE_KEY = "exceptionCaughtByListener";
 
 //    /** The actual ContextLoaderListener to which we will delegate to. */
 //    private  ContextLoaderListener delegate = new ContextLoaderListener();
@@ -82,7 +82,7 @@
 //             * it.
 //             */
 
-//             String message = "SafeContextLoaderListener: \n"
+//             string message = "SafeContextLoaderListener: \n"
 //                + "The Spring ContextLoaderListener we wrap threw on contextInitialized.\n"
 //                + "But for our having caught this error, the web application context would not have initialized.";
 
@@ -130,7 +130,7 @@ namespace NCAS.jasig.web.init
      * The name of the ServletContext attribute whereat we will place a List of
      * Throwables that we caught from our delegate context listeners.
      */
-        public static String CAUGHT_THROWABLE_KEY = "exceptionCaughtByListener";
+        public static string CAUGHT_THROWABLE_KEY = "exceptionCaughtByListener";
 
         /** The actual ContextLoaderListener to which we will delegate to. */
         //private  ContextLoaderListener delegate = new ContextLoaderListener();
@@ -148,7 +148,7 @@ namespace NCAS.jasig.web.init
             // * it.
             // */
 
-            //    String message = "SafeContextLoaderListener: \n"
+            //    string message = "SafeContextLoaderListener: \n"
             //                     + "The Spring ContextLoaderListener we wrap threw on contextInitialized.\n"
             //                     + "But for our having caught this error, the web application context would not have initialized.";
 

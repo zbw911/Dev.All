@@ -27,8 +27,8 @@ namespace MainBoundedContext.Test
         [TestMethod]
         public void MyTestMethod()
         {
-            var c = new UnitTest1.c {I = 1, S = "mys"};
-            var htmlAttributes = new {a = 1, b = 2, c = 3, style = "display:none;", c.I, c.S};
+            var c = new UnitTest1.c { I = 1, S = "mys" };
+            var htmlAttributes = new { a = 1, b = 2, c = 3, style = "display:none;", c.I, c.S };
             foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(htmlAttributes))
             {
                 Console.WriteLine(propertyDescriptor.Name + "==>" + propertyDescriptor.GetValue(htmlAttributes));
@@ -100,7 +100,7 @@ namespace MainBoundedContext.Test
             xmlwriter.WriteString("zbw911");
             xmlwriter.WriteEndElement();
 
-            var extobj = new {a = 1, b = 2, c = 3};
+            var extobj = new { a = 1, b = 2, c = 3 };
 
             xmlwriter.WriteStartElement("cas:ext");
 
@@ -176,5 +176,23 @@ namespace MainBoundedContext.Test
         }
 
         #endregion
+
+
+
+        [TestMethod]
+        public void Add100()
+        {
+            var date = System.DateTime.Parse("2013-3-22").AddDays(100);
+            Console.WriteLine(date);
+        }
+
+
+
+
+
+
+
+
+
     }
 }

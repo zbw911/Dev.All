@@ -67,10 +67,10 @@
  */
 
 using System;
-using Dev.CasServer.handler;
-using Dev.CasServer.jasig.authentication.principal;
 using System.Collections.Generic;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 
 public class AuthenticationManagerImpl : AbstractAuthenticationManager

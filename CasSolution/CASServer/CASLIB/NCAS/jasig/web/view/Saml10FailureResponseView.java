@@ -33,7 +33,7 @@
 public  class Saml10FailureResponseView : AbstractSaml10ResponseView {
 
     @Override
-    protected void prepareResponse( Response response,  Map<String, Object> model) {
-        response.setStatus(newStatus(StatusCode.REQUEST_DENIED, (String) model.get("description")));
+    protected void prepareResponse( Response response,  Map<string, Object> model) {
+        response.setStatus(newStatus(StatusCode.REQUEST_DENIED, (string) model.get("description")));
     }
 }

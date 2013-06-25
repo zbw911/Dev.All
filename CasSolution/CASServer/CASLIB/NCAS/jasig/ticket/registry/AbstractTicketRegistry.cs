@@ -35,61 +35,62 @@
 using System;
 using System.Collections.Generic;
 using NCAS.jasig.monitor;
-using NCAS.jasig.ticket;
-using NCAS.jasig.ticket.registry;
 
-public abstract class AbstractTicketRegistry : TicketRegistry, TicketRegistryState
+namespace NCAS.jasig.ticket.registry
 {
+    public abstract class AbstractTicketRegistry : TicketRegistry, TicketRegistryState
+    {
 
-    /** The Commons Logging log instance. */
-    //protected  Logger log = LoggerFactory.getLogger(getClass());
+        /** The Commons Logging log instance. */
+        //protected  Logger log = LoggerFactory.getLogger(getClass());
 
-    /**
+        /**
      * @throws IllegalArgumentException if class is null.
      * @throws ClassCastException if class does not match requested ticket
      * class.
      */
-    public abstract void addTicket(Ticket ticket);
+        public abstract void addTicket(Ticket ticket);
 
-    public Ticket getTicket(string ticketId,
-         Type clazz)
-    {
-        //Assert.notNull(clazz, "clazz cannot be null");
-
-        Ticket ticket = this.getTicket(ticketId);
-
-        if (ticket == null)
+        public Ticket getTicket(string ticketId,
+                                Type clazz)
         {
-            return null;
+            //Assert.notNull(clazz, "clazz cannot be null");
+
+            Ticket ticket = this.getTicket(ticketId);
+
+            if (ticket == null)
+            {
+                return null;
+            }
+
+            if (!clazz.IsAssignableFrom(ticket.GetType()))
+            {
+                //throw new ClassCastException("Ticket [" + ticket.getId()
+                //    + " is of type " + ticket.getClass()
+                //    + " when we were expecting " + clazz);
+
+                throw new NotSupportedException();
+            }
+
+            return ticket;
         }
 
-        if (!clazz.IsAssignableFrom(ticket.GetType()))
-        {
-            //throw new ClassCastException("Ticket [" + ticket.getId()
-            //    + " is of type " + ticket.getClass()
-            //    + " when we were expecting " + clazz);
+        public abstract Ticket getTicket(string ticketId);
+        public abstract bool deleteTicket(string ticketId);
+        public abstract List<Ticket> getTickets();
 
-            throw new NotSupportedException();
+        public int sessionCount()
+        {
+            //log.debug("sessionCount() operation is not implemented by the ticket registry instance {}. Returning unknown as {}",
+            //          this.getClass().getName(), Integer.MIN_VALUE);
+            return int.MinValue;
         }
 
-        return ticket;
-    }
-
-    public abstract Ticket getTicket(string ticketId);
-    public abstract bool deleteTicket(string ticketId);
-    public abstract List<Ticket> getTickets();
-
-    public int sessionCount()
-    {
-        //log.debug("sessionCount() operation is not implemented by the ticket registry instance {}. Returning unknown as {}",
-        //          this.getClass().getName(), Integer.MIN_VALUE);
-        return int.MinValue;
-    }
-
-    public int serviceTicketCount()
-    {
-        //log.debug("serviceTicketCount() operation is not implemented by the ticket registry instance {}. Returning unknown as {}",
-        //          this.getClass().getName(), Integer.MIN_VALUE);
-        return int.MinValue;
+        public int serviceTicketCount()
+        {
+            //log.debug("serviceTicketCount() operation is not implemented by the ticket registry instance {}. Returning unknown as {}",
+            //          this.getClass().getName(), Integer.MIN_VALUE);
+            return int.MinValue;
+        }
     }
 }

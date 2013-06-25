@@ -105,7 +105,7 @@ namespace NCAS.jasig.util
      * @param async true if you don't want to wait for the response, false otherwise.
      * @return bool if the message was sent, or async was used.  false if the message failed.
      */
-        public bool sendMessageToEndPoint(String url, String message, bool async)
+        public bool sendMessageToEndPoint(string url, string message, bool async)
         {
             // Future<bool> result = EXECUTOR_SERVICE.submit(new MessageSender(url, message, this.readTimeout, this.connectionTimeout, this.followRedirects));
 
@@ -127,7 +127,7 @@ namespace NCAS.jasig.util
             return true;
         }
 
-        public bool isValidEndPoint(String url)
+        public bool isValidEndPoint(string url)
         {
             try
             {
@@ -173,8 +173,8 @@ namespace NCAS.jasig.util
             //    // if the response code is an error and we don't find that error acceptable above:
             //    if (responseCode == 500) {
             //        is = connection.getInputStream();
-            //         String value = IOUtils.toString(is);
-            //        log.error(String.format("There was an error contacting the endpoint: %s; The error was:\n%s", url.toExternalForm(), value));
+            //         string value = IOUtils.toString(is);
+            //        log.error(string.format("There was an error contacting the endpoint: %s; The error was:\n%s", url.toExternalForm(), value));
             //    }
             //} catch ( IOException e) {
             //    log.error(e.getMessage(),e);
@@ -223,9 +223,9 @@ namespace NCAS.jasig.util
 
         //private static  class MessageSender implements Callable<bool> {
 
-        //    private String url;
+        //    private string url;
 
-        //    private String message;
+        //    private string message;
 
         //    private int readTimeout;
 
@@ -233,7 +233,7 @@ namespace NCAS.jasig.util
 
         //    private bool followRedirects;
 
-        //    public MessageSender( String url,  String message,  int readTimeout,  int connectionTimeout,  bool followRedirects) {
+        //    public MessageSender( string url,  string message,  int readTimeout,  int connectionTimeout,  bool followRedirects) {
         //        this.url = url;
         //        this.message = message;
         //        this.readTimeout = readTimeout;
@@ -249,7 +249,7 @@ namespace NCAS.jasig.util
         //                log.debug("Attempting to access " + url);
         //            }
         //             URL logoutUrl = new URL(url);
-        //             String output = "logoutRequest=" + URLEncoder.encode(message, "UTF-8");
+        //             string output = "logoutRequest=" + URLEncoder.encode(message, "UTF-8");
 
         //            connection = (HttpURLConnection) logoutUrl.openConnection();
         //            connection.setDoInput(true);

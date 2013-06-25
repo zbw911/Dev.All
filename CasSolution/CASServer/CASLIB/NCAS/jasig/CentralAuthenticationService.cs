@@ -46,8 +46,8 @@
  */
 
 using System;
-using Dev.CasServer.jasig.validation;
 using NCAS.jasig.authentication.principal;
+using NCAS.jasig.validation;
 
 namespace NCAS.jasig
 {
@@ -59,10 +59,10 @@ namespace NCAS.jasig
      * caller.
      * 
      * @param credentials The credentials to create the ticket for
-     * @return The String identifier of the ticket (may not be null).
+     * @return The string identifier of the ticket (may not be null).
      * @throws TicketException if ticket cannot be created
      */
-        String createTicketGrantingTicket(Credentials credentials);
+        string createTicketGrantingTicket(Credentials credentials);
         //throws TicketException;
 
         /**
@@ -73,7 +73,7 @@ namespace NCAS.jasig
      * @return the ServiceTicket for target Service.
      * @throws TicketException if the ticket could not be created.
      */
-        String grantServiceTicket(String ticketGrantingTicketId, Service service);
+        string grantServiceTicket(string ticketGrantingTicketId, Service service);
         //throws TicketException;
 
         /**
@@ -89,7 +89,7 @@ namespace NCAS.jasig
      * @throws TicketException if the ticket could not be created.
      */
 
-        String grantServiceTicket(String ticketGrantingTicketId,
+        string grantServiceTicket(string ticketGrantingTicketId,
                                   Service service, Credentials credentials);
         //throws TicketException;
 
@@ -102,7 +102,7 @@ namespace NCAS.jasig
      * @throws TicketException if there was an error validating the ticket.
      */
 
-        Assertion validateServiceTicket(String serviceTicketId,
+        Assertion validateServiceTicket(string serviceTicketId,
                                         Service service);
         //throws TicketException;
 
@@ -112,7 +112,7 @@ namespace NCAS.jasig
      * 
      * @param ticketGrantingTicketId the id of the ticket we want to destroy
      */
-        void destroyTicketGrantingTicket(String ticketGrantingTicketId);
+        void destroyTicketGrantingTicket(string ticketGrantingTicketId);
 
         /**
      * Delegate a TicketGrantingTicket to a Service for proxying authentication
@@ -127,7 +127,7 @@ namespace NCAS.jasig
      * @throws TicketException if there was an error creating the ticket
      */
 
-        String delegateTicketGrantingTicket(String serviceTicketId,
+        string delegateTicketGrantingTicket(string serviceTicketId,
                                             Credentials credentials);
 
         //throws TicketException;

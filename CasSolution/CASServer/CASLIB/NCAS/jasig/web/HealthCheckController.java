@@ -38,7 +38,7 @@
 public class HealthCheckController : AbstractController {
 
     /** Prefix for custom response headers with health check details. */
-    private static  String HEADER_PREFIX = "X-CAS-";
+    private static  string HEADER_PREFIX = "X-CAS-";
 
     //@NotNull
     private HealthCheckMonitor healthCheckMonitor;
@@ -62,13 +62,13 @@ public class HealthCheckController : AbstractController {
          HealthStatus healthStatus = this.healthCheckMonitor.observe();
          StringBuilder sb = new StringBuilder();
         sb.Append("Health: ").Append(healthStatus.getCode());
-        String name;
+        string name;
         Status status;
         int i = 0;
-        for ( Map.Entry<String, Status> entry : healthStatus.getDetails().entrySet()) {
+        for ( Map.Entry<string, Status> entry : healthStatus.getDetails().entrySet()) {
             name = entry.getKey();
             status = entry.getValue();
-            response.addHeader("X-CAS-" + name, String.format("%s;%s", status.getCode(), status.getDescription()));
+            response.addHeader("X-CAS-" + name, string.format("%s;%s", status.getCode(), status.getDescription()));
 
             sb.Append("\n\n\t").Append(++i).Append('.').Append(name).Append(": ");
             sb.Append(status.getCode());

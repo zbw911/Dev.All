@@ -52,19 +52,19 @@
  */
 public class InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptorAdapter : AbstractThrottledSubmissionHandlerInterceptorAdapter {
 
-    private static  String DEFAULT_APPLICATION_CODE = "CAS";
+    private static  string DEFAULT_APPLICATION_CODE = "CAS";
 
-    private static  String DEFAULT_AUTHN_FAILED_ACTION = "AUTHENTICATION_FAILED";
+    private static  string DEFAULT_AUTHN_FAILED_ACTION = "AUTHENTICATION_FAILED";
 
-    private static  String INSPEKTR_ACTION = "THROTTLED_LOGIN_ATTEMPT";
+    private static  string INSPEKTR_ACTION = "THROTTLED_LOGIN_ATTEMPT";
 
     private  AuditTrailManager auditTrailManager;
 
     private  JdbcTemplate jdbcTemplate;
 
-    private String applicationCode = DEFAULT_APPLICATION_CODE;
+    private string applicationCode = DEFAULT_APPLICATION_CODE;
     
-    private String authenticationFailureCode = DEFAULT_AUTHN_FAILED_ACTION;
+    private string authenticationFailureCode = DEFAULT_AUTHN_FAILED_ACTION;
 
     public InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptorAdapter( AuditTrailManager auditTrailManager,  DataSource dataSource) {
         this.auditTrailManager = auditTrailManager;
@@ -73,9 +73,9 @@ public class InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptor
 
     @Override
     protected bool exceedsThreshold( HttpRequest request) {
-         String query = "SELECT AUD_DATE FROM COM_AUDIT_TRAIL WHERE AUD_CLIENT_IP = ? AND AUD_USER = ? " +
+         string query = "SELECT AUD_DATE FROM COM_AUDIT_TRAIL WHERE AUD_CLIENT_IP = ? AND AUD_USER = ? " +
                 "AND AUD_ACTION = ? AND APPLIC_CD = ? AND AUD_DATE >= ? ORDER BY AUD_DATE DESC";
-         String userToUse = constructUsername(request, getUsernameParameter());
+         string userToUse = constructUsername(request, getUsernameParameter());
          Calendar cutoff = Calendar.getInstance();
         cutoff.add(Calendar.SECOND, -1 * getFailureRangeInSeconds());
          List<Timestamp> failures = this.jdbcTemplate.query(
@@ -102,11 +102,11 @@ public class InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptor
     @Override
     protected void recordThrottle( HttpRequest request) {
         super.recordThrottle(request);
-         String userToUse = constructUsername(request, getUsernameParameter());
+         string userToUse = constructUsername(request, getUsernameParameter());
          ClientInfo clientInfo = ClientInfoHolder.getClientInfo();
          AuditPointRuntimeInfo auditPointRuntimeInfo = new AuditPointRuntimeInfo() {
-            public String asString() {
-                return String.format("%s.recordThrottle()", this.getClass().getName());
+            public string asString() {
+                return string.format("%s.recordThrottle()", this.getClass().getName());
             }
         };
          AuditActionContext context = new AuditActionContext(
@@ -121,16 +121,16 @@ public class InspektrThrottledSubmissionByIpAddressAndUsernameHandlerInterceptor
         this.auditTrailManager.record(context);
     }
 
-    public  void setApplicationCode( String applicationCode) {
+    public  void setApplicationCode( string applicationCode) {
         this.applicationCode = applicationCode;
     }
     
-    public  void setAuthenticationFailureCode( String authenticationFailureCode) {
+    public  void setAuthenticationFailureCode( string authenticationFailureCode) {
         this.authenticationFailureCode = authenticationFailureCode;
     }
 
-    protected String constructUsername(HttpRequest request, String usernameParameter) {
-         String username = request.getParameter(usernameParameter);
+    protected string constructUsername(HttpRequest request, string usernameParameter) {
+         string username = request.getParameter(usernameParameter);
         return "[username: " + (username != null ? username : "") + "]";
     }
 }

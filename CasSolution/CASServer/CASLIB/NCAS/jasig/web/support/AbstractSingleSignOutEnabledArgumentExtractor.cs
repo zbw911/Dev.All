@@ -36,53 +36,54 @@
  */
 
 using System.Web;
-using Dev.CasServer.jasig.util;
 using NCAS.jasig.util;
-using NCAS.jasig.web.support;
 
-public abstract class AbstractSingleSignOutEnabledArgumentExtractor :
-    ArgumentExtractor
+namespace NCAS.jasig.web.support
 {
-
-    //private  Logger log = LoggerFactory.getLogger(getClass());
-
-    /** Whether single sign out is disabled or not. */
-    private bool disableSingleSignOut = false;
-
-    /** Default instance of HttpClient. */
-    ////@NotNull
-    private HttpClient httpClient;
-
-    public void setHttpClient(HttpClient httpClient)
+    public abstract class AbstractSingleSignOutEnabledArgumentExtractor :
+        ArgumentExtractor
     {
-        this.httpClient = httpClient;
-    }
 
-    protected HttpClient getHttpClientIfSingleSignOutEnabled()
-    {
-        return !this.disableSingleSignOut ? this.httpClient : null;
-    }
+        //private  Logger log = LoggerFactory.getLogger(getClass());
 
-    public void setDisableSingleSignOut(bool disableSingleSignOut)
-    {
-        this.disableSingleSignOut = disableSingleSignOut;
-    }
+        /** Whether single sign out is disabled or not. */
+        private bool disableSingleSignOut = false;
 
-    public WebApplicationService extractService(HttpRequest request)
-    {
-        WebApplicationService service = extractServiceInternal(request);
+        /** Default instance of HttpClient. */
+        ////@NotNull
+        private HttpClient httpClient;
 
-        if (service == null)
+        public void setHttpClient(HttpClient httpClient)
         {
-            //log.debug("Extractor did not generate service.");
-        }
-        else
-        {
-            //log.debug("Extractor generated service for: " + service.getId());
+            this.httpClient = httpClient;
         }
 
-        return service;
-    }
+        protected HttpClient getHttpClientIfSingleSignOutEnabled()
+        {
+            return !this.disableSingleSignOut ? this.httpClient : null;
+        }
 
-    protected abstract WebApplicationService extractServiceInternal(HttpRequest request);
+        public void setDisableSingleSignOut(bool disableSingleSignOut)
+        {
+            this.disableSingleSignOut = disableSingleSignOut;
+        }
+
+        public WebApplicationService extractService(HttpRequest request)
+        {
+            WebApplicationService service = this.extractServiceInternal(request);
+
+            if (service == null)
+            {
+                //log.debug("Extractor did not generate service.");
+            }
+            else
+            {
+                //log.debug("Extractor generated service for: " + service.getId());
+            }
+
+            return service;
+        }
+
+        protected abstract WebApplicationService extractServiceInternal(HttpRequest request);
+    }
 }

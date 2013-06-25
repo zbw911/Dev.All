@@ -29,9 +29,7 @@
  * </p>
  */
 
-using System;
-
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public interface UniqueTicketIdGenerator {
 
@@ -41,6 +39,6 @@ namespace Dev.CasServer.jasig.util
      * @param prefix The prefix we want attached to the ticket.
      * @return the unique ticket id
      */
-        string getNewTicketId(String prefix);
+        string getNewTicketId(string prefix);
     }
 }

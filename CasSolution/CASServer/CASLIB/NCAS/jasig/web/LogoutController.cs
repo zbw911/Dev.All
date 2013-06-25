@@ -42,109 +42,109 @@
  * @since 3.0
  */
 
-using System;
 using System.Web;
-using Dev.CasServer.jasig;
-using Dev.CasServer.principal;
-using NCAS.jasig;
+using NCAS.jasig.authentication.principal;
 using NCAS.jasig.services;
-using NCAS.jasig.web;
 using NCAS.jasig.web.MOCK2JAVA;
+using NCAS.jasig.web.support;
 
-public class LogoutController : AbstractController
+namespace NCAS.jasig.web
 {
+    public class LogoutController : AbstractController
+    {
 
-    /** The CORE to which we delegate for all CAS functionality. */
-    ////@NotNull
-    private CentralAuthenticationService centralAuthenticationService;
+        /** The CORE to which we delegate for all CAS functionality. */
+        ////@NotNull
+        private CentralAuthenticationService centralAuthenticationService;
 
-    /** CookieGenerator for TGT Cookie */
-    ////@NotNull
-    private CookieRetrievingCookieGenerator ticketGrantingTicketCookieGenerator;
+        /** CookieGenerator for TGT Cookie */
+        ////@NotNull
+        private CookieRetrievingCookieGenerator ticketGrantingTicketCookieGenerator;
 
-    /** CookieGenerator for Warn Cookie */
-    ////@NotNull
-    private CookieRetrievingCookieGenerator warnCookieGenerator;
+        /** CookieGenerator for Warn Cookie */
+        ////@NotNull
+        private CookieRetrievingCookieGenerator warnCookieGenerator;
 
-    /** Logout view name. */
-    ////@NotNull
-    private String logoutView;
+        /** Logout view name. */
+        ////@NotNull
+        private string logoutView;
 
-    ////@NotNull
-    private ServicesManager servicesManager;
+        ////@NotNull
+        private ServicesManager servicesManager;
 
-    /**
+        /**
      * bool to determine if we will redirect to any url provided in the
      * service request parameter.
      */
-    private bool followServiceRedirects;
+        private bool followServiceRedirects;
 
-    public LogoutController()
-    {
-        this.setCacheSeconds(0);
-    }
-
-    protected ModelAndView handleRequestInternal(
-         HttpRequest request, HttpResponse response)
-    {
-        String ticketGrantingTicketId = this.ticketGrantingTicketCookieGenerator.retrieveCookieValue(request);
-        String service = request.QueryString[("service")];
-
-        if (ticketGrantingTicketId != null)
+        public LogoutController()
         {
-            this.centralAuthenticationService
-                .destroyTicketGrantingTicket(ticketGrantingTicketId);
-
-            this.ticketGrantingTicketCookieGenerator.removeCookie(response);
-            this.warnCookieGenerator.removeCookie(response);
+            this.setCacheSeconds(0);
         }
 
-        if (this.followServiceRedirects && service != null)
+        protected ModelAndView handleRequestInternal(
+            HttpRequest request, HttpResponse response)
         {
-            RegisteredService rService = this.servicesManager.findServiceBy(new SimpleWebApplicationServiceImpl(service));
+            string ticketGrantingTicketId = this.ticketGrantingTicketCookieGenerator.retrieveCookieValue(request);
+            string service = request.QueryString[("service")];
 
-            if (rService != null && rService.isEnabled())
+            if (ticketGrantingTicketId != null)
             {
-                return new ModelAndView(new RedirectView(service));
+                this.centralAuthenticationService
+                    .destroyTicketGrantingTicket(ticketGrantingTicketId);
+
+                this.ticketGrantingTicketCookieGenerator.removeCookie(response);
+                this.warnCookieGenerator.removeCookie(response);
             }
+
+            if (this.followServiceRedirects && service != null)
+            {
+                RegisteredService rService = this.servicesManager.findServiceBy(new SimpleWebApplicationServiceImpl(service));
+
+                if (rService != null && rService.isEnabled())
+                {
+                    return new ModelAndView(new RedirectView(service));
+                }
+            }
+
+            return new ModelAndView(this.logoutView);
         }
 
-        return new ModelAndView(this.logoutView);
-    }
+        public void setTicketGrantingTicketCookieGenerator(
+            CookieRetrievingCookieGenerator ticketGrantingTicketCookieGenerator)
+        {
+            this.ticketGrantingTicketCookieGenerator = ticketGrantingTicketCookieGenerator;
+        }
 
-    public void setTicketGrantingTicketCookieGenerator(
-         CookieRetrievingCookieGenerator ticketGrantingTicketCookieGenerator)
-    {
-        this.ticketGrantingTicketCookieGenerator = ticketGrantingTicketCookieGenerator;
-    }
+        public void setWarnCookieGenerator(CookieRetrievingCookieGenerator warnCookieGenerator)
+        {
+            this.warnCookieGenerator = warnCookieGenerator;
+        }
 
-    public void setWarnCookieGenerator(CookieRetrievingCookieGenerator warnCookieGenerator)
-    {
-        this.warnCookieGenerator = warnCookieGenerator;
-    }
-
-    /**
+        /**
      * @param centralAuthenticationService The centralAuthenticationService to
      * set.
      */
-    public void setCentralAuthenticationService(
-         CentralAuthenticationService centralAuthenticationService)
-    {
-        this.centralAuthenticationService = centralAuthenticationService;
-    }
+        public void setCentralAuthenticationService(
+            CentralAuthenticationService centralAuthenticationService)
+        {
+            this.centralAuthenticationService = centralAuthenticationService;
+        }
 
-    public void setFollowServiceRedirects(bool followServiceRedirects)
-    {
-        this.followServiceRedirects = followServiceRedirects;
-    }
+        public void setFollowServiceRedirects(bool followServiceRedirects)
+        {
+            this.followServiceRedirects = followServiceRedirects;
+        }
 
-    public void setLogoutView(String logoutView)
-    {
-        this.logoutView = logoutView;
-    }
+        public void setLogoutView(string logoutView)
+        {
+            this.logoutView = logoutView;
+        }
 
-    public void setServicesManager(ServicesManager servicesManager)
-    {
-        this.servicesManager = servicesManager;
+        public void setServicesManager(ServicesManager servicesManager)
+        {
+            this.servicesManager = servicesManager;
+        }
     }
 }

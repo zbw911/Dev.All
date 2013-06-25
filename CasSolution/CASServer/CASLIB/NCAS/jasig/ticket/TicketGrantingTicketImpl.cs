@@ -53,6 +53,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dev.CasServer.jasig.authentication;
+using NCAS.jasig.authentication;
 
 namespace NCAS.jasig.ticket
 {
@@ -76,7 +77,7 @@ namespace NCAS.jasig.ticket
 
         //@Lob
         //@Column(name="SERVICES_GRANTED_ACCESS_TO", nullable=false)
-        private Dictionary<String, Service> services = new Dictionary<string, Service>();
+        private Dictionary<string, Service> services = new Dictionary<string, Service>();
 
         public TicketGrantingTicketImpl()
         {
@@ -92,7 +93,7 @@ namespace NCAS.jasig.ticket
      * @param policy the expiration policy for this ticket.
      * @throws IllegalArgumentException if the Authentication object is null
      */
-        public TicketGrantingTicketImpl(String id,
+        public TicketGrantingTicketImpl(string id,
                                         TicketGrantingTicketImpl ticketGrantingTicket,
                                         Authentication authentication, ExpirationPolicy policy)
         {
@@ -111,7 +112,7 @@ namespace NCAS.jasig.ticket
      * @param authentication the Authentication request for this ticket
      * @param policy the expiration policy for this ticket.
      */
-        public TicketGrantingTicketImpl(String id,
+        public TicketGrantingTicketImpl(string id,
                                         Authentication authentication, ExpirationPolicy policy)
             : this(id, null, authentication, policy)
         {
@@ -129,7 +130,7 @@ namespace NCAS.jasig.ticket
             return this.authentication;
         }
 
-        public ServiceTicket grantServiceTicket(String id,
+        public ServiceTicket grantServiceTicket(string id,
                                                 Service service, ExpirationPolicy expirationPolicy,
                                                 bool credentialsProvided)
         {

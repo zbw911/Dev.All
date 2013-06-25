@@ -41,7 +41,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Dev.CasServer.jasig.util;
 using Dev.CasServer.principal;
 using NCAS.jasig.util;
 
@@ -52,17 +51,17 @@ namespace NCAS.jasig.authentication.principal
 
         //protected static  Logger LOG = LoggerFactory.getLogger(SamlService.class);
 
-        private static Dictionary<String, Object> EMPTY_MAP = new Dictionary<string, object>();
+        private static Dictionary<string, Object> EMPTY_MAP = new Dictionary<string, object>();
 
         private static UniqueTicketIdGenerator GENERATOR = new DefaultUniqueTicketIdGenerator();
 
         /** The id of the service. */
-        private String id;
+        private string id;
 
         /** The original url provided, used to reconstruct the redirect url. */
-        private String originalUrl;
+        private string originalUrl;
 
-        private String artifactId;
+        private string artifactId;
 
         private Principal principal;
 
@@ -70,7 +69,7 @@ namespace NCAS.jasig.authentication.principal
 
         private HttpClient httpClient;
 
-        protected AbstractWebApplicationService(String id, String originalUrl, String artifactId, HttpClient httpClient)
+        protected AbstractWebApplicationService(string id, string originalUrl, string artifactId, HttpClient httpClient)
         {
             this.id = id;
             this.originalUrl = originalUrl;
@@ -78,29 +77,29 @@ namespace NCAS.jasig.authentication.principal
             this.httpClient = httpClient;
         }
 
-        public String toString()
+        public string toString()
         {
             return this.id;
         }
 
-        public String getId()
+        public string getId()
         {
             return this.id;
         }
 
         public abstract Response getResponse(string ticketId);
 
-        public String getArtifactId()
+        public string getArtifactId()
         {
             return this.artifactId;
         }
 
-        public Dictionary<String, Object> getAttributes()
+        public Dictionary<string, Object> getAttributes()
         {
             return EMPTY_MAP;
         }
 
-        protected static String cleanupUrl(String url)
+        protected static string cleanupUrl(string url)
         {
             if (url == null)
             {
@@ -125,7 +124,7 @@ namespace NCAS.jasig.authentication.principal
                    + url.Substring(questionMarkPosition);
         }
 
-        protected String getOriginalUrl()
+        protected string getOriginalUrl()
         {
             return this.originalUrl;
         }
@@ -176,7 +175,7 @@ namespace NCAS.jasig.authentication.principal
             return this.id.Equals(service.getId());
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool logOutOfService(String sessionIdentifier)
+        public bool logOutOfService(string sessionIdentifier)
         {
             if (this.loggedOutAlready)
             {
@@ -185,7 +184,7 @@ namespace NCAS.jasig.authentication.principal
 
             Dev.Log.Loger.Debug("Sending logout request for: " + this.getId());
 
-            String logoutRequest = "<samlp:LogoutRequest xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\" ID=\""
+            string logoutRequest = "<samlp:LogoutRequest xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\" ID=\""
                                    + GENERATOR.getNewTicketId("LR")
                                    + "\" Version=\"2.0\" IssueInstant=\"" + SamlUtils.getCurrentDateAndTime()
                                    + "\"><saml:NameID xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\">@NOT_USED@</saml:NameID><samlp:SessionIndex>"

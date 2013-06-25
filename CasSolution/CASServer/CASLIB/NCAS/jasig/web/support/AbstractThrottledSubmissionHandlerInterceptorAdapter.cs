@@ -42,127 +42,130 @@ using System;
 using System.Web;
 using NCAS.jasig.web.MOCK2JAVA;
 
-public abstract class AbstractThrottledSubmissionHandlerInterceptorAdapter //: HandlerInterceptorAdapter, InitializingBean
+namespace NCAS.jasig.web.support
 {
-
-    private static int DEFAULT_FAILURE_THRESHOLD = 100;
-
-    private static int DEFAULT_FAILURE_RANGE_IN_SECONDS = 60;
-
-    private static String DEFAULT_USERNAME_PARAMETER = "username";
-
-    private static String SUCCESSFUL_AUTHENTICATION_EVENT = "success";
-
-    //protected  Logger log = LoggerFactory.getLogger(getClass());
-
-    //@Min(0)
-    private int failureThreshold = DEFAULT_FAILURE_THRESHOLD;
-
-    //@Min(0)
-    private int failureRangeInSeconds = DEFAULT_FAILURE_RANGE_IN_SECONDS;
-
-    //@NotNull
-    private String usernameParameter = DEFAULT_USERNAME_PARAMETER;
-
-    private double thresholdRate;
-
-
-    public void afterPropertiesSet()
+    public abstract class AbstractThrottledSubmissionHandlerInterceptorAdapter //: HandlerInterceptorAdapter, InitializingBean
     {
-        this.thresholdRate = (double)failureThreshold / (double)failureRangeInSeconds;
-    }
+
+        private static int DEFAULT_FAILURE_THRESHOLD = 100;
+
+        private static int DEFAULT_FAILURE_RANGE_IN_SECONDS = 60;
+
+        private static string DEFAULT_USERNAME_PARAMETER = "username";
+
+        private static string SUCCESSFUL_AUTHENTICATION_EVENT = "success";
+
+        //protected  Logger log = LoggerFactory.getLogger(getClass());
+
+        //@Min(0)
+        private int failureThreshold = DEFAULT_FAILURE_THRESHOLD;
+
+        //@Min(0)
+        private int failureRangeInSeconds = DEFAULT_FAILURE_RANGE_IN_SECONDS;
+
+        //@NotNull
+        private string usernameParameter = DEFAULT_USERNAME_PARAMETER;
+
+        private double thresholdRate;
 
 
-    //@Override
-    public bool preHandle(HttpRequest request, HttpResponse response, Object o)
-    {
-        // we only care about post because that's the only instance where we can get anything useful besides IP address.
-        if (!"POST".Equals(request.HttpMethod))
+        public void afterPropertiesSet()
         {
+            this.thresholdRate = (double)this.failureThreshold / (double)this.failureRangeInSeconds;
+        }
+
+
+        //@Override
+        public bool preHandle(HttpRequest request, HttpResponse response, Object o)
+        {
+            // we only care about post because that's the only instance where we can get anything useful besides IP address.
+            if (!"POST".Equals(request.HttpMethod))
+            {
+                return true;
+            }
+
+            if (this.exceedsThreshold(request))
+            {
+                this.recordThrottle(request);
+                response.StatusCode = 403;//
+
+                response.StatusDescription = ("Access Denied for user [" + request.getParameter(this.usernameParameter) + " from IP Address [" + ".." + "]");
+                response.Flush();
+                return false;
+            }
+
             return true;
         }
 
-        if (exceedsThreshold(request))
+        //@Override
+        public void postHandle(HttpRequest request, HttpResponse response, Object o, ModelAndView modelAndView)
         {
-            recordThrottle(request);
-            response.StatusCode = 403;//
+            if (!"POST".Equals(request.HttpMethod))
+            {
+                return;
+            }
 
-            response.StatusDescription = ("Access Denied for user [" + request.getParameter(usernameParameter) + " from IP Address [" + ".." + "]");
-            response.Flush();
-            return false;
+            //HttpContext context = (HttpContext)request.getAttribute("flowRequestContext");
+
+            //HttpContext context = (HttpContext)request.RequestContext;
+            //if (context == null) //|| context.getCurrentEvent() == null)
+            //{
+            //    return;
+            //}
+
+            //// User successfully authenticated
+            //if (SUCCESSFUL_AUTHENTICATION_EVENT.equals(context.getCurrentEvent().getId()))
+            //{
+            //    return;
+            //}
+
+            // User submitted invalid credentials, so we update the invalid login count
+            this.recordSubmissionFailure(request);
         }
 
-        return true;
-    }
-
-    //@Override
-    public void postHandle(HttpRequest request, HttpResponse response, Object o, ModelAndView modelAndView)
-    {
-        if (!"POST".Equals(request.HttpMethod))
+        public void setFailureThreshold(int failureThreshold)
         {
-            return;
+            this.failureThreshold = failureThreshold;
         }
 
-        //HttpContext context = (HttpContext)request.getAttribute("flowRequestContext");
+        public void setFailureRangeInSeconds(int failureRangeInSeconds)
+        {
+            this.failureRangeInSeconds = failureRangeInSeconds;
+        }
 
-        //HttpContext context = (HttpContext)request.RequestContext;
-        //if (context == null) //|| context.getCurrentEvent() == null)
-        //{
-        //    return;
-        //}
+        public void setUsernameParameter(string usernameParameter)
+        {
+            this.usernameParameter = usernameParameter;
+        }
 
-        //// User successfully authenticated
-        //if (SUCCESSFUL_AUTHENTICATION_EVENT.equals(context.getCurrentEvent().getId()))
-        //{
-        //    return;
-        //}
+        protected double getThresholdRate()
+        {
+            return this.thresholdRate;
+        }
 
-        // User submitted invalid credentials, so we update the invalid login count
-        recordSubmissionFailure(request);
+        protected int getFailureThreshold()
+        {
+            return this.failureThreshold;
+        }
+
+        protected int getFailureRangeInSeconds()
+        {
+            return this.failureRangeInSeconds;
+        }
+
+        protected string getUsernameParameter()
+        {
+            return this.usernameParameter;
+        }
+
+        protected void recordThrottle(HttpRequest request)
+        {
+            //log.warn("Throttling submission from {}.  More than {} failed login attempts within {} seconds.",
+            //        new Object[] { request.getRemoteAddr(), failureThreshold, failureRangeInSeconds });
+        }
+
+        protected abstract void recordSubmissionFailure(HttpRequest request);
+
+        protected abstract bool exceedsThreshold(HttpRequest request);
     }
-
-    public void setFailureThreshold(int failureThreshold)
-    {
-        this.failureThreshold = failureThreshold;
-    }
-
-    public void setFailureRangeInSeconds(int failureRangeInSeconds)
-    {
-        this.failureRangeInSeconds = failureRangeInSeconds;
-    }
-
-    public void setUsernameParameter(String usernameParameter)
-    {
-        this.usernameParameter = usernameParameter;
-    }
-
-    protected double getThresholdRate()
-    {
-        return this.thresholdRate;
-    }
-
-    protected int getFailureThreshold()
-    {
-        return this.failureThreshold;
-    }
-
-    protected int getFailureRangeInSeconds()
-    {
-        return this.failureRangeInSeconds;
-    }
-
-    protected String getUsernameParameter()
-    {
-        return this.usernameParameter;
-    }
-
-    protected void recordThrottle(HttpRequest request)
-    {
-        //log.warn("Throttling submission from {}.  More than {} failed login attempts within {} seconds.",
-        //        new Object[] { request.getRemoteAddr(), failureThreshold, failureRangeInSeconds });
-    }
-
-    protected abstract void recordSubmissionFailure(HttpRequest request);
-
-    protected abstract bool exceedsThreshold(HttpRequest request);
 }

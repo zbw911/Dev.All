@@ -29,9 +29,7 @@
  * @since 3.0
  */
 
-using Dev.CasServer.jasig.validation;
-
-namespace Dev.CasServer.jasig.validation
+namespace NCAS.jasig.validation
 {
     public class Cas20ProtocolValidationSpecification : AbstractCasProtocolValidationSpecification
     {

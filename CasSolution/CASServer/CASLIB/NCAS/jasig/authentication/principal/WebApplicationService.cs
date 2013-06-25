@@ -37,12 +37,12 @@ public interface WebApplicationService : Service {
      * @param ticketId the service ticket to provide to the service.
      * @return the redirect url.
      */
-    Response getResponse(String ticketId);
+    Response getResponse(string ticketId);
 
     /**
      * Retrieves the artifact supplied with the service. May be null.
      * 
      * @return the artifact if it exists, null otherwise.
      */
-    String getArtifactId();
+    string getArtifactId();
 }

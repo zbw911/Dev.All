@@ -32,9 +32,8 @@
  */
 
 using System.Collections.Generic;
-using NCAS.jasig.services;
 
-namespace Dev.CasServer.jasig.services
+namespace NCAS.jasig.services
 {
     public class InMemoryServiceRegistryDaoImpl : ServiceRegistryDao
     {

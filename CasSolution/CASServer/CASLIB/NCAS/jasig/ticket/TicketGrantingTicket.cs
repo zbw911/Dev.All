@@ -26,6 +26,7 @@
 using System.Collections.Generic;
 using Dev.CasServer.jasig.authentication;
 using System;
+using NCAS.jasig.authentication;
 
 /**
  * Interface for a ticket granting ticket. A TicketGrantingTicket is the main
@@ -43,7 +44,7 @@ namespace NCAS.jasig.ticket
     {
 
         /** The prefix to use when generating an id for a TicketGrantingTicket. */
-        //String PREFIX = "TGT";
+        //string PREFIX = "TGT";
         //string PREFIX { get; }
         /**
      * Method to retrieve the authentication.
@@ -60,7 +61,7 @@ namespace NCAS.jasig.ticket
      * @return the service ticket granted to a specific service for the
      * principal of the TicketGrantingTicket
      */
-        ServiceTicket grantServiceTicket(String id, Service service,
+        ServiceTicket grantServiceTicket(string id, Service service,
                                          ExpirationPolicy expirationPolicy, bool credentialsProvided);
 
         /**

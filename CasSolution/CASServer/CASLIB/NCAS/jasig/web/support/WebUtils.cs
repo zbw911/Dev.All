@@ -35,123 +35,124 @@
  * @version $Revision$ $Date$
  * @since 3.1
  */
-using System;
+
 using System.Collections.Generic;
 using System.Web;
-using NCAS.jasig.web.support;
-using System.Linq;
 
-public class WebUtils
+namespace NCAS.jasig.web.support
 {
-
-    /** Request attribute that contains message key describing details of authorization failure.*/
-    public static String CAS_ACCESS_DENIED_REASON = "CAS_ACCESS_DENIED_REASON";
-
-    public static HttpRequest getHttpServletRequest(
-         HttpContext context)
+    public class WebUtils
     {
-        //Assert.isInstanceOf(ServletExternalContext.class, context
-        //    .getExternalContext(),
-        //    "Cannot obtain HttpRequest from event of type: "
-        //        + context.getExternalContext().getClass().getName());
 
-        return context.Request;
-        //return (HttpRequest) context.getExternalContext().getNativeRequest();
-    }
+        /** Request attribute that contains message key describing details of authorization failure.*/
+        public static string CAS_ACCESS_DENIED_REASON = "CAS_ACCESS_DENIED_REASON";
 
-    public static HttpResponse getHttpServletResponse(
-         HttpContext context)
-    {
-        //Assert.isInstanceOf(ServletExternalContext.class, context
-        //    .getExternalContext(),
-        //    "Cannot obtain HttpResponse from event of type: "
-        //        + context.getExternalContext().getClass().getName());
-        //return (HttpResponse) context.getExternalContext()
-        //    .getNativeResponse();
-
-        return context.Response;
-    }
-
-    public static WebApplicationService getService(
-         List<ArgumentExtractor> argumentExtractors,
-         HttpRequest request)
-    {
-        foreach (ArgumentExtractor argumentExtractor in argumentExtractors)
+        public static HttpRequest getHttpServletRequest(
+            HttpContext context)
         {
-            WebApplicationService service = argumentExtractor
-               .extractService(request);
+            //Assert.isInstanceOf(ServletExternalContext.class, context
+            //    .getExternalContext(),
+            //    "Cannot obtain HttpRequest from event of type: "
+            //        + context.getExternalContext().getClass().getName());
 
-            if (service != null)
-            {
-                return service;
-            }
+            return context.Request;
+            //return (HttpRequest) context.getExternalContext().getNativeRequest();
         }
 
-        return null;
-    }
+        public static HttpResponse getHttpServletResponse(
+            HttpContext context)
+        {
+            //Assert.isInstanceOf(ServletExternalContext.class, context
+            //    .getExternalContext(),
+            //    "Cannot obtain HttpResponse from event of type: "
+            //        + context.getExternalContext().getClass().getName());
+            //return (HttpResponse) context.getExternalContext()
+            //    .getNativeResponse();
 
-    public static WebApplicationService getService(
-         List<ArgumentExtractor> argumentExtractors,
-         HttpContext context)
-    {
-        HttpRequest request = WebUtils.getHttpServletRequest(context);
-        return getService(argumentExtractors, request);
-    }
+            return context.Response;
+        }
 
-    public static WebApplicationService getService(
-         HttpContext context)
-    {
-        //context.Items[]
-        return (WebApplicationService)context.Session["service"];
-    }
+        public static WebApplicationService getService(
+            List<ArgumentExtractor> argumentExtractors,
+            HttpRequest request)
+        {
+            foreach (ArgumentExtractor argumentExtractor in argumentExtractors)
+            {
+                WebApplicationService service = argumentExtractor
+                    .extractService(request);
 
-    public static void putTicketGrantingTicketInRequestScope(
-         HttpContext context, String ticketValue)
-    {
-        context.Items["ticketGrantingTicketId"] = ticketValue;
+                if (service != null)
+                {
+                    return service;
+                }
+            }
+
+            return null;
+        }
+
+        public static WebApplicationService getService(
+            List<ArgumentExtractor> argumentExtractors,
+            HttpContext context)
+        {
+            HttpRequest request = WebUtils.getHttpServletRequest(context);
+            return getService(argumentExtractors, request);
+        }
+
+        public static WebApplicationService getService(
+            HttpContext context)
+        {
+            //context.Items[]
+            return (WebApplicationService)context.Session["service"];
+        }
+
+        public static void putTicketGrantingTicketInRequestScope(
+            HttpContext context, string ticketValue)
+        {
+            context.Items["ticketGrantingTicketId"] = ticketValue;
 
 
-    }
+        }
 
-    public static String getTicketGrantingTicketId(
-         HttpContext context)
-    {
-        String tgtFromRequest = (String)context.Items["ticketGrantingTicketId"];
-        String tgtFromFlow = (String)context.Items["ticketGrantingTicketId"];
+        public static string getTicketGrantingTicketId(
+            HttpContext context)
+        {
+            string tgtFromRequest = (string)context.Items["ticketGrantingTicketId"];
+            string tgtFromFlow = (string)context.Items["ticketGrantingTicketId"];
 
-        return tgtFromRequest != null ? tgtFromRequest : tgtFromFlow;
+            return tgtFromRequest != null ? tgtFromRequest : tgtFromFlow;
 
-    }
+        }
 
-    public static void putServiceTicketInRequestScope(
-         HttpContext context, String ticketValue)
-    {
-        context.Items["serviceTicketId"] = ticketValue;
-    }
+        public static void putServiceTicketInRequestScope(
+            HttpContext context, string ticketValue)
+        {
+            context.Items["serviceTicketId"] = ticketValue;
+        }
 
-    public static String getServiceTicketFromRequestScope(
-         HttpContext context)
-    {
-        return context.Items["serviceTicketId"].ToString();
-    }
+        public static string getServiceTicketFromRequestScope(
+            HttpContext context)
+        {
+            return context.Items["serviceTicketId"].ToString();
+        }
 
-    public static void putLoginTicket(HttpContext context, String ticket)
-    {
-        context.Session["loginTicket"] = ticket;
-    }
+        public static void putLoginTicket(HttpContext context, string ticket)
+        {
+            context.Session["loginTicket"] = ticket;
+        }
 
-    public static String getLoginTicketFromFlowScope(HttpContext context)
-    {
-        // Getting the saved LT destroys it in support of one-time-use
-        // See section 3.5.1 of http://www.jasig.org/cas/protocol
-        String lt = (String)context.Session["loginTicket"];//.remove("loginTicket");
-        context.Session.Remove("loginTicket");
-        return lt != null ? lt : "";
-    }
+        public static string getLoginTicketFromFlowScope(HttpContext context)
+        {
+            // Getting the saved LT destroys it in support of one-time-use
+            // See section 3.5.1 of http://www.jasig.org/cas/protocol
+            string lt = (string)context.Session["loginTicket"];//.remove("loginTicket");
+            context.Session.Remove("loginTicket");
+            return lt != null ? lt : "";
+        }
 
-    public static String getLoginTicketFromRequest(HttpContext context)
-    {
-        return context.Request.Params["lt"];
-        //return context.getRequestParameters().get("lt");
+        public static string getLoginTicketFromRequest(HttpContext context)
+        {
+            return context.Request.Params["lt"];
+            //return context.getRequestParameters().get("lt");
+        }
     }
 }

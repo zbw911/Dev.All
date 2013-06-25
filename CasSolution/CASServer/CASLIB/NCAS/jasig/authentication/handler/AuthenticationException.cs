@@ -27,32 +27,36 @@
  * @version $Revision$ $Date$
  * @since 3.0
  */
+
 using System;
-public abstract class AuthenticationException : Exception
+
+namespace NCAS.jasig.authentication.handler
 {
+    public abstract class AuthenticationException : Exception
+    {
 
-    /** Serializable ID. */
-    private static long serialVersionUID = 3906648604830611762L;
+        /** Serializable ID. */
+        private static long serialVersionUID = 3906648604830611762L;
 
-    /** The code to return for resolving to a message description. */
-    private String code;
+        /** The code to return for resolving to a message description. */
+        private string code;
 
-    /** The error type that provides additional info about the nature of the exception cause **/
-    private String type = "error";
+        /** The error type that provides additional info about the nature of the exception cause **/
+        private string type = "error";
 
-    /**
+        /**
      * Constructor that takes a code description of the error. These codes
      * normally have a corresponding entries in the messages file for the
      * internationalization of error messages.
      *
      * @param code The short unique identifier for this error.
      */
-    public AuthenticationException(String code)
-    {
-        this.code = code;
-    }
+        public AuthenticationException(string code)
+        {
+            this.code = code;
+        }
 
-    /**
+        /**
      * Constructor that takes a <code>code</code> description of the error along with the exception
      * <code>msg</code> generally for logging purposes. These codes normally have a corresponding
      * entries in the messages file for the internationalization of error messages.
@@ -60,14 +64,14 @@ public abstract class AuthenticationException : Exception
      * @param code The short unique identifier for this error.
      * @param msg The error message associated with this exception for additional logging purposes.
      */
-    public AuthenticationException(String code, String msg)
-        : base(msg)
-    {
-        //base(msg);
-        this.code = code;
-    }
+        public AuthenticationException(string code, string msg)
+            : base(msg)
+        {
+            //base(msg);
+            this.code = code;
+        }
 
-    /**
+        /**
      * Constructor that takes a <code>code</code> description of the error along with the exception
      * <code>msg</code> generally for logging purposes and the <code>type</code> of the error that originally caused the exception.
      * These codes normally have a corresponding entries in the messages file for the internationalization of error messages.
@@ -77,15 +81,15 @@ public abstract class AuthenticationException : Exception
      * @param type The type of the error message that caused the exception to be thrown. By default,
      * all errors are considered of <code>error</code>.
      */
-    public AuthenticationException(String code, String msg, String type)
-        : base(msg)
-    {
-        ;
-        this.code = code;
-        this.type = type;
-    }
+        public AuthenticationException(string code, string msg, string type)
+            : base(msg)
+        {
+            ;
+            this.code = code;
+            this.type = type;
+        }
 
-    /**
+        /**
      * Constructor that takes a code description of the error and the chained
      * exception. These codes normally have a corresponding entries in the
      * messages file for the internationalization of error messages.
@@ -93,41 +97,42 @@ public abstract class AuthenticationException : Exception
      * @param code The short unique identifier for this error.
      * @param Exception The chained exception for this AuthenticationException
      */
-    public AuthenticationException(String code, Exception Exception)
-        : base(code, Exception)
-    {
-        ;
-        this.code = code;
-    }
+        public AuthenticationException(string code, Exception Exception)
+            : base(code, Exception)
+        {
+            ;
+            this.code = code;
+        }
 
-    /**
+        /**
      * Method to return the error type of this exception
      *
-     * @return the String identifier for the cause of this error.
+     * @return the string identifier for the cause of this error.
      */
-    public String getType()
-    {
-        return this.type;
-    }
+        public string getType()
+        {
+            return this.type;
+        }
 
-    /**
+        /**
      * Method to return the unique identifier for this error type.
      *
-     * @return the String identifier for this error type.
+     * @return the string identifier for this error type.
      */
-    public String getCode()
-    {
-        return this.code;
+        public string getCode()
+        {
+            return this.code;
+        }
+
+
+        public string toString()
+        {
+            string msg = this.getCode();
+
+            if (this.Message != null && this.Message.Trim().Length > 0)
+                msg = ":" + this.Message;
+            return msg;
+        }
+
     }
-
-
-    public String toString()
-    {
-        String msg = getCode();
-
-        if (this.Message != null && this.Message.Trim().Length > 0)
-            msg = ":" + this.Message;
-        return msg;
-    }
-
 }

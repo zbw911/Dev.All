@@ -48,7 +48,7 @@ namespace NCAS.jasig.services
 
         //private static PathMatcher PATH_MATCHER = new AntPathMatcher();
 
-        public override void setServiceId(String id)
+        public override void setServiceId(string id)
         {
             this.serviceId = id;
         }

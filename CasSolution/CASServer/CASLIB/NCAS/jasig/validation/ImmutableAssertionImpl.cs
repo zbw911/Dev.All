@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Dev.CasServer.jasig.authentication;
+using NCAS.jasig.authentication;
+
 /*
  * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
@@ -30,7 +31,7 @@ using Dev.CasServer.jasig.authentication;
  * @version $Revision$ $Date$
  * @since 3.0
  */
-namespace Dev.CasServer.jasig.validation
+namespace NCAS.jasig.validation
 {
     public class ImmutableAssertionImpl : Assertion
     {
@@ -102,7 +103,7 @@ namespace Dev.CasServer.jasig.validation
             return 15 * this.service.GetHashCode() ^ this.principals.GetHashCode();
         }
 
-        public String toString()
+        public string toString()
         {
             return "[principals={" + this.principals.ToString() + "} for service=" + this.service.ToString() + "]";
         }

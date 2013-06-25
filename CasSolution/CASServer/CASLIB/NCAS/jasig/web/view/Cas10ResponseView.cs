@@ -39,7 +39,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Dev.CasServer.jasig.validation;
+using NCAS.jasig.validation;
 
 namespace NCAS.jasig.web.view
 {
@@ -52,7 +52,7 @@ namespace NCAS.jasig.web.view
      */
         private bool successResponse;
 
-        protected void renderMergedOutputModel(Dictionary<String, Object> model,
+        protected void renderMergedOutputModel(Dictionary<string, Object> model,
                                                HttpRequest request, HttpResponse response)
         {
             Assertion assertion = getAssertionFrom(model);

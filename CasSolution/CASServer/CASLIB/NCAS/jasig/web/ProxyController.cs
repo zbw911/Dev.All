@@ -50,81 +50,81 @@
 
 using System;
 using System.Web;
-using Dev.CasServer.jasig;
-using Dev.CasServer.principal;
-using NCAS.jasig;
+using NCAS.jasig.authentication.principal;
 using NCAS.jasig.services;
 using NCAS.jasig.ticket;
-using NCAS.jasig.web;
 using NCAS.jasig.web.MOCK2JAVA;
 
-public  class ProxyController : AbstractController {
+namespace NCAS.jasig.web
+{
+    public  class ProxyController : AbstractController {
 
-    /** View for if the creation of a "Proxy" Ticket Fails. */
-    private static  String CONST_PROXY_FAILURE = "casProxyFailureView";
+        /** View for if the creation of a "Proxy" Ticket Fails. */
+        private static  string CONST_PROXY_FAILURE = "casProxyFailureView";
 
-    /** View for if the creation of a "Proxy" Ticket Succeeds. */
-    private static  String CONST_PROXY_SUCCESS = "casProxySuccessView";
+        /** View for if the creation of a "Proxy" Ticket Succeeds. */
+        private static  string CONST_PROXY_SUCCESS = "casProxySuccessView";
 
-    /** Key to use in model for service tickets. */
-    private static  String MODEL_SERVICE_TICKET = "ticket";
+        /** Key to use in model for service tickets. */
+        private static  string MODEL_SERVICE_TICKET = "ticket";
 
-    /** CORE to delegate all non-web tier functionality to. */
-    ////@NotNull    ////@NotNull
-    private CentralAuthenticationService centralAuthenticationService;
+        /** CORE to delegate all non-web tier functionality to. */
+        ////@NotNull    ////@NotNull
+        private CentralAuthenticationService centralAuthenticationService;
 
-    public ProxyController() {
-        setCacheSeconds(0);
-    }
+        public ProxyController() {
+            this.setCacheSeconds(0);
+        }
 
-    /**
+        /**
      * @return ModelAndView containing a view name of either
      * <code>casProxyFailureView</code> or <code>casProxySuccessView</code>
      */
-    protected ModelAndView handleRequestInternal(
-         HttpRequest request,  HttpResponse response)
-         {
-         String ticket = request.getParameter("pgt");
-         Service targetService = getTargetService(request);
+        protected ModelAndView handleRequestInternal(
+            HttpRequest request,  HttpResponse response)
+        {
+            string ticket = request.getParameter("pgt");
+            Service targetService = this.getTargetService(request);
 
-        if (!StringUtils.hasText(ticket) || targetService == null) {
-            return generateErrorView("INVALID_REQUEST",
-                "INVALID_REQUEST_PROXY", null);
+            if (!StringUtils.hasText(ticket) || targetService == null) {
+                return this.generateErrorView("INVALID_REQUEST",
+                                         "INVALID_REQUEST_PROXY", null);
+            }
+
+            try {
+                return new ModelAndView(CONST_PROXY_SUCCESS, MODEL_SERVICE_TICKET,
+                                        this.centralAuthenticationService.grantServiceTicket(ticket,
+                                                                                             targetService));
+            } catch (TicketException e) {
+                return this.generateErrorView(e.getCode(), e.getCode(),
+                                         new Object[] {ticket});
+            } catch ( UnauthorizedServiceException e) {
+                return this.generateErrorView("UNAUTHORIZED_SERVICE",
+                                         "UNAUTHORIZED_SERVICE_PROXY", new Object[] {targetService});
+            }
         }
 
-        try {
-            return new ModelAndView(CONST_PROXY_SUCCESS, MODEL_SERVICE_TICKET,
-                this.centralAuthenticationService.grantServiceTicket(ticket,
-                    targetService));
-        } catch (TicketException e) {
-            return generateErrorView(e.getCode(), e.getCode(),
-                new Object[] {ticket});
-        } catch ( UnauthorizedServiceException e) {
-            return generateErrorView("UNAUTHORIZED_SERVICE",
-                "UNAUTHORIZED_SERVICE_PROXY", new Object[] {targetService});
+        private Service getTargetService( HttpRequest request) {
+            return SimpleWebApplicationServiceImpl.createServiceFrom(request);
         }
-    }
 
-    private Service getTargetService( HttpRequest request) {
-        return SimpleWebApplicationServiceImpl.createServiceFrom(request);
-    }
+        private ModelAndView generateErrorView( string code,
+                                                string description,  Object[] args) {
+            ModelAndView modelAndView = new ModelAndView(CONST_PROXY_FAILURE);
+            modelAndView.addObject("code", code);
+            //modelAndView.addObject("description", getMessageSourceAccessor()
+            //    .getMessage(description, args, description));
 
-    private ModelAndView generateErrorView( String code,
-         String description,  Object[] args) {
-         ModelAndView modelAndView = new ModelAndView(CONST_PROXY_FAILURE);
-        modelAndView.addObject("code", code);
-        //modelAndView.addObject("description", getMessageSourceAccessor()
-        //    .getMessage(description, args, description));
+            return modelAndView;
+                                                }
 
-        return modelAndView;
-    }
-
-    /**
+        /**
      * @param centralAuthenticationService The centralAuthenticationService to
      * set.
      */
-    public void setCentralAuthenticationService(
-         CentralAuthenticationService centralAuthenticationService) {
-        this.centralAuthenticationService = centralAuthenticationService;
+        public void setCentralAuthenticationService(
+            CentralAuthenticationService centralAuthenticationService) {
+            this.centralAuthenticationService = centralAuthenticationService;
+            }
     }
 }

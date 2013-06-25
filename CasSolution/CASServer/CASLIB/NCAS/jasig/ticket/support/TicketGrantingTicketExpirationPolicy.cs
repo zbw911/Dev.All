@@ -36,76 +36,77 @@
  * @since 3.4.10
  */
 
-using NCAS.jasig.ticket;
-
-public class TicketGrantingTicketExpirationPolicy : ExpirationPolicy
+namespace NCAS.jasig.ticket.support
 {
-
-    //private static  Logger log = LoggerFactory.getLogger(TicketGrantingTicketExpirationPolicy.class);
-
-    /** Static ID for serialization. */
-    private static long serialVersionUID = 2136490343650084287L;
-
-    /** Maximum time this ticket is valid  */
-    private long maxTimeToLiveInMilliSeconds;
-
-    /** Time to kill in milliseconds. */
-    private long timeToKillInMilliSeconds;
-
-    public void setMaxTimeToLiveInMilliSeconds(long maxTimeToLiveInMilliSeconds)
+    public class TicketGrantingTicketExpirationPolicy : ExpirationPolicy
     {
-        this.maxTimeToLiveInMilliSeconds = maxTimeToLiveInMilliSeconds;
-    }
 
-    public void setTimeToKillInMilliSeconds(long timeToKillInMilliSeconds)
-    {
-        this.timeToKillInMilliSeconds = timeToKillInMilliSeconds;
-    }
+        //private static  Logger log = LoggerFactory.getLogger(TicketGrantingTicketExpirationPolicy.class);
 
-    /** Convenient virtual property setter to set time in seconds */
-    public void setMaxTimeToLiveInSeconds(long maxTimeToLiveInSeconds)
-    {
-        if (this.maxTimeToLiveInMilliSeconds == 0L)
+        /** Static ID for serialization. */
+        private static long serialVersionUID = 2136490343650084287L;
+
+        /** Maximum time this ticket is valid  */
+        private long maxTimeToLiveInMilliSeconds;
+
+        /** Time to kill in milliseconds. */
+        private long timeToKillInMilliSeconds;
+
+        public void setMaxTimeToLiveInMilliSeconds(long maxTimeToLiveInMilliSeconds)
         {
-            this.maxTimeToLiveInMilliSeconds = maxTimeToLiveInSeconds * 1000;
-        }
-    }
-
-    /** Convenient virtual property setter to set time in seconds */
-    public void setTimeToKillInSeconds(long timeToKillInSeconds)
-    {
-        if (this.timeToKillInMilliSeconds == 0L)
-        {
-            this.timeToKillInMilliSeconds = timeToKillInSeconds * 1000;
-        }
-    }
-
-    public void afterPropertiesSet()
-    {
-        //Assert.isTrue((maxTimeToLiveInMilliSeconds >= timeToKillInMilliSeconds), "maxTimeToLiveInMilliSeconds must be greater than or equal to timeToKillInMilliSeconds.");
-    }
-
-    public bool isExpired(TicketState ticketState)
-    {
-        // Ticket has been used, check maxTimeToLive (hard window)
-        if ((System.DateTime.Now.Ticks - ticketState.getCreationTime() >= maxTimeToLiveInMilliSeconds))
-        {
-            //if (log.isDebugEnabled()) {
-            //    log.debug("Ticket is expired due to the time since creation being greater than the maxTimeToLiveInMilliSeconds");
-            //}
-            return true;
+            this.maxTimeToLiveInMilliSeconds = maxTimeToLiveInMilliSeconds;
         }
 
-        // Ticket is within hard window, check timeToKill (sliding window)
-        if ((System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= timeToKillInMilliSeconds))
+        public void setTimeToKillInMilliSeconds(long timeToKillInMilliSeconds)
         {
-            //if (log.isDebugEnabled()) {
-            //    log.debug("Ticket is expired due to the time since last use being greater than the timeToKillInMilliseconds");
-            //}
-            return true;
+            this.timeToKillInMilliSeconds = timeToKillInMilliSeconds;
         }
 
-        return false;
-    }
+        /** Convenient virtual property setter to set time in seconds */
+        public void setMaxTimeToLiveInSeconds(long maxTimeToLiveInSeconds)
+        {
+            if (this.maxTimeToLiveInMilliSeconds == 0L)
+            {
+                this.maxTimeToLiveInMilliSeconds = maxTimeToLiveInSeconds * 1000;
+            }
+        }
 
+        /** Convenient virtual property setter to set time in seconds */
+        public void setTimeToKillInSeconds(long timeToKillInSeconds)
+        {
+            if (this.timeToKillInMilliSeconds == 0L)
+            {
+                this.timeToKillInMilliSeconds = timeToKillInSeconds * 1000;
+            }
+        }
+
+        public void afterPropertiesSet()
+        {
+            //Assert.isTrue((maxTimeToLiveInMilliSeconds >= timeToKillInMilliSeconds), "maxTimeToLiveInMilliSeconds must be greater than or equal to timeToKillInMilliSeconds.");
+        }
+
+        public bool isExpired(TicketState ticketState)
+        {
+            // Ticket has been used, check maxTimeToLive (hard window)
+            if ((System.DateTime.Now.Ticks - ticketState.getCreationTime() >= this.maxTimeToLiveInMilliSeconds))
+            {
+                //if (log.isDebugEnabled()) {
+                //    log.debug("Ticket is expired due to the time since creation being greater than the maxTimeToLiveInMilliSeconds");
+                //}
+                return true;
+            }
+
+            // Ticket is within hard window, check timeToKill (sliding window)
+            if ((System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= this.timeToKillInMilliSeconds))
+            {
+                //if (log.isDebugEnabled()) {
+                //    log.debug("Ticket is expired due to the time since last use being greater than the timeToKillInMilliseconds");
+                //}
+                return true;
+            }
+
+            return false;
+        }
+
+    }
 }

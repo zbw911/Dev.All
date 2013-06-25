@@ -38,7 +38,7 @@ namespace NCAS.jasig.web.support
     public  class InMemoryThrottledSubmissionByIpAddressHandlerInterceptorAdapter : AbstractInMemoryThrottledSubmissionHandlerInterceptorAdapter {
 
         //@Override
-        protected override String constructKey( HttpRequest request) {
+        protected override string constructKey( HttpRequest request) {
             return request.getRemoteAddr();
         }
     }

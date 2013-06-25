@@ -1,7 +1,7 @@
 using System;
 using NCAS.jasig.web.MOCK2JAVA;
-using NCAS.jasig.web.support;
 using System.Web;
+
 /*
  * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
@@ -40,46 +40,49 @@ using System.Web;
  * @since 3.1
  *
  */
-public class CookieRetrievingCookieGenerator : CookieGenerator
+namespace NCAS.jasig.web.support
 {
+    public class CookieRetrievingCookieGenerator : CookieGenerator
+    {
 
-    /** The maximum age the cookie should be remembered for.
+        /** The maximum age the cookie should be remembered for.
      * The default is three months (7889231 in seconds, according to Google) */
-    private int rememberMeMaxAge = 7889231;
+        private int rememberMeMaxAge = 7889231;
 
-    public void addCookie(HttpRequest request, HttpResponse response, String cookieValue)
-    {
+        public void addCookie(HttpRequest request, HttpResponse response, string cookieValue)
+        {
 
-        //if (!StringUtils.hasText(request.getParameter(RememberMeCredentials.REQUEST_PARAMETER_REMEMBER_ME))) {
-        //    super.addCookie(response, cookieValue);
-        //} else {
-        //     Cookie cookie = createCookie(cookieValue);
-        //    cookie.setMaxAge(this.rememberMeMaxAge);
-        //    if (isCookieSecure()) {
-        //        cookie.setSecure(true);
-        //    }
-        //    response.addCookie(cookie);
-        //}
-    }
+            //if (!StringUtils.hasText(request.getParameter(RememberMeCredentials.REQUEST_PARAMETER_REMEMBER_ME))) {
+            //    super.addCookie(response, cookieValue);
+            //} else {
+            //     Cookie cookie = createCookie(cookieValue);
+            //    cookie.setMaxAge(this.rememberMeMaxAge);
+            //    if (isCookieSecure()) {
+            //        cookie.setSecure(true);
+            //    }
+            //    response.addCookie(cookie);
+            //}
+        }
 
-    public String retrieveCookieValue(HttpRequest request)
-    {
-        // Cookie cookie = org.springframework.web.util.WebUtils.getCookie(
-        //    request, getCookieName());
+        public string retrieveCookieValue(HttpRequest request)
+        {
+            // Cookie cookie = org.springframework.web.util.WebUtils.getCookie(
+            //    request, getCookieName());
 
-        //return cookie == null ? null : cookie.getValue();
+            //return cookie == null ? null : cookie.getValue();
 
-        return "";
-    }
+            return "";
+        }
 
-    public void setRememberMeMaxAge(int maxAge)
-    {
-        this.rememberMeMaxAge = maxAge;
-    }
+        public void setRememberMeMaxAge(int maxAge)
+        {
+            this.rememberMeMaxAge = maxAge;
+        }
 
-    internal void setCookiePath(string cookiePath)
-    {
-        throw new NotImplementedException();
-    }
+        internal void setCookiePath(string cookiePath)
+        {
+            throw new NotImplementedException();
+        }
  
+    }
 }

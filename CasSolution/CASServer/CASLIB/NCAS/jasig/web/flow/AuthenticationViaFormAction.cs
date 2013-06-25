@@ -51,9 +51,12 @@ using System;
 using System.Web;
 using Dev.CasServer.jasig;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.ticket;
 using NCAS.jasig.web.MOCK2JAVA;
+using NCAS.jasig.web.bind;
+using NCAS.jasig.web.support;
 
 namespace NCAS.jasig.web.flow
 {
@@ -85,28 +88,28 @@ namespace NCAS.jasig.web.flow
             }
         }
 
-        public String submit(HttpContext context, Credentials credentials, MessageContext messageContext)
+        public string submit(HttpContext context, Credentials credentials, MessageContext messageContext)
         {
             // Validate login ticket
-            String authoritativeLoginTicket = WebUtils.getLoginTicketFromFlowScope(context);
-            String providedLoginTicket = WebUtils.getLoginTicketFromRequest(context);
+            string authoritativeLoginTicket = WebUtils.getLoginTicketFromFlowScope(context);
+            string providedLoginTicket = WebUtils.getLoginTicketFromRequest(context);
             if (!authoritativeLoginTicket.Equals(providedLoginTicket))
             {
                 //this.logger.warn("Invalid login ticket " + providedLoginTicket);
-                String code = "INVALID_TICKET";
+                string code = "INVALID_TICKET";
                 //messageContext.addMessage(
                 //    new MessageBuilder().error().code(code).arg(providedLoginTicket).defaultText(code).build());
                 return "error";
             }
 
-            String ticketGrantingTicketId = WebUtils.getTicketGrantingTicketId(context);
+            string ticketGrantingTicketId = WebUtils.getTicketGrantingTicketId(context);
             Service service = WebUtils.getService(context);
-            if (!String.IsNullOrEmpty(context.Request.QueryString["renew"]) && ticketGrantingTicketId != null && service != null)
+            if (!string.IsNullOrEmpty(context.Request.QueryString["renew"]) && ticketGrantingTicketId != null && service != null)
             {
 
                 try
                 {
-                    String serviceTicketId = this.centralAuthenticationService.grantServiceTicket(ticketGrantingTicketId, service, credentials);
+                    string serviceTicketId = this.centralAuthenticationService.grantServiceTicket(ticketGrantingTicketId, service, credentials);
                     WebUtils.putServiceTicketInRequestScope(context, serviceTicketId);
                     this.putWarnCookieIfRequestParameterPresent(context);
                     return "warn";
@@ -159,7 +162,7 @@ namespace NCAS.jasig.web.flow
         {
             HttpResponse response = WebUtils.getHttpServletResponse(context);
 
-            if (!String.IsNullOrEmpty(context.Request["warn"]))
+            if (!string.IsNullOrEmpty(context.Request["warn"]))
             {
                 this.warnCookieGenerator.addCookie(response, "true");
             }
@@ -175,7 +178,7 @@ namespace NCAS.jasig.web.flow
             //return (AuthenticationException)e;
         }
 
-        private String getAuthenticationExceptionEventId(TicketException e)
+        private string getAuthenticationExceptionEventId(TicketException e)
         {
             AuthenticationException authEx = this.getAuthenticationExceptionAsCause(e);
 

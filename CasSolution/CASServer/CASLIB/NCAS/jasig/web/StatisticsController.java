@@ -48,13 +48,13 @@ public  class StatisticsController : AbstractController {
 
     private  Date upTimeStartDate = new Date();
 
-    private String casTicketSuffix;
+    private string casTicketSuffix;
 
     public StatisticsController( TicketRegistry ticketRegistry) {
         this.ticketRegistry = ticketRegistry;
     }
 
-    public void setCasTicketSuffix( String casTicketSuffix) {
+    public void setCasTicketSuffix( string casTicketSuffix) {
         this.casTicketSuffix = casTicketSuffix;
     }
 
@@ -64,7 +64,7 @@ public  class StatisticsController : AbstractController {
         modelAndView.addObject("startTime", this.upTimeStartDate);
          double difference = System.currentTimeMillis() - this.upTimeStartDate.getTime();
 
-        modelAndView.addObject("upTime", calculateUptime(difference, new LinkedList<Integer>(Arrays.asList(NUMBER_OF_MILLISECONDS_IN_A_DAY, NUMBER_OF_MILLISECONDS_IN_AN_HOUR, NUMBER_OF_MILLISECONDS_IN_A_MINUTE, NUMBER_OF_MILLISECONDS_IN_A_SECOND, 1)), new LinkedList<String>(Arrays.asList("day","hour","minute","second","millisecond"))));
+        modelAndView.addObject("upTime", calculateUptime(difference, new LinkedList<Integer>(Arrays.asList(NUMBER_OF_MILLISECONDS_IN_A_DAY, NUMBER_OF_MILLISECONDS_IN_AN_HOUR, NUMBER_OF_MILLISECONDS_IN_A_MINUTE, NUMBER_OF_MILLISECONDS_IN_A_SECOND, 1)), new LinkedList<string>(Arrays.asList("day","hour","minute","second","millisecond"))));
         modelAndView.addObject("totalMemory", Runtime.getRuntime().totalMemory() / 1024 / 1024);
         modelAndView.addObject("maxMemory", Runtime.getRuntime().maxMemory() / 1024 / 1024);
         modelAndView.addObject("freeMemory", Runtime.getRuntime().freeMemory() / 1024 / 1024);
@@ -112,7 +112,7 @@ public  class StatisticsController : AbstractController {
         return modelAndView;
     }
 
-    protected String calculateUptime( double difference,  Queue<Integer> calculations,  Queue<String> labels) {
+    protected string calculateUptime( double difference,  Queue<Integer> calculations,  Queue<string> labels) {
         if (calculations.isEmpty()) {
             return "";
         }
@@ -120,8 +120,8 @@ public  class StatisticsController : AbstractController {
          int value = calculations.remove();
          double time = Math.floor(difference / value);
          double newDifference = difference - (time * value);
-         String currentLabel = labels.remove();
-         String label = time == 0 || time > 1 ? currentLabel + "s" : currentLabel;
+         string currentLabel = labels.remove();
+         string label = time == 0 || time > 1 ? currentLabel + "s" : currentLabel;
 
         return Integer.toString(new Double(time).intValue()) + " "+ label + " " + calculateUptime(newDifference, calculations, labels);
         

@@ -32,40 +32,43 @@
  * @version $Revision$ $Date$
  * @since 3.0
  */
-using NCAS.jasig.ticket;
-public class MultiTimeUseOrTimeoutExpirationPolicy :
-    ExpirationPolicy
+
+namespace NCAS.jasig.ticket.support
 {
-
-    /** Serializable Unique ID. */
-    private static long serialVersionUID = 3257844372614558261L;
-
-    /** The time to kill in millseconds. */
-    private long timeToKillInMilliSeconds;
-
-    /** The maximum number of uses before expiration. */
-    private int numberOfUses;
-
-    public MultiTimeUseOrTimeoutExpirationPolicy(int numberOfUses,
-         long timeToKillInMilliSeconds)
+    public class MultiTimeUseOrTimeoutExpirationPolicy :
+        ExpirationPolicy
     {
-        this.timeToKillInMilliSeconds = timeToKillInMilliSeconds;
-        this.numberOfUses = numberOfUses;
-        //Assert.isTrue(this.numberOfUses > 0, "numberOfUsers must be greater than 0.");
-        //Assert.isTrue(this.timeToKillInMilliSeconds > 0, "timeToKillInMilliseconds must be greater than 0.");
 
-    }
+        /** Serializable Unique ID. */
+        private static long serialVersionUID = 3257844372614558261L;
 
-    public MultiTimeUseOrTimeoutExpirationPolicy(int numberOfUses, long timeToKill, long timeUnit)
-        : this(numberOfUses, timeToKill)
-    {
-        ;
-    }
+        /** The time to kill in millseconds. */
+        private long timeToKillInMilliSeconds;
 
-    public bool isExpired(TicketState ticketState)
-    {
-        return (ticketState == null)
-            || (ticketState.getCountOfUses() >= this.numberOfUses)
-            || (System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= this.timeToKillInMilliSeconds);
+        /** The maximum number of uses before expiration. */
+        private int numberOfUses;
+
+        public MultiTimeUseOrTimeoutExpirationPolicy(int numberOfUses,
+                                                     long timeToKillInMilliSeconds)
+        {
+            this.timeToKillInMilliSeconds = timeToKillInMilliSeconds;
+            this.numberOfUses = numberOfUses;
+            //Assert.isTrue(this.numberOfUses > 0, "numberOfUsers must be greater than 0.");
+            //Assert.isTrue(this.timeToKillInMilliSeconds > 0, "timeToKillInMilliseconds must be greater than 0.");
+
+        }
+
+        public MultiTimeUseOrTimeoutExpirationPolicy(int numberOfUses, long timeToKill, long timeUnit)
+            : this(numberOfUses, timeToKill)
+        {
+            ;
+        }
+
+        public bool isExpired(TicketState ticketState)
+        {
+            return (ticketState == null)
+                   || (ticketState.getCountOfUses() >= this.numberOfUses)
+                   || (System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= this.timeToKillInMilliSeconds);
+        }
     }
 }

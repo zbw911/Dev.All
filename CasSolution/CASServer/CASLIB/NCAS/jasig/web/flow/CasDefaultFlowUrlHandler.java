@@ -34,7 +34,7 @@
 public class CasDefaultFlowUrlHandler : DefaultFlowUrlHandler {
 
     @Override
-    public String createFlowExecutionUrl( String flowId,  String flowExecutionKey,  HttpRequest request) {
+    public string createFlowExecutionUrl( string flowId,  string flowExecutionKey,  HttpRequest request) {
          StringBuffer builder = new StringBuffer();
         builder.Append(request.getRequestURI());
         builder.Append("?");
@@ -43,7 +43,7 @@ public class CasDefaultFlowUrlHandler : DefaultFlowUrlHandler {
     }
 
     @Override
-    public String createFlowDefinitionUrl( String flowId,  AttributeMap input,  HttpRequest request) {
+    public string createFlowDefinitionUrl( string flowId,  AttributeMap input,  HttpRequest request) {
         return request.getRequestURI()
             + (request.getQueryString() != null ? "?"
             + request.getQueryString() : "");

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using NCAS.jasig.web.flow;
 
-namespace NCAS.jasig.web.flow
+namespace NCAS.jasig.web.MOCK2JAVA
 {
     public class AbstractAction
     {

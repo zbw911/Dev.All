@@ -32,39 +32,41 @@
  * @version $Revision: 1.1 $ $Date: 2007/04/20 19:39:31 $
  * @since 3.1
  */
+
 using System;
-using Dev.CasServer.principal;
-using NCAS.jasig.authentication.principal;
 
-public class ShibbolethCompatiblePersistentIdGenerator :
-    PersistentIdGenerator
+namespace NCAS.jasig.authentication.principal
 {
-
-    private static byte CONST_SEPARATOR = (byte)'!';
-
-    ////@NotNull
-    private byte[] salt;
-
-    public string generate(Principal principal, Service service)
+    public class ShibbolethCompatiblePersistentIdGenerator :
+        PersistentIdGenerator
     {
-        //try {
-        // MessageDigest md = MessageDigest.getInstance("SHA");
-        //md.update(service.getId().getBytes());
-        //md.update(CONST_SEPARATOR);
-        //md.update(principal.getId().getBytes());
-        //md.update(CONST_SEPARATOR);
 
-        //return Base64.encodeBase64String(md.digest(this.salt)).replaceAll(
-        //    System.getProperty("line.separator"), "");
-        //} catch ( NoSuchAlgorithmException e) {
-        //    throw new RuntimeException(e);
-        //}
+        private static byte CONST_SEPARATOR = (byte)'!';
 
-        throw new NotImplementedException();
-    }
+        ////@NotNull
+        private byte[] salt;
 
-    public void setSalt(string salt)
-    {
-        this.salt = System.Text.Encoding.Default.GetBytes(salt);
+        public string generate(Principal principal, Service service)
+        {
+            //try {
+            // MessageDigest md = MessageDigest.getInstance("SHA");
+            //md.update(service.getId().getBytes());
+            //md.update(CONST_SEPARATOR);
+            //md.update(principal.getId().getBytes());
+            //md.update(CONST_SEPARATOR);
+
+            //return Base64.encodeBase64String(md.digest(this.salt)).replaceAll(
+            //    System.getProperty("line.separator"), "");
+            //} catch ( NoSuchAlgorithmException e) {
+            //    throw new RuntimeException(e);
+            //}
+
+            throw new NotImplementedException();
+        }
+
+        public void setSalt(string salt)
+        {
+            this.salt = System.Text.Encoding.Default.GetBytes(salt);
+        }
     }
 }

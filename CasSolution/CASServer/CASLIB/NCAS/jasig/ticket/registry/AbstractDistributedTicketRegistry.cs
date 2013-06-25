@@ -38,184 +38,187 @@
 
 using System;
 using System.Collections.Generic;
-using Dev.CasServer.jasig.authentication;
-using NCAS.jasig.ticket;
-public abstract class AbstractDistributedTicketRegistry : AbstractTicketRegistry
+using NCAS.jasig.authentication;
+
+namespace NCAS.jasig.ticket.registry
 {
-
-    protected abstract void updateTicket(Ticket ticket);
-
-    protected abstract bool needsCallback();
-
-    protected Ticket getProxiedTicketInstance(Ticket ticket)
-    {
-        if (ticket == null)
-        {
-            return null;
-        }
-
-        if (ticket is TicketGrantingTicket)
-        {
-            return new TicketGrantingTicketDelegator(this, (TicketGrantingTicket)ticket, needsCallback());
-        }
-
-        return new ServiceTicketDelegator(this, (ServiceTicket)ticket, needsCallback());
-    }
-
-    private class TicketDelegator<T> : Ticket where T : Ticket
+    public abstract class AbstractDistributedTicketRegistry : AbstractTicketRegistry
     {
 
-        private static long serialVersionUID = 1780193477774123440L;
+        protected abstract void updateTicket(Ticket ticket);
 
-        private AbstractDistributedTicketRegistry ticketRegistry;
+        protected abstract bool needsCallback();
 
-        private T ticket;
-
-        private bool callback;
-
-        protected TicketDelegator(AbstractDistributedTicketRegistry ticketRegistry, T ticket, bool callback)
+        protected Ticket getProxiedTicketInstance(Ticket ticket)
         {
-            this.ticketRegistry = ticketRegistry;
-            this.ticket = ticket;
-            this.callback = callback;
-        }
-
-        protected void updateTicket()
-        {
-            this.ticketRegistry.updateTicket(this.ticket);
-        }
-
-        protected T getTicket()
-        {
-            return this.ticket;
-        }
-
-        public string getId()
-        {
-            return this.ticket.getId();
-        }
-
-        public bool isExpired()
-        {
-            if (!callback)
+            if (ticket == null)
             {
-                return this.ticket.isExpired();
+                return null;
             }
 
-            TicketGrantingTicket t = getGrantingTicket();
-
-            return this.ticket.isExpired() || (t != null && t.isExpired());
-        }
-
-        public TicketGrantingTicket getGrantingTicket()
-        {
-            TicketGrantingTicket old = this.ticket.getGrantingTicket();
-
-            if (old == null || !callback)
+            if (ticket is TicketGrantingTicket)
             {
-                return old;
+                return new TicketGrantingTicketDelegator(this, (TicketGrantingTicket)ticket, this.needsCallback());
             }
 
-            return (TicketGrantingTicket)this.ticketRegistry.getTicket(old.getId(), typeof(Ticket));
+            return new ServiceTicketDelegator(this, (ServiceTicket)ticket, this.needsCallback());
         }
 
-        public long getCreationTime()
+        private class TicketDelegator<T> : Ticket where T : Ticket
         {
-            return this.ticket.getCreationTime();
+
+            private static long serialVersionUID = 1780193477774123440L;
+
+            private AbstractDistributedTicketRegistry ticketRegistry;
+
+            private T ticket;
+
+            private bool callback;
+
+            protected TicketDelegator(AbstractDistributedTicketRegistry ticketRegistry, T ticket, bool callback)
+            {
+                this.ticketRegistry = ticketRegistry;
+                this.ticket = ticket;
+                this.callback = callback;
+            }
+
+            protected void updateTicket()
+            {
+                this.ticketRegistry.updateTicket(this.ticket);
+            }
+
+            protected T getTicket()
+            {
+                return this.ticket;
+            }
+
+            public string getId()
+            {
+                return this.ticket.getId();
+            }
+
+            public bool isExpired()
+            {
+                if (!this.callback)
+                {
+                    return this.ticket.isExpired();
+                }
+
+                TicketGrantingTicket t = this.getGrantingTicket();
+
+                return this.ticket.isExpired() || (t != null && t.isExpired());
+            }
+
+            public TicketGrantingTicket getGrantingTicket()
+            {
+                TicketGrantingTicket old = this.ticket.getGrantingTicket();
+
+                if (old == null || !this.callback)
+                {
+                    return old;
+                }
+
+                return (TicketGrantingTicket)this.ticketRegistry.getTicket(old.getId(), typeof(Ticket));
+            }
+
+            public long getCreationTime()
+            {
+                return this.ticket.getCreationTime();
+            }
+
+            public int getCountOfUses()
+            {
+                return this.ticket.getCountOfUses();
+            }
+
+            //@Override
+            public int hashCode()
+            {
+                return this.ticket.GetHashCode();
+            }
+
+            //@Override
+            public bool equals(Object o)
+            {
+                return this.ticket.Equals(o);
+            }
         }
 
-        public int getCountOfUses()
+        private class ServiceTicketDelegator : TicketDelegator<ServiceTicket>, ServiceTicket
         {
-            return this.ticket.getCountOfUses();
+
+            private static long serialVersionUID = 8160636219307822967L;
+
+            public ServiceTicketDelegator(AbstractDistributedTicketRegistry ticketRegistry, ServiceTicket serviceTicket, bool callback) :
+                base(ticketRegistry, serviceTicket, callback)
+            {
+                ;
+            }
+
+
+            public Service getService()
+            {
+                return this.getTicket().getService();
+            }
+
+            public bool isFromNewLogin()
+            {
+                return this.getTicket().isFromNewLogin();
+            }
+
+            public bool isValidFor(Service service)
+            {
+                bool b = this.getTicket().isValidFor(service);
+                this.updateTicket();
+                return b;
+            }
+
+            public TicketGrantingTicket grantTicketGrantingTicket(string id, Authentication authentication, ExpirationPolicy expirationPolicy)
+            {
+                TicketGrantingTicket t = this.getTicket().grantTicketGrantingTicket(id, authentication, expirationPolicy);
+                this.updateTicket();
+                return t;
+            }
         }
 
-        //@Override
-        public int hashCode()
+        private class TicketGrantingTicketDelegator : TicketDelegator<TicketGrantingTicket>, TicketGrantingTicket
         {
-            return this.ticket.GetHashCode();
-        }
 
-        //@Override
-        public bool equals(Object o)
-        {
-            return this.ticket.Equals(o);
-        }
-    }
+            private static long serialVersionUID = 3946038899057626741L;
 
-    private class ServiceTicketDelegator : TicketDelegator<ServiceTicket>, ServiceTicket
-    {
+            public TicketGrantingTicketDelegator(AbstractDistributedTicketRegistry ticketRegistry, TicketGrantingTicket ticketGrantingTicket, bool callback)
+                : base(ticketRegistry, ticketGrantingTicket, callback)
+            {
+                ;
+            }
 
-        private static long serialVersionUID = 8160636219307822967L;
+            public Authentication getAuthentication()
+            {
+                return this.getTicket().getAuthentication();
+            }
 
-        public ServiceTicketDelegator(AbstractDistributedTicketRegistry ticketRegistry, ServiceTicket serviceTicket, bool callback) :
-            base(ticketRegistry, serviceTicket, callback)
-        {
-            ;
-        }
+            public ServiceTicket grantServiceTicket(string id, Service service, ExpirationPolicy expirationPolicy, bool credentialsProvided)
+            {
+                ServiceTicket t = this.getTicket().grantServiceTicket(id, service, expirationPolicy, credentialsProvided);
+                this.updateTicket();
+                return t;
+            }
 
+            public void expire()
+            {
+                this.getTicket().expire();
+                this.updateTicket();
+            }
 
-        public Service getService()
-        {
-            return getTicket().getService();
-        }
+            public bool isRoot()
+            {
+                return this.getTicket().isRoot();
+            }
 
-        public bool isFromNewLogin()
-        {
-            return getTicket().isFromNewLogin();
-        }
-
-        public bool isValidFor(Service service)
-        {
-            bool b = this.getTicket().isValidFor(service);
-            updateTicket();
-            return b;
-        }
-
-        public TicketGrantingTicket grantTicketGrantingTicket(string id, Authentication authentication, ExpirationPolicy expirationPolicy)
-        {
-            TicketGrantingTicket t = this.getTicket().grantTicketGrantingTicket(id, authentication, expirationPolicy);
-            updateTicket();
-            return t;
-        }
-    }
-
-    private class TicketGrantingTicketDelegator : TicketDelegator<TicketGrantingTicket>, TicketGrantingTicket
-    {
-
-        private static long serialVersionUID = 3946038899057626741L;
-
-        public TicketGrantingTicketDelegator(AbstractDistributedTicketRegistry ticketRegistry, TicketGrantingTicket ticketGrantingTicket, bool callback)
-            : base(ticketRegistry, ticketGrantingTicket, callback)
-        {
-            ;
-        }
-
-        public Authentication getAuthentication()
-        {
-            return getTicket().getAuthentication();
-        }
-
-        public ServiceTicket grantServiceTicket(string id, Service service, ExpirationPolicy expirationPolicy, bool credentialsProvided)
-        {
-            ServiceTicket t = this.getTicket().grantServiceTicket(id, service, expirationPolicy, credentialsProvided);
-            updateTicket();
-            return t;
-        }
-
-        public void expire()
-        {
-            this.getTicket().expire();
-            updateTicket();
-        }
-
-        public bool isRoot()
-        {
-            return getTicket().isRoot();
-        }
-
-        public List<Authentication> getChainedAuthentications()
-        {
-            return getTicket().getChainedAuthentications();
+            public List<Authentication> getChainedAuthentications()
+            {
+                return this.getTicket().getChainedAuthentications();
+            }
         }
     }
 }

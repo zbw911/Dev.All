@@ -44,7 +44,7 @@ namespace NCAS.jasig.services
 
         //private transient Pattern servicePattern;
 
-        public override void setServiceId(String id)
+        public override void setServiceId(string id)
         {
             //servicePattern = createPattern(id);
             this.serviceId = id;
@@ -65,7 +65,7 @@ namespace NCAS.jasig.services
             return new RegexRegisteredService();
         }
 
-        //private Pattern createPattern( String pattern) {
+        //private Pattern createPattern( string pattern) {
         //    if (pattern == null) {
         //        throw new IllegalArgumentException("Pattern cannot be null.");
         //    }

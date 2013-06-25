@@ -28,7 +28,6 @@
  */
 
 using System;
-using Dev.CasServer.jasig.authentication.principal;
 
 namespace NCAS.jasig.authentication.principal
 {

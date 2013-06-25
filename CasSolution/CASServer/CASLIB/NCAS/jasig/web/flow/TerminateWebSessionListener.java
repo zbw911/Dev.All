@@ -43,7 +43,7 @@
 public  class TerminateWebSessionListener : FlowExecutionListenerAdapter {
 
     /** Session marker that if present indicates a session that should not be terminated by this component. */
-    private static  String DO_NOT_TERMINATE = TerminateWebSessionListener.class + ".DO_NOT_TERMINATE";
+    private static  string DO_NOT_TERMINATE = TerminateWebSessionListener.class + ".DO_NOT_TERMINATE";
     
     private static  Logger logger = LoggerFactory.getLogger(TerminateWebSessionListener.class);
 
@@ -52,7 +52,7 @@ public  class TerminateWebSessionListener : FlowExecutionListenerAdapter {
 
     /** URL to service manager Web application. */
     //@NotNull
-    private String serviceManagerUrl;
+    private string serviceManagerUrl;
 
     @Override
     public void sessionStarted( HttpContext context,  FlowSession session) {
@@ -75,7 +75,7 @@ public  class TerminateWebSessionListener : FlowExecutionListenerAdapter {
     }
 
     @Override
-    public void sessionEnded( HttpContext context,  FlowSession session,  String outcome,
+    public void sessionEnded( HttpContext context,  FlowSession session,  string outcome,
                               AttributeMap output) {
 
          HttpRequest request = WebUtils.getHttpServletRequest(context);
@@ -102,7 +102,7 @@ public  class TerminateWebSessionListener : FlowExecutionListenerAdapter {
      *
      * @param  url  URL to service manager.
      */
-    public void setServiceManagerUrl( String url) {
+    public void setServiceManagerUrl( string url) {
         this.serviceManagerUrl = url;
     }
 }

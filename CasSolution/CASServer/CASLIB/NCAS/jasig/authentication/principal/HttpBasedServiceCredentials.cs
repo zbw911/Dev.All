@@ -45,8 +45,8 @@ namespace NCAS.jasig.authentication.principal
         /** The callbackURL to check that identifies the application. */
         private readonly Uri callbackUrl;
 
-        /** String form of callbackUrl; */
-        private readonly String callbackUrlAsString;
+        /** string form of callbackUrl; */
+        private readonly string callbackUrlAsString;
 
         /**
      * Constructor that takes the URL of the HTTP-based service and creates the
@@ -72,10 +72,10 @@ namespace NCAS.jasig.authentication.principal
         }
 
         /**
-     * Returns the String version of the URL, based on the original URL
+     * Returns the string version of the URL, based on the original URL
      * provided. i.e. this caches the value of URL.toExternalForm()
      */
-        public String toString()
+        public string toString()
         {
             return "[callbackUrl: " + this.callbackUrlAsString + "]";
         }

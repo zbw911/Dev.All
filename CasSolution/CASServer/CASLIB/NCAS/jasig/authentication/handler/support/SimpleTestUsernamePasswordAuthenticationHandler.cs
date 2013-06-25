@@ -32,7 +32,7 @@
  * @since 3.0
  */
 
-using Dev.CasServer.jasig.authentication.principal;
+using NCAS.jasig.authentication.principal;
 using NCAS.jasig.web.MOCK2JAVA;
 
 namespace NCAS.jasig.authentication.handler.support

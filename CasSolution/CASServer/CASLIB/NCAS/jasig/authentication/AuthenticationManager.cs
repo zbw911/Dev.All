@@ -23,6 +23,7 @@
 
 using System;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication;
 using NCAS.jasig.authentication.principal;
 
 /**
@@ -43,7 +44,7 @@ namespace Dev.CasServer.jasig.authentication
     public abstract class AuthenticationManager
     {
 
-        public static String AUTHENTICATION_METHOD_ATTRIBUTE = "authenticationMethod";
+        public static string AUTHENTICATION_METHOD_ATTRIBUTE = "authenticationMethod";
 
         /**
      * Method to validate the credentials provided. On successful validation, a

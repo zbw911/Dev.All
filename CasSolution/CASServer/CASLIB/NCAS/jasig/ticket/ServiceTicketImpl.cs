@@ -42,6 +42,7 @@
 
 using System;
 using Dev.CasServer.jasig.authentication;
+using NCAS.jasig.authentication;
 
 namespace NCAS.jasig.ticket
 {
@@ -82,7 +83,7 @@ namespace NCAS.jasig.ticket
      * @throws IllegalArgumentException if the TicketGrantingTicket or the
      * Service are null.
      */
-        public ServiceTicketImpl(String id,
+        public ServiceTicketImpl(string id,
                                      TicketGrantingTicketImpl ticket, Service service,
                                      bool fromNewLogin, ExpirationPolicy policy)
             : base(id, ticket, policy)
@@ -121,7 +122,7 @@ namespace NCAS.jasig.ticket
         }
 
         public TicketGrantingTicket grantTicketGrantingTicket(
-            String id, Authentication authentication,
+            string id, Authentication authentication,
             ExpirationPolicy expirationPolicy)
         {
             {

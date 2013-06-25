@@ -42,6 +42,7 @@
 
 using System;
 using Dev.CasServer.jasig.authentication;
+using NCAS.jasig.authentication;
 
 namespace NCAS.jasig.ticket
 {
@@ -57,7 +58,7 @@ namespace NCAS.jasig.ticket
         /** The unique identifier for this ticket. */
         //@Id
         //@Column(name="ID", nullable=false)
-        private String id;
+        private string id;
 
         /** The TicketGrantingTicket this is associated with. */
         //@ManyToOne
@@ -93,7 +94,7 @@ namespace NCAS.jasig.ticket
      * @param expirationPolicy the expiration policy for the ticket.
      * @throws IllegalArgumentException if the id or expiration policy is null.
      */
-        public AbstractTicket(String id, TicketGrantingTicketImpl ticket,
+        public AbstractTicket(string id, TicketGrantingTicketImpl ticket,
                               ExpirationPolicy expirationPolicy)
         {
             //Assert.notNull(expirationPolicy, "expirationPolicy cannot be null");
@@ -106,7 +107,7 @@ namespace NCAS.jasig.ticket
             this.ticketGrantingTicket = ticket;
         }
 
-        public String getId()
+        public string getId()
         {
             return this.id;
         }
@@ -160,7 +161,7 @@ namespace NCAS.jasig.ticket
             return 34 ^ this.getId().GetHashCode();
         }
 
-        public String toString()
+        public string toString()
         {
             return this.id;
         }

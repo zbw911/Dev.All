@@ -97,13 +97,15 @@ using System.Linq;
 using Dev.CasServer.jasig;
 using Dev.CasServer.jasig.authentication;
 using Dev.CasServer.jasig.services;
-using Dev.CasServer.jasig.util;
-using Dev.CasServer.jasig.validation;
 using Dev.CasServer.principal;
+using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.services;
 using NCAS.jasig.ticket;
 using NCAS.jasig.ticket.registry;
+using NCAS.jasig.util;
+using NCAS.jasig.validation;
 
 namespace NCAS.jasig
 {

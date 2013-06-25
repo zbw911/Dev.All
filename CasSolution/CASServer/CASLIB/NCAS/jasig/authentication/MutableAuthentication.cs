@@ -23,7 +23,9 @@
 
 //import org.jasig.cas.authentication.principal.Principal;
 
-using Dev.CasServer.principal;
+using System;
+using System.Collections.Generic;
+using NCAS.jasig.authentication.principal;
 /**
  * Mutable implementation of Authentication interface.
  * <p>
@@ -34,42 +36,41 @@ using Dev.CasServer.principal;
  * @version $Revision$ $Date$
  * @since 3.0.3
  */
-using NCAS.jasig.authentication;
-using System;
-using System.Collections.Generic;
-using NCAS.jasig.authentication.principal;
 
-public class MutableAuthentication : AbstractAuthentication
+namespace NCAS.jasig.authentication
 {
-
-    /** Unique Id for serialization. */
-    private static long serialVersionUID = -4415875344376642246L;
-
-    /** The date/time this authentication object became valid. */
-    private DateTime authenticatedDate;
-
-    public MutableAuthentication(Principal principal)
-        : this(principal, DateTime.Now)
-    {
-        ;
-    }
-
-    public MutableAuthentication(Principal principal, DateTime date)
-        : base(principal, new Dictionary<string, Object>())
+    public class MutableAuthentication : AbstractAuthentication
     {
 
-        this.authenticatedDate = date;
-    }
+        /** Unique Id for serialization. */
+        private static long serialVersionUID = -4415875344376642246L;
 
-    public override DateTime getAuthenticatedDate()
-    {
-        return this.authenticatedDate;
-    }
+        /** The date/time this authentication object became valid. */
+        private DateTime authenticatedDate;
 
-    public override DateTime AuthenticatedDate
-    {
-        get { return authenticatedDate; }
-        set { authenticatedDate = value; }
+        public MutableAuthentication(Principal principal)
+            : this(principal, DateTime.Now)
+        {
+            ;
+        }
 
+        public MutableAuthentication(Principal principal, DateTime date)
+            : base(principal, new Dictionary<string, Object>())
+        {
+
+            this.authenticatedDate = date;
+        }
+
+        public override DateTime getAuthenticatedDate()
+        {
+            return this.authenticatedDate;
+        }
+
+        public override DateTime AuthenticatedDate
+        {
+            get { return this.authenticatedDate; }
+            set { this.authenticatedDate = value; }
+
+        }
     }
 }

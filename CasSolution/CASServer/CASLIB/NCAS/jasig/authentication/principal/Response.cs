@@ -57,27 +57,27 @@ namespace Dev.CasServer.principal
 
         private ResponseType responseType;
 
-        private String url;
+        private string url;
 
-        private Dictionary<String, String> attributes;
+        private Dictionary<string, string> attributes;
 
-        protected Response(ResponseType responseType, String url, Dictionary<String, String> attributes)
+        protected Response(ResponseType responseType, string url, Dictionary<string, string> attributes)
         {
             this.responseType = responseType;
             this.url = url;
             this.attributes = attributes;
         }
 
-        public static Response getPostResponse(String url, Dictionary<String, String> attributes)
+        public static Response getPostResponse(string url, Dictionary<string, string> attributes)
         {
             return new Response(ResponseType.POST, url, attributes);
         }
 
-        public static Response getRedirectResponse(String url, Dictionary<String, String> parameters)
+        public static Response getRedirectResponse(string url, Dictionary<string, string> parameters)
         {
             StringBuilder builder = new StringBuilder(parameters.Count * 40 + 100);
             bool isFirst = true;
-            String[] fragmentSplit = sanitizeUrl(url).Split("#".ToCharArray());
+            string[] fragmentSplit = sanitizeUrl(url).Split("#".ToCharArray());
 
             builder.Append(fragmentSplit[0]);
 
@@ -119,7 +119,7 @@ namespace Dev.CasServer.principal
             return new Response(ResponseType.REDIRECT, builder.ToString(), parameters);
         }
 
-        public Dictionary<String, String> getAttributes()
+        public Dictionary<string, string> getAttributes()
         {
             return this.attributes;
         }
@@ -129,7 +129,7 @@ namespace Dev.CasServer.principal
             return this.responseType;
         }
 
-        public String getUrl()
+        public string getUrl()
         {
             return this.url;
         }
@@ -144,7 +144,7 @@ namespace Dev.CasServer.principal
      * 
      * @return  Sanitized URL string.
      */
-        private static String sanitizeUrl(String url)
+        private static string sanitizeUrl(string url)
         {
             //var m = NON_PRINTABLE.Match(url);
             //StringBuilder sb = new StringBuilder(url.Length);

@@ -32,21 +32,24 @@
  * @version $Revision$ $Date$
  * @since 3.0
  */
-using NCAS.jasig.ticket;
-public  class TimeoutExpirationPolicy : ExpirationPolicy {
 
-    /** Serializable ID. */
-    private static  long serialVersionUID = 3545511790222979383L;
+namespace NCAS.jasig.ticket.support
+{
+    public  class TimeoutExpirationPolicy : ExpirationPolicy {
 
-    /** The time to kill in milliseconds. */
-    private  long timeToKillInMilliSeconds;
+        /** Serializable ID. */
+        private static  long serialVersionUID = 3545511790222979383L;
 
-    public TimeoutExpirationPolicy( long timeToKillInMilliSeconds) {
-        this.timeToKillInMilliSeconds = timeToKillInMilliSeconds;
-    }
+        /** The time to kill in milliseconds. */
+        private  long timeToKillInMilliSeconds;
 
-    public bool isExpired( TicketState ticketState) {
-        return (ticketState == null)
-            || (System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= this.timeToKillInMilliSeconds);
+        public TimeoutExpirationPolicy( long timeToKillInMilliSeconds) {
+            this.timeToKillInMilliSeconds = timeToKillInMilliSeconds;
+        }
+
+        public bool isExpired( TicketState ticketState) {
+            return (ticketState == null)
+                   || (System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= this.timeToKillInMilliSeconds);
+        }
     }
 }

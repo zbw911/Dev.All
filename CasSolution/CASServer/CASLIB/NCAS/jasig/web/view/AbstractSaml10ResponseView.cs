@@ -63,9 +63,9 @@
 //{
 //    public abstract class AbstractSaml10ResponseView : AbstractCasView {
 
-//        private static  String DEFAULT_ELEMENT_NAME_FIELD = "DEFAULT_ELEMENT_NAME";
+//        private static  string DEFAULT_ELEMENT_NAME_FIELD = "DEFAULT_ELEMENT_NAME";
 
-//        private static  String DEFAULT_ENCODING = "UTF-8";
+//        private static  string DEFAULT_ENCODING = "UTF-8";
 
 //        private  SamlArgumentExtractor samlArgumentExtractor = new SamlArgumentExtractor();
 
@@ -74,14 +74,14 @@
 //        private  SecureRandomIdentifierGenerator idGenerator;
 
 //        //@NotNull
-//        private String encoding = DEFAULT_ENCODING;
+//        private string encoding = DEFAULT_ENCODING;
 
 //        /**
 //     * Sets the character encoding in the HTTP response.
 //     *
 //     * @param encoding Response character encoding.
 //     */
-//        public void setEncoding( String encoding) {
+//        public void setEncoding( string encoding) {
 //            this.encoding = encoding;
 //        }
 
@@ -104,12 +104,12 @@
 //        }
 
 //        protected void renderMergedOutputModel(
-//            Map<String, Object> model,  HttpRequest request,  HttpResponse response)  {
+//            Map<string, Object> model,  HttpRequest request,  HttpResponse response)  {
 
 //            response.setCharacterEncoding(this.encoding);
 
 //            WebApplicationService service = this.samlArgumentExtractor.extractService(request);
-//            String serviceId = service != null ? service.getId() : "UNKNOWN";
+//            string serviceId = service != null ? service.getId() : "UNKNOWN";
 
 //            try {
 //                Response samlResponse = this.newSamlObject(Response.class);
@@ -143,10 +143,10 @@
 //     * @param response SAML 1 response message to be filled.
 //     * @param model Spring MVC model map containing data needed to prepare response.
 //     */
-//        protected abstract void prepareResponse(Response response, Map<String, Object> model);
+//        protected abstract void prepareResponse(Response response, Map<string, Object> model);
 
 
-//        protected  String generateId() {
+//        protected  string generateId() {
 //            return this.idGenerator.generateIdentifier();
 //        }
 
@@ -167,7 +167,7 @@
 //            return objectType.cast(builder.buildObject());
 //        }
 
-//        protected  Status newStatus( QName codeValue,  String statusMessage) {
+//        protected  Status newStatus( QName codeValue,  string statusMessage) {
 //            Status status = this.newSamlObject(Status.class);
 //            StatusCode code = this.newSamlObject(StatusCode.class);
 //            code.setValue(codeValue);

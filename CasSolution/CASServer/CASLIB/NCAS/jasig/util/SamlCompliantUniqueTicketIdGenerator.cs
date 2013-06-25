@@ -37,7 +37,6 @@
  * @since 3.0
  */
 
-using Dev.CasServer.jasig.util;
 using System;
 
 namespace NCAS.jasig.util
@@ -60,7 +59,7 @@ namespace NCAS.jasig.util
         /** Random generator to construct the AssertionHandle. */
         private Random random;
 
-        public SamlCompliantUniqueTicketIdGenerator(String sourceId)
+        public SamlCompliantUniqueTicketIdGenerator(string sourceId)
         {
             try
             {
@@ -85,7 +84,7 @@ namespace NCAS.jasig.util
         /**
      * We ignore prefixes for SAML compliance.
      */
-        public String getNewTicketId(String prefix)
+        public string getNewTicketId(string prefix)
         {
             //if (this.saml2compliant)
             //{

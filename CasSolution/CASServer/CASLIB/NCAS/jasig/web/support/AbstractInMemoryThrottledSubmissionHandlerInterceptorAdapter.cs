@@ -50,7 +50,7 @@ namespace NCAS.jasig.web.support
     public abstract class AbstractInMemoryThrottledSubmissionHandlerInterceptorAdapter : AbstractThrottledSubmissionHandlerInterceptorAdapter
     {
 
-        private IDictionary<String, DateTime> ipMap = new ConcurrentDictionary<String, DateTime>();
+        private IDictionary<string, DateTime> ipMap = new ConcurrentDictionary<string, DateTime>();
 
         //@Override
         protected override bool exceedsThreshold(HttpRequest request)
@@ -69,7 +69,7 @@ namespace NCAS.jasig.web.support
             this.ipMap.Add(this.constructKey(request), DateTime.Now);
         }
 
-        protected abstract String constructKey(HttpRequest request);
+        protected abstract string constructKey(HttpRequest request);
 
         /**
      * This class relies on an external configuration to clean it up. It ignores the threshold data in the parent class.
@@ -80,8 +80,8 @@ namespace NCAS.jasig.web.support
             //log.debug("Decrementing counts for throttler.  Starting key count: " + keys.size());
 
             DateTime now = new DateTime();
-            //String key;
-            //for (iterator<String> iter = keys.GetEnumerator(); iter.hasNext(); )
+            //string key;
+            //for (iterator<string> iter = keys.GetEnumerator(); iter.hasNext(); )
             //{
             //    key = iter.next();
             //    if (submissionRate(now, this.ipMap.get(key)) < getThresholdRate())

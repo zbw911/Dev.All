@@ -51,12 +51,12 @@ namespace NCAS.jasig.authentication.principal
      * Returns the unique id for the Principal
      * @return the unique id for the Principal.
      */
-        String getId();
+        string getId();
 
         /**
      * 
      * @return
      */
-        Dictionary<String, Object> getAttributes();
+        Dictionary<string, Object> getAttributes();
     }
 }

@@ -37,7 +37,6 @@
  */
 
 using System;
-using Dev.CasServer.jasig.authentication.principal;
 using Dev.CasServer.principal;
 using NCAS.jasig.authentication.principal;
 

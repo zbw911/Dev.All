@@ -63,104 +63,103 @@
  */
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using NCAS.jasig.ticket;
-using NCAS.jasig.ticket.registry;
-using NCAS.jasig.ticket.registry.support;
 
-public class DefaultTicketRegistryCleaner : RegistryCleaner
+namespace NCAS.jasig.ticket.registry.support
 {
+    public class DefaultTicketRegistryCleaner : RegistryCleaner
+    {
 
-    /** The Commons Logging instance. */
-    //private  Logger log = LoggerFactory.getLogger(getClass());
+        /** The Commons Logging instance. */
+        //private  Logger log = LoggerFactory.getLogger(getClass());
 
-    /** The instance of the TicketRegistry to clean. */
-    //@NotNull
-    private TicketRegistry ticketRegistry;
+        /** The instance of the TicketRegistry to clean. */
+        //@NotNull
+        private TicketRegistry ticketRegistry;
 
-    /** Execution locking strategy */
-    //@NotNull
-    private LockingStrategy _lock = new NoOpLockingStrategy();
+        /** Execution locking strategy */
+        //@NotNull
+        private LockingStrategy _lock = new NoOpLockingStrategy();
 
-    private bool logUserOutOfServices = true;
+        private bool logUserOutOfServices = true;
 
 
-    /**
+        /**
      * @see org.jasig.cas.ticket.registry.RegistryCleaner#clean()
      */
-    public void clean()
-    {
-        //this.log.info("Beginning ticket cleanup.");
-        //this.log.debug("Attempting to acquire ticket cleanup lock.");
-        if (!this._lock.acquire())
+        public void clean()
         {
-            //this.log.info("Could not obtain lock.  Aborting cleanup.");
-            return;
-        }
-        //this.log.debug("Acquired lock.  Proceeding with cleanup.");
-        try
-        {
-            List<Ticket> ticketsToRemove = new List<Ticket>();
-            List<Ticket> ticketsInCache;
-            ticketsInCache = this.ticketRegistry.getTickets();
-            foreach (Ticket ticket in ticketsInCache)
+            //this.log.info("Beginning ticket cleanup.");
+            //this.log.debug("Attempting to acquire ticket cleanup lock.");
+            if (!this._lock.acquire())
             {
-                if (ticket.isExpired())
+                //this.log.info("Could not obtain lock.  Aborting cleanup.");
+                return;
+            }
+            //this.log.debug("Acquired lock.  Proceeding with cleanup.");
+            try
+            {
+                List<Ticket> ticketsToRemove = new List<Ticket>();
+                List<Ticket> ticketsInCache;
+                ticketsInCache = this.ticketRegistry.getTickets();
+                foreach (Ticket ticket in ticketsInCache)
                 {
-                    ticketsToRemove.Add(ticket);
+                    if (ticket.isExpired())
+                    {
+                        ticketsToRemove.Add(ticket);
+                    }
+                }
+
+                //this.log.info(ticketsToRemove.size() + " tickets found to be removed.");
+                foreach (Ticket ticket in ticketsToRemove)
+                {
+                    // CAS-686: Expire TGT to trigger single sign-out
+                    if (this.logUserOutOfServices && ticket is TicketGrantingTicket)
+                    {
+                        ((TicketGrantingTicket)ticket).expire();
+                    }
+                    this.ticketRegistry.deleteTicket(ticket.getId());
                 }
             }
-
-            //this.log.info(ticketsToRemove.size() + " tickets found to be removed.");
-            foreach (Ticket ticket in ticketsToRemove)
+            finally
             {
-                // CAS-686: Expire TGT to trigger single sign-out
-                if (this.logUserOutOfServices && ticket is TicketGrantingTicket)
-                {
-                    ((TicketGrantingTicket)ticket).expire();
-                }
-                this.ticketRegistry.deleteTicket(ticket.getId());
+                //this.log.debug("Releasing ticket cleanup lock.");
+                this._lock.release();
             }
-        }
-        finally
-        {
-            //this.log.debug("Releasing ticket cleanup lock.");
-            this._lock.release();
+
+            //this.log.info("Finished ticket cleanup.");
         }
 
-        //this.log.info("Finished ticket cleanup.");
-    }
 
-
-    /**
+        /**
      * @param ticketRegistry The ticketRegistry to set.
      */
-    public void setTicketRegistry(TicketRegistry ticketRegistry)
-    {
-        this.ticketRegistry = ticketRegistry;
-    }
+        public void setTicketRegistry(TicketRegistry ticketRegistry)
+        {
+            this.ticketRegistry = ticketRegistry;
+        }
 
 
-    /**
+        /**
      * @param  strategy  Ticket cleanup locking strategy.  An exclusive locking
      * strategy is preferable if not required for some ticket backing stores,
      * such as JPA, in a clustered CAS environment.  Use {@link JdbcLockingStrategy}
      * for {@link org.jasig.cas.ticket.registry.JpaTicketRegistry} in a clustered
      * CAS environment.
      */
-    public void setLock(LockingStrategy strategy)
-    {
-        this._lock = strategy;
-    }
+        public void setLock(LockingStrategy strategy)
+        {
+            this._lock = strategy;
+        }
 
-    /**
+        /**
      * Whether to log users out of services when we remove an expired ticket.  The default is true. Set this to
      * false to disable.
      *
      * @param logUserOutOfServices whether to log the user out of services or not.
      */
-    public void setLogUserOutOfServices(bool logUserOutOfServices)
-    {
-        this.logUserOutOfServices = logUserOutOfServices;
+        public void setLogUserOutOfServices(bool logUserOutOfServices)
+        {
+            this.logUserOutOfServices = logUserOutOfServices;
+        }
     }
 }

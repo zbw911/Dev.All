@@ -39,9 +39,9 @@ namespace NCAS.jasig.web.support
     {
 
         //@Override
-        protected override String constructKey(HttpRequest request)
+        protected override string constructKey(HttpRequest request)
         {
-            String username = request.getParameter(this.getUsernameParameter());
+            string username = request.getParameter(this.getUsernameParameter());
 
             if (username == null)
             {

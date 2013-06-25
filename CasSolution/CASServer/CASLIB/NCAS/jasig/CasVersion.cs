@@ -50,7 +50,7 @@ namespace NCAS.jasig
      * 
      * @see java.lang.//package#getImplementationVersion
      */
-        public static String getVersion()
+        public static string getVersion()
         {
             ////return CasVersion.class.get//package().getImplementationVersion();
             //Assembly assembly = Assembly.GetExecutingAssembly();

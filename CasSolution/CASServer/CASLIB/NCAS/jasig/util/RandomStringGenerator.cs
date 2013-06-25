@@ -19,16 +19,14 @@
 ////package org.jasig.cas.util;
 
 /**
- * Interface to return a random String.
+ * Interface to return a random string.
  * 
  * @author Scott Battaglia
  * @version $Revision$ $Date$
  * @since 3.0
  */
 
-using System;
-
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public interface RandomStringGenerator {
 
@@ -45,7 +43,7 @@ namespace Dev.CasServer.jasig.util
         /**
      * @return the new random string
      */
-        String getNewString();
+        string getNewString();
     
         byte[] getNewStringAsBytes();
     }

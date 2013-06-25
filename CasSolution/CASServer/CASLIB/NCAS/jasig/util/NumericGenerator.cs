@@ -26,28 +26,26 @@
  * @since 3.0
  */
 
-using System;
-
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public interface NumericGenerator {
 
         /**
-     * Method to retrieve the next number as a String.
+     * Method to retrieve the next number as a string.
      * 
-     * @return the String representation of the next number in the sequence
+     * @return the string representation of the next number in the sequence
      */
-        String getNextNumberAsString();
+        string getNextNumberAsString();
 
         /**
-     * The guaranteed maximum length of a String returned by this generator.
+     * The guaranteed maximum length of a string returned by this generator.
      * 
      * @return the maximum length
      */
         int maxLength();
 
         /**
-     * The guaranteed minimum length of a String returned by this generator.
+     * The guaranteed minimum length of a string returned by this generator.
      * 
      * @return the minimum length.
      */

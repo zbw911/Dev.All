@@ -47,8 +47,8 @@
  * @since 3.0
  */
 
-using Dev.CasServer.jasig.validation;
 using NCAS.jasig.authentication.principal;
+using NCAS.jasig.validation;
 
 namespace NCAS.jasig.remoting.server
 {

@@ -42,85 +42,85 @@
  */
 
 using System.Text;
-using Dev.CasServer.jasig.util;
 using NCAS.jasig.authentication.principal;
-using NCAS.jasig.ticket.proxy;
 using NCAS.jasig.util;
 
-
-public class Cas20ProxyHandler : ProxyHandler
+namespace NCAS.jasig.ticket.proxy.support
 {
-
-    /** The Commons Logging instance. */
-    //private  Logger log = LoggerFactory.getLogger(getClass());
-
-    /** The PGTIOU ticket prefix. */
-    private static string PGTIOU_PREFIX = "PGTIOU";
-
-    /** Generate unique ids. */
-    //@NotNull
-    private UniqueTicketIdGenerator uniqueTicketIdGenerator = new DefaultUniqueTicketIdGenerator();
-
-    /** Instance of Apache Commons HttpClient */
-    //@NotNull
-    private HttpClient httpClient;
-
-    public string handle(Credentials credentials,
-         string proxyGrantingTicketId)
+    public class Cas20ProxyHandler : ProxyHandler
     {
-        HttpBasedServiceCredentials serviceCredentials = (HttpBasedServiceCredentials)credentials;
-        string proxyIou = this.uniqueTicketIdGenerator
-           .getNewTicketId(PGTIOU_PREFIX);
-        string serviceCredentialsAsString = serviceCredentials.getCallbackUrl().ToString();
-        StringBuilder stringBuffer = new StringBuilder(
-           serviceCredentialsAsString.Length + proxyIou.Length
-               + proxyGrantingTicketId.Length + 15);
 
-        stringBuffer.Append(serviceCredentialsAsString);
+        /** The Commons Logging instance. */
+        //private  Logger log = LoggerFactory.getLogger(getClass());
 
-        if (serviceCredentials.getCallbackUrl().Query != null)
+        /** The PGTIOU ticket prefix. */
+        private static string PGTIOU_PREFIX = "PGTIOU";
+
+        /** Generate unique ids. */
+        //@NotNull
+        private UniqueTicketIdGenerator uniqueTicketIdGenerator = new DefaultUniqueTicketIdGenerator();
+
+        /** Instance of Apache Commons HttpClient */
+        //@NotNull
+        private HttpClient httpClient;
+
+        public string handle(Credentials credentials,
+                             string proxyGrantingTicketId)
         {
-            stringBuffer.Append("&");
-        }
-        else
-        {
-            stringBuffer.Append("?");
-        }
+            HttpBasedServiceCredentials serviceCredentials = (HttpBasedServiceCredentials)credentials;
+            string proxyIou = this.uniqueTicketIdGenerator
+                .getNewTicketId(PGTIOU_PREFIX);
+            string serviceCredentialsAsString = serviceCredentials.getCallbackUrl().ToString();
+            StringBuilder stringBuffer = new StringBuilder(
+                serviceCredentialsAsString.Length + proxyIou.Length
+                + proxyGrantingTicketId.Length + 15);
 
-        stringBuffer.Append("pgtIou=");
-        stringBuffer.Append(proxyIou);
-        stringBuffer.Append("&pgtId=");
-        stringBuffer.Append(proxyGrantingTicketId);
+            stringBuffer.Append(serviceCredentialsAsString);
 
-        if (this.httpClient.isValidEndPoint(stringBuffer.ToString()))
-        {
+            if (serviceCredentials.getCallbackUrl().Query != null)
+            {
+                stringBuffer.Append("&");
+            }
+            else
+            {
+                stringBuffer.Append("?");
+            }
+
+            stringBuffer.Append("pgtIou=");
+            stringBuffer.Append(proxyIou);
+            stringBuffer.Append("&pgtId=");
+            stringBuffer.Append(proxyGrantingTicketId);
+
+            if (this.httpClient.isValidEndPoint(stringBuffer.ToString()))
+            {
+                //if (log.isDebugEnabled())
+                //{
+                //    log.debug("Sent ProxyIou of " + proxyIou + " for service: "
+                //        + serviceCredentials.toString());
+                //}
+                return proxyIou;
+            }
+
             //if (log.isDebugEnabled())
             //{
-            //    log.debug("Sent ProxyIou of " + proxyIou + " for service: "
-            //        + serviceCredentials.toString());
+            //    log.debug("Failed to send ProxyIou of " + proxyIou
+            //        + " for service: " + serviceCredentials.toString());
             //}
-            return proxyIou;
+            return null;
         }
 
-        //if (log.isDebugEnabled())
-        //{
-        //    log.debug("Failed to send ProxyIou of " + proxyIou
-        //        + " for service: " + serviceCredentials.toString());
-        //}
-        return null;
-    }
-
-    /**
+        /**
      * @param uniqueTicketIdGenerator The uniqueTicketIdGenerator to set.
      */
-    public void setUniqueTicketIdGenerator(
-         UniqueTicketIdGenerator uniqueTicketIdGenerator)
-    {
-        this.uniqueTicketIdGenerator = uniqueTicketIdGenerator;
-    }
+        public void setUniqueTicketIdGenerator(
+            UniqueTicketIdGenerator uniqueTicketIdGenerator)
+        {
+            this.uniqueTicketIdGenerator = uniqueTicketIdGenerator;
+        }
 
-    public void setHttpClient(HttpClient httpClient)
-    {
-        this.httpClient = httpClient;
+        public void setHttpClient(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
+        }
     }
 }

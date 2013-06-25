@@ -28,8 +28,6 @@
  *
  */
 
-using Dev.CasServer.handler;
-
 namespace NCAS.jasig.authentication.handler
 {
     public interface NamedAuthenticationHandler : AuthenticationHandler

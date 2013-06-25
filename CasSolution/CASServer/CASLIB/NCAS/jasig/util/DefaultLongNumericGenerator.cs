@@ -29,9 +29,7 @@
  * @since 3.0
  */
 
-using System;
-
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public class DefaultLongNumericGenerator : LongNumericGenerator
     {
@@ -39,7 +37,7 @@ namespace Dev.CasServer.jasig.util
         /** The maximum length the string can be. */
         private static int MAX_STRING_LENGTH = long.MaxValue.ToString().Length;
 
-        /** The minimum length the String can be. */
+        /** The minimum length the string can be. */
         private static int MIN_STRING_LENGTH = 1;
 
         private long count;
@@ -61,7 +59,7 @@ namespace Dev.CasServer.jasig.util
             return this.getNextValue();
         }
 
-        public String getNextNumberAsString()
+        public string getNextNumberAsString()
         {
             return this.getNextValue().ToString();
         }

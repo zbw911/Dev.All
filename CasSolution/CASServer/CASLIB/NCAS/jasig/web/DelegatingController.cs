@@ -39,19 +39,21 @@
 
 using System;
 using System.Web;
-using NCAS.jasig.web;
 using System.Collections.Generic;
-public class DelegatingController : AbstractController
+
+namespace NCAS.jasig.web
 {
-    List<DelegateController> delegates;
-    /** View if Service Ticket Validation Fails. */
-    private static String DEFAULT_ERROR_VIEW_NAME = "casServiceFailureView";
+    public class DelegatingController : AbstractController
+    {
+        List<DelegateController> delegates;
+        /** View if Service Ticket Validation Fails. */
+        private static string DEFAULT_ERROR_VIEW_NAME = "casServiceFailureView";
 
-    /** The view to redirect if no delegate can handle the request. */
-    ////@NotNull
-    private String failureView = DEFAULT_ERROR_VIEW_NAME;
+        /** The view to redirect if no delegate can handle the request. */
+        ////@NotNull
+        private string failureView = DEFAULT_ERROR_VIEW_NAME;
 
-    /**
+        /**
      * Handles the request.
      * Ask all delegates if they can handle the current request.
      * The first to answer true is elected as the delegate that will process the request.
@@ -61,44 +63,45 @@ public class DelegatingController : AbstractController
      * @return the model and view object
      * @ if an error occurs during request handling
      */
-    protected ModelAndView handleRequestInternal(HttpRequest request, HttpResponse response)
-    {
-        foreach (DelegateController d in delegates)
+        protected ModelAndView handleRequestInternal(HttpRequest request, HttpResponse response)
         {
-            if (d.canHandle(request, response))
+            foreach (DelegateController d in this.delegates)
             {
-                return d.handleRequest(request, response);
+                if (d.canHandle(request, response))
+                {
+                    return d.handleRequest(request, response);
+                }
             }
+            return this.generateErrorView("INVALID_REQUEST", "INVALID_REQUEST", null);
         }
-        return generateErrorView("INVALID_REQUEST", "INVALID_REQUEST", null);
-    }
 
-    private ModelAndView generateErrorView(String code, String description, Object[] args)
-    {
-        ModelAndView modelAndView = new ModelAndView(this.failureView);
-        //String convertedDescription = getMessageSourceAccessor().getMessage(description, args, description);
-        modelAndView.addObject("code", code);
-        //modelAndView.addObject("description", convertedDescription);
+        private ModelAndView generateErrorView(string code, string description, Object[] args)
+        {
+            ModelAndView modelAndView = new ModelAndView(this.failureView);
+            //string convertedDescription = getMessageSourceAccessor().getMessage(description, args, description);
+            modelAndView.addObject("code", code);
+            //modelAndView.addObject("description", convertedDescription);
 
-        return modelAndView;
-    }
+            return modelAndView;
+        }
 
      
 
-    /**
+        /**
      * @param delegates the delegate controllers to set
      */
-    ////@NotNull
-    public void setDelegates(List<DelegateController> delegates)
-    {
-        this.delegates = delegates;
-    }
+        ////@NotNull
+        public void setDelegates(List<DelegateController> delegates)
+        {
+            this.delegates = delegates;
+        }
 
-    /**
+        /**
      * @param failureView The failureView to set.
      */
-    public void setFailureView(String failureView)
-    {
-        this.failureView = failureView;
+        public void setFailureView(string failureView)
+        {
+            this.failureView = failureView;
+        }
     }
 }

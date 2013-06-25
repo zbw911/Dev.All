@@ -60,7 +60,7 @@ namespace NCAS.jasig.services
      * 
      * @return the list of attributes
      */
-        List<String> getAllowedAttributes();
+        List<string> getAllowedAttributes();
 
         /**
      * Is this application allowed to take part in the proxying capabilities of
@@ -75,7 +75,7 @@ namespace NCAS.jasig.services
      * 
      * @return the unique identifier for this service.
      */
-        String getServiceId();
+        string getServiceId();
 
         /**
      * The numeric identifier for this service.
@@ -89,7 +89,7 @@ namespace NCAS.jasig.services
      * 
      * @return the name of the service.
      */
-        String getName();
+        string getName();
 
         /**
      * Returns a short theme name. Services do not need to have unique theme
@@ -97,7 +97,7 @@ namespace NCAS.jasig.services
      * 
      * @return the theme name associated with this service.
      */
-        String getTheme();
+        string getTheme();
 
         /**
      * Does this application participate in the SSO session?
@@ -111,7 +111,7 @@ namespace NCAS.jasig.services
      * 
      * @return the description of the service.
      */
-        String getDescription();
+        string getDescription();
 
         /**
      * Gets the relative evaluation order of this service when determining
@@ -132,11 +132,11 @@ namespace NCAS.jasig.services
      * 
      * @return Either of the following values:
      * <ul>
-     *  <li><code>String</code> representing the name of the attribute to consume as username</li>
+     *  <li><code>string</code> representing the name of the attribute to consume as username</li>
      *  <li><code>null</code> indicating the default username</li>
      * </ul>
      */
-        String getUsernameAttribute();
+        string getUsernameAttribute();
 
         /**
      * Returns whether the service matches the registered service.

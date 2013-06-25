@@ -31,10 +31,9 @@
  * @since 3.0
  */
 
-using System;
 using System.Text;
 
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public sealed class DefaultUniqueTicketIdGenerator :
         UniqueTicketIdGenerator
@@ -50,7 +49,7 @@ namespace Dev.CasServer.jasig.util
      * Optional suffix to ensure uniqueness across JVMs by specifying unique
      * values.
      */
-        private readonly String suffix;
+        private readonly string suffix;
 
         /**
      * Creates an instance of DefaultUniqueTicketIdGenerator with default values
@@ -84,7 +83,7 @@ namespace Dev.CasServer.jasig.util
      * @param suffix the value to append at the end of the unique id to ensure
      * uniqueness across JVMs.
      */
-        public DefaultUniqueTicketIdGenerator(String suffix)
+        public DefaultUniqueTicketIdGenerator(string suffix)
         {
             this.numericGenerator = new DefaultLongNumericGenerator(1);
             this.randomStringGenerator = new DefaultRandomStringGenerator();
@@ -108,7 +107,7 @@ namespace Dev.CasServer.jasig.util
      * @param suffix the value to append at the end of the unique id to ensure
      * uniqueness across JVMs.
      */
-        public DefaultUniqueTicketIdGenerator(int maxLength, String suffix)
+        public DefaultUniqueTicketIdGenerator(int maxLength, string suffix)
         {
             this.numericGenerator = new DefaultLongNumericGenerator(1);
             this.randomStringGenerator = new DefaultRandomStringGenerator(maxLength);
@@ -123,9 +122,9 @@ namespace Dev.CasServer.jasig.util
             }
         }
 
-        public String getNewTicketId(String prefix)
+        public string getNewTicketId(string prefix)
         {
-            String number = this.numericGenerator.getNextNumberAsString();
+            string number = this.numericGenerator.getNextNumberAsString();
             StringBuilder buffer = new StringBuilder(prefix.Length + 2
                                                      + (this.suffix != null ? this.suffix.Length : 0) + this.randomStringGenerator.getMaxLength()
                                                      + number.Length);

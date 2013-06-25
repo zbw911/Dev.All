@@ -41,123 +41,123 @@
 
 using System;
 using System.Collections.Generic;
-using Dev.CasServer.handler;
 using Dev.CasServer.jasig.authentication;
-using Dev.CasServer.principal;
-using NCAS.jasig.authentication;
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 
-public abstract class AbstractAuthenticationManager : AuthenticationManager
+namespace NCAS.jasig.authentication
 {
-
-    /** Log instance for logging events, errors, warnings, etc. */
-    //protected  Logger log = LoggerFactory.getLogger(AuthenticationManagerImpl.class);
-
-    /** An array of AuthenticationAttributesPopulators. */
-    ////@NotNull
-    private List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators = new List<AuthenticationMetaDataPopulator>();
-
-    //@Audit(
-    //    action="AUTHENTICATION",
-    //    actionResolverName="AUTHENTICATION_RESOLVER",
-    //    resourceResolverName="AUTHENTICATION_RESOURCE_RESOLVER")
-    //@Profiled(tag = "AUTHENTICATE", logFailuresSeparately = false)
-    public override Authentication authenticate(Credentials credentials)
+    public abstract class AbstractAuthenticationManager : AuthenticationManager
     {
 
-        Pair<AuthenticationHandler, Principal> pair = authenticateAndObtainPrincipal(credentials);
+        /** Log instance for logging events, errors, warnings, etc. */
+        //protected  Logger log = LoggerFactory.getLogger(AuthenticationManagerImpl.class);
 
+        /** An array of AuthenticationAttributesPopulators. */
+        ////@NotNull
+        private List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators = new List<AuthenticationMetaDataPopulator>();
 
-
-        // we can only get here if the above method doesn't throw an exception. And if it doesn't, then the pair must not be null.
-        Principal p = pair.getSecond();
-        //log.info("{} authenticated {} with credential {}.", pair.getFirst(), p, credentials);
-        //log.debug("Attribute map for {}: {}", p.getId(), p.getAttributes());
-
-        Authentication authentication = new MutableAuthentication(p);
-
-        if (pair.getFirst() is NamedAuthenticationHandler)
+        //@Audit(
+        //    action="AUTHENTICATION",
+        //    actionResolverName="AUTHENTICATION_RESOLVER",
+        //    resourceResolverName="AUTHENTICATION_RESOURCE_RESOLVER")
+        //@Profiled(tag = "AUTHENTICATE", logFailuresSeparately = false)
+        public override Authentication authenticate(Credentials credentials)
         {
-            NamedAuthenticationHandler a = (NamedAuthenticationHandler)pair.getFirst();
-            authentication.getAttributes().Add(AuthenticationManager.AUTHENTICATION_METHOD_ATTRIBUTE, a.getName());
+
+            Pair<AuthenticationHandler, Principal> pair = this.authenticateAndObtainPrincipal(credentials);
+
+
+
+            // we can only get here if the above method doesn't throw an exception. And if it doesn't, then the pair must not be null.
+            Principal p = pair.getSecond();
+            //log.info("{} authenticated {} with credential {}.", pair.getFirst(), p, credentials);
+            //log.debug("Attribute map for {}: {}", p.getId(), p.getAttributes());
+
+            Authentication authentication = new MutableAuthentication(p);
+
+            if (pair.getFirst() is NamedAuthenticationHandler)
+            {
+                NamedAuthenticationHandler a = (NamedAuthenticationHandler)pair.getFirst();
+                authentication.getAttributes().Add(AuthenticationManager.AUTHENTICATION_METHOD_ATTRIBUTE, a.getName());
+            }
+
+            foreach (AuthenticationMetaDataPopulator authenticationMetaDataPopulator in this.authenticationMetaDataPopulators)
+            {
+                authentication = authenticationMetaDataPopulator
+                    .populateAttributes(authentication, credentials);
+            }
+
+            return new ImmutableAuthentication(authentication.getPrincipal(),
+                                               authentication.getAttributes());
         }
 
-        foreach (AuthenticationMetaDataPopulator authenticationMetaDataPopulator in this.authenticationMetaDataPopulators)
-        {
-            authentication = authenticationMetaDataPopulator
-                .populateAttributes(authentication, credentials);
-        }
-
-        return new ImmutableAuthentication(authentication.getPrincipal(),
-            authentication.getAttributes());
-    }
-
-    /**
+        /**
      * @param authenticationMetaDataPopulators the authenticationMetaDataPopulators to set.
      */
-    public void setAuthenticationMetaDataPopulators(List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators)
-    {
-        this.authenticationMetaDataPopulators = authenticationMetaDataPopulators;
-    }
+        public void setAuthenticationMetaDataPopulators(List<AuthenticationMetaDataPopulator> authenticationMetaDataPopulators)
+        {
+            this.authenticationMetaDataPopulators = authenticationMetaDataPopulators;
+        }
 
-    /**
+        /**
      * Follows the same rules as the "authenticate" method (i.e. should only return a fully populated object, or throw an exception)
      *
      * @param credentials the credentials to check
      * @return the pair of authentication handler and principal.  CANNOT be NULL.
      * @throws AuthenticationException if there is an error authenticating.
      */
-    protected abstract Pair<AuthenticationHandler, Principal> authenticateAndObtainPrincipal(Credentials credentials);
+        protected abstract Pair<AuthenticationHandler, Principal> authenticateAndObtainPrincipal(Credentials credentials);
 
 
-    /**
+        /**
      * Handles an authentication error raised by an {@link AuthenticationHandler}.
      * 
      * @param handlerName The class name of the authentication handler.
      * @param credentials Client credentials subject to authentication. 
      * @param e The exception that has occurred during authentication attempt.
      */
-    protected void handleError(string handlerName, Credentials credentials, Exception e)
-    {
-        if (e is AuthenticationException)
+        protected void handleError(string handlerName, Credentials credentials, Exception e)
         {
-            // CAS-1181 Log common authentication failures at INFO without stack trace
-            //log.info("{} failed authenticating {}", handlerName, credentials);
-            throw (AuthenticationException)e;
+            if (e is AuthenticationException)
+            {
+                // CAS-1181 Log common authentication failures at INFO without stack trace
+                //log.info("{} failed authenticating {}", handlerName, credentials);
+                throw (AuthenticationException)e;
+            }
+            //log.error("{} threw error authenticating {}", handlerName, credentials, e);
+            //throw new UncategorizedAuthenticationException(e.getClass().getName(), e)
+            //{
+            //    // Anonymous inner class allows us to throw uncategorized authentication error
+            //    // since base class is abstract.
+            //};
         }
-        //log.error("{} threw error authenticating {}", handlerName, credentials, e);
-        //throw new UncategorizedAuthenticationException(e.getClass().getName(), e)
-        //{
-        //    // Anonymous inner class allows us to throw uncategorized authentication error
-        //    // since base class is abstract.
-        //};
+
+
+        protected class Pair<A, B>
+        {
+
+            private A first;
+
+            private B second;
+
+            public Pair(A first, B second)
+            {
+                first = first;
+                second = second;
+            }
+
+            public A getFirst()
+            {
+                return this.first;
+            }
+
+
+            public B getSecond()
+            {
+                return this.second;
+            }
+        }
+
     }
-
-
-    protected class Pair<A, B>
-    {
-
-        private A first;
-
-        private B second;
-
-        public Pair(A first, B second)
-        {
-            first = first;
-            second = second;
-        }
-
-        public A getFirst()
-        {
-            return first;
-        }
-
-
-        public B getSecond()
-        {
-            return this.second;
-        }
-    }
-
 }

@@ -34,10 +34,8 @@
  */
 
 using System;
-using Dev.CasServer.principal;
-using NCAS.jasig.authentication.principal;
 
-namespace Dev.CasServer.jasig.authentication.principal
+namespace NCAS.jasig.authentication.principal
 {
     public class UsernamePasswordCredentials : Credentials
     {

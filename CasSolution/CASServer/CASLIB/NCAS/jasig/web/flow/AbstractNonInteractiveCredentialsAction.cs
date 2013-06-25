@@ -33,9 +33,12 @@
 
 using System;
 using System.Web;
+using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.ticket;
 using NCAS.jasig.web.MOCK2JAVA;
+using NCAS.jasig.web.support;
+
 /**
  * Abstract class to handle the retrieval and authentication of non-interactive
  * credentials such as client certificates, NTLM, etc.
@@ -69,7 +72,7 @@ namespace NCAS.jasig.web.flow
                 return this.error();
             }
 
-            String ticketGrantingTicketId = WebUtils.getTicketGrantingTicketId(context);
+            string ticketGrantingTicketId = WebUtils.getTicketGrantingTicketId(context);
             Service service = WebUtils.getService(context);
 
             if (this.isRenewPresent(context)
@@ -79,7 +82,7 @@ namespace NCAS.jasig.web.flow
 
                 try
                 {
-                    String serviceTicketId = this.centralAuthenticationService
+                    string serviceTicketId = this.centralAuthenticationService
                         .grantServiceTicket(ticketGrantingTicketId,
                                             service,
                                             credentials);

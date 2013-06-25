@@ -39,14 +39,15 @@
 
 using System;
 using System.Web;
-using Dev.CasServer.jasig.util;
+using NCAS.jasig.util;
+using NCAS.jasig.web.support;
 
 namespace NCAS.jasig.web.flow
 {
     public class GenerateLoginTicketAction
     {
         /** 3.5.1 - Login tickets SHOULD begin with characters "LT-" */
-        private static String PREFIX = "LT";
+        private static string PREFIX = "LT";
 
         /** Logger instance */
         //private  Log logger = LogFactory.getLog(getClass());
@@ -55,9 +56,9 @@ namespace NCAS.jasig.web.flow
         ////@NotNull
         private UniqueTicketIdGenerator ticketIdGenerator;
 
-        public String generate(HttpContext context)
+        public string generate(HttpContext context)
         {
-            String loginTicket = this.ticketIdGenerator.getNewTicketId(PREFIX);
+            string loginTicket = this.ticketIdGenerator.getNewTicketId(PREFIX);
             //this.logger.debug("Generated login ticket " + loginTicket);
             WebUtils.putLoginTicket(context, loginTicket);
             return "generated";

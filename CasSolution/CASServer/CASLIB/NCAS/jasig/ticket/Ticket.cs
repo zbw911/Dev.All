@@ -39,7 +39,7 @@ namespace NCAS.jasig.ticket
      * 
      * @return the id
      */
-        String getId();
+        string getId();
 
         /**
      * Determines if the ticket is expired. Most common implementations might

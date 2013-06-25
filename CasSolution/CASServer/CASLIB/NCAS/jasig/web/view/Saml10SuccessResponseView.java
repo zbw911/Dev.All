@@ -51,7 +51,7 @@
  * the SAML 1.1 specification.
  * <p>
  * If an AttributePrincipal is supplied, then the assertion will include the
- * attributes from it (assuming a String key/Object value pair). The only
+ * attributes from it (assuming a string key/Object value pair). The only
  * Authentication attribute it will look at is the authMethod (if supplied).
  * <p>
  * Note that this class will currently not handle proxy authentication.
@@ -65,29 +65,29 @@
 public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
 
     /** Namespace for custom attributes. */
-    private static  String NAMESPACE = "http://www.ja-sig.org/products/cas/";
+    private static  string NAMESPACE = "http://www.ja-sig.org/products/cas/";
 
-    private static  String REMEMBER_ME_ATTRIBUTE_NAME = "longTermAuthenticationRequestTokenUsed";
+    private static  string REMEMBER_ME_ATTRIBUTE_NAME = "longTermAuthenticationRequestTokenUsed";
 
-    private static  String REMEMBER_ME_ATTRIBUTE_VALUE = "true";
+    private static  string REMEMBER_ME_ATTRIBUTE_VALUE = "true";
 
-    private static  String CONFIRMATION_METHOD = "urn:oasis:names:tc:SAML:1.0:cm:artifact";
+    private static  string CONFIRMATION_METHOD = "urn:oasis:names:tc:SAML:1.0:cm:artifact";
 
     private  XSStringBuilder attrValueBuilder = new XSStringBuilder();
 
     /** The issuer, generally the hostname. */
     //@NotNull
-    private String issuer;
+    private string issuer;
 
     /** The amount of time in milliseconds this is valid for. */
     @Min(1000)
     private long issueLength = 30000;
 
     //@NotNull
-    private String rememberMeAttributeName = REMEMBER_ME_ATTRIBUTE_NAME;
+    private string rememberMeAttributeName = REMEMBER_ME_ATTRIBUTE_NAME;
 
     @Override
-    protected void prepareResponse( Response response,  Map<String, Object> model) {
+    protected void prepareResponse( Response response,  Map<string, Object> model) {
          Authentication authentication = getAssertionFrom(model).getChainedAuthentications().get(0);
          DateTime issuedAt = response.getIssueInstant();
          Service service = getAssertionFrom(model).getService();
@@ -103,7 +103,7 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
         assertion.setConditions(newConditions(issuedAt, service.getId()));
          AuthenticationStatement authnStatement = newAuthenticationStatement(authentication);
         assertion.getAuthenticationStatements().add(authnStatement);
-         Map<String, Object> attributes = authentication.getPrincipal().getAttributes();
+         Map<string, Object> attributes = authentication.getPrincipal().getAttributes();
         if (!attributes.isEmpty() || isRemembered) {
             assertion.getAttributeStatements().add(
                     newAttributeStatement(newSubject(authentication.getPrincipal().getId()), attributes, isRemembered));
@@ -112,7 +112,7 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
         response.getAssertions().add(assertion);
     }
 
-    private Conditions newConditions( DateTime issuedAt,  String serviceId) {
+    private Conditions newConditions( DateTime issuedAt,  string serviceId) {
          Conditions conditions = newSamlObject(Conditions.class);
         conditions.setNotBefore(issuedAt);
         conditions.setNotOnOrAfter(issuedAt.plus(this.issueLength));
@@ -124,7 +124,7 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
         return conditions;
     }
 
-    private Subject newSubject( String identifier) {
+    private Subject newSubject( string identifier) {
          SubjectConfirmation confirmation = newSamlObject(SubjectConfirmation.class);
          ConfirmationMethod method = newSamlObject(ConfirmationMethod.class);
         method.setConfirmationMethod(CONFIRMATION_METHOD);
@@ -138,7 +138,7 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
     }
 
     private AuthenticationStatement newAuthenticationStatement( Authentication authentication) {
-         String authenticationMethod = (String) authentication.getAttributes().get(
+         string authenticationMethod = (string) authentication.getAttributes().get(
                 SamlAuthenticationMetaDataPopulator.ATTRIBUTE_AUTHENTICATION_METHOD);
          AuthenticationStatement authnStatement = newSamlObject(AuthenticationStatement.class);
         authnStatement.setAuthenticationInstant(new DateTime(authentication.getAuthenticatedDate()));
@@ -151,11 +151,11 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
     }
 
     private AttributeStatement newAttributeStatement(
-             Subject subject,  Map<String, Object> attributes,  bool isRemembered) {
+             Subject subject,  Map<string, Object> attributes,  bool isRemembered) {
 
          AttributeStatement attrStatement = newSamlObject(AttributeStatement.class);
         attrStatement.setSubject(subject);
-        for ( Entry<String, Object> e : attributes.entrySet()) {
+        for ( Entry<string, Object> e : attributes.entrySet()) {
             if (e.getValue() is Collection<?> && ((Collection<?>) e.getValue()).isEmpty()) {
                 // bnoordhuis: don't add the attribute, it causes a org.opensaml.MalformedException
                 log.info("Skipping attribute {} because it does not have any values.", e.getKey());
@@ -187,8 +187,8 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
 
     private XSString newAttributeValue( Object value) {
          XSString stringValue = this.attrValueBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
-        if (value is String) {
-            stringValue.setValue((String) value);
+        if (value is string) {
+            stringValue.setValue((string) value);
         } else {
             stringValue.setValue(value.toString());
         }
@@ -199,11 +199,11 @@ public  class Saml10SuccessResponseView : AbstractSaml10ResponseView {
         this.issueLength = issueLength;
     }
 
-    public void setIssuer( String issuer) {
+    public void setIssuer( string issuer) {
         this.issuer = issuer;
     }
 
-    public void setRememberMeAttributeName( String rememberMeAttributeName) {
+    public void setRememberMeAttributeName( string rememberMeAttributeName) {
         this.rememberMeAttributeName = rememberMeAttributeName;
     }
 }

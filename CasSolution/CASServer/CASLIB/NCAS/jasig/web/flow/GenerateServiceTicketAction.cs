@@ -1,10 +1,8 @@
-using System;
 using System.Web;
-using System.Web.Routing;
-using Dev.CasServer.jasig;
-using NCAS.jasig;
 using NCAS.jasig.ticket;
-using NCAS.jasig.web.flow;
+using NCAS.jasig.web.MOCK2JAVA;
+using NCAS.jasig.web.support;
+
 /*
  * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
@@ -44,48 +42,51 @@ using NCAS.jasig.web.flow;
  * @version $Revision$ $Date$
  * @since 3.0.4
  */
-public class GenerateServiceTicketAction : AbstractAction
+namespace NCAS.jasig.web.flow
 {
-
-    /** Instance of CentralAuthenticationService. */
-    ////@NotNull
-    private CentralAuthenticationService centralAuthenticationService;
-
-    protected Event doExecute(HttpContext context)
+    public class GenerateServiceTicketAction : AbstractAction
     {
-        Service service = WebUtils.getService(context);
-        String ticketGrantingTicket = WebUtils.getTicketGrantingTicketId(context);
 
-        try
+        /** Instance of CentralAuthenticationService. */
+        ////@NotNull
+        private CentralAuthenticationService centralAuthenticationService;
+
+        protected Event doExecute(HttpContext context)
         {
-            String serviceTicketId = this.centralAuthenticationService
-               .grantServiceTicket(ticketGrantingTicket,
-                   service);
-            WebUtils.putServiceTicketInRequestScope(context,
-                serviceTicketId);
-            return success();
-        }
-        catch (TicketException e)
-        {
-            if (isGatewayPresent(context))
+            Service service = WebUtils.getService(context);
+            string ticketGrantingTicket = WebUtils.getTicketGrantingTicketId(context);
+
+            try
             {
-                return result("gateway");
+                string serviceTicketId = this.centralAuthenticationService
+                    .grantServiceTicket(ticketGrantingTicket,
+                                        service);
+                WebUtils.putServiceTicketInRequestScope(context,
+                                                        serviceTicketId);
+                return this.success();
             }
+            catch (TicketException e)
+            {
+                if (this.isGatewayPresent(context))
+                {
+                    return this.result("gateway");
+                }
+            }
+
+            return this.error();
         }
 
-        return error();
-    }
 
 
+        public void setCentralAuthenticationService(
+            CentralAuthenticationService centralAuthenticationService)
+        {
+            this.centralAuthenticationService = centralAuthenticationService;
+        }
 
-    public void setCentralAuthenticationService(
-         CentralAuthenticationService centralAuthenticationService)
-    {
-        this.centralAuthenticationService = centralAuthenticationService;
-    }
-
-    protected bool isGatewayPresent(HttpContext context)
-    {
-        return !string.IsNullOrEmpty(context.Request.QueryString[("gateway")]);
+        protected bool isGatewayPresent(HttpContext context)
+        {
+            return !string.IsNullOrEmpty(context.Request.QueryString[("gateway")]);
+        }
     }
 }

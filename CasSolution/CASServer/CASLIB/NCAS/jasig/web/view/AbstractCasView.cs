@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Dev.CasServer.jasig.validation;
+using NCAS.jasig.validation;
 using NCAS.jasig.web.MOCK2JAVA;
 
 /*
@@ -44,7 +44,7 @@ namespace NCAS.jasig.web.view
 
         //protected  Logger log = LoggerFactory.getLogger(this.getClass());
 
-        protected Assertion getAssertionFrom(Dictionary<String, Object> model)
+        protected Assertion getAssertionFrom(Dictionary<string, Object> model)
         {
             Object value;
             model.TryGetValue("assertion", out value);

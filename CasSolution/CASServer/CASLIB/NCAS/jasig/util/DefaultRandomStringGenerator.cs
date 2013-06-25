@@ -31,7 +31,7 @@
 
 using System;
 
-namespace Dev.CasServer.jasig.util
+namespace NCAS.jasig.util
 {
     public class DefaultRandomStringGenerator : RandomStringGenerator
     {
@@ -69,7 +69,7 @@ namespace Dev.CasServer.jasig.util
             return this.maximumRandomLength;
         }
 
-        public String getNewString()
+        public string getNewString()
         {
             byte[] random = this.getNewStringAsBytes();
 
@@ -86,7 +86,7 @@ namespace Dev.CasServer.jasig.util
             return random;
         }
 
-        private String convertBytesToString(byte[] random)
+        private string convertBytesToString(byte[] random)
         {
             char[] output = new char[random.Length];
             for (int i = 0; i < random.Length; i++)
@@ -95,7 +95,7 @@ namespace Dev.CasServer.jasig.util
                 output[i] = PRINTABLE_CHARACTERS[index];
             }
 
-            return new String(output);
+            return new string(output);
         }
     }
 }

@@ -25,7 +25,7 @@
 ////import org.jasig.cas.authentication.principal.Service;
 
 /**
- * Return from CentralAuthenticationService.validateServiceTicket(String,
+ * Return from CentralAuthenticationService.validateServiceTicket(string,
  * Service), the Assertion contains a chain of Principal objects. The first is
  * the User's login Principal, while any others are Proxy Principals.
  * 
@@ -37,11 +37,10 @@
  * </p>
  */
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Dev.CasServer.jasig.authentication;
+using NCAS.jasig.authentication;
 
-namespace Dev.CasServer.jasig.validation
+namespace NCAS.jasig.validation
 {
     public interface Assertion
     {
