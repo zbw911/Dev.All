@@ -13,6 +13,9 @@ namespace Dev.CasClient.Configuration
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public class CasClientConfiguration
     {
@@ -28,6 +31,9 @@ namespace Dev.CasClient.Configuration
 
         #region Public Properties
 
+        /// <summary>
+        /// 配置项
+        /// </summary>
         public static CasClientConfiguration Config
         {
             get
@@ -57,6 +63,7 @@ namespace Dev.CasClient.Configuration
                 if (_configProvider == null)
                 {
                     _configProvider = new XmlCasClientConfigurationStorage();
+                    _configProvider.ConfigChangedEvent += ConfigProviderConfigChangedEvent;
                 }
                 return _configProvider;
             }
@@ -66,6 +73,11 @@ namespace Dev.CasClient.Configuration
             }
         }
 
+        static void ConfigProviderConfigChangedEvent(object sender, System.EventArgs e)
+        {
+            _config = ConfigProvider.Get();
+        }
+
         /// <summary>
         /// CAS的服务地址
         /// </summary>
@@ -73,6 +85,9 @@ namespace Dev.CasClient.Configuration
         public string CasServerUrl { get; set; }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember]
         public string CasPath { get; set; }
 

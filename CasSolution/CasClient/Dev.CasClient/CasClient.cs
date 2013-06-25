@@ -98,12 +98,14 @@ namespace Dev.CasClient
                     var exts = xmlh.GetFirstChildXmlNode(xmlh.RootNode.FirstChild, "cas:ext");
                     var dic = new Dictionary<string, string>();
 
-
-                    for (var i = 0; i < exts.ChildNodes.Count; i++)
+                    if (exts != null)
                     {
-                        var ext = exts.ChildNodes.Item(i);
+                        for (var i = 0; i < exts.ChildNodes.Count; i++)
+                        {
+                            var ext = exts.ChildNodes.Item(i);
 
-                        dic.Add(ext.LocalName, ext.InnerText);
+                            dic.Add(ext.LocalName, ext.InnerText);
+                        }
                     }
 
                     //hand User

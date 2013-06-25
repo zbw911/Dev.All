@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System;
+
 namespace Dev.CasClient.Configuration
 {
     /// <summary>
@@ -42,6 +44,13 @@ namespace Dev.CasClient.Configuration
         /// <param name="config"></param>
         /// <param name="configname"></param>
         void Save(CasClientConfiguration config, string configname);
+
+
+        /// <summary>
+        /// 配置改变
+        /// </summary>
+        event EventHandler<EventArgs> ConfigChangedEvent;
+
 
         #endregion
     }

@@ -22,6 +22,8 @@ namespace Dev.CasClient.Configuration
     {
         #region Public Methods and Operators
 
+        private static System.IO.FileSystemWatcher filewatcher;
+
         public CasClientConfiguration Get()
         {
             return this.Get(null);
@@ -45,7 +47,26 @@ namespace Dev.CasClient.Configuration
                 this.Save(instance, configname);
             }
 
+            if (filewatcher == null)
+            {
+                filewatcher = new System.IO.FileSystemWatcher();
+                //filewatcher.
+                filewatcher.Filter = Path.GetFileName(xmlFile);
+                //filewatcher.NotifyFilter = NotifyFilters.LastWrite;
+                filewatcher.Path = Path.GetDirectoryName(xmlFile).TrimEnd('\\') + "\\";
+                filewatcher.Changed += this.FlilewatcherChanged;
+                filewatcher.EnableRaisingEvents = true;
+            }
             return instance;
+        }
+
+        void FlilewatcherChanged(object sender, FileSystemEventArgs e)
+        {
+            var type = e.ChangeType;
+            ConfigChangedEvent(sender, e);
+            //Log.Loger.Error("changed");
+            //System.Diagnostics.Debug.WriteLine("changed");
+            //throw new NotImplementedException();
         }
 
         public void Save(CasClientConfiguration config)
@@ -58,6 +79,8 @@ namespace Dev.CasClient.Configuration
             string settingFile = GetSettingFile(configname);
             DataContractSerializationHelper.Serialize(config, settingFile);
         }
+
+        public event EventHandler<EventArgs> ConfigChangedEvent;
 
         #endregion
 
