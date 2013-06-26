@@ -53,8 +53,6 @@
  * @see org.jasig.cas.authentication.principal.Credentials
  */
 
-using Dev.CasServer.principal;
-
 namespace NCAS.jasig.authentication.principal
 {
     public interface CredentialsToPrincipalResolver

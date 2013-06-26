@@ -24,9 +24,9 @@
 ////import org.jasig.cas.authentication.principal.Service;
 
 using System.Collections.Generic;
-using Dev.CasServer.jasig.authentication;
 using System;
 using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.principal;
 
 /**
  * Interface for a ticket granting ticket. A TicketGrantingTicket is the main

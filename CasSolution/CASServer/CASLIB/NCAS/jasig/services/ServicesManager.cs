@@ -32,7 +32,8 @@
  */
 
 using System.Collections.ObjectModel;
-using Dev.CasServer.jasig.services;
+ 
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.services
 {

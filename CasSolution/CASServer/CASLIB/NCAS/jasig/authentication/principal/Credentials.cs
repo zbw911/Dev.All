@@ -48,7 +48,7 @@
 namespace NCAS.jasig.authentication.principal
 {
     public interface Credentials
-    {
+    { 
         // marker interface contains no methods
     }
 }

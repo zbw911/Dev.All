@@ -39,7 +39,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Dev.CasServer.jasig.authentication;
 using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.authentication

@@ -9,6 +9,9 @@
 // ***********************************************************************************
 
 using System;
+using System.Globalization;
+using System.IO;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WebApp.Test
@@ -101,6 +104,31 @@ namespace WebApp.Test
             var result = Dev.Comm.Net.Http.GetUrl(url);
 
             Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            EntryPointNotFoundException entryPointNotFoundException = new EntryPointNotFoundException();
+
+            StringBuilder builder = new StringBuilder();
+
+            builder.ToString().Split(",".ToCharArray());
+
+            var fileName = "";
+            Stream stream = new FileStream(fileName, FileMode.Open);
+            StreamReader reader = new StreamReader(stream);
+            EntryPointNotFoundException exception = new EntryPointNotFoundException(fileName);
+
+
+            Stream inputStream = File.OpenRead(fileName);
+
+       
+
+
+
+
+
         }
 
         #endregion

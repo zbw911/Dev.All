@@ -31,9 +31,6 @@
  *
  */
 
-using Dev.CasServer.jasig.authentication;
-using Dev.CasServer.principal;
-
 namespace NCAS.jasig.authentication.principal
 {
     public class RememberMeAuthenticationMetaDataPopulator :

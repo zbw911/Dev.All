@@ -37,6 +37,7 @@
 //@DiscriminatorValue("ant")
 
 using System;
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.services
 {

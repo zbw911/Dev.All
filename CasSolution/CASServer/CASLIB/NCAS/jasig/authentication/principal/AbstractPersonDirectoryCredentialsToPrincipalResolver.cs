@@ -40,9 +40,8 @@
 
 using System;
 using System.Collections.Generic;
-using Dev.CasServer.jasig.services.persondir;
-using Dev.CasServer.principal;
 using NCAS.jasig.authentication.principal.support;
+using NCAS.jasig.services.persondir;
 
 namespace NCAS.jasig.authentication.principal
 {

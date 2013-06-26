@@ -33,7 +33,6 @@
  * @since 3.1
  */
 
-using Dev.CasServer.principal;
 using System;
 using System.Collections.Generic;
 

@@ -41,7 +41,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Dev.CasServer.principal;
 using NCAS.jasig.util;
 
 namespace NCAS.jasig.authentication.principal

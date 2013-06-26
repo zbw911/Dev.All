@@ -21,9 +21,9 @@
 ////import org.jasig.cas.authentication.Authentication;
 ////import org.jasig.cas.authentication.principal.Service;
 
-using Dev.CasServer.jasig.authentication;
 using System;
 using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.principal;
 
 /**
  * Interface for a Service Ticket. A service ticket is used to grant access to a

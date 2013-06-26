@@ -26,7 +26,6 @@
 
 //import javax.validation.constraints.NotNull;
 
-using Dev.CasServer.principal;
 using NCAS.jasig.authentication.principal;
 
 /**

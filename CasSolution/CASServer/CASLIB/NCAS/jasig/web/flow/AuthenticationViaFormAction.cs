@@ -49,8 +49,7 @@
 
 using System;
 using System.Web;
-using Dev.CasServer.jasig;
-using Dev.CasServer.principal;
+ 
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.ticket;
@@ -67,14 +66,21 @@ namespace NCAS.jasig.web.flow
      * Binder that allows additional binding of form object beyond Spring
      * defaults.
      */
-        private CredentialsBinder credentialsBinder;
+        private CredentialsBinder _credentialsBinder;
 
         /** Core we delegate to for handling all ticket related tasks. */
         ////@NotNull
-        private CentralAuthenticationService centralAuthenticationService;
+        private CentralAuthenticationService _centralAuthenticationService;
 
         ////@NotNull
-        private CookieGenerator warnCookieGenerator;
+        private CookieGenerator _warnCookieGenerator;
+
+        public AuthenticationViaFormAction(CredentialsBinder credentialsBinder, CentralAuthenticationService centralAuthenticationService, CookieGenerator warnCookieGenerator)
+        {
+            _credentialsBinder = credentialsBinder;
+            _centralAuthenticationService = centralAuthenticationService;
+            _warnCookieGenerator = warnCookieGenerator;
+        }
 
         //protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -82,9 +88,9 @@ namespace NCAS.jasig.web.flow
         {
             HttpRequest request = WebUtils.getHttpServletRequest(context);
 
-            if (this.credentialsBinder != null && this.credentialsBinder.supports(credentials.GetType()))
+            if (this._credentialsBinder != null && this._credentialsBinder.supports(credentials.GetType()))
             {
-                this.credentialsBinder.bind(request, credentials);
+                this._credentialsBinder.bind(request, credentials);
             }
         }
 
@@ -109,7 +115,7 @@ namespace NCAS.jasig.web.flow
 
                 try
                 {
-                    string serviceTicketId = this.centralAuthenticationService.grantServiceTicket(ticketGrantingTicketId, service, credentials);
+                    string serviceTicketId = this._centralAuthenticationService.grantServiceTicket(ticketGrantingTicketId, service, credentials);
                     WebUtils.putServiceTicketInRequestScope(context, serviceTicketId);
                     this.putWarnCookieIfRequestParameterPresent(context);
                     return "warn";
@@ -122,7 +128,7 @@ namespace NCAS.jasig.web.flow
                         return this.getAuthenticationExceptionEventId(e);
                     }
 
-                    this.centralAuthenticationService.destroyTicketGrantingTicket(ticketGrantingTicketId);
+                    this._centralAuthenticationService.destroyTicketGrantingTicket(ticketGrantingTicketId);
                     //if (logger.isDebugEnabled()) {
                     //    logger.debug("Attempted to generate a ServiceTicket using renew=true with different credentials", e);
                     //}
@@ -131,7 +137,7 @@ namespace NCAS.jasig.web.flow
 
             try
             {
-                WebUtils.putTicketGrantingTicketInRequestScope(context, this.centralAuthenticationService.createTicketGrantingTicket(credentials));
+                WebUtils.putTicketGrantingTicketInRequestScope(context, this._centralAuthenticationService.createTicketGrantingTicket(credentials));
                 this.putWarnCookieIfRequestParameterPresent(context);
                 return "success";
             }
@@ -164,11 +170,11 @@ namespace NCAS.jasig.web.flow
 
             if (!string.IsNullOrEmpty(context.Request["warn"]))
             {
-                this.warnCookieGenerator.addCookie(response, "true");
+                this._warnCookieGenerator.addCookie(response, "true");
             }
             else
             {
-                this.warnCookieGenerator.removeCookie(response);
+                this._warnCookieGenerator.removeCookie(response);
             }
         }
 
@@ -195,7 +201,7 @@ namespace NCAS.jasig.web.flow
 
         public void setCentralAuthenticationService(CentralAuthenticationService centralAuthenticationService)
         {
-            this.centralAuthenticationService = centralAuthenticationService;
+            this._centralAuthenticationService = centralAuthenticationService;
         }
 
         /**
@@ -215,12 +221,12 @@ namespace NCAS.jasig.web.flow
      */
         public void setCredentialsBinder(CredentialsBinder credentialsBinder)
         {
-            this.credentialsBinder = credentialsBinder;
+            this._credentialsBinder = credentialsBinder;
         }
 
         public void setWarnCookieGenerator(CookieGenerator warnCookieGenerator)
         {
-            this.warnCookieGenerator = warnCookieGenerator;
+            this._warnCookieGenerator = warnCookieGenerator;
         }
     }
 }

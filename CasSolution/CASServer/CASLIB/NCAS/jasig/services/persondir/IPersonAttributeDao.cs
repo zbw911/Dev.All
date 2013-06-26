@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dev.CasServer.jasig.services.persondir
+namespace NCAS.jasig.services.persondir
 {
 
     /**

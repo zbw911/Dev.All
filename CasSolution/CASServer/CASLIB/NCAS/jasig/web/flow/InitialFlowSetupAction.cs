@@ -34,6 +34,7 @@
 //import org.springframework.webflow.execution.HttpContext;
 
 using System;
+using NCAS.jasig.authentication.principal;
 using NCAS.jasig.web.MOCK2JAVA;
 using NCAS.jasig.web.support;
 using System.Collections.Generic;

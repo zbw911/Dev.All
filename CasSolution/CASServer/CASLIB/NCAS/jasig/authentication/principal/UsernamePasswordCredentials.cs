@@ -85,7 +85,7 @@ namespace NCAS.jasig.authentication.principal
             this.username = userName;
         }
 
-        public string toString()
+        public string ToString()
         {
             return "[username: " + this.username + "]";
         }

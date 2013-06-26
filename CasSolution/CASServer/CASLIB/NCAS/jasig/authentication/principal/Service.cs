@@ -31,16 +31,16 @@
  * This is a published and supported CAS Server 3 API.
  * </p>
  */
-using Dev.CasServer.principal;
-using System;
-using NCAS.jasig.authentication.principal;
 
-public interface Service : Principal
+namespace NCAS.jasig.authentication.principal
 {
+    public interface Service : Principal
+    {
 
-    void setPrincipal(Principal principal);
+        void setPrincipal(Principal principal);
 
-    bool logOutOfService(string sessionIdentifier);
+        bool logOutOfService(string sessionIdentifier);
 
-    bool matches(Service service);
+        bool matches(Service service);
+    }
 }

@@ -63,6 +63,7 @@
 using System.Collections.Generic;
 using System;
 using NCAS.Juntil;
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.services
 {

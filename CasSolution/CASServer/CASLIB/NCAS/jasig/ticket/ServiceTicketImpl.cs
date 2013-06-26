@@ -41,8 +41,8 @@
 //@Table(name="SERVICETICKET")
 
 using System;
-using Dev.CasServer.jasig.authentication;
 using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.ticket
 {

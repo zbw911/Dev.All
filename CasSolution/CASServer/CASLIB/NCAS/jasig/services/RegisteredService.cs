@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using NCAS.jasig.authentication.principal;
 
 /**
  * Interface for a service that can be registered by the Services Management

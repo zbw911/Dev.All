@@ -41,8 +41,7 @@
 //import org.springframework.web.servlet.mvc.AbstractController;
 
 using System.Web;
-using Dev.CasServer.jasig;
-using Dev.CasServer.principal;
+ 
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.services;
 using NCAS.jasig.ticket;

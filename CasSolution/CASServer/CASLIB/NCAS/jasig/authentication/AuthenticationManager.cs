@@ -21,9 +21,6 @@
 ////import org.jasig.cas.authentication.handler.AuthenticationException;
 ////import org.jasig.cas.authentication.principal.Credentials;
 
-using System;
-using Dev.CasServer.principal;
-using NCAS.jasig.authentication;
 using NCAS.jasig.authentication.principal;
 
 /**
@@ -39,7 +36,7 @@ using NCAS.jasig.authentication.principal;
  * </p>
  */
 
-namespace Dev.CasServer.jasig.authentication
+namespace NCAS.jasig.authentication
 {
     public abstract class AuthenticationManager
     {

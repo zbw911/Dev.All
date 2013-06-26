@@ -94,10 +94,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dev.CasServer.jasig;
-using Dev.CasServer.jasig.authentication;
-using Dev.CasServer.jasig.services;
-using Dev.CasServer.principal;
+ 
 using NCAS.jasig.authentication;
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;

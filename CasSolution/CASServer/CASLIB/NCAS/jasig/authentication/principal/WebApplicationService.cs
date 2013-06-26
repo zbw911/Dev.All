@@ -26,23 +26,23 @@
  * @since 3.1
  */
 
-using System;
-using Dev.CasServer.principal;
+namespace NCAS.jasig.authentication.principal
+{
+    public interface WebApplicationService : Service {
 
-public interface WebApplicationService : Service {
-
-    /**
+        /**
      * Constructs the url to redirect the service back to.
      * 
      * @param ticketId the service ticket to provide to the service.
      * @return the redirect url.
      */
-    Response getResponse(string ticketId);
+        Response getResponse(string ticketId);
 
-    /**
+        /**
      * Retrieves the artifact supplied with the service. May be null.
      * 
      * @return the artifact if it exists, null otherwise.
      */
-    string getArtifactId();
+        string getArtifactId();
+    }
 }

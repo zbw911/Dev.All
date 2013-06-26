@@ -28,8 +28,6 @@
  *
  */
 
-using Dev.CasServer.principal;
-
 namespace NCAS.jasig.authentication.principal
 {
     public interface RememberMeCredentials : Credentials

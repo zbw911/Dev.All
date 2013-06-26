@@ -41,7 +41,6 @@
 
 using System;
 using System.Collections.Generic;
-using Dev.CasServer.jasig.authentication;
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 

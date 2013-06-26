@@ -40,7 +40,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Dev.CasServer.principal
+namespace NCAS.jasig.authentication.principal
 {
     public sealed class Response
     {

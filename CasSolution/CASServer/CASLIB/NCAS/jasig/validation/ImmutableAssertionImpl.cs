@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.principal;
 
 /*
  * Licensed to Jasig under one or more contributor license

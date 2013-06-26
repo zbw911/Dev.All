@@ -63,7 +63,7 @@ namespace NCAS.jasig.ticket.registry
                 return null;
             }
 
-            if (!clazz.IsAssignableFrom(ticket.GetType()))
+            if (!clazz.IsInstanceOfType(ticket))
             {
                 //throw new ClassCastException("Ticket [" + ticket.getId()
                 //    + " is of type " + ticket.getClass()

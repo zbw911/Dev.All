@@ -1,4 +1,5 @@
 using System.Web;
+using NCAS.jasig.authentication.principal;
 using NCAS.jasig.ticket;
 using NCAS.jasig.web.MOCK2JAVA;
 using NCAS.jasig.web.support;

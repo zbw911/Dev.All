@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dev.CasServer.principal;
 using NCAS.jasig.authentication.principal;
 
-namespace Dev.CasServer.jasig.services.persondir
+namespace NCAS.jasig.services.persondir
 {
     public interface IPersonAttributes : Principal
     {

@@ -23,7 +23,6 @@
 //import org.jasig.cas.authentication.principal.SimpleWebApplicationServiceImpl;
 //import org.jasig.cas.authentication.principal.WebApplicationService;
 
-using Dev.CasServer.principal;
 using System.Web;
 using NCAS.jasig.authentication.principal;
 

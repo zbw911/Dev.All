@@ -28,8 +28,6 @@
  * @since 3.0
  */
 
-using Dev.CasServer.principal;
-
 namespace NCAS.jasig.authentication.principal
 {
     public class HttpBasedServiceCredentialsToPrincipalResolver :

@@ -43,6 +43,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.services
 {

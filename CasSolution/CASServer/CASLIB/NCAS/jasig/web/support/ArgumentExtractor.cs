@@ -34,6 +34,7 @@
  */
 
 using System.Web;
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.web.support
 {

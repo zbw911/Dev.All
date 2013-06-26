@@ -19,7 +19,6 @@
 
 using System.Collections.Generic;
 using System.Web;
-using Dev.CasServer.principal;
 using NCAS.jasig.util;
 
 ////package org.jasig.cas.authentication.principal;
@@ -53,7 +52,7 @@ namespace NCAS.jasig.authentication.principal
 
         private static string CONST_PARAM_METHOD = "method";
 
-        private Dev.CasServer.principal.Response.ResponseType responseType;
+        private Response.ResponseType responseType;
 
         /**
      * Unique Id for Serialization

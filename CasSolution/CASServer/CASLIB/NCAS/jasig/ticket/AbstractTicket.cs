@@ -41,7 +41,6 @@
 //@MappedSuperclass
 
 using System;
-using Dev.CasServer.jasig.authentication;
 using NCAS.jasig.authentication;
 
 namespace NCAS.jasig.ticket

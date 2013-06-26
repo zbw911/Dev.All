@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dev.CasServer.jasig.services.persondir;
+using NCAS.jasig.services.persondir;
 
 namespace NCAS.jasig.authentication.principal.support
 {

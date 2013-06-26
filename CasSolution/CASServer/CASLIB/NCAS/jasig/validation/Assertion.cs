@@ -39,6 +39,7 @@
 
 using System.Collections.ObjectModel;
 using NCAS.jasig.authentication;
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.validation
 {

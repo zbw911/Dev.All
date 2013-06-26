@@ -38,6 +38,7 @@
 
 using System.Collections.Generic;
 using System.Web;
+using NCAS.jasig.authentication.principal;
 
 namespace NCAS.jasig.web.support
 {
@@ -151,7 +152,7 @@ namespace NCAS.jasig.web.support
 
         public static string getLoginTicketFromRequest(HttpContext context)
         {
-            return context.Request.Params["lt"];
+            return context.Request.Params["lt"] ?? "";
             //return context.getRequestParameters().get("lt");
         }
     }

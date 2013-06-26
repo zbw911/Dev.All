@@ -28,6 +28,8 @@
  * @since 3.0
  */
 
+using NCAS.jasig.authentication.principal;
+
 namespace NCAS.jasig.ticket
 {
     public class TicketValidationException : TicketException

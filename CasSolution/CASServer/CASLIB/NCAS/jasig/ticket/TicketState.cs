@@ -17,7 +17,6 @@
  * under the License.
  */
 
-using Dev.CasServer.jasig.authentication;
 using NCAS.jasig.authentication;
 
 ////package org.jasig.cas.ticket;

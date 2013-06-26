@@ -29,7 +29,7 @@
 
 using System;
 using System.Web;
-using Dev.CasServer.jasig;
+ 
 using NCAS.jasig.web.MOCK2JAVA;
 using NCAS.jasig.web.support;
 
