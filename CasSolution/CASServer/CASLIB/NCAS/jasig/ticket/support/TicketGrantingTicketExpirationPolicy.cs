@@ -47,36 +47,43 @@ namespace NCAS.jasig.ticket.support
         private static long serialVersionUID = 2136490343650084287L;
 
         /** Maximum time this ticket is valid  */
-        private long maxTimeToLiveInMilliSeconds;
+        private long _maxTimeToLiveInMilliSeconds;
 
         /** Time to kill in milliseconds. */
-        private long timeToKillInMilliSeconds;
+        private long _timeToKillInMilliSeconds;
+
+        public TicketGrantingTicketExpirationPolicy(long maxTimeToLiveInMilliSeconds, long timeToKillInMilliSeconds)
+        {
+            _maxTimeToLiveInMilliSeconds = maxTimeToLiveInMilliSeconds;
+            _timeToKillInMilliSeconds = timeToKillInMilliSeconds;
+        }
+
 
         public void setMaxTimeToLiveInMilliSeconds(long maxTimeToLiveInMilliSeconds)
         {
-            this.maxTimeToLiveInMilliSeconds = maxTimeToLiveInMilliSeconds;
+            this._maxTimeToLiveInMilliSeconds = maxTimeToLiveInMilliSeconds;
         }
 
         public void setTimeToKillInMilliSeconds(long timeToKillInMilliSeconds)
         {
-            this.timeToKillInMilliSeconds = timeToKillInMilliSeconds;
+            this._timeToKillInMilliSeconds = timeToKillInMilliSeconds;
         }
 
-        /** Convenient virtual property setter to set time in seconds */
+        ///** Convenient virtual property setter to set time in seconds */
         public void setMaxTimeToLiveInSeconds(long maxTimeToLiveInSeconds)
         {
-            if (this.maxTimeToLiveInMilliSeconds == 0L)
+            if (this._maxTimeToLiveInMilliSeconds == 0L)
             {
-                this.maxTimeToLiveInMilliSeconds = maxTimeToLiveInSeconds * 1000;
+                this._maxTimeToLiveInMilliSeconds = maxTimeToLiveInSeconds * 1000;
             }
         }
 
         /** Convenient virtual property setter to set time in seconds */
         public void setTimeToKillInSeconds(long timeToKillInSeconds)
         {
-            if (this.timeToKillInMilliSeconds == 0L)
+            if (this._timeToKillInMilliSeconds == 0L)
             {
-                this.timeToKillInMilliSeconds = timeToKillInSeconds * 1000;
+                this._timeToKillInMilliSeconds = timeToKillInSeconds * 1000;
             }
         }
 
@@ -88,7 +95,7 @@ namespace NCAS.jasig.ticket.support
         public bool isExpired(TicketState ticketState)
         {
             // Ticket has been used, check maxTimeToLive (hard window)
-            if ((System.DateTime.Now.Ticks - ticketState.getCreationTime() >= this.maxTimeToLiveInMilliSeconds))
+            if ((System.DateTime.Now.Ticks - ticketState.getCreationTime() >= this._maxTimeToLiveInMilliSeconds))
             {
                 //if (log.isDebugEnabled()) {
                 //    log.debug("Ticket is expired due to the time since creation being greater than the maxTimeToLiveInMilliSeconds");
@@ -97,7 +104,7 @@ namespace NCAS.jasig.ticket.support
             }
 
             // Ticket is within hard window, check timeToKill (sliding window)
-            if ((System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= this.timeToKillInMilliSeconds))
+            if ((System.DateTime.Now.Ticks - ticketState.getLastTimeUsed() >= this._timeToKillInMilliSeconds))
             {
                 //if (log.isDebugEnabled()) {
                 //    log.debug("Ticket is expired due to the time since last use being greater than the timeToKillInMilliseconds");

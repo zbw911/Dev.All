@@ -96,6 +96,7 @@ namespace NCAS.jasig.ticket
         public TicketGrantingTicketImpl(string id,
                                         TicketGrantingTicketImpl ticketGrantingTicket,
                                         Authentication authentication, ExpirationPolicy policy)
+            : base(id, ticketGrantingTicket, policy)
         {
             //base(id, ticketGrantingTicket, policy);
 

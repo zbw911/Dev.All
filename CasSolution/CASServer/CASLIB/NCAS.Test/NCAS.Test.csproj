@@ -60,9 +60,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="jasig\web\flow\AuthenticationViaFormActionTests.cs" />
+    <Compile Include="LT\Class1.cs" />
+    <Compile Include="LT\UnitTest1.cs" />
     <Compile Include="Mock\MockHttp.cs" />
     <Compile Include="Mock\NinectInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpringConfig\deployerConfigContextConfig.cs" />
+    <Compile Include="SpringConfig\TicketExpirationPoliciesConfig.cs" />
+    <Compile Include="SpringConfig\UniqueIdGeneratorsConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NCAS\NCAS.csproj">
@@ -72,6 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SpringConfig\deployerConfigContext.xml" />
+    <Content Include="SpringConfig\ticketExpirationPolicies.xml" />
+    <Content Include="SpringConfig\uniqueIdGenerators.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

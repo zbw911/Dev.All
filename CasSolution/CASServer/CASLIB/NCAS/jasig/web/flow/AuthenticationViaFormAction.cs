@@ -49,7 +49,7 @@
 
 using System;
 using System.Web;
- 
+
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
 using NCAS.jasig.ticket;
@@ -75,12 +75,23 @@ namespace NCAS.jasig.web.flow
         ////@NotNull
         private CookieGenerator _warnCookieGenerator;
 
-        public AuthenticationViaFormAction(CredentialsBinder credentialsBinder, CentralAuthenticationService centralAuthenticationService, CookieGenerator warnCookieGenerator)
+        public AuthenticationViaFormAction(CentralAuthenticationService centralAuthenticationService,
+                                           CookieGenerator warnCookieGenerator)
+            : this(null, centralAuthenticationService, warnCookieGenerator)
+        {
+        }
+
+        private AuthenticationViaFormAction(CredentialsBinder credentialsBinder,
+            CentralAuthenticationService centralAuthenticationService,
+            CookieGenerator warnCookieGenerator)
         {
             _credentialsBinder = credentialsBinder;
             _centralAuthenticationService = centralAuthenticationService;
             _warnCookieGenerator = warnCookieGenerator;
         }
+
+
+
 
         //protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -137,7 +148,8 @@ namespace NCAS.jasig.web.flow
 
             try
             {
-                WebUtils.putTicketGrantingTicketInRequestScope(context, this._centralAuthenticationService.createTicketGrantingTicket(credentials));
+                var ticketValue = this._centralAuthenticationService.createTicketGrantingTicket(credentials);
+                WebUtils.putTicketGrantingTicketInRequestScope(context, ticketValue);
                 this.putWarnCookieIfRequestParameterPresent(context);
                 return "success";
             }
@@ -199,10 +211,10 @@ namespace NCAS.jasig.web.flow
             return e.getCode() != null && typeof(AuthenticationException).IsAssignableFrom(e.GetType());
         }
 
-        public void setCentralAuthenticationService(CentralAuthenticationService centralAuthenticationService)
-        {
-            this._centralAuthenticationService = centralAuthenticationService;
-        }
+        //public void setCentralAuthenticationService(CentralAuthenticationService centralAuthenticationService)
+        //{
+        //    this._centralAuthenticationService = centralAuthenticationService;
+        //}
 
         /**
      * Set a CredentialsBinder for additional binding of the HttpRequest
@@ -219,14 +231,14 @@ namespace NCAS.jasig.web.flow
      *
      * @param credentialsBinder the credentials binder to set.
      */
-        public void setCredentialsBinder(CredentialsBinder credentialsBinder)
-        {
-            this._credentialsBinder = credentialsBinder;
-        }
+        //public void setCredentialsBinder(CredentialsBinder credentialsBinder)
+        //{
+        //    this._credentialsBinder = credentialsBinder;
+        //}
 
-        public void setWarnCookieGenerator(CookieGenerator warnCookieGenerator)
-        {
-            this._warnCookieGenerator = warnCookieGenerator;
-        }
+        //public void setWarnCookieGenerator(CookieGenerator warnCookieGenerator)
+        //{
+        //    this._warnCookieGenerator = warnCookieGenerator;
+        //}
     }
 }

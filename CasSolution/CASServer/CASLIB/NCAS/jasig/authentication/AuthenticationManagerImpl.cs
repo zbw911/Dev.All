@@ -78,12 +78,18 @@ public class AuthenticationManagerImpl : AbstractAuthenticationManager
     /** An array of authentication handlers. */
     ////@NotNull
     //@Size(min=1)
-    private List<AuthenticationHandler> authenticationHandlers;
+    private List<AuthenticationHandler> _authenticationHandlers;
 
     /** An array of CredentialsToPrincipalResolvers. */
     ////@NotNull
     //@Size(min=1)
-    private List<CredentialsToPrincipalResolver> credentialsToPrincipalResolvers;
+    private List<CredentialsToPrincipalResolver> _credentialsToPrincipalResolvers;
+
+    public AuthenticationManagerImpl(List<AuthenticationHandler> authenticationHandlers, List<CredentialsToPrincipalResolver> credentialsToPrincipalResolvers)
+    {
+        _authenticationHandlers = authenticationHandlers;
+        _credentialsToPrincipalResolvers = credentialsToPrincipalResolvers;
+    }
 
     //@Override
     protected override Pair<AuthenticationHandler, Principal> authenticateAndObtainPrincipal(Credentials credentials)
@@ -93,7 +99,7 @@ public class AuthenticationManagerImpl : AbstractAuthenticationManager
         AuthenticationHandler authenticatedClass = null;
         string handlerName;
 
-        foreach (AuthenticationHandler authenticationHandler in this.authenticationHandlers)
+        foreach (AuthenticationHandler authenticationHandler in this._authenticationHandlers)
         {
             if (authenticationHandler.supports(credentials))
             {
@@ -124,16 +130,18 @@ public class AuthenticationManagerImpl : AbstractAuthenticationManager
         {
             if (foundSupported)
             {
-                throw new Exception("");
-                //throw BadCredentialsAuthenticationException.ERROR;
+                //throw new Exception("");
+                throw BadCredentialsAuthenticationException.ERROR;
             }
-            throw new Exception("");
+
+            throw new NotSupportedException();
+            //throw new Exception("");
             //throw UnsupportedCredentialsException.ERROR;
         }
 
         foundSupported = false;
 
-        foreach (CredentialsToPrincipalResolver credentialsToPrincipalResolver in this.credentialsToPrincipalResolvers)
+        foreach (CredentialsToPrincipalResolver credentialsToPrincipalResolver in this._credentialsToPrincipalResolvers)
         {
             if (credentialsToPrincipalResolver.supports(credentials))
             {
@@ -169,7 +177,7 @@ public class AuthenticationManagerImpl : AbstractAuthenticationManager
     public void setAuthenticationHandlers(
          List<AuthenticationHandler> authenticationHandlers)
     {
-        this.authenticationHandlers = authenticationHandlers;
+        this._authenticationHandlers = authenticationHandlers;
     }
 
     /**
@@ -179,6 +187,6 @@ public class AuthenticationManagerImpl : AbstractAuthenticationManager
     public void setCredentialsToPrincipalResolvers(
          List<CredentialsToPrincipalResolver> credentialsToPrincipalResolvers)
     {
-        this.credentialsToPrincipalResolvers = credentialsToPrincipalResolvers;
+        this._credentialsToPrincipalResolvers = credentialsToPrincipalResolvers;
     }
 }

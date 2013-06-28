@@ -16,7 +16,10 @@ namespace NCAS.jasig.authentication.principal.support
 
         public IPersonAttributes getPerson(string uid)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            return null;
+
         }
 
         public HashSet<IPersonAttributes> getPeople(Dictionary<string, object> query)

@@ -64,6 +64,19 @@ namespace NCAS.jasig.ticket.proxy.support
         //@NotNull
         private HttpClient httpClient;
 
+        public Cas20ProxyHandler(HttpClient httpClient, UniqueTicketIdGenerator uniqueTicketIdGenerator)
+        {
+            this.httpClient = httpClient;
+            this.uniqueTicketIdGenerator = uniqueTicketIdGenerator;
+        }
+
+        public Cas20ProxyHandler(HttpClient httpClient)
+            : this(httpClient, new DefaultUniqueTicketIdGenerator())
+        {
+            this.httpClient = httpClient;
+
+        }
+
         public string handle(Credentials credentials,
                              string proxyGrantingTicketId)
         {
@@ -112,15 +125,15 @@ namespace NCAS.jasig.ticket.proxy.support
         /**
      * @param uniqueTicketIdGenerator The uniqueTicketIdGenerator to set.
      */
-        public void setUniqueTicketIdGenerator(
-            UniqueTicketIdGenerator uniqueTicketIdGenerator)
-        {
-            this.uniqueTicketIdGenerator = uniqueTicketIdGenerator;
-        }
+        //public void setUniqueTicketIdGenerator(
+        //    UniqueTicketIdGenerator uniqueTicketIdGenerator)
+        //{
+        //    this.uniqueTicketIdGenerator = uniqueTicketIdGenerator;
+        //}
 
-        public void setHttpClient(HttpClient httpClient)
-        {
-            this.httpClient = httpClient;
-        }
+        //public void setHttpClient(HttpClient httpClient)
+        //{
+        //    this.httpClient = httpClient;
+        //}
     }
 }

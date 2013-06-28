@@ -6,12 +6,15 @@ namespace NCAS.jasig.web.MOCK2JAVA
     {
         internal void addCookie(System.Web.HttpResponse response, string p)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            // cookies
         }
 
         internal void removeCookie(System.Web.HttpResponse response)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            // cookies 
         }
     }
 }

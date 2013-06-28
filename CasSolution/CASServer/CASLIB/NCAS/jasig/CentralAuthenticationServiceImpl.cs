@@ -94,7 +94,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
- 
+
 using NCAS.jasig.authentication;
 using NCAS.jasig.authentication.handler;
 using NCAS.jasig.authentication.principal;
@@ -153,6 +153,38 @@ namespace NCAS.jasig
         /** Encoder to generate PseudoIds. */
         // //@NotNull
         private PersistentIdGenerator persistentIdGenerator = new ShibbolethCompatiblePersistentIdGenerator();
+
+
+        //public CentralAuthenticationServiceImpl(AuthenticationManager authenticationManager,
+        //                                        TicketRegistry ticketRegistry,
+        //                                        TicketRegistry serviceTicketRegistry,
+        //                                        UniqueTicketIdGenerator ticketGrantingTicketUniqueTicketIdGenerator,
+        //                                        ExpirationPolicy ticketGrantingTicketExpirationPolicy,
+        //                                        ExpirationPolicy serviceTicketExpirationPolicy,
+        //                                        ServicesManager servicesManager)
+        //    : this(authenticationManager, ticketRegistry, serviceTicketRegistry, ticketGrantingTicketUniqueTicketIdGenerator, null, ticketGrantingTicketExpirationPolicy, serviceTicketExpirationPolicy, servicesManager)
+        //{
+        //}
+
+        public CentralAuthenticationServiceImpl(AuthenticationManager authenticationManager,
+            TicketRegistry ticketRegistry,
+            TicketRegistry serviceTicketRegistry,
+            UniqueTicketIdGenerator ticketGrantingTicketUniqueTicketIdGenerator,
+            Dictionary<string, UniqueTicketIdGenerator> uniqueTicketIdGeneratorsForService,
+            ExpirationPolicy ticketGrantingTicketExpirationPolicy,
+            ExpirationPolicy serviceTicketExpirationPolicy,
+            ServicesManager servicesManager)
+        {
+            this.authenticationManager = authenticationManager;
+            this.ticketRegistry = ticketRegistry;
+            this.serviceTicketRegistry = serviceTicketRegistry;
+            this.ticketGrantingTicketUniqueTicketIdGenerator = ticketGrantingTicketUniqueTicketIdGenerator;
+            this.uniqueTicketIdGeneratorsForService = uniqueTicketIdGeneratorsForService;
+            this.ticketGrantingTicketExpirationPolicy = ticketGrantingTicketExpirationPolicy;
+            this.serviceTicketExpirationPolicy = serviceTicketExpirationPolicy;
+            this.servicesManager = servicesManager;
+        }
+
 
         /**
      * Implementation of destoryTicketGrantingTicket expires the ticket provided
@@ -441,7 +473,7 @@ namespace NCAS.jasig
 
                     var U = mutableAuthentication.getAttributes().Concat(authentication.getAttributes());
 
-                   
+
 
                     mutableAuthentication.Attributes = U.ToDictionary(x => x.Key, x => x.Value);
 
@@ -498,26 +530,34 @@ namespace NCAS.jasig
                                                                  ServiceTicket serviceTicket)
         {
             string principalId = null;
-            //string serviceUsernameAttribute = registeredService.getUsernameAttribute();
+            string serviceUsernameAttribute = registeredService.getUsernameAttribute();
 
-            //if (registeredService.isAnonymousAccess()) {
-            //    principalId = this.persistentIdGenerator.generate(principal, serviceTicket.getService());
-            //} else if (string.isBlank(serviceUsernameAttribute)) {
-            //    principalId = principal.getId();
-            //} else {
-            //    if ((registeredService.isIgnoreAttributes() || registeredService.getAllowedAttributes().contains(serviceUsernameAttribute)) &&
-            //        principal.getAttributes().containsKey(serviceUsernameAttribute)) {
-            //            principalId = principal.getAttributes().get(registeredService.getUsernameAttribute()).toString();
-            //        } else {
-            //            principalId = principal.getId();
-            //            Object[] errorLogParameters = new Object[] { principalId, registeredService.getUsernameAttribute(),
-            //                                                         principal.getAttributes(), registeredService.getServiceId(), principalId };
-            //            //log.warn("Principal [{}] did not have attribute [{}] among attributes [{}] so CAS cannot "
-            //            //        + "provide on the validation response the user attribute the registered service [{}] expects. "
-            //            //        + "CAS will instead return the default username attribute [{}]", errorLogParameters);
-            //        }
+            if (registeredService.isAnonymousAccess())
+            {
+                principalId = this.persistentIdGenerator.generate(principal, serviceTicket.getService());
+            }
+            else if (string.IsNullOrEmpty(serviceUsernameAttribute))
+            {
+                principalId = principal.getId();
+            }
+            else
+            {
+                if ((registeredService.isIgnoreAttributes() || registeredService.getAllowedAttributes().Contains(serviceUsernameAttribute)) &&
+                    principal.getAttributes().ContainsKey(serviceUsernameAttribute))
+                {
+                    principalId = principal.getAttributes().First(x => x.Key == registeredService.getUsernameAttribute()).Value.ToString();
+                }
+                else
+                {
+                    principalId = principal.getId();
+                    Object[] errorLogParameters = new Object[] { principalId, registeredService.getUsernameAttribute(),
+                                                                     principal.getAttributes(), registeredService.getServiceId(), principalId };
+                    //log.warn("Principal [{}] did not have attribute [{}] among attributes [{}] so CAS cannot "
+                    //        + "provide on the validation response the user attribute the registered service [{}] expects. "
+                    //        + "CAS will instead return the default username attribute [{}]", errorLogParameters);
+                }
 
-            //}
+            }
 
             //log.debug("Principal id to return for service [{}] is [{}]. The default principal id is [{}].", 
             //          new Object[] {registeredService.getName(), principal.getId(), principalId});
@@ -556,36 +596,36 @@ namespace NCAS.jasig
             }
         }
 
-        /**
-     * Method to set the TicketRegistry.
-     *
-     * @param ticketRegistry the TicketRegistry to set.
-     */
-        public void setTicketRegistry(TicketRegistry ticketRegistry)
-        {
-            this.ticketRegistry = ticketRegistry;
+        //   /**
+        //* Method to set the TicketRegistry.
+        //*
+        //* @param ticketRegistry the TicketRegistry to set.
+        //*/
+        //   public void setTicketRegistry(TicketRegistry ticketRegistry)
+        //   {
+        //       this.ticketRegistry = ticketRegistry;
 
-            if (this.serviceTicketRegistry == null)
-            {
-                this.serviceTicketRegistry = ticketRegistry;
-            }
-        }
+        //       if (this.serviceTicketRegistry == null)
+        //       {
+        //           this.serviceTicketRegistry = ticketRegistry;
+        //       }
+        //   }
 
-        public void setServiceTicketRegistry(TicketRegistry serviceTicketRegistry)
-        {
-            this.serviceTicketRegistry = serviceTicketRegistry;
-        }
+        //   public void setServiceTicketRegistry(TicketRegistry serviceTicketRegistry)
+        //   {
+        //       this.serviceTicketRegistry = serviceTicketRegistry;
+        //   }
 
         /**
      * Method to inject the AuthenticationManager into the class.
      *
      * @param authenticationManager The authenticationManager to set.
      */
-        public void setAuthenticationManager(
-            AuthenticationManager authenticationManager)
-        {
-            this.authenticationManager = authenticationManager;
-        }
+        //public void setAuthenticationManager(
+        //    AuthenticationManager authenticationManager)
+        //{
+        //    this.authenticationManager = authenticationManager;
+        //}
 
         /**
      * Method to inject the TicketGrantingTicket Expiration Policy.
@@ -593,50 +633,50 @@ namespace NCAS.jasig
      * @param ticketGrantingTicketExpirationPolicy The
      * ticketGrantingTicketExpirationPolicy to set.
      */
-        public void setTicketGrantingTicketExpirationPolicy(
-            ExpirationPolicy ticketGrantingTicketExpirationPolicy)
-        {
-            this.ticketGrantingTicketExpirationPolicy = ticketGrantingTicketExpirationPolicy;
-        }
+        //   public void setTicketGrantingTicketExpirationPolicy(
+        //       ExpirationPolicy ticketGrantingTicketExpirationPolicy)
+        //   {
+        //       this.ticketGrantingTicketExpirationPolicy = ticketGrantingTicketExpirationPolicy;
+        //   }
 
-        /**
-     * Method to inject the Unique Ticket Id Generator into the class.
-     *
-     * @param uniqueTicketIdGenerator The uniqueTicketIdGenerator to use
-     */
-        public void setTicketGrantingTicketUniqueTicketIdGenerator(
-            UniqueTicketIdGenerator uniqueTicketIdGenerator)
-        {
-            this.ticketGrantingTicketUniqueTicketIdGenerator = uniqueTicketIdGenerator;
-        }
+        //   /**
+        //* Method to inject the Unique Ticket Id Generator into the class.
+        //*
+        //* @param uniqueTicketIdGenerator The uniqueTicketIdGenerator to use
+        //*/
+        //   public void setTicketGrantingTicketUniqueTicketIdGenerator(
+        //       UniqueTicketIdGenerator uniqueTicketIdGenerator)
+        //   {
+        //       this.ticketGrantingTicketUniqueTicketIdGenerator = uniqueTicketIdGenerator;
+        //   }
 
-        /**
-     * Method to inject the TicketGrantingTicket Expiration Policy.
-     *
-     * @param serviceTicketExpirationPolicy The serviceTicketExpirationPolicy to
-     * set.
-     */
-        public void setServiceTicketExpirationPolicy(
-            ExpirationPolicy serviceTicketExpirationPolicy)
-        {
-            this.serviceTicketExpirationPolicy = serviceTicketExpirationPolicy;
-        }
+        //   /**
+        //* Method to inject the TicketGrantingTicket Expiration Policy.
+        //*
+        //* @param serviceTicketExpirationPolicy The serviceTicketExpirationPolicy to
+        //* set.
+        //*/
+        //   public void setServiceTicketExpirationPolicy(
+        //       ExpirationPolicy serviceTicketExpirationPolicy)
+        //   {
+        //       this.serviceTicketExpirationPolicy = serviceTicketExpirationPolicy;
+        //   }
 
-        public void setUniqueTicketIdGeneratorsForService(
-            Dictionary<string, UniqueTicketIdGenerator> uniqueTicketIdGeneratorsForService)
-        {
-            this.uniqueTicketIdGeneratorsForService = uniqueTicketIdGeneratorsForService;
-        }
+        //   public void setUniqueTicketIdGeneratorsForService(
+        //       Dictionary<string, UniqueTicketIdGenerator> uniqueTicketIdGeneratorsForService)
+        //   {
+        //       this.uniqueTicketIdGeneratorsForService = uniqueTicketIdGeneratorsForService;
+        //   }
 
-        public void setServicesManager(ServicesManager servicesManager)
-        {
-            this.servicesManager = servicesManager;
-        }
+        //   public void setServicesManager(ServicesManager servicesManager)
+        //   {
+        //       this.servicesManager = servicesManager;
+        //   }
 
-        public void setPersistentIdGenerator(
-            PersistentIdGenerator persistentIdGenerator)
-        {
-            this.persistentIdGenerator = persistentIdGenerator;
-        }
+        //   public void setPersistentIdGenerator(
+        //       PersistentIdGenerator persistentIdGenerator)
+        //   {
+        //       this.persistentIdGenerator = persistentIdGenerator;
+        //   }
     }
 }

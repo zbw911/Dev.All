@@ -46,7 +46,7 @@ namespace NCAS.jasig.authentication.handler.support
     {
 
         /** Default class to support if one is not supplied. */
-        private static Type DEFAULT_CLASS = typeof(UsernamePasswordCredentials).GetType();
+        private static Type DEFAULT_CLASS = typeof(UsernamePasswordCredentials);
 
         /** Class that this instance will support. */
         //@NotNull
