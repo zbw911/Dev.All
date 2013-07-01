@@ -48,7 +48,7 @@ namespace NCAS.Test.jasig.web.flow
             _authenticationViaFormAction.submit(HttpContext.Current, credentials, null);
         }
 
-
+        
 
         [TestMethod]
         public void MyTestMethodWithService()
