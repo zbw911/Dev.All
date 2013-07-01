@@ -38,18 +38,18 @@
   <ItemGroup>
     <Reference Include="Dev.Comm.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\项目\CASServer\CASServer\Lib\Dev.Comm.Core.dll</HintPath>
+      <HintPath>..\..\..\..\DevLibs\ReleaseLib\Dev.Comm.Core.dll</HintPath>
     </Reference>
     <Reference Include="Dev.Comm.Net">
       <HintPath>..\..\..\..\DevLibs\ReleaseLib\Dev.Comm.Net.dll</HintPath>
     </Reference>
     <Reference Include="Dev.Comm.Web, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\项目\CASServer\CASServer\Lib\Dev.Comm.Web.dll</HintPath>
+      <HintPath>..\..\..\..\DevLibs\ReleaseLib\Dev.Comm.Web.dll</HintPath>
     </Reference>
     <Reference Include="Dev.Comm.Web.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\项目\CASServer\CASServer\Lib\Dev.Comm.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\..\..\DevLibs\ReleaseLib\Dev.Comm.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Dev.Log, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

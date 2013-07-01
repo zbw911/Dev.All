@@ -39,7 +39,6 @@
     <Reference Include="Dev.Log">
       <HintPath>..\..\..\..\DevLibs\ReleaseLib\Dev.Log.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.DotNetBar2, Version=10.9.0.11, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
