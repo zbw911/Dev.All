@@ -440,6 +440,13 @@
             <param name="jsonString"></param>
             <returns></returns>
         </member>
+        <member name="M:Dev.Comm.JsonConvert.ToJsonDynamic(System.String)">
+            <summary>
+            原生生成Json对像
+            </summary>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dev.Comm.JsonConvert.ConvertJsonDateToDateString(System.Text.RegularExpressions.Match)">
             <summary>  
             将Json序列化的时间由/Date(1294499956278+0800)转为字符串  

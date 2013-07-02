@@ -72,7 +72,7 @@ namespace Dev.Comm
                     result = Years;
                     break;
                 case "mm":
-                    result = Years*12;
+                    result = Years * 12;
                     result += Months;
                     if (Days > 0)
                         result += 1;
@@ -175,6 +175,19 @@ namespace Dev.Comm
         public static string GetDataStrWithZhcnDayofWeek(DateTime datetime)
         {
             return string.Format((datetime).ToString("M月d日 {0} HH:mm"), (GetZhCnDayOfWeek(datetime)));
+        }
+        /// <summary>
+        /// 将UTC 时间 转化为本地化时间
+        /// </summary>
+        /// <param name="utcDate"></param>
+        /// <returns></returns>
+        public static DateTime UtcToLocal(DateTime utcDate)
+        {
+            DateTime convertedDate = DateTime.SpecifyKind(utcDate, DateTimeKind.Utc);
+
+            var localtime = convertedDate.ToLocalTime();
+
+            return localtime;
         }
     }
 }
