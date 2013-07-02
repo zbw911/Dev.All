@@ -16,5 +16,10 @@ CAS登录解决方案,构建passport用于整合各个web项目.基于C#,MVC4,En
 =======
 定位基于asp.net高性能解决方案,运用于开发，系统环境，日常运维多方面解决一体化方案。
 
-技术博客：
-http://www.cnblogs.com/zbw911/
+
+<b>Contributors:</b>
+
+(zbw911)http://www.cnblogs.com/zbw911/<br/>
+(mahuidong)https://github.com/mahuidong<br/>
+(yangxiudong123)https://github.com/yangxiudong123<br/>
+
