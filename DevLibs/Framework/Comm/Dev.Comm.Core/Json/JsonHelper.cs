@@ -118,6 +118,7 @@ namespace Dev.Comm.Core
                 _dictionary = dictionary;
             }
 
+
             public override string ToString()
             {
                 var sb = new StringBuilder("{");

@@ -8,6 +8,7 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -105,6 +106,22 @@ namespace Dev.Comm
             return obj;
 
             //return Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString);
+        }
+
+
+
+        /// <summary>
+        /// 原生生成Json对像
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static dynamic ToJsonDynamic(string jsonString)
+        {
+            var jss = new JavaScriptSerializer();
+
+            dynamic obj = jss.Deserialize<dynamic>(jsonString);
+
+            return obj;
         }
 
 
