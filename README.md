@@ -19,7 +19,7 @@ CAS登录解决方案,构建passport用于整合各个web项目.基于C#,MVC4,En
 
 <b>Contributors:</b>
 
-(zbw911)http://www.cnblogs.com/zbw911/
-(mahuidong)https://github.com/mahuidong
-(yangxiudong123)https://github.com/yangxiudong123
+(zbw911)http://www.cnblogs.com/zbw911/<br/>
+(mahuidong)https://github.com/mahuidong<br/>
+(yangxiudong123)https://github.com/yangxiudong123<br/>
 
