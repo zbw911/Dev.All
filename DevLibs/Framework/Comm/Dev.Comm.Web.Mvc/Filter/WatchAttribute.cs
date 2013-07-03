@@ -15,39 +15,79 @@ using System.Linq;
 
 namespace Dev.Comm.Web.Mvc.Filter
 {
-    class WatchData
+
+    /// <summary>
+    /// 用于存储跟踪信息的树结点，
+    /// 其中 child 应该用 CollectBase会好些
+    /// </summary>
+    internal class WatchNode
     {
+        private List<WatchNode> _child = new List<WatchNode>();
         public string Name { get; set; }
         public long OnActionExecuting { get; set; }
         public long OnActionExecuted { get; set; }
         public long OnResultExecuted { get; set; }
         public long OnResultExecuting { get; set; }
+
+        public WatchNode Parent { get; set; }
+        public List<WatchNode> Child
+        {
+            get { return this._child; }
+            set { this._child = value; }
+        }
+
+
         public long All
+        {
+            get { return (OnResultExecuted - OnActionExecuting) / 10000; }
+        }
+
+        public long Action
+        {
+            get { return (this.OnActionExecuted - this.OnActionExecuting) / 10000; }
+        }
+
+        public long Result
+        {
+            get { return (this.OnResultExecuted - this.OnResultExecuting) / 10000; }
+        }
+
+        public bool IsChild { get; set; }
+
+        public string ParentName
         {
             get
             {
-                return OnResultExecuted - OnActionExecuting;
+                if (Parent == null) return null;
+                return Parent.Name;
             }
         }
-        public bool IsChild { get; set; }
+    }
 
+    /// <summary>
+    /// 运行时数据
+    /// </summary>
+    public class NameTime
+    {
+        public string Name { get; set; }
+        public long Time { get; set; }
+        public string Do { get; set; }
 
-        public string Report()
+        public ViewContext Parent
         {
-            var info = "Action名:=>" + this.Name;
+            get;
+            set;
+        }
 
-            info += " 全部执行=>" + All / 10000 + "ms";
+        public string ParentName
+        {
+            get
+            {
+                if (Parent == null)
+                    return null;
 
-            info += " Action=> " + (this.OnActionExecuted - this.OnActionExecuting) / 10000 + " ms";
-
-            info += " Result=> " + (this.OnResultExecuted - this.OnResultExecuting) / 10000 + " ms";
-
-
-
-            if (IsChild)
-                info += " IsChild Action";
-
-            return info + "<br/>";
+                return Parent.RouteData.Values["action"].ToString();
+            }
         }
     }
     /// <summary>
@@ -55,9 +95,16 @@ namespace Dev.Comm.Web.Mvc.Filter
     /// </summary>
     public class TraceRunAttribute : ActionFilterAttribute
     {
+        private const string __List__ = "______List__________";
 
         public TraceRunAttribute()
         {
+        }
+
+        public bool IsShow
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -74,22 +121,22 @@ namespace Dev.Comm.Web.Mvc.Filter
             string name = filterContext.ActionDescriptor.ActionName;
             var context = filterContext.HttpContext;
 
-            var item = this.CheckItem(context, name);
-            item.OnActionExecuted = System.DateTime.Now.Ticks;
-            this.UpdateItem(filterContext.HttpContext, name, item);
+            var parent = filterContext.ParentActionViewContext;
 
+            this.CheckItem(context, name, "OnActionExecuted", parent);
 
             base.OnActionExecuted(filterContext);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+
+
             string name = filterContext.ActionDescriptor.ActionName;
+            var parent = filterContext.ParentActionViewContext;
             var context = filterContext.HttpContext;
 
-            var item = this.CheckItem(context, name);
-            item.OnActionExecuting = System.DateTime.Now.Ticks;
-            this.UpdateItem(filterContext.HttpContext, name, item);
+            this.CheckItem(context, name, "OnActionExecuting", parent);
 
 
             base.OnActionExecuting(filterContext);
@@ -97,14 +144,12 @@ namespace Dev.Comm.Web.Mvc.Filter
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
+            var parent = filterContext.ParentActionViewContext;
+
             string name = filterContext.RouteData.Values["action"].ToString();
             var context = filterContext.HttpContext;
 
-            var item = this.CheckItem(context, name);
-            item.OnResultExecuted = System.DateTime.Now.Ticks;
-            item.IsChild = filterContext.IsChildAction;
-            this.UpdateItem(filterContext.HttpContext, name, item);
-
+            this.CheckItem(context, name, "OnResultExecuted", parent);
 
             if (!filterContext.IsChildAction && filterContext.Result is ViewResult)
             {
@@ -114,58 +159,143 @@ namespace Dev.Comm.Web.Mvc.Filter
 
             base.OnResultExecuted(filterContext);
         }
-
-        private static void WriteReport(HttpContextBase context)
-        {
-
-
-            context.Response.Write("<!--");
-            context.Response.Write("<b>调试信息</b><br/>");
-
-            var list = new List<WatchData>();
-
-            foreach (var contextitem in context.Items.Values)
-            {
-                var result = contextitem as WatchData;
-
-                if (result != null)
-                    list.Add(result);
-
-            }
-
-            list.OrderByDescending(x => x.All).ForEach(x => context.Response.Write(x.Report()));
-            context.Response.Write("-->");
-        }
-
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
+
             string name = filterContext.RouteData.Values["action"].ToString();
             var context = filterContext.HttpContext;
-
-            var item = this.CheckItem(context, name);
-            item.OnResultExecuting = System.DateTime.Now.Ticks;
-            this.UpdateItem(filterContext.HttpContext, name, item);
+            var parent = filterContext.ParentActionViewContext;
+            this.CheckItem(context, name, "OnResultExecuting", parent);
 
             base.OnResultExecuting(filterContext);
         }
 
-        private WatchData CheckItem(HttpContextBase httpcontext, string name)
+        private void WriteReport(HttpContextBase context)
         {
-            if (!httpcontext.Items.Contains(name))
+
+            if (!IsShow)
+                context.Response.Write("<!--");
+            context.Response.Write("<b>调试信息</b><br/>\r\n");
+
+            var list = context.Items[__List__] as List<NameTime>;
+
+
+
+            //foreach (var nameTime in list)
+            //{
+            //    context.Response.Write("" + nameTime.Name + "->" + nameTime.Do + "-->" + nameTime.Time + "-->" + (nameTime.Parent != null ? nameTime.Parent.RouteData.Values["action"].ToString() : "NONE") + "<br/>" + "\r\n");
+            //}
+            //context.Response.Write("<br/>-------------------------------------------------------------<br/>");
+            var node = Parse(list);
+
+            var str = PrintNode(node);
+
+            context.Response.Write(str);
+
+            if (!IsShow)
+                context.Response.Write("-->");
+
+
+        }
+
+
+        private string PrintNode(WatchNode node)
+        {
+
+            var s = "name:" + node.Name + " = " + node.All + "  action->" + node.Action + " Result->" + node.Result + " parent->" + node.ParentName + "<br/>\r\n";
+
+            foreach (var watchData in node.Child)
             {
-                httpcontext.Items.Add(name, new WatchData());
+                var temp = watchData;
+                var c = 0;
+                while (temp.Parent != null)
+                {
+                    temp = temp.Parent;
+                    c++;
+                }
+                s += "".PadLeft(c * 2, '-') + PrintNode(watchData) + "";
             }
-            var watch = httpcontext.Items[name] as WatchData;
 
-            watch.Name = name;
+            return s;
 
-            return watch;
         }
 
 
-        private void UpdateItem(HttpContextBase httpcontext, string name, WatchData watchTemp)
+
+        private WatchNode Parse(List<NameTime> list)
         {
-            httpcontext.Items[name] = watchTemp;
+            WatchNode TopNode = new WatchNode();
+            var current = TopNode;
+            foreach (var nameTime in list)
+            {
+
+                switch (nameTime.Do)
+                {
+                    case "OnActionExecuting":
+                        if (nameTime.Parent == null)
+                        {
+                            TopNode.IsChild = false;
+                            TopNode.OnActionExecuting = nameTime.Time;
+                        }
+                        else
+                        {
+                            var newnode = new WatchNode();
+                            newnode.Parent = current;
+                            current.Child.Add(newnode);
+                            current = newnode;
+                            current.IsChild = true;
+                            current.OnActionExecuting = nameTime.Time;
+                        }
+
+                        current.Name = nameTime.Name;
+
+                        break;
+                    case "OnActionExecuted":
+                        current.OnActionExecuted = nameTime.Time;
+
+                        break;
+                    case "OnResultExecuting":
+                        current.OnResultExecuting = nameTime.Time;
+                        break;
+                    case "OnResultExecuted":
+                        current.OnResultExecuted = nameTime.Time;
+
+                        if (current.Parent != null && current.Parent.Name == nameTime.ParentName)
+                        {
+                            current = current.Parent;
+                        }
+
+                        break;
+
+                }
+
+            }
+
+            return TopNode;
         }
+
+        private void CheckItem(HttpContextBase httpcontext, string name, string Do, ViewContext parent)
+        {
+
+            if (!httpcontext.Items.Contains(__List__))
+            {
+                httpcontext.Items.Add(__List__, new List<NameTime>());
+            }
+
+            var list = httpcontext.Items[__List__] as List<NameTime>;
+
+            list.Add(new NameTime
+            {
+                Name = name,
+                Time = System.DateTime.Now.Ticks,
+                Do = Do,
+                Parent = parent
+            });
+
+        }
+
+
+
     }
+
 }
