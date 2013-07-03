@@ -281,6 +281,13 @@
             <param name="format"></param>
             <returns></returns>
         </member>
+        <member name="M:Dev.Comm.DateUtil.UtcToLocal(System.DateTime)">
+            <summary>
+            将UTC 时间 转化为本地化时间
+            </summary>
+            <param name="utcDate"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.EnumHelper">
             <summary>
             枚举类型帮助方法

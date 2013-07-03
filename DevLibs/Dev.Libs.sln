@@ -96,7 +96,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F56F9B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.Framework.Repository.EntityFramework5", "Framework\Repository\Dev.Framework.Repository.EntityFramework5\Dev.Framework.Repository.EntityFramework5.csproj", "{7AB872E0-FBCE-4893-8F58-0B2751A69515}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework2", "Framework2", "{9E242762-AC4F-45FB-9EA0-7E130152606B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVCFramework", "MVCFramework", "{9E242762-AC4F-45FB-9EA0-7E130152606B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.Data.Infras", "Framework2\Dev.Data.Infras\Dev.Data.Infras.csproj", "{E9B5F883-4BE1-4F16-BA9B-220F639F31A7}"
 EndProject
