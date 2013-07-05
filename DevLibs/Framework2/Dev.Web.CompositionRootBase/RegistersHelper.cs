@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using Ninject.Web.Common;
+
 namespace Dev.Web.CompositionRootBase
 {
     using System.Data.Entity;
@@ -48,6 +50,9 @@ namespace Dev.Web.CompositionRootBase
     //    #endregion
     //}
 
+    /// <summary>
+    /// 绑定基本方法
+    /// </summary>
     public abstract class RegisterContextBase : IRegister
     {
         #region Public Properties
@@ -66,7 +71,7 @@ namespace Dev.Web.CompositionRootBase
         /// <param name="connectionStringName"></param>
         protected void RegContextWith<TI, TImp>(string connectionStringName) where TImp : TI, IRepository
         {
-            this.Kernel.Bind<TI>().To<TImp>().WithConstructorArgument("connectionStringName", connectionStringName);
+            this.Kernel.Bind<TI>().To<TImp>().InRequestScope()/*.InRequestScope()*/.WithConstructorArgument("connectionStringName", connectionStringName);
         }
 
         /// <summary>
@@ -77,7 +82,7 @@ namespace Dev.Web.CompositionRootBase
         /// <param name="dbContext"></param>
         protected void RegContextWith<TI, TImp>(DbContext dbContext) where TImp : TI, IRepository
         {
-            this.Kernel.Bind<TI>().To<TImp>().WithConstructorArgument("context", dbContext);
+            this.Kernel.Bind<TI>().To<TImp>().InRequestScope().WithConstructorArgument("context", dbContext);
         }
 
 
@@ -88,7 +93,7 @@ namespace Dev.Web.CompositionRootBase
         /// <typeparam name="TImp"></typeparam>
         protected void RegServiceWith<TI, TImp>() where TImp : TI
         {
-            this.Kernel.Bind<TI>().To<TImp>();
+            this.Kernel.Bind<TI>().To<TImp>().InRequestScope();
         }
 
         public abstract void Register();

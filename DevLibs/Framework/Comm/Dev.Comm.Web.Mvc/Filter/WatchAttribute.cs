@@ -9,12 +9,16 @@
 // ***********************************************************************************
 
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Linq;
 
 namespace Dev.Comm.Web.Mvc.Filter
 {
+
+    //ToDo:其实这里跟踪使用 StopWatch 要比DateTime好，But...
 
     /// <summary>
     /// 用于存储跟踪信息的树结点，
@@ -95,6 +99,7 @@ namespace Dev.Comm.Web.Mvc.Filter
     /// </summary>
     public class TraceRunAttribute : ActionFilterAttribute
     {
+        private string _newLine = "<br/>\r\n";
         private const string __List__ = "______List__________";
 
         public TraceRunAttribute()
@@ -106,6 +111,17 @@ namespace Dev.Comm.Web.Mvc.Filter
             get;
             set;
         }
+
+        /// <summary>
+        /// 新行
+        /// </summary>
+
+        public string NewLine
+        {
+            get { return this._newLine; }
+            set { this._newLine = value; }
+        }
+
 
         /// <summary>
         /// 标题模板
@@ -175,17 +191,18 @@ namespace Dev.Comm.Web.Mvc.Filter
 
             if (!IsShow)
                 context.Response.Write("<!--");
-            context.Response.Write("<b>调试信息</b><br/>\r\n");
+            context.Response.Write("<b>调试信息</b>" + NewLine);
 
             var list = context.Items[__List__] as List<NameTime>;
 
 
 
-            //foreach (var nameTime in list)
-            //{
-            //    context.Response.Write("" + nameTime.Name + "->" + nameTime.Do + "-->" + nameTime.Time + "-->" + (nameTime.Parent != null ? nameTime.Parent.RouteData.Values["action"].ToString() : "NONE") + "<br/>" + "\r\n");
-            //}
-            //context.Response.Write("<br/>-------------------------------------------------------------<br/>");
+            foreach (var nameTime in list)
+            {
+                context.Response.Write("" + nameTime.Name + "->" + nameTime.Do + "->" + nameTime.Time + "->" + (nameTime.Parent != null ? nameTime.Parent.RouteData.Values["action"].ToString() : "NONE") + NewLine);
+            }
+            context.Response.Write("<br/>-------------------------------------------------------------" + NewLine);
+
             var node = Parse(list);
 
             var str = PrintNode(node);
@@ -196,13 +213,25 @@ namespace Dev.Comm.Web.Mvc.Filter
                 context.Response.Write("-->");
 
 
+            // CS html Trace
+
+            var cshtmlstr = CshtmlTrance.Print(IsShow, NewLine);
+
+            context.Response.Write(cshtmlstr);
+
         }
 
 
         private string PrintNode(WatchNode node)
         {
 
-            var s = "name:" + node.Name + " = " + node.All + "  action->" + node.Action + " Result->" + node.Result + " parent->" + node.ParentName + "<br/>\r\n";
+            var s = "name:" + node.Name + " = " + node.All + "  action->" + node.Action + " Result->" + node.Result + " parent->" + node.ParentName + NewLine;
+
+            if (node.Child != null && node.Child.Count > 0)
+            {
+                s += "c___:" + node.Name + "=" + node.Child.Sum(x => x.All) + "  action->" +
+                     node.Child.Sum(x => x.Action) + " Result->" + node.Child.Sum(x => x.Result) + NewLine;
+            }
 
             foreach (var watchData in node.Child)
             {
@@ -213,7 +242,7 @@ namespace Dev.Comm.Web.Mvc.Filter
                     temp = temp.Parent;
                     c++;
                 }
-                s += "".PadLeft(c * 2, '-') + PrintNode(watchData) + "";
+                s += "".PadLeft(c * 2, '-') + PrintNode(watchData) ;
             }
 
             return s;
@@ -295,6 +324,73 @@ namespace Dev.Comm.Web.Mvc.Filter
         }
 
 
+
+    }
+
+
+    internal class CshtmlTraceModel
+    {
+        public string Name { get; set; }
+        public long TimeTicks { get; set; }
+    }
+
+    /// <summary>
+    /// CSHtml页面TRance
+    /// </summary>
+    public class CshtmlTrance
+    {
+        private const string CshtmlTrancekey = "_________CshtmlTrancekey_____________";
+        public static void Add(string name, long timeTicket)
+        {
+            var httpcontext = HttpContext.Current;
+
+            if (!httpcontext.Items.Contains(CshtmlTrancekey))
+            {
+                httpcontext.Items.Add(CshtmlTrancekey, new List<CshtmlTraceModel>());
+            }
+
+            var list = httpcontext.Items[CshtmlTrancekey] as List<CshtmlTraceModel>;
+
+            list.Add(new CshtmlTraceModel
+            {
+                Name = name,
+                TimeTicks = timeTicket
+            });
+        }
+
+
+        public static string Print(bool isshow = false, string newLine = "<br/>\r\n")
+        {
+            var httpcontext = HttpContext.Current;
+
+            var list = new List<CshtmlTraceModel>();
+
+            if (httpcontext.Items.Contains(CshtmlTrancekey))
+            {
+                list = httpcontext.Items[CshtmlTrancekey] as List<CshtmlTraceModel>;
+            }
+
+
+            StringBuilder sb = new StringBuilder();
+
+
+
+
+            if (!isshow)
+                sb.Append("<!-- ").Append(newLine);
+
+            sb.Append("cshtml 跟踪报告").Append(newLine);
+
+            foreach (var cshtmlTraceModel in list)
+            {
+                sb.Append("" + cshtmlTraceModel.Name + "->" + cshtmlTraceModel.TimeTicks / 10000).Append(newLine);
+            }
+
+            if (!isshow)
+                sb.Append("-->");
+
+            return sb.ToString();
+        }
 
     }
 
