@@ -41,7 +41,7 @@ namespace Dev.Web.CompositionRootBase.Tools
         public IController Create(RequestContext requestContext, Type controllerType)
         {
             var type = Kernel.Get(controllerType);
-          
+
             return (IController)this.Kernel.TryGet(controllerType);
         }
 

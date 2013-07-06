@@ -75,6 +75,8 @@ namespace Dev.Web.CompositionRootBase.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+            //º”‘ÿLazy<>
+            kernel.Load<LazyBinding>();
 
             RegisterServices(kernel);
             //RegisterMapper(kernel);

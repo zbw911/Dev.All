@@ -82,6 +82,7 @@
     <Compile Include="IRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistersHelper.cs" />
+    <Compile Include="Tools\LazyBinding.cs" />
     <Compile Include="Tools\NinjectControllerActivator.cs" />
     <Compile Include="Tools\NinjectDependencyScope.cs" />
   </ItemGroup>
