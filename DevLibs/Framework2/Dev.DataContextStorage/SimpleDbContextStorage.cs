@@ -13,6 +13,9 @@ namespace Dev.Data.ContextStorage
     using System.Collections.Generic;
     using System.Data.Entity;
 
+    /// <summary>
+    /// 使用 Dictionary 存储上下文
+    /// </summary>
     public class SimpleDbContextStorage : IDbContextStorage
     {
         #region Fields

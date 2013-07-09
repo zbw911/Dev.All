@@ -146,9 +146,10 @@ namespace Dev.Data
         /// </summary>
         /// <param name="connectionStringName"></param>
         /// <param name="createDbFileImmediately">是否立即创建数据库</param>
+        /// <param name="lazyLoadingEnabled">LazyLoad </param>
         /// <typeparam name="T"></typeparam>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void Init<T>(string connectionStringName, bool createDbFileImmediately = false) where T : DbContext
+        public static void Init<T>(string connectionStringName, bool createDbFileImmediately = false, bool lazyLoadingEnabled = true) where T : DbContext
         {
             if (string.IsNullOrEmpty(connectionStringName))
             {
@@ -162,25 +163,20 @@ namespace Dev.Data
                     //new DbContext(connectionStringName);//
                     var context = (T)Activator.CreateInstance(typeof(T), connectionStringName);
 
-                    //创建数据库
-                    context.Database.CreateIfNotExists();
-                    //context.Database.Connection.ConnectionString =
-                    //    ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
-
-                    //创建数据库
-
+                    context.Configuration.LazyLoadingEnabled = lazyLoadingEnabled;
                     return context;
                 });
 
-
+            //如果立即创建数据库
             if (createDbFileImmediately)
             {
                 var dbfunction = _DbContexts[connectionStringName];
+                var context = dbfunction();
 
-                dbfunction();
+                //创建数据库
+                context.Database.CreateIfNotExists();
             }
 
-            //_dbContextBuilders.Add(connectionStringName, new CommDbContextBuilder<T>(connectionStringName));
         }
 
         /// <summary>

@@ -21,18 +21,21 @@ namespace Dev.Data.ContextStorage
     {
         #region Constants
 
-        private const string STORAGE_KEY = "HttpContextObjectContextStorageKey";
+        private const string StorageKey = "HttpContextObjectContextStorageKey";
 
         #endregion
 
         #region Constructors and Destructors
-
+        /// <summary>
+        /// 初始化 上下文存储
+        /// </summary>
+        /// <param name="app"></param>
         public WebDbContextStorage(HttpApplication app)
         {
             app.EndRequest += (sender, args) =>
                 {
                     DbContextManager.CloseAllDbContexts();
-                    HttpContext.Current.Items.Remove(STORAGE_KEY);
+                    HttpContext.Current.Items.Remove(StorageKey);
                 };
         }
 
@@ -65,11 +68,11 @@ namespace Dev.Data.ContextStorage
         private SimpleDbContextStorage GetSimpleDbContextStorage()
         {
             HttpContext context = HttpContext.Current;
-            var storage = context.Items[STORAGE_KEY] as SimpleDbContextStorage;
+            var storage = context.Items[StorageKey] as SimpleDbContextStorage;
             if (storage == null)
             {
                 storage = new SimpleDbContextStorage();
-                context.Items[STORAGE_KEY] = storage;
+                context.Items[StorageKey] = storage;
             }
             return storage;
         }
