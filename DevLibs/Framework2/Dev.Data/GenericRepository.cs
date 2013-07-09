@@ -305,6 +305,7 @@ namespace Dev.Data
         {
             EntityKey key = this.GetEntityKey<TEntity>(keyValue);
 
+
             object originalItem;
             if (((IObjectContextAdapter)this.DbContext).ObjectContext.TryGetObjectByKey(key, out originalItem))
             {
@@ -331,8 +332,8 @@ namespace Dev.Data
             // - call CreateQuery<TEntity>(entityName) method on the ObjectContext
             // - perform querying on the returning IQueryable, and it works!
 
-            string entityName = this.GetEntityName<TEntity>();
-            return ((IObjectContextAdapter)this.DbContext).ObjectContext.CreateQuery<TEntity>(entityName);
+            //string entityName = this.GetEntityName<TEntity>();
+            //return ((IObjectContextAdapter)this.DbContext).ObjectContext.CreateQuery<TEntity>(entityName);
 
             //下面的方法也应该是可以的
             return this.DbContext.Set<TEntity>();
@@ -340,7 +341,7 @@ namespace Dev.Data
 
         public IQueryable<TEntity> GetQuery<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
-            
+
             return this.GetQuery<TEntity>().Where(predicate);
         }
 

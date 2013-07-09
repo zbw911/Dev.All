@@ -82,6 +82,14 @@
             this.customerRepository.UnitOfWork.SaveChanges();
             Console.WriteLine(list);
 
+
+            var v = this.customerRepository.GetQuery<Customer>().AsEnumerable();
+
+            foreach (var customer in v)
+            {
+                Console.WriteLine(customer.Id);
+            }
+
             //
             // TODO: 在此处添加测试逻辑
             //
