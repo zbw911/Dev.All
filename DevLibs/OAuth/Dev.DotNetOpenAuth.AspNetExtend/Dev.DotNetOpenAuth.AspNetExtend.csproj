@@ -74,7 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\DouBanClient.cs" />
     <Compile Include="Client\QQClient.cs" />
+    <Compile Include="Client\RenRenClient.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="Client\SinaClient.cs" />
     <Compile Include="UrlUtilities.cs" />
