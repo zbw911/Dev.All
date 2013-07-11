@@ -242,7 +242,7 @@ namespace Dev.Comm.Web.Mvc.Filter
                     temp = temp.Parent;
                     c++;
                 }
-                s += "".PadLeft(c * 2, '-') + PrintNode(watchData) ;
+                s += "".PadLeft(c * 2, '-') + PrintNode(watchData);
             }
 
             return s;
@@ -394,4 +394,115 @@ namespace Dev.Comm.Web.Mvc.Filter
 
     }
 
+
+    /// <summary>
+    /// 对Request一次的时间进行监测
+    /// </summary>
+    public class BeginEndRequestTrace
+    {
+
+        private const string Key = "_____________BeginEndRequest___________";
+
+        private const string BeginRequest = Key + "BeginRequest";
+
+        private const string EndRequest = Key + "EndRequest";
+
+        /// <summary>
+        /// http://stackoverflow.com/questions/1123741/why-cant-my-host-softsyshosting-com-support-beginrequest-and-endrequest-event
+        /// <![CDATA[public class MySmartApp: HttpApplication{
+        /// public override void Init(){
+        ///     this.BeginRequest += new EventHandler(MvcApplication_BeginRequest);
+        ///    this.EndRequest += new EventHandler(MvcApplication_EndRequest);
+        ///  }
+        ///  protected void Application_Start(){
+        ///      RegisterRoutes(RouteTable.Routes);
+        ///  } 
+        ///}
+        ///or like this: 
+        ///public class MySmartApp: HttpApplication{
+        /// public MySmartApp(){
+        ///  this.BeginRequest += new EventHandler(MvcApplication_BeginRequest);
+        /// this.EndRequest += new EventHandler(MvcApplication_EndRequest);
+        /// }
+        ///protected void Application_Start(){
+        /// RegisterRoutes(RouteTable.Routes);
+        ///} 
+        ///}
+        ///]]>
+        /// </summary>
+        /// <param name="app"></param>
+        ///<param name="isshow">是否在页面上显示 </param>
+        ///<param name="newLine">使用什么换行 </param>
+        public static void Init(HttpApplication app, bool isshow = false, string newLine = "<br/>\r\n")
+        {
+
+            app.BeginRequest += (sender, e) =>
+            {
+                app.Context.Items[BeginRequest] = System.DateTime.Now.Ticks;
+                //app.Response.Write(System.DateTime.Now.Ticks);
+            };
+
+            app.EndRequest += (sender, e) =>
+            {
+                app.Context.Items[EndRequest] = System.DateTime.Now.Ticks;
+                //app.Response.Write(System.DateTime.Now.Ticks);
+
+                var strPrint = Print(isshow, newLine);
+
+                app.Response.Write(strPrint);
+            };
+        }
+
+        private static string Print(bool isshow = false, string newLine = "<br/>\r\n")
+        {
+            var httpcontext = HttpContext.Current;
+
+            long tbegin = 0;
+            long tend = 0;
+
+            if (httpcontext.Items.Contains(BeginRequest))
+            {
+                tbegin = (long)httpcontext.Items[BeginRequest];
+            }
+
+
+            if (httpcontext.Items.Contains(EndRequest))
+            {
+                tend = (long)httpcontext.Items[EndRequest];
+            }
+
+
+            StringBuilder sb = new StringBuilder();
+
+
+
+            if (!isshow)
+                sb.Append("<!-- ").Append(newLine);
+            sb.Append(newLine);
+            sb.Append("Request 跟踪报告").Append(newLine);
+
+
+            if (tbegin == 0 || tend == 0)
+            {
+                sb.Append("Request->Not Setup").Append(newLine);
+            }
+            else
+            {
+                sb.Append("BeginRequest->" + tbegin).Append(newLine);
+                sb.Append("EndRequest->" + tend).Append(newLine);
+                sb.Append("Request->" + (tend - tbegin) / 10000).Append(newLine);
+
+            }
+
+
+
+
+            if (!isshow)
+                sb.Append("-->");
+
+            return sb.ToString();
+        }
+
+
+    }
 }

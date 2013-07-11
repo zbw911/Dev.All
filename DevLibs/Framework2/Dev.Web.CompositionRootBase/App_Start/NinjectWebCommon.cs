@@ -8,6 +8,7 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Linq;
 using Dev.Web.CompositionRootBase.App_Start;
 
 using WebActivator;
@@ -79,9 +80,11 @@ namespace Dev.Web.CompositionRootBase.App_Start
             kernel.Load<LazyBinding>();
 
             RegisterServices(kernel);
-            //RegisterMapper(kernel);
+
+
             return kernel;
         }
+
 
         /// <summary>
         ///     Load your modules or register your services here!
@@ -91,11 +94,12 @@ namespace Dev.Web.CompositionRootBase.App_Start
         {
             IEnumerable<IRegister> registers = AssemblyManager.GetTypeInstances<IRegister>();
 
-            foreach (IRegister register in registers)
-            {
-                register.Kernel = kernel;
-                register.Register();
-            }
+            if (registers != null && registers.Any())
+                foreach (IRegister register in registers)
+                {
+                    register.Kernel = kernel;
+                    register.Register();
+                }
 
             //Jsonp Support
             GlobalConfiguration.Configuration.Formatters.Insert(0, new JsonpMediaTypeFormatter());
