@@ -34,6 +34,31 @@ namespace Dev.Framework.FileServer.Test
 
 
         [TestMethod]
+        public void MyTestMethod_3200_3200()
+        {
+            string basepath = @"C:\Users\Administrator\Desktop\P\";
+
+            string mark = basepath + "mark.png";
+            string imageDir = basepath + "aaaa.jpg";
+
+            string outdir = basepath + "1111111.jpg";
+            string outdir2 = basepath + "animatedsamplesmall2.gif";
+            string outdir3 = basepath + "animatedsamplesmall3.gif";
+            string outdir4 = basepath + "animatedsamplesmall4.gif";
+
+            var obj = ImageServer.ImageFile.Watermark(File.OpenRead(imageDir),mark);
+
+            Save(obj, outdir);
+
+            //    obj = ImageServer.ImageFile.Thumbnail(File.OpenRead(imageDir), 300, 300);
+            //    Save(obj, outdir2);
+
+            //    obj = ImageServer.ImageFile.Thumbnail(File.OpenRead(imageDir), 100, 100);
+            //    Save(obj, outdir3);
+        }
+
+
+        [TestMethod]
         public void MyTestMethodWatorMark()
         {
             string basepath = @"C:\Users\Administrator\Desktop\P\";

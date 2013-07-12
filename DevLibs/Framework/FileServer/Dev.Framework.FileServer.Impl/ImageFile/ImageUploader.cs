@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using Dev.Comm;
 using ImageResizer.Plugins.AnimatedGifs;
+using ImageResizer.Plugins.Basic;
 using ImageResizer.Plugins.PrettyGifs;
 using ImageResizer.Plugins.Watermark;
 
@@ -262,6 +263,10 @@ namespace Dev.Framework.FileServer.ImageFile
                 new PrettyGifs().Install(c);
             if (!c.Plugins.Has<AnimatedGifs>())
                 new AnimatedGifs().Install(c);
+
+            c.Plugins.LoadPlugins();
+            c.Plugins.Get<SizeLimiting>().Uninstall(c);
+
 
             WatermarkPlugin water = null;
             if (!c.Plugins.Has<WatermarkPlugin>())
