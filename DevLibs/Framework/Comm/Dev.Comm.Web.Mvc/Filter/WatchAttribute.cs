@@ -14,6 +14,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Linq;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
 namespace Dev.Comm.Web.Mvc.Filter
 {
@@ -532,5 +533,40 @@ namespace Dev.Comm.Web.Mvc.Filter
 
 
     }
+
+
+
+    /// <summary>
+    /// 使用IHttpModule 方式注册监听事件
+    /// </summary>
+    public class BeginEndRequestTraceHttpModule : IHttpModule
+    {
+        public void Init(HttpApplication context)
+        {
+            BeginEndRequestTrace.Init(context);
+            //throw new System.NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            //throw new System.NotImplementedException();
+        }
+    }
+
+
+    /// <summary>
+    /// Begin  End Request Trace
+    /// </summary>
+    public static class BeginEndRequestTraceHttpModuleRegister
+    {
+        /// <summary>
+        /// Do it
+        /// </summary>
+        public static void Do()
+        {
+            DynamicModuleUtility.RegisterModule(typeof(BeginEndRequestTraceHttpModule));
+        }
+    }
+
     #endregion
 }

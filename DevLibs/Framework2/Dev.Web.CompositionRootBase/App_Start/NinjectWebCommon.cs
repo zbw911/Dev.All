@@ -9,6 +9,9 @@
 // ***********************************************************************************
 
 using System.Linq;
+using Dev.Data;
+using Dev.Data.Configuration;
+using Dev.Data.ContextStorage;
 using Dev.Web.CompositionRootBase.App_Start;
 
 using WebActivator;
@@ -52,6 +55,7 @@ namespace Dev.Web.CompositionRootBase.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
+
             bootstrapper.Initialize(CreateKernel);
         }
 
@@ -79,10 +83,22 @@ namespace Dev.Web.CompositionRootBase.App_Start
             //加载Lazy<>
             kernel.Load<LazyBinding>();
 
+            RegisterData(kernel);
+
             RegisterServices(kernel);
 
 
+            //自动释放连接
+            DynamicModuleUtility.RegisterModule(typeof(WebDbContextStorageRleaseModule));
+
             return kernel;
+        }
+
+        private static void RegisterData(IKernel kernel)
+        {
+            //使用 httpcontext 集中存储 context
+            kernel.Bind<IDbContextStorage>().To<WebDbContextStorage>().InRequestScope();
+            CommonConfig.Instance().ConfigureDbContextStorage(kernel.Get<IDbContextStorage>());
         }
 
 

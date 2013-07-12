@@ -21,7 +21,7 @@ namespace Dev.Data.ContextStorage
     {
         #region Constants
 
-        private const string StorageKey = "HttpContextObjectContextStorageKey";
+        internal const string StorageKey = "HttpContextObjectContextStorageKey";
 
         #endregion
 
@@ -30,13 +30,16 @@ namespace Dev.Data.ContextStorage
         /// 初始化 上下文存储
         /// </summary>
         /// <param name="app"></param>
-        public WebDbContextStorage(HttpApplication app)
+        public WebDbContextStorage(/*HttpApplication app*/)
         {
-            app.EndRequest += (sender, args) =>
-                {
-                    DbContextManager.CloseAllDbContexts();
-                    HttpContext.Current.Items.Remove(StorageKey);
-                };
+            //app.EndRequest += (sender, args) =>
+            //    {
+            //        DbContextManager.CloseAllDbContexts();
+            //        HttpContext.Current.Items.Remove(StorageKey);
+
+            //        Dev.Log.Loger.Debug("Release Conn");
+
+            //    };
         }
 
         #endregion
@@ -78,5 +81,30 @@ namespace Dev.Data.ContextStorage
         }
 
         #endregion
+    }
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class WebDbContextStorageRleaseModule : IHttpModule
+    {
+        public void Init(HttpApplication context)
+        {
+            context.EndRequest += (sender, args) =>
+            {
+                DbContextManager.CloseAllDbContexts();
+                HttpContext.Current.Items.Remove(WebDbContextStorage.StorageKey);
+
+                //Dev.Log.Loger.Debug("Release Conn");
+
+            };
+        }
+
+        public void Dispose()
+        {
+            //throw new System.NotImplementedException();
+        }
     }
 }

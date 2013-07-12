@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Log\dev.Log\Dev.Log.csproj">
+      <Project>{036e8305-cf3a-459f-9127-5c65547a68ab}</Project>
+      <Name>Dev.Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dev.Data\Dev.Data.csproj">
       <Project>{E9ADE37C-215E-4CE1-B7BC-EE0C10CE1B3A}</Project>
       <Name>Dev.Data</Name>

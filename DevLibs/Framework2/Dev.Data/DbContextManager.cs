@@ -79,13 +79,17 @@ namespace Dev.Data
         /// </summary>
         public static void CloseAllDbContexts()
         {
-            foreach (DbContext ctx in _storage.GetAllDbContexts())
-            {
-                if (((IObjectContextAdapter)ctx).ObjectContext.Connection.State == ConnectionState.Open)
+            if (_storage == null)
+                throw new Exception("_storage is NULL");
+
+            if (_storage.GetAllDbContexts() != null)
+                foreach (DbContext ctx in _storage.GetAllDbContexts())
                 {
-                    ((IObjectContextAdapter)ctx).ObjectContext.Connection.Close();
+                    if (((IObjectContextAdapter)ctx).ObjectContext.Connection.State == ConnectionState.Open)
+                    {
+                        ((IObjectContextAdapter)ctx).ObjectContext.Connection.Close();
+                    }
                 }
-            }
         }
 
         /// <summary>
