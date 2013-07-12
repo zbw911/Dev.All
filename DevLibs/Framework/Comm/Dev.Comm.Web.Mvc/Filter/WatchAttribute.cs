@@ -18,6 +18,7 @@ using System.Linq;
 namespace Dev.Comm.Web.Mvc.Filter
 {
 
+    #region TraceRunAttribute
     //ToDo:其实这里跟踪使用 StopWatch 要比DateTime好，But...
 
     /// <summary>
@@ -101,7 +102,7 @@ namespace Dev.Comm.Web.Mvc.Filter
     {
         private string _newLine = "<br/>\r\n";
         private const string __List__ = "______List__________";
-
+        internal const string ViewResultTypeKey = "______________________ViewType________";
         public TraceRunAttribute()
         {
         }
@@ -169,6 +170,8 @@ namespace Dev.Comm.Web.Mvc.Filter
 
             if (!filterContext.IsChildAction && filterContext.Result is ViewResult)
             {
+                //这个Key仅用于跟踪 ResponeRequest指示用
+                context.Items.Add(ViewResultTypeKey, "ViewResult");
                 WriteReport(context);
             }
 
@@ -327,6 +330,9 @@ namespace Dev.Comm.Web.Mvc.Filter
 
     }
 
+    #endregion
+
+    #region CSHTML TRACE
 
     internal class CshtmlTraceModel
     {
@@ -394,7 +400,9 @@ namespace Dev.Comm.Web.Mvc.Filter
 
     }
 
+    #endregion
 
+    #region RequestTrace
     /// <summary>
     /// 对Request一次的时间进行监测
     /// </summary>
@@ -455,7 +463,29 @@ namespace Dev.Comm.Web.Mvc.Filter
 
         private static string Print(bool isshow = false, string newLine = "<br/>\r\n")
         {
+
             var httpcontext = HttpContext.Current;
+
+
+            //对于ajax请求，不附加结果
+            var xmlhttp = httpcontext.Request.Headers["X-Requested-With"];
+            if (xmlhttp == "XMLHttpRequest")
+            {
+                return string.Empty;
+            }
+
+            //根据返回的的类型，只有返回text/html时，才返回报告 
+            var responetype = httpcontext.Response.ContentType;
+            if (responetype != "text/html")
+            {
+                return string.Empty;
+            }
+
+            //只打印 ViewResult类型的，这个方法不太通用，这样将会依赖于 TraceRunAttribute ，现在暂时没有更好的办法，先这样用
+            if (!httpcontext.Items.Contains(TraceRunAttribute.ViewResultTypeKey) || (string)httpcontext.Items[TraceRunAttribute.ViewResultTypeKey] != "ViewResult")
+            {
+                return string.Empty;
+            }
 
             long tbegin = 0;
             long tend = 0;
@@ -494,9 +524,6 @@ namespace Dev.Comm.Web.Mvc.Filter
 
             }
 
-
-
-
             if (!isshow)
                 sb.Append("-->");
 
@@ -505,4 +532,5 @@ namespace Dev.Comm.Web.Mvc.Filter
 
 
     }
+    #endregion
 }
