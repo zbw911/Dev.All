@@ -223,6 +223,8 @@ namespace Dev.Comm.Web.Mvc.Filter
 
             context.Response.Write(cshtmlstr);
 
+
+            context.Items.Remove(__List__);
         }
 
 
@@ -396,6 +398,7 @@ namespace Dev.Comm.Web.Mvc.Filter
             if (!isshow)
                 sb.Append("-->");
 
+            httpcontext.Items.Remove(CshtmlTrancekey);
             return sb.ToString();
         }
 
@@ -485,6 +488,7 @@ namespace Dev.Comm.Web.Mvc.Filter
             //只打印 ViewResult类型的，这个方法不太通用，这样将会依赖于 TraceRunAttribute ，现在暂时没有更好的办法，先这样用
             if (!httpcontext.Items.Contains(TraceRunAttribute.ViewResultTypeKey) || (string)httpcontext.Items[TraceRunAttribute.ViewResultTypeKey] != "ViewResult")
             {
+                httpcontext.Items.Remove(TraceRunAttribute.ViewResultTypeKey);
                 return string.Empty;
             }
 
@@ -494,12 +498,14 @@ namespace Dev.Comm.Web.Mvc.Filter
             if (httpcontext.Items.Contains(BeginRequest))
             {
                 tbegin = (long)httpcontext.Items[BeginRequest];
+                httpcontext.Items.Remove(BeginRequest);
             }
 
 
             if (httpcontext.Items.Contains(EndRequest))
             {
                 tend = (long)httpcontext.Items[EndRequest];
+                httpcontext.Items.Remove(EndRequest);
             }
 
 
