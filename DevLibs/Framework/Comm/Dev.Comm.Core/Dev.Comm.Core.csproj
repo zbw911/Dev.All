@@ -8,7 +8,7 @@
     <ProjectGuid>{7FDF5D76-C1BB-48ED-B5C8-663C098CFCDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dev.Comm.Core</RootNamespace>
+    <RootNamespace>Dev.Comm</RootNamespace>
     <AssemblyName>Dev.Comm.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
