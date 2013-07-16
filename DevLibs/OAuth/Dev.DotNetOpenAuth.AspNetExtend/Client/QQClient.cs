@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Dev.Comm.Net;
 using DotNetOpenAuth.AspNet.Clients;
-using Open.Sina2SDK;
 using QConnectSDK.Models;
-using User = Open.Sina2SDK.User;
 
 namespace Dev.DotNetOpenAuth.AspNetExtend.Client
 {
@@ -234,35 +230,10 @@ state  必须  client端的状态值。用于第三方应用防止CSRF攻击，�
 
         private T JsonHelper<T>(string text)
         {
+            //return Dev.Comm.JsonConvert.ToJsonObject<T>(text);
+
             return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(text);
             //return Open.Sina2SDK.JsonHelper.DeserializeToObj<T>(text);
-        }
-
-        /// <summary>
-        ///   Converts any % encoded values in the URL to uppercase.
-        /// </summary>
-        /// <param name="url"> The URL string to normalize </param>
-        /// <returns> The normalized url </returns>
-        /// <example>
-        ///   NormalizeHexEncoding("Login.aspx?ReturnUrl=%2fAccount%2fManage.aspx") returns "Login.aspx?ReturnUrl=%2FAccount%2FManage.aspx"
-        /// </example>
-        /// <remarks>
-        ///   There is an issue in Sina whereby it will rejects the redirect_uri value if
-        ///   the url contains lowercase % encoded values.
-        /// </remarks>
-        private static string NormalizeHexEncoding(string url)
-        {
-            char[] array = url.ToCharArray();
-            for (int i = 0; i < array.Length - 2; i++)
-            {
-                if (array[i] == '%')
-                {
-                    array[i + 1] = char.ToUpperInvariant(array[i + 1]);
-                    array[i + 2] = char.ToUpperInvariant(array[i + 2]);
-                    i += 2;
-                }
-            }
-            return new string(array);
         }
     }
 }

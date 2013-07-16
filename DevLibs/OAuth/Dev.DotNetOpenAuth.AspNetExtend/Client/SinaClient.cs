@@ -176,7 +176,8 @@ namespace Dev.DotNetOpenAuth.AspNetExtend.Client
 
         private T JsonHelper<T>(string text)
         {
-            return Open.Sina2SDK.JsonHelper.DeserializeToObj<T>(text);
+            return Dev.Comm.JsonConvert.ToJsonObject<T>(text);
+            //return Open.Sina2SDK.JsonHelper.DeserializeToObj<T>(text);
         }
 
         /// <summary>
