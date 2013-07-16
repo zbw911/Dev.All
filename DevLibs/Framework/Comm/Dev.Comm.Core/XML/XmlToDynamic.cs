@@ -25,6 +25,22 @@ namespace Dev.Comm
     {
         #region Class Methods
 
+
+        public static dynamic Parse(string xml)
+        {
+            var xDoc = XDocument.Parse(xml);//XDocument.Load(../xml.xml)
+            dynamic root = new ExpandoObject();
+
+            return Parse(xDoc.Elements().First());
+        }
+
+
+        public static dynamic Parse(XElement node)
+        {
+            dynamic root = new ExpandoObject();
+            return Parse(root, node);
+        }
+
         public static void Parse(dynamic parent, XElement node)
         {
             if (node.HasElements)

@@ -1127,8 +1127,9 @@
         </member>
         <member name="T:Dev.Comm.XmlToDynamic">
             <summary>
-            From:http://www.itdevspace.com/2012/07/parse-xml-to-dynamic-object-in-c.html
+              From :http://www.itdevspace.com/2012/07/parse-xml-to-dynamic-object-in-c.html
             
+              xml 转化为 Dynamic
             </summary>
         </member>
         <member name="M:Dev.Comm.XmlCompent.GetTable(System.String)">
