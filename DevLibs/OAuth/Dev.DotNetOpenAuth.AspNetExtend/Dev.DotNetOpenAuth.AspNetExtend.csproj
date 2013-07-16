@@ -83,6 +83,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Comm\Dev.Comm.Core\Dev.Comm.Core.csproj">
+      <Project>{7fdf5d76-c1bb-48ed-b5c8-663c098cfcdd}</Project>
+      <Name>Dev.Comm.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Comm\Dev.Comm.Net\Dev.Comm.Net.csproj">
       <Project>{83d81d8e-2eaa-4869-910a-be13eeb6567f}</Project>
       <Name>Dev.Comm.Net</Name>

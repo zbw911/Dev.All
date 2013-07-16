@@ -26,7 +26,7 @@ namespace Dev.Comm.Web.Mvc.View
         /// <param name="viewName"> </param>
         /// <param name="controller"> </param>
         /// <returns> </returns>
-        public static string PartialView(string viewName, Controller controller)
+        public static string PartialView(Controller controller, string viewName)
         {
             var view = ViewEngines.Engines.FindPartialView(controller.ControllerContext, viewName);
             return ViewToContent(controller, view);
@@ -39,7 +39,7 @@ namespace Dev.Comm.Web.Mvc.View
         /// <param name="controller"> </param>
         /// <param name="masterName"> default is null, use the default Master </param>
         /// <returns> </returns>
-        public static string View(string viewName, Controller controller, string masterName = null)
+        public static string View(Controller controller, string viewName, string masterName = null)
         {
             //var viewName = "_jsLogin";
             var view = ViewEngines.Engines.FindView(controller.ControllerContext, viewName, masterName);
