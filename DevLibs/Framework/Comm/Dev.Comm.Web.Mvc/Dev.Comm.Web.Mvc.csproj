@@ -91,6 +91,7 @@
     <Compile Include="Validate\CnStringLengthAttribute.cs" />
     <Compile Include="Validate\EmailAddressAttribute.cs" />
     <Compile Include="Validate\EnforceTrueAttribute.cs" />
+    <Compile Include="View\ViewToString.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
