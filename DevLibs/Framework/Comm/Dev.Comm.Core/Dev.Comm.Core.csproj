@@ -99,6 +99,7 @@
     <Compile Include="Utils\StrUtil.cs" />
     <Compile Include="Utils\TypeConverter.cs" />
     <Compile Include="Utils\W3wpUtil.cs" />
+    <Compile Include="XML\XmlToDynamic.cs" />
     <Compile Include="XML\XmlCompent.cs" />
     <Compile Include="XML\XMLEntityConvert.cs" />
     <Compile Include="XML\XmlHelper.cs" />

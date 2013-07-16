@@ -1125,6 +1125,12 @@
             停止
             </summary>
         </member>
+        <member name="T:Dev.Comm.XmlToDynamic">
+            <summary>
+            From:http://www.itdevspace.com/2012/07/parse-xml-to-dynamic-object-in-c.html
+            
+            </summary>
+        </member>
         <member name="M:Dev.Comm.XmlCompent.GetTable(System.String)">
             <summary>
             字符串格式XML转换成HASHTABLE
