@@ -83,6 +83,7 @@
     <Compile Include="Filter\ActionAllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Formatter\JsonpMediaTypeFormatter.cs" />
     <Compile Include="HtmlExtensions.cs" />
+    <Compile Include="Model\ModelStateHandler.cs" />
     <Compile Include="Pager\Pagination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes\RouteInfo.cs" />
