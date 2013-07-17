@@ -69,6 +69,7 @@
     <Compile Include="TestWaterMark.cs" />
     <Compile Include="UnitTest2.cs" />
     <Compile Include="UnitTestStringExtends.cs" />
+    <Compile Include="WEB\UnitTestUrlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dev.Comm.Core\Dev.Comm.Core.csproj">

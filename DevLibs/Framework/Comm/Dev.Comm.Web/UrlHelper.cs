@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace Dev.Comm.Web
 {
@@ -25,8 +26,21 @@ namespace Dev.Comm.Web
             return !String.IsNullOrEmpty(url) && url.ToLower().IndexOf(HttpServerInfo.BaseUrl.ToLower(), StringComparison.Ordinal) == 0;
         }
 
+        /// <summary>
+        /// 取得URL中的参数
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static string GetParam(string url, string param)
+        {
+            Uri myUri = new Uri(url);
+            string value = HttpUtility.ParseQueryString(myUri.Query).Get(param);
 
-       
+            return value;
+        }
+
+
 
     }
 }
