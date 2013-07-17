@@ -74,6 +74,11 @@
             <param name="src">The SRC.</param>
             <param name="s">The s.</param>
         </member>
+        <member name="T:Dev.Comm.ObjectDynamicConvert">
+            <summary>
+            http://stackoverflow.com/questions/7717281/expandoobject-to-static-object-and-back-again-spanning-the-two-domains
+            </summary>
+        </member>
         <member name="T:Dev.Comm.ChineseCode">
             <summary>
             中文方法
@@ -429,6 +434,13 @@
             将对象转成Json格式
             </summary>
             <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.JsonConvert.ToJsonStrDyn(System.Object)">
+            <summary>
+            将动态对象转化为Json 字符串
+            </summary>
             <param name="obj"></param>
             <returns></returns>
         </member>

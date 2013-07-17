@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -153,7 +154,7 @@ namespace Dev.Comm.Test
 ,""566873045721139"":{""order_id"":""566873045721139"",""title"":""\u9999\u4e30\u767e\u5408"",""status"":1,""provider"":""\u767e\u5ea6\u56e2\u8d2d"",""total_amount"":2900,""amount"":2999,""count"":1,""unused_count"":1,""uid"":""104041139"",""uname"":""local1_2"",""phone"":""13699246163"",""type"":1,""create_time"":1364394403,""pay_time"":0,""coupon"":[]}},""total"":12}}";
 
 
-           
+
 
             var jss = new JavaScriptSerializer();
 
@@ -184,6 +185,30 @@ namespace Dev.Comm.Test
                 Console.WriteLine("none");
             }
 
+        }
+
+        [TestMethod]
+        public void MyDynObject2Str()
+        {
+            dynamic d = new { a = 1, b = 2, c = "111" };
+
+            var str = Dev.Comm.JsonConvert.ToJsonStrDyn(d);
+
+            Console.WriteLine(str);
+        }
+
+
+        [TestMethod]
+        public void ExpandoObjectTestMethod()
+        {
+            dynamic d = new ExpandoObject();
+
+            d.a = 1;
+            d.b = new Dictionary<string, string> { { "1", "1" }, { "2", "2" } };
+
+            var str = Dev.Comm.JsonConvert.ToJsonStrDyn(d);
+
+            Console.WriteLine(str);
         }
 
     }

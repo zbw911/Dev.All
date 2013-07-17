@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Dynamic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web.Script.Serialization;
 
@@ -98,6 +99,16 @@ namespace Dev.Comm.Core
         public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
         {
             throw new NotImplementedException();
+
+            //var dict = new Dictionary<string, object>();
+            //PropertyInfo[] properties = obj.GetType().GetProperties();
+
+            //foreach (PropertyInfo property in properties)
+            //{
+            //    dict[property.Name] = property.GetValue(obj, null);
+            //}
+
+            //return dict;
         }
 
         public override IEnumerable<Type> SupportedTypes

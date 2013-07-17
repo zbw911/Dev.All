@@ -47,6 +47,36 @@ namespace Dev.Comm
         }
 
         /// <summary>
+        /// 将动态对象转化为Json 字符串
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ToJsonStrDyn(dynamic obj)
+        {
+            //var o = ObjectDynamicConvert.ToExpando(obj);
+            //var serializer = new JavaScriptSerializer();
+
+            //StringBuilder sb = new StringBuilder();
+            //serializer.Serialize(o, sb);
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            //serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
+            //if (MaxJsonLength.HasValue)
+            //{
+            //    serializer.MaxJsonLength = MaxJsonLength.Value;
+            //}
+            //if (RecursionLimit.HasValue)
+            //{
+            //    serializer.RecursionLimit = RecursionLimit.Value;
+            //}
+            return (serializer.Serialize(obj));
+
+            //return Newtonsoft.Json.JsonConvert.SerializeObject(o);
+            //return sb.ToString();
+        }
+
+        /// <summary>
         /// 将JSON 字符转换为对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -123,6 +153,7 @@ namespace Dev.Comm
 
             return obj;
         }
+
 
 
 
