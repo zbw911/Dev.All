@@ -265,7 +265,8 @@ namespace Dev.Framework.FileServer.ImageFile
                 new AnimatedGifs().Install(c);
 
             c.Plugins.LoadPlugins();
-            c.Plugins.Get<SizeLimiting>().Uninstall(c);
+            if (c.Plugins.Has<SizeLimiting>())
+                c.Plugins.Get<SizeLimiting>().Uninstall(c);
 
 
             WatermarkPlugin water = null;

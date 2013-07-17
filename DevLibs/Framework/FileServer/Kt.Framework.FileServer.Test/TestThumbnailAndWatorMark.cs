@@ -41,14 +41,18 @@ namespace Dev.Framework.FileServer.Test
             string mark = basepath + "mark.png";
             string imageDir = basepath + "aaaa.jpg";
 
-            string outdir = basepath + "1111111.jpg";
-            string outdir2 = basepath + "animatedsamplesmall2.gif";
-            string outdir3 = basepath + "animatedsamplesmall3.gif";
+            string outdir = basepath + "animatedsamplesmall1.jpg";
+            string outdir2 = basepath + "animatedsamplesmall2.jpg";
+            string outdir3 = basepath + "animatedsamplesmall3.jpg";
             string outdir4 = basepath + "animatedsamplesmall4.gif";
 
-            var obj = ImageServer.ImageFile.Watermark(File.OpenRead(imageDir),mark);
+            var obj = ImageServer.ImageFile.Watermark(File.OpenRead(imageDir), mark);
 
             Save(obj, outdir);
+
+            obj = ImageServer.ImageFile.Watermark(File.OpenRead(imageDir), mark);
+
+            Save(obj, outdir2);
 
             //    obj = ImageServer.ImageFile.Thumbnail(File.OpenRead(imageDir), 300, 300);
             //    Save(obj, outdir2);
