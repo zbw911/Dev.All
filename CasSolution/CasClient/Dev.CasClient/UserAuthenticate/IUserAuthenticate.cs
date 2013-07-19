@@ -10,30 +10,31 @@
 
 namespace Dev.CasClient.UserAuthenticate
 {
+    /// <summary>
+    ///   用户验证方法
+    /// </summary>
     public interface IUserAuthenticate
     {
-        #region Public Methods and Operators
+        #region Instance Methods
 
         /// <summary>
-        ///     登出
+        ///   登出
         /// </summary>
         void CurUserLoginOut();
 
         /// <summary>
-        ///     是否已经验证通过
+        ///   是否已经验证通过
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         bool GetUserIsAuthenticated();
 
-        
+        /// <summary>
+        ///   标识用户登录
+        /// </summary>
+        /// <param name="strUserName"> </param>
+        /// <param name="extDatas"> </param>
+        void SignUserLogin(string strUserName, System.Collections.Generic.Dictionary<string, string> extDatas);
 
         #endregion
-
-        /// <summary>
-        /// 标识用户登录
-        /// </summary>
-        /// <param name="strUserName"></param>
-        /// <param name="extDatas"></param>
-        void SignUserLogin(string strUserName, System.Collections.Generic.Dictionary<string, string> extDatas);
     }
 }

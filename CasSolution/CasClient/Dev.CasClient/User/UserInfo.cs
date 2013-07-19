@@ -4,15 +4,51 @@ using System.Collections.Generic;
 namespace Dev.CasClient.User
 {
     /// <summary>
-    /// 
     /// </summary>
     public class UserInfo
     {
+        #region Class Methods
+
         /// <summary>
-        /// 根据用户UID取得用户信息
+        ///   检测昵称是否存在
         /// </summary>
-        /// <param name="uid"></param>
-        /// <returns></returns>
+        /// <param name="nickname"> </param>
+        /// <returns> </returns>
+        public static bool CheckNick(string nickname)
+        {
+            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
+                      + "/api/User/CheckNick?nickname=";
+
+            url += nickname;
+
+            var result = Dev.Comm.Net.Http.GetUrl(url);
+
+            return Dev.Comm.JsonConvert.ToJsonObject<bool>(result);
+        }
+
+        /// <summary>
+        ///   取得用户的注册时间方法，null表示用户不存在
+        /// </summary>
+        /// <param name="uid"> </param>
+        /// <returns> </returns>
+        public static DateTime? GetRegDateTime(decimal uid)
+        {
+            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
+                      + "/api/User/GetRegDateTime?uid=";
+
+            url += uid;
+
+            var result = Dev.Comm.Net.Http.GetUrl(url);
+            var time = Dev.Comm.JsonConvert.ToJsonObject<DateTime?>(result);
+
+            return time;
+        }
+
+        /// <summary>
+        ///   根据用户UID取得用户信息
+        /// </summary>
+        /// <param name="uid"> </param>
+        /// <returns> </returns>
         public static UserProfileModel GetUserInfo(decimal uid)
         {
             var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
@@ -25,30 +61,12 @@ namespace Dev.CasClient.User
             return Dev.Comm.JsonConvert.ToJsonObject<UserProfileModel>(result);
         }
 
-        /// <summary>
-        /// 根据用户UID取得用户信息
-        /// </summary>
-        /// <param name="uids"></param>
-        /// <returns></returns>
-        public static List<UserProfileModel> GetUserInfoList(decimal[] uids)
-        {
-            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
-                      + "/api/User/GetUserInfoList?uids=";
-
-            url += string.Join("&uids=", uids);
-
-            var result = Dev.Comm.Net.Http.GetUrl(url);
-
-            return Dev.Comm.JsonConvert.ToJsonObject<List<UserProfileModel>>(result);
-        }
-
-
 
         /// <summary>
-        /// 根据用户昵称取得用户信息
+        ///   根据用户昵称取得用户信息
         /// </summary>
-        /// <param name="nickname"></param>
-        /// <returns></returns>
+        /// <param name="nickname"> </param>
+        /// <returns> </returns>
         public static UserProfileModel GetUserInfoByNickname(string nickname)
         {
             var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
@@ -61,10 +79,44 @@ namespace Dev.CasClient.User
 
 
         /// <summary>
-        /// 根据用户昵称批量取得用户信息
+        ///   根据用户名取得用户信息
         /// </summary>
-        /// <param name="nicknames"></param>
-        /// <returns></returns>
+        /// <param name="username"> </param>
+        /// <returns> </returns>
+        public static UserProfileModel GetUserInfoByUserName(string username)
+        {
+            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
+                      + "/api/User/GetUserInfoByUserName?username=";
+
+            url += username;
+
+            var result = Dev.Comm.Net.Http.GetUrl(url);
+
+            return Dev.Comm.JsonConvert.ToJsonObject<UserProfileModel>(result);
+        }
+
+        /// <summary>
+        ///   根据用户UID取得用户信息
+        /// </summary>
+        /// <param name="uids"> </param>
+        /// <returns> </returns>
+        public static List<UserProfileModel> GetUserInfoList(decimal[] uids)
+        {
+            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
+                      + "/api/User/GetUserInfoList?uids=";
+
+            url += string.Join("&uids=", uids);
+
+            var result = Dev.Comm.Net.Http.GetUrl(url);
+
+            return Dev.Comm.JsonConvert.ToJsonObject<List<UserProfileModel>>(result);
+        }
+
+        /// <summary>
+        ///   根据用户昵称批量取得用户信息
+        /// </summary>
+        /// <param name="nicknames"> </param>
+        /// <returns> </returns>
         public static List<UserProfileModel> GetUserInfoListByNickNames(string[] nicknames)
         {
             var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
@@ -77,67 +129,6 @@ namespace Dev.CasClient.User
             return Dev.Comm.JsonConvert.ToJsonObject<List<UserProfileModel>>(result);
         }
 
-
-        /// <summary>
-        /// 检测昵称是否存在
-        /// </summary>
-        /// <param name="nickname"></param>
-        /// <returns></returns>
-        public static bool CheckNick(string nickname)
-        {
-            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
-                     + "/api/User/CheckNick?nickname=";
-
-            url += nickname;
-
-            var result = Dev.Comm.Net.Http.GetUrl(url);
-
-            return Dev.Comm.JsonConvert.ToJsonObject<bool>(result);
-        }
-
-        /// <summary>
-        /// 根据用户名取得用户信息
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public static UserProfileModel GetUserInfoByUserName(string username)
-        {
-            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
-                     + "/api/User/GetUserInfoByUserName?username=";
-
-            url += username;
-
-            var result = Dev.Comm.Net.Http.GetUrl(url);
-
-            return Dev.Comm.JsonConvert.ToJsonObject<UserProfileModel>(result);
-        }
-
-        /// <summary>
-        /// 取得用户的注册时间方法，null表示用户不存在
-        /// </summary>
-        /// <param name="uid"></param>
-        /// <returns></returns>
-        public static DateTime? GetRegDateTime(decimal uid)
-        {
-            var url = Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl
-                    + "/api/User/GetRegDateTime?uid=";
-
-            url += uid;
-
-            var result = Dev.Comm.Net.Http.GetUrl(url);
-            var time = Dev.Comm.JsonConvert.ToJsonObject<DateTime?>(result);
-
-            return time;
-
-        }
-
-
-
-
-
-
-
-
-
+        #endregion
     }
 }

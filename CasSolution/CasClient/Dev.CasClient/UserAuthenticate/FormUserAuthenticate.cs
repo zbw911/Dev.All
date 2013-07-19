@@ -9,25 +9,23 @@
 // ***********************************************************************************
 
 using System.Collections.Generic;
+using System.Web;
+using System.Web.Security;
 
 namespace Dev.CasClient.UserAuthenticate
 {
-    using System.Web;
-    using System.Web.Security;
-
     /// <summary>
-    /// 
     /// </summary>
     public class FormUserAuthenticate : IUserAuthenticate
     {
-        #region Public Methods and Operators
+        #region IUserAuthenticate Members
 
         /// <summary>
-        ///     登出
+        ///   登出
         /// </summary>
         public virtual void CurUserLoginOut()
         {
-            HttpContext context = HttpContext.Current;
+            var context = HttpContext.Current;
 
             // Necessary for ASP.NET MVC Support.
             if (context.User.Identity.IsAuthenticated)
@@ -37,14 +35,14 @@ namespace Dev.CasClient.UserAuthenticate
         }
 
         /// <summary>
-        ///     是否已经验证通过
+        ///   是否已经验证通过
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public virtual bool GetUserIsAuthenticated()
         {
-            HttpContext context = HttpContext.Current;
+            var context = HttpContext.Current;
 
-            bool result = (context.User != null && context.User.Identity.IsAuthenticated);
+            var result = (context.User != null && context.User.Identity.IsAuthenticated);
 
             return result;
         }
@@ -54,11 +52,9 @@ namespace Dev.CasClient.UserAuthenticate
             SetAuthCookie(strUserName);
         }
 
-
-
         #endregion
 
-        #region Methods
+        #region Class Methods
 
         private static void ClearAuthCookie()
         {

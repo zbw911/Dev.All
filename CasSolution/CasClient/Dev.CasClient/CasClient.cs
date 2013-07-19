@@ -8,52 +8,64 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System;
 using System.Collections.Generic;
+using System.Web;
+using Dev.CasClient.Configuration;
+using Dev.CasClient.UserAuthenticate;
 using Dev.Comm;
 
 namespace Dev.CasClient
 {
-    using System;
-    using System.Net;
-    using System.Web;
-    using System.Xml;
-
-    using Dev.CasClient.Configuration;
-    using Dev.CasClient.UserAuthenticate;
-
     /// <summary>
-    ///     Static CAS client class that consumes the basic Jasig CAS functionality.
+    ///   Static CAS client class that consumes the basic Jasig CAS functionality.
     /// </summary>
     public class CasClient
     {
-        #region Static Fields
+        #region Readonly & Static Fields
 
-        public static string StrCasServerUrl = CasClientConfiguration.Config.CasServerUrl + CasClientConfiguration.Config.CasPath;
-        private readonly IUserAuthenticate userAuthenticate;
+        public static string StrCasServerUrl = CasClientConfiguration.Config.CasServerUrl +
+                                               CasClientConfiguration.Config.CasPath;
 
         #endregion
 
+        //private readonly IUserAuthenticate userAuthenticate;
 
+        #region C'tors
+
+        /// <summary>
+        /// </summary>
+        public CasClient()
+        {
+            //userAuthenticate = UserAuthenticateManager.Provider;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="userAuthenticate"> </param>
+        /// <exception cref="ArgumentNullException"></exception>
         public CasClient(IUserAuthenticate userAuthenticate)
         {
             if (userAuthenticate == null)
             {
                 throw new ArgumentNullException("userAuthenticate");
             }
-            this.userAuthenticate = userAuthenticate;
+            UserAuthenticateManager.Provider = userAuthenticate;
         }
 
-        #region Public Methods and Operators
+        #endregion
+
+        #region Instance Methods
 
         /// <summary>
-        ///     登录,如果这是一个登录的方法,那就直接去调用登录了
+        ///   登录,如果这是一个登录的方法,那就直接去调用登录了
         /// </summary>
-        /// <param name="strTicket"></param>
-        /// <param name="strService"></param>
-        /// <param name="strRedirectUrl"></param>
-        /// <param name="strUserName"></param>
-        /// <param name="strErrorText"></param>
-        /// <returns></returns>
+        /// <param name="strTicket"> </param>
+        /// <param name="strService"> </param>
+        /// <param name="strRedirectUrl"> </param>
+        /// <param name="strUserName"> </param>
+        /// <param name="strErrorText"> </param>
+        /// <returns> </returns>
         public bool Login(
             string strTicket,
             string strService,
@@ -74,12 +86,11 @@ namespace Dev.CasClient
             }
 
             // when we have a ticket, then validate it
-            string strValidateUrl = BuildServiceValidateRequest(StrCasServerUrl, strService, strTicket);
+            var strValidateUrl = BuildServiceValidateRequest(StrCasServerUrl, strService, strTicket);
 
-            bool isOK = false;
+            var isOK = false;
             try
             {
-
                 //var xml = Dev.Comm.Net.Http.GetUrl(strValidateUrl);
 
                 var xmlh = new XmlHelper();
@@ -88,7 +99,6 @@ namespace Dev.CasClient
                 if (xmlh.RootNode.FirstChild.LocalName == "authenticationFailure")
                 {
                     strErrorText = xmlh.RootNode.FirstChild.InnerText;
-
                 }
                 else if (xmlh.RootNode.FirstChild.LocalName == "authenticationSuccess")
                 {
@@ -109,10 +119,9 @@ namespace Dev.CasClient
                     }
 
                     //hand User
-                    this.userAuthenticate.SignUserLogin(strUserName, extDatas: dic);
+                    UserAuthenticateManager.Provider.SignUserLogin(strUserName, extDatas: dic);
 
                     isOK = true;
-
                 }
             }
             catch (Exception e)
@@ -126,24 +135,24 @@ namespace Dev.CasClient
         }
 
         /// <summary>
-        ///     登出的方法
+        ///   登出的方法
         /// </summary>
-        /// <param name="strRedirectUrl"></param>
-        /// <returns></returns>
+        /// <param name="strRedirectUrl"> </param>
+        /// <returns> </returns>
         public bool LoginOut(out string strRedirectUrl)
         {
             // if the logout parameter is given, redirect to CAS logout page
 
             strRedirectUrl = BuildLogoutRequest(StrCasServerUrl);
 
-            this.userAuthenticate.CurUserLoginOut();
+            UserAuthenticateManager.Provider.CurUserLoginOut();
 
             return true;
         }
 
         #endregion
 
-        #region Methods
+        #region Class Methods
 
         private static string BuildLoginRequest(string strCasServerUrl, string strService)
         {
@@ -157,7 +166,8 @@ namespace Dev.CasClient
 
         private static string BuildServiceValidateRequest(string strCasServerUrl, string strService, string strTicket)
         {
-            return strCasServerUrl.TrimEnd('/') + "/serviceValidate?service=" + HttpUtility.UrlEncode(strService) + "&ticket="
+            return strCasServerUrl.TrimEnd('/') + "/serviceValidate?service=" + HttpUtility.UrlEncode(strService) +
+                   "&ticket="
                    + strTicket;
         }
 

@@ -13,44 +13,46 @@ using System;
 namespace Dev.CasClient.Configuration
 {
     /// <summary>
-    ///     配置文件存储接口， zbw911
+    ///   配置文件存储接口， zbw911
     /// </summary>
     public interface ICasClientConfigurationStorage
     {
-        #region Public Methods and Operators
+        #region Instance Methods
 
         /// <summary>
-        ///     取得
+        ///   取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         CasClientConfiguration Get();
 
         /// <summary>
-        ///     根据名称取得
+        ///   根据名称取得
         /// </summary>
-        /// <param name="configname"></param>
-        /// <returns></returns>
+        /// <param name="configname"> </param>
+        /// <returns> </returns>
         CasClientConfiguration Get(string configname);
 
         /// <summary>
-        ///     保存
+        ///   保存
         /// </summary>
-        /// <param name="config"></param>
-        /// <returns></returns>
+        /// <param name="config"> </param>
+        /// <returns> </returns>
         void Save(CasClientConfiguration config);
 
         /// <summary>
         /// </summary>
-        /// <param name="config"></param>
-        /// <param name="configname"></param>
+        /// <param name="config"> </param>
+        /// <param name="configname"> </param>
         void Save(CasClientConfiguration config, string configname);
 
+        #endregion
+
+        #region Event Declarations
 
         /// <summary>
-        /// 配置改变
+        ///   配置改变
         /// </summary>
         event EventHandler<EventArgs> ConfigChangedEvent;
-
 
         #endregion
     }

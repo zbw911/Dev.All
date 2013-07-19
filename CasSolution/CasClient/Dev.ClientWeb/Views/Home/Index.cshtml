@@ -23,59 +23,14 @@
 
 @section scripts
 {
+    <script type="text/javascript" src="http://castest.youxituan.com/Scripts/CAS.SDK.JS"></script>
     <script type="text/javascript">
 
-        var api = '@(Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl)/api/user/get?' + $.now();
-
-
-
-        //$.ajax({
-        //    url: api,
-        //    dataType: "jsonp",
-        //    success: function (b) {
-        //        window.alert();
-        //        // aaaa({aaa,aa})
-        //        window.alert(b());
-        //    }
-        //});
-
-
-        function mycallback(b) {
-            if (!b.UserName) {
-                window.alert('用户还没有在passport登录');
-            } else {
-                window.alert('用户名：“' + b.UserName + "”已经在passport登录了，剩下的事情你懂的\r\n把上面导航用JS替换一下就OK了");
-            }
-        }
-
-        //$.get(api + '&callback=mycallback', function (b) {
-
-
-        //    if (!b.UserName) {
-        //        window.alert('用户还没有在passport登录');
-        //    } else {
-
-        //        window.alert('用户名：“' + b.UserName + "”已经在passport登录了，剩下的事情你懂的\r\n把上面导航用JS替换一下就OK了");
-
-        //    }
-
-        //}, 'jsonp');
-
-
-        //$.get(api, function (b) {
-
-
-        //    if (!b.UserName) {
-        //        window.alert('用户还没有在passport登录');
-        //    } else {
-
-        //        window.alert('用户名：“' + b.UserName + "”已经在passport登录了，剩下的事情你懂的\r\n把上面导航用JS替换一下就OK了");
-
-        //    }
-
-        //}, 'jsonp');
-
-
+        $(function () {
+            $('.one').click(function () {
+                CasSdk.Login();
+            });
+        });
 
     </script>
 

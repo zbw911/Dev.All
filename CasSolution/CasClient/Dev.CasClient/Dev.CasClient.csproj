@@ -15,6 +15,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,7 +49,9 @@
     <Reference Include="Dev.Log">
       <HintPath>..\..\..\DevLibs\ReleaseLib\Dev.Log.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -59,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CasClient.cs" />
+    <Compile Include="CasClientModule.cs" />
+    <Compile Include="CasClientStart.cs" />
     <Compile Include="Configuration\CasClientConfiguration.cs" />
     <Compile Include="Configuration\ICasClientConfigurationStorage.cs" />
     <Compile Include="Configuration\XmlCasClientConfigurationStorage.cs" />
@@ -70,8 +76,10 @@
     <Compile Include="User\UserInfo.cs" />
     <Compile Include="User\UserFace.cs" />
     <Compile Include="Utils\Urls.cs" />
+    <Compile Include="Utils\WebConfigUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

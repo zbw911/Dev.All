@@ -11,17 +11,17 @@
 namespace Dev.CasClient.UserAuthenticate
 {
     /// <summary>
-    ///     provider模式
+    ///   provider模式
     /// </summary>
     public class UserAuthenticateManager
     {
-        #region Static Fields
+        #region Readonly & Static Fields
 
         private static IUserAuthenticate userAuthenticate;
 
         #endregion
 
-        #region Public Properties
+        #region Class Properties
 
         public static IUserAuthenticate Provider
         {
@@ -34,10 +34,7 @@ namespace Dev.CasClient.UserAuthenticate
 
                 return userAuthenticate;
             }
-            set
-            {
-                userAuthenticate = value;
-            }
+            set { userAuthenticate = value; }
         }
 
         #endregion

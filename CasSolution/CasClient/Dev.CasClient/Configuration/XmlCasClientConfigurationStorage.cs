@@ -8,21 +8,37 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System;
+using System.IO;
+using Dev.Comm.Core.Runtime.Serialization;
+
 namespace Dev.CasClient.Configuration
 {
-    using System;
-    using System.IO;
-
-    using Dev.Comm.Core.Runtime.Serialization;
-
     /// <summary>
-    ///     xml保存，911
+    ///   xml保存，911
     /// </summary>
     internal class XmlCasClientConfigurationStorage : ICasClientConfigurationStorage
     {
-        #region Public Methods and Operators
+        #region Readonly & Static Fields
 
         private static System.IO.FileSystemWatcher filewatcher;
+
+        #endregion
+
+        #region Event Handling
+
+        private void FlilewatcherChanged(object sender, FileSystemEventArgs e)
+        {
+            var type = e.ChangeType;
+            this.ConfigChangedEvent(sender, e);
+            //Log.Loger.Error("changed");
+            //System.Diagnostics.Debug.WriteLine("changed");
+            //throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ICasClientConfigurationStorage Members
 
         public CasClientConfiguration Get()
         {
@@ -32,7 +48,7 @@ namespace Dev.CasClient.Configuration
         public CasClientConfiguration Get(string configname)
         {
             CasClientConfiguration instance;
-            string xmlFile = GetSettingFile(configname);
+            var xmlFile = GetSettingFile(configname);
             if (File.Exists(xmlFile))
             {
                 instance = DataContractSerializationHelper.Deserialize<CasClientConfiguration>(xmlFile);
@@ -40,10 +56,11 @@ namespace Dev.CasClient.Configuration
             else
             {
                 instance = new CasClientConfiguration
-                {
-                    CasServerUrl = "http://localhost",
-                    CasPath = "/CAS"
-                };
+                               {
+                                   CasServerUrl = "http://localhost",
+                                   CasPath = "/CAS",
+                                   LocalLoginPath = Utils.WebConfigUtils.FormsLoginUrl()
+                               };
                 this.Save(instance, configname);
             }
 
@@ -60,15 +77,6 @@ namespace Dev.CasClient.Configuration
             return instance;
         }
 
-        void FlilewatcherChanged(object sender, FileSystemEventArgs e)
-        {
-            var type = e.ChangeType;
-            ConfigChangedEvent(sender, e);
-            //Log.Loger.Error("changed");
-            //System.Diagnostics.Debug.WriteLine("changed");
-            //throw new NotImplementedException();
-        }
-
         public void Save(CasClientConfiguration config)
         {
             this.Save(config, null);
@@ -76,7 +84,7 @@ namespace Dev.CasClient.Configuration
 
         public void Save(CasClientConfiguration config, string configname)
         {
-            string settingFile = GetSettingFile(configname);
+            var settingFile = GetSettingFile(configname);
             DataContractSerializationHelper.Serialize(config, settingFile);
         }
 
@@ -84,7 +92,7 @@ namespace Dev.CasClient.Configuration
 
         #endregion
 
-        #region Methods
+        #region Class Methods
 
         private static string GetSettingFile(string filename)
         {

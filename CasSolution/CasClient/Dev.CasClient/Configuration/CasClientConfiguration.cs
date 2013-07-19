@@ -8,31 +8,93 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Runtime.Serialization;
+using System.Web;
+using System.Xml.Serialization;
+
 namespace Dev.CasClient.Configuration
 {
-    using System.Runtime.Serialization;
-    using System.Xml.Serialization;
-
     /// <summary>
-    /// 
     /// </summary>
     [DataContract]
     public class CasClientConfiguration
     {
-        #region Static Fields
+        #region Readonly & Static Fields
 
         private static CasClientConfiguration _config;
 
         private static ICasClientConfigurationStorage _configProvider;
 
-        private static object lockobj = new object();
+        private static readonly object lockobj = new object();
 
         #endregion
 
-        #region Public Properties
+        #region Fields
+
+        private string _localLogOffPath;
+        private string _localLoginPath;
+
+        #endregion
+
+        #region Instance Properties
 
         /// <summary>
-        /// 配置项
+        /// </summary>
+        [DataMember]
+        public string CasPath { get; set; }
+
+        /// <summary>
+        ///   CAS的服务地址
+        /// </summary>
+        [DataMember]
+        public string CasServerUrl { get; set; }
+
+        ///<summary>
+        ///  本地退出请求路径
+        ///</summary>
+        [DataMember]
+        public string LocalLogOffPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this._localLogOffPath))
+                {
+                    this._localLogOffPath = "~/Account/LogOff";
+                    this._localLogOffPath = VirtualPathUtility.ToAbsolute(this._localLogOffPath);
+                }
+                return this._localLogOffPath;
+            }
+            set { this._localLogOffPath = value; }
+        }
+
+        ///<summary>
+        ///  本地登录路径
+        ///</summary>
+        [DataMember]
+        public string LocalLoginPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this._localLoginPath))
+                {
+                    this._localLoginPath = Utils.WebConfigUtils.FormsLoginUrl();
+
+                    if (string.IsNullOrEmpty(this._localLoginPath))
+                        this._localLoginPath = "~/Account/Login";
+
+                    this._localLoginPath = VirtualPathUtility.ToAbsolute(this._localLoginPath);
+                }
+                return this._localLoginPath;
+            }
+            set { this._localLoginPath = value; }
+        }
+
+        #endregion
+
+        #region Class Properties
+
+        /// <summary>
+        ///   配置项
         /// </summary>
         public static CasClientConfiguration Config
         {
@@ -46,7 +108,6 @@ namespace Dev.CasClient.Configuration
                     }
                     return _config;
                 }
-
             }
             set
             {
@@ -67,32 +128,18 @@ namespace Dev.CasClient.Configuration
                 }
                 return _configProvider;
             }
-            set
-            {
-                _configProvider = value;
-            }
+            set { _configProvider = value; }
         }
 
-        static void ConfigProviderConfigChangedEvent(object sender, System.EventArgs e)
+        #endregion
+
+        #region Class Methods
+
+        private static void ConfigProviderConfigChangedEvent(object sender, System.EventArgs e)
         {
             _config = ConfigProvider.Get();
         }
 
-        /// <summary>
-        /// CAS的服务地址
-        /// </summary>
-        [DataMember]
-        public string CasServerUrl { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [DataMember]
-        public string CasPath { get; set; }
-
         #endregion
     }
-
-
 }
