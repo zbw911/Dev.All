@@ -7,13 +7,14 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
 
-namespace Dev.Comm.Core.IO
+namespace Dev.Comm.IO
 {
     public static class IOUtility
     {
@@ -32,7 +33,7 @@ namespace Dev.Comm.Core.IO
         {
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                return fileStream.ReadString();
+                return StreamHelper.ReadString(fileStream);
             }
         }
 
@@ -51,7 +52,7 @@ namespace Dev.Comm.Core.IO
 
             using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
-                fileStream.WriteString(body);
+                StreamHelper.WriteString(fileStream, body);
             }
         }
         #endregion
@@ -532,10 +533,10 @@ namespace Dev.Comm.Core.IO
 
             public Folders(string source, string target)
             {
-                Source = source;
-                Target = target;
+                this.Source = source;
+                this.Target = target;
 
-                SourceSubFolders = EnumerateDirectoriesExludeHidden(source).ToArray();
+                this.SourceSubFolders = EnumerateDirectoriesExludeHidden(source).ToArray();
             }
 
             public IEnumerable<DirectoryInfo> SourceSubFolders { get; set; }

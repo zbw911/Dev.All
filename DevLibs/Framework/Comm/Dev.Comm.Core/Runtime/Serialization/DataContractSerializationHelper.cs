@@ -7,16 +7,20 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Xml;
-using Dev.Comm.Core.IO;
+using Dev.Comm.IO;
 
-namespace Dev.Comm.Core.Runtime.Serialization
+namespace Dev.Comm.Runtime.Serialization
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DataContractSerializationHelper
     {
         public static void Serialize<T>(T o, string filePath)

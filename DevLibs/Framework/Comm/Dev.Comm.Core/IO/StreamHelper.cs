@@ -7,16 +7,30 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
+
 using System.Text;
 using System.IO;
 
-namespace Dev.Comm.Core.IO
+namespace Dev.Comm.IO
 {
-    public static class StreamExtensions
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class StreamHelper
     {
+
+        /// <summary>
+        /// to begin
+        /// </summary>
+        /// <param name="stream"></param>
+        public static void StreamToBegin(Stream stream)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+        }
         #region ReadData
 
-        public static byte[] ReadData(this Stream stream)
+
+        public static byte[] ReadData(Stream stream)
         {
             var data = new byte[stream.Length];
 
@@ -31,9 +45,9 @@ namespace Dev.Comm.Core.IO
         /// </summary>
         /// <param name="src">The SRC.</param>
         /// <returns></returns>
-        public static string ReadString(this Stream stream)
+        public static string ReadString(Stream stream)
         {
-            return stream.ReadString(Encoding.UTF8);
+            return ReadString(stream, Encoding.UTF8);
         }
         /// <summary>
         /// Reads the string.
@@ -41,7 +55,7 @@ namespace Dev.Comm.Core.IO
         /// <param name="src">The SRC.</param>
         /// <param name="encoding">The encoding.</param>
         /// <returns></returns>
-        public static string ReadString(this Stream stream, Encoding encoding)
+        public static string ReadString(Stream stream, Encoding encoding)
         {
             stream.Seek(0, SeekOrigin.Begin);
             TextReader reader = new StreamReader(stream, encoding);
@@ -55,8 +69,9 @@ namespace Dev.Comm.Core.IO
         /// </summary>
         /// <param name="src">The SRC.</param>
         /// <param name="dest">The dest.</param>
-        public static void CopyTo(this Stream src, Stream dest)
+        public static void CopyTo(Stream src, Stream dest)
         {
+            src.Seek(0, SeekOrigin.Begin);
             var buffer = new byte[0x10000];
             int bytes;
             try
@@ -68,8 +83,23 @@ namespace Dev.Comm.Core.IO
             }
             finally
             {
+                src.Seek(0, SeekOrigin.Begin);
+                dest.Seek(0, SeekOrigin.Begin);
                 dest.Flush();
             }
+        }
+
+
+        /// <summary>
+        /// Copies to.
+        /// </summary>
+        /// <param name="src">The SRC.</param>
+        /// <param name="dest">The dest.</param>
+        public static Stream CopyFrom(Stream src)
+        {
+            Stream dest = new MemoryStream();
+            CopyTo(src, dest);
+            return dest;
         }
 
 
@@ -78,7 +108,7 @@ namespace Dev.Comm.Core.IO
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="fileName">Name of the file.</param>
-        public static string SaveAs(this Stream stream, string filePath)
+        public static string SaveAs(Stream stream, string filePath)
         {
             return SaveAs(stream, filePath, true);
         }
@@ -88,7 +118,7 @@ namespace Dev.Comm.Core.IO
         /// <param name="stream">The stream.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="isOverwrite">if set to <c>true</c> [is overwrite].</param>
-        public static string SaveAs(this Stream stream, string filePath, bool isOverwrite)
+        public static string SaveAs(Stream stream, string filePath, bool isOverwrite)
         {
             var data = new byte[stream.Length];
             var length = stream.Read(data, 0, (int)stream.Length);
@@ -138,7 +168,7 @@ namespace Dev.Comm.Core.IO
 
 
         #region WriteString
-        public static void WriteString(this Stream src, string s)
+        public static void WriteString(Stream src, string s)
         {
             WriteString(src, s, Encoding.UTF8);
         }
@@ -147,7 +177,7 @@ namespace Dev.Comm.Core.IO
         /// </summary>
         /// <param name="src">The SRC.</param>
         /// <param name="s">The s.</param>
-        public static void WriteString(this Stream src, string s, Encoding encoding)
+        public static void WriteString(Stream src, string s, Encoding encoding)
         {
             TextWriter writer = new StreamWriter(src, encoding);
             writer.Write(s);
