@@ -59,6 +59,62 @@ namespace Dev.Framework.FileServer.Test
 
             //    obj = ImageServer.ImageFile.Thumbnail(File.OpenRead(imageDir), 100, 100);
             //    Save(obj, outdir3);
+
+        }
+
+
+        [TestMethod]
+        public void TestBatThumbnail()
+        {
+            string basepath = @"C:\Users\Administrator\Desktop\P\";
+
+            string imageDir = basepath + "aaaa.jpg";
+
+            var stream = File.OpenRead(imageDir);
+
+            var streamtemp = Dev.Comm.IO.StreamHelper.CopyFrom(stream);
+            //streamtemp.Seek(0, SeekOrigin.Begin);
+            var a = ImageServer.ImageFile.Thumbnail(streamtemp, 100, 100);
+            streamtemp = Dev.Comm.IO.StreamHelper.CopyFrom(stream);
+            //streamtemp.Seek(0, SeekOrigin.Begin);
+            var b = ImageServer.ImageFile.Thumbnail(streamtemp, 100, 100);
+
+            streamtemp = Dev.Comm.IO.StreamHelper.CopyFrom(stream);
+            //streamtemp.Seek(0, SeekOrigin.Begin);
+            var c = ImageServer.ImageFile.Thumbnail(streamtemp, 100, 100);
+        }
+
+
+        [TestMethod]
+        public void TestUploadResizBat()
+        {
+            string basepath = @"C:\Users\Administrator\Desktop\P\";
+
+            string imageDir = basepath + "aaaa.jpg";
+
+            var stream = File.OpenRead(imageDir);
+            ImageServer.ImageFile.SaveImageFile(stream, "aaaa.jpg", new[]
+                                                                        {
+                                                                            new ImagesSize
+                                                                                {
+                                                                                    Height = 180,
+                                                                                    Width = 180
+                                                                                },
+                                                                            new ImagesSize
+                                                                                {
+                                                                                    Height = 75,
+                                                                                    Width = 75
+                                                                                }, new ImagesSize
+                                                                                       {
+                                                                                           Height = 50,
+                                                                                           Width = 50
+                                                                                       },
+                                                                            new ImagesSize
+                                                                                {
+                                                                                    Height = 25,
+                                                                                    Width = 25
+                                                                                },
+                                                                        });
         }
 
 

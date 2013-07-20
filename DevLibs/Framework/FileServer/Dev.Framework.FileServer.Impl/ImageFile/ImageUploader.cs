@@ -71,8 +71,10 @@ namespace Dev.Framework.FileServer.ImageFile
                     var height = imagesSize.Height;
                     if (this.needThumb(width, height))
                     {
+                        var streamtemp = Dev.Comm.IO.StreamHelper.CopyFrom(stream);
+
                         //缩略后的图像数据
-                        var thumbObj = Thumbnail(stream, width, height);
+                        var thumbObj = Thumbnail(streamtemp, width, height);
                         //保存
                         var thumbfilename = this._curFileDisposer.UpdateFile(thumbObj, fileKey, "-", width, "_", height);
 
@@ -264,7 +266,7 @@ namespace Dev.Framework.FileServer.ImageFile
             if (!c.Plugins.Has<AnimatedGifs>())
                 new AnimatedGifs().Install(c);
 
-            c.Plugins.LoadPlugins();
+            //c.Plugins.LoadPlugins();
             if (c.Plugins.Has<SizeLimiting>())
                 c.Plugins.Get<SizeLimiting>().Uninstall(c);
 
