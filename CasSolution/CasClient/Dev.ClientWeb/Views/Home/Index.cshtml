@@ -40,12 +40,19 @@
 
             $('.one').click(function () {
                 CasSdk.Login(function () {
-                    window.alert("adfasdf");
+                    window.alert("全局登录成功，这里写上任意的回调方法就可以");
                 });
             });
             $('.two').click(function () {
                 CasSdk.locallogoff(function () {
                     window.alert('本地退出，未退出CasServer');
+                });
+            });
+
+
+            $('.three').click(function () {
+                CasSdk.LogOff(function () {
+                    window.alert('全局退出,这里写上任意的回调方法就可以');
                 });
             });
 
@@ -72,9 +79,7 @@
     </li>
 
     <li class="three">
-        <h5>查找 Web 宿主</h5>
-        你可以轻松找到所提供的功能和价格
-      都适合你应用程序的 Web 宿主公司。
-            <a href="http://go.microsoft.com/fwlink/?LinkId=245157">了解详细信息...</a>
+        <h5>JS 全局退出</h5>
+
     </li>
 </ol>
