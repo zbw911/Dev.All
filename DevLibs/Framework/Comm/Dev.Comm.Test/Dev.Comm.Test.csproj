@@ -61,11 +61,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Core\XmlToDynamicTest.cs" />
+    <Compile Include="Core\IO\UnitTestFileWath.cs" />
+    <Compile Include="Core\Json\XmlToDynamicTest.cs" />
     <Compile Include="MyTestClass.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\TestJson.cs" />
+    <Compile Include="Core\Json\TestJson.cs" />
     <Compile Include="TestWaterMark.cs" />
     <Compile Include="UnitTest2.cs" />
     <Compile Include="UnitTestStringExtends.cs" />

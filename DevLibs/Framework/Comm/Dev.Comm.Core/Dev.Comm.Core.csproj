@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="IO\IOUtility.cs" />
     <Compile Include="IO\StreamHelper.cs" />
     <Compile Include="ObjectDynmic.cs" />

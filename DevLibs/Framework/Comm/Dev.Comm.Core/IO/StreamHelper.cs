@@ -30,7 +30,12 @@ namespace Dev.Comm.IO
         #region ReadData
 
 
-        public static byte[] ReadData(Stream stream)
+        /// <summary>
+        /// 把流读到Bype【】
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static byte[] ReadToByteArray(Stream stream)
         {
             var data = new byte[stream.Length];
 
@@ -49,6 +54,19 @@ namespace Dev.Comm.IO
         {
             return ReadString(stream, Encoding.UTF8);
         }
+
+        ///// <summary>
+        ///// 注意使用UTF8方式
+        ///// </summary>
+        ///// <param name="bytes"></param>
+        ///// <returns></returns>
+        //public static string ReadStringUtf8(byte[] bytes)
+        //{
+        //    return System.Text.Encoding.UTF8.GetString(bytes);
+        //}
+
+
+
         /// <summary>
         /// Reads the string.
         /// </summary>

@@ -29,11 +29,29 @@ namespace Dev.Comm.IO
             }
         }
         #region Read/write string from/to file.
+        /// <summary>
+        /// 读文件到string
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static string ReadAsString(string filePath)
         {
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 return StreamHelper.ReadString(fileStream);
+            }
+        }
+
+        /// <summary>
+        /// 读文件到 byteArray
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static byte[] ReadAsBypeArray(string filePath)
+        {
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                return StreamHelper.ReadToByteArray(fileStream);
             }
         }
 
