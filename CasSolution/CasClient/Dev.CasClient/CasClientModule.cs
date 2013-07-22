@@ -92,6 +92,7 @@ namespace Dev.CasClient
 
                     if (local)
                     {
+                        context.Response.ContentType = "text/html;charset=UTF-8";
                         context.Response.Write("OK");
                         context.ApplicationInstance.CompleteRequest();
                         return;
