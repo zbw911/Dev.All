@@ -10,7 +10,8 @@
 
 using System;
 using System.IO;
-using Dev.Comm.Core.Runtime.Serialization;
+using Dev.Comm.Runtime.Serialization;
+
 
 namespace Dev.CasClient.Configuration
 {
@@ -57,9 +58,9 @@ namespace Dev.CasClient.Configuration
             {
                 instance = new CasClientConfiguration
                                {
-                                   CasServerUrl = "http://localhost",
+                                   CasServerUrl = "http://passport.xxxxxx.com",
                                    CasPath = "/CAS",
-                                   LocalLoginPath = Utils.WebConfigUtils.FormsLoginUrl()
+                                   //LocalLoginPath = Utils.WebConfigUtils.FormsLoginUrl()
                                };
                 this.Save(instance, configname);
             }

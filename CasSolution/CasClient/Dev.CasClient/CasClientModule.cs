@@ -22,6 +22,8 @@ namespace Dev.CasClient
 
         #endregion
 
+
+
         #region Instance Methods
 
         private void Write(string w)
@@ -37,14 +39,21 @@ namespace Dev.CasClient
         {
             var context = HttpContext.Current;
             var request = context.Request;
-            if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
+            if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalLogOffPath.ToLower())
             {
-                var strRedirectUrl = "";
-                this.casClient.LoginOut(out strRedirectUrl);
+                bool local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
+                var s = Dev.Comm.Web.DevRequest.GetString("local");
+                string handedReturl;
+                var ret = this.casClient.LoginOut(out handedReturl);
 
-                context.Response.Redirect(strRedirectUrl);
+                if (local)
+                    context.Response.Write("Local");
+                else
+                    context.Response.Redirect(handedReturl);
+
                 context.ApplicationInstance.CompleteRequest();
                 return;
+
             }
         }
 
@@ -55,11 +64,11 @@ namespace Dev.CasClient
 
 
             //只有在请求路径一是设置路径的时候才进行处理
-            if (request.Path == Configuration.CasClientConfiguration.Config.LocalLoginPath)
+            if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalLoginPath.ToLower())
             {
                 string returnUrl = Dev.Comm.Web.DevRequest.GetString("returnUrl");
                 string ticket = Dev.Comm.Web.DevRequest.GetString("ticket");
-
+                bool local = Dev.Comm.Web.DevRequest.Get("local", false);
 
                 var handedReturl = Urls.GetReturnUrl(returnUrl);
                 string strRedirectUrl, strUserName, strErrorText;
@@ -68,36 +77,85 @@ namespace Dev.CasClient
                 var strService = Urls.BuildServiceUrl(handedReturl);
                 // HttpServerInfo.RebuildUrl("returnUrl", HttpUtility.UrlEncode(handedReturl), "ticket");
 
+                if (local)
+                {
+                    strService = Dev.Comm.Web.DevRequest.GetString("service");
+                }
+
                 if (this.casClient.Login(ticket, strService, out strRedirectUrl, out strUserName, out strErrorText))
                 {
+
+                    if (CasClient.LoginSucess != null)
+                    {
+                        CasClient.LoginSucess();
+                    }
+
+                    if (local)
+                    {
+                        context.Response.Write("OK");
+                        context.ApplicationInstance.CompleteRequest();
+                        return;
+                    }
+
                     if (string.IsNullOrEmpty(strRedirectUrl))
+                    {
+                        //对于 .Html 结尾的页面加一个 随机数，用以清除浏览器缓存，这样可以在一定程度上解决页面反复刷新的问题，
+                        //这仅是一个补丁，不是最终解决方案，最终方案，应该是使用 Ajax方式，读取当前用户状态，然后显示于页面
+
+                        //var jumpurl = handedReturl;
+
+                        //var uncachekey = "uncache=" + System.DateTime.Now.Ticks;
+
+                        //if (jumpurl.IndexOf('?') > 0)
+                        //    jumpurl = jumpurl.TrimEnd('&') + "&" + uncachekey;
+                        //else
+                        //    jumpurl = jumpurl + "?" + uncachekey;
+
+
                         context.Response.Redirect(handedReturl);
+
+                    }
                     else
                         context.Response.Redirect(strRedirectUrl);
+                }
+                else
+                {
+                    if (local)
+                    {
+                        context.Response.Write(strErrorText);
+                        context.ApplicationInstance.CompleteRequest();
+                        return;
+                    }
+
+                    context.Response.Write(strErrorText);
                 }
 
 
                 context.ApplicationInstance.CompleteRequest();
                 return;
             }
-            else if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
-            {
-                var strRedirectUrl = "";
-                //casClient.LoginOut(out strRedirectUrl);
+            //else if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
+            //{
+            //    bool local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
 
-                //context.Response.Redirect(strRedirectUrl);
-                //context.ApplicationInstance.CompleteRequest();
-                //return;
-            }
+            //    string handedReturl;
+            //    var ret = this.casClient.LoginOut(out handedReturl);
+
+            //    if (local)
+            //        context.Response.Write("Local");
+            //    else
+            //        context.Response.Redirect(handedReturl);
+
+            //    context.ApplicationInstance.CompleteRequest();
+            //    return;
+            //}
 
 
-            //Uri u = new Uri(localLoginPath, UriKind.Absolute);
         }
 
         private void OnEndRequest(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
-            var end = 0;
+
         }
 
         #endregion

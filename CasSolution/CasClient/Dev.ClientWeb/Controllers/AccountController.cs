@@ -85,10 +85,10 @@ namespace Dev.ClientWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            var strRedirectUrl = "";
-            casClient.LoginOut(out strRedirectUrl);
+            //var strRedirectUrl = "";
+            //casClient.LoginOut(out strRedirectUrl);
 
-            return Redirect(strRedirectUrl);
+            //return Redirect(strRedirectUrl);
             return RedirectToAction("Index", "Home");
         }
 

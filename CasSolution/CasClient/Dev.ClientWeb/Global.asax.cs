@@ -23,6 +23,12 @@ namespace Dev.ClientWeb
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+
+            //Dev.CasClient.CasClient.LoginSucess = () =>
+            //                                          {
+            //                                              HttpContext.Current.Response.Write("Login Ok");
+            //                                          };
         }
     }
 }

@@ -29,6 +29,8 @@ namespace Dev.CasClient
 
         #endregion
 
+        public static Action LoginSucess;
+
         //private readonly IUserAuthenticate userAuthenticate;
 
         #region C'tors
@@ -120,6 +122,8 @@ namespace Dev.CasClient
 
                     //hand User
                     UserAuthenticateManager.Provider.SignUserLogin(strUserName, extDatas: dic);
+
+                    User.UserInfo.SetCurrentUserName(strUserName);
 
                     isOK = true;
                 }

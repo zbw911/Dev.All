@@ -28,7 +28,7 @@ namespace Dev.CasClient.UserAuthenticate
             var context = HttpContext.Current;
 
             // Necessary for ASP.NET MVC Support.
-            if (context.User.Identity.IsAuthenticated)
+            if (context.User != null && context.User.Identity.IsAuthenticated)
             {
                 ClearAuthCookie();
             }

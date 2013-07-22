@@ -9,7 +9,11 @@
 // ***********************************************************************************
 
 using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Configuration;
+using System.Xml.Linq;
 
 namespace Dev.CasClient.Utils
 {
@@ -24,12 +28,97 @@ namespace Dev.CasClient.Utils
         public static string FormsLoginUrl()
         {
             var authSection =
-                (AuthenticationSection) ConfigurationManager.GetSection("system.web/authentication");
+                (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
 
             var loginurl = authSection.Forms.LoginUrl;
 
             return loginurl;
         }
+
+        /// <summary>
+        /// 取得 web.config中配置的HttpModule
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="webconfigpath"></param>
+        /// <returns></returns>
+        public static bool CheckHttpModule<T>(string webconfigpath = "~") where T : IHttpModule
+        {
+            var wantReg = typeof(T).FullName;
+            var configuration = WebConfigurationManager.OpenWebConfiguration("~");
+            if (HttpRuntime.UsingIntegratedPipeline)
+            {
+                var websermodules = configuration.GetSection("system.webServer");
+
+                var xml = websermodules.SectionInformation.GetRawXml();
+
+                var xmlFile = XDocument.Load(new StringReader(xml));
+                var query = from c in xmlFile.Descendants("modules").Descendants("add") select c;
+
+                foreach (var band in query)
+                {
+                    var attr = band.Attribute("type");
+
+                    var strType = attr.Value.Split(',').First();
+
+                    if (strType.ToLower() == wantReg.ToLower())
+                        return true;
+                }
+            }
+            else
+            {
+                object o = configuration.GetSection("system.web/httpModules");
+                var section = o as HttpModulesSection;
+                var models = section.Modules;
+
+                foreach (HttpModuleAction model in models)
+                {
+                    if (model.Type.Split(',').First() == wantReg)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        //public static bool CheckHttpHandler<T>(string webconfigpath = "~") where T : IHttpHandler
+        //{
+        //    var wantReg = typeof(T).FullName;
+        //    var configuration = WebConfigurationManager.OpenWebConfiguration("~");
+        //    if (HttpRuntime.UsingIntegratedPipeline)
+        //    {
+        //        var websermodules = configuration.GetSection("system.webServer");
+
+        //        var xml = websermodules.SectionInformation.GetRawXml();
+
+        //        var xmlFile = XDocument.Load(new StringReader(xml));
+        //        var query = from c in xmlFile.Descendants("handlers").Descendants("add") select c;
+
+        //        foreach (var band in query)
+        //        {
+        //            var attr = band.Attribute("type");
+
+        //            var strType = attr.Value.Split(',').First();
+
+        //            if (strType.ToLower() == wantReg.ToLower())
+        //                return true;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        object o = configuration.GetSection("system.web/httpHandlers");
+        //        var section = o as HttpHandlersSection;
+        //        var models = section.Handlers;
+
+        //        foreach (HttpHandlerAction model in models)
+        //        {
+        //            if (model.Type.Split(',').First() == wantReg)
+        //                return true;
+        //        }
+        //    }
+
+        //    return false;
+        //}
 
         #endregion
     }

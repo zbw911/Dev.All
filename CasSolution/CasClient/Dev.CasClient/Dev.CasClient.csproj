@@ -37,7 +37,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dev.Comm.Core">
+    <Reference Include="Dev.Comm.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DevLibs\ReleaseLib\Dev.Comm.Core.dll</HintPath>
     </Reference>
     <Reference Include="Dev.Comm.Net">

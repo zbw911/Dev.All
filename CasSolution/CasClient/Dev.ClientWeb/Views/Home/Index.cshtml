@@ -27,9 +27,31 @@
     <script type="text/javascript">
 
         $(function () {
+
+
+            CasSdk.Init(
+                @(Request.IsAuthenticated ? "true" : "false"),
+                "@(Request.IsAuthenticated ? Dev.CasClient.User.UserInfo.GetCurrentUserName() : "")",
+                "@Url.Action("login", "account")",
+                "@Url.Action("LogOff", "Account")",
+                '@Url.Action("LogOff", "Account")',
+                true
+            );
+
             $('.one').click(function () {
-                CasSdk.Login();
+                CasSdk.Login(function () {
+                    window.alert("adfasdf");
+                });
             });
+            $('.two').click(function () {
+                CasSdk.locallogoff(function () {
+                    window.alert('本地退出，未退出CasServer');
+                });
+            });
+
+
+            //CasSdk.State();
+
         });
 
     </script>
@@ -41,19 +63,12 @@
 
 <ol class="round">
     <li class="one">
-        <h5>开始使用</h5>
-        ASP.NET MVC 为你提供了一种用于生成动态网站的方式，
-        该方式基于模式，十分强大，使你可以清晰地分离各种考虑因素，让你能够完全控制标记，
-            以便进行灵活而有趣的开发。ASP.NET MVC 包括许多功能，你可以使用这些功能进行
-            TDD 友好的快速开发，以创建使用
-            最新 Web 标准的复杂应用程序。
-            <a href="http://go.microsoft.com/fwlink/?LinkId=245151">了解详细信息...</a>
+        <h5>弹出式登录</h5>
     </li>
 
     <li class="two">
-        <h5>添加 NuGet 程序包并快速开始编码</h5>
-        通过 NuGet，可以轻松地安装和更新免费的库和工具。
-            <a href="http://go.microsoft.com/fwlink/?LinkId=245153">了解详细信息...</a>
+        <h5>JS 本地退出</h5>
+
     </li>
 
     <li class="three">

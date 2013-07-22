@@ -7,6 +7,8 @@ namespace Dev.CasClient.User
     /// </summary>
     public class UserInfo
     {
+        private const string CookUserNameKey = "____UserName____";
+
         #region Class Methods
 
         /// <summary>
@@ -127,6 +129,26 @@ namespace Dev.CasClient.User
             var result = Dev.Comm.Net.Http.GetUrl(url);
 
             return Dev.Comm.JsonConvert.ToJsonObject<List<UserProfileModel>>(result);
+        }
+
+
+        public static string GetCurrentUserName()
+        {
+            if (Dev.Comm.Web.CookieFun.IsExistCookies(CookUserNameKey))
+            {
+                var name = Dev.Comm.Web.CookieFun.GetCookie(CookUserNameKey);
+
+                return Dev.Comm.Security.FormBase64Encrypt(name);
+            }
+
+            return "";
+            //Dev.Comm.Web.CookieFun.GetCookie
+        }
+
+        internal static void SetCurrentUserName(string userName)
+        {
+            var value = Dev.Comm.Security.ToBase64Encrypt(userName);
+            Dev.Comm.Web.CookieFun.SetCookie(CookUserNameKey, value);
         }
 
         #endregion

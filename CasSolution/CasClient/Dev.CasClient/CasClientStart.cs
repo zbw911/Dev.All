@@ -8,6 +8,7 @@
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,7 @@ using System.Xml.Linq;
 using Dev.CasClient;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
-[assembly: PreApplicationStartMethod(typeof (CasClientStart), "Start")]
+[assembly: PreApplicationStartMethod(typeof(CasClientStart), "Start")]
 
 namespace Dev.CasClient
 {
@@ -32,44 +33,25 @@ namespace Dev.CasClient
         /// </summary>
         public static void Start()
         {
-            var wantReg = typeof (CasClientModule).FullName;
-            var configuration = WebConfigurationManager.OpenWebConfiguration("~");
-            if (HttpRuntime.UsingIntegratedPipeline)
+
+
+            //MachineKeySection section = (MachineKeySection)WebConfigurationManager.GetSection("system.web/machineKey");
+
+            //var key = section.DecryptionKey;
+            if (Utils.WebConfigUtils.CheckHttpModule<CasClientModule>())
             {
-                var websermodules = configuration.GetSection("system.webServer");
-
-                var xml = websermodules.SectionInformation.GetRawXml();
-
-                var xmlFile = XDocument.Load(new StringReader(xml));
-                var query = from c in xmlFile.Descendants("modules").Descendants("add") select c;
-
-                foreach (var band in query)
-                {
-                    var attr = band.Attribute("type");
-
-                    var strType = attr.Value.Split(',').First();
-
-                    if (strType.ToLower() == wantReg.ToLower())
-                        return;
-                }
-            }
-            else
-            {
-                object o = configuration.GetSection("system.web/httpModules");
-                var section = o as HttpModulesSection;
-                var models = section.Modules;
-
-                foreach (HttpModuleAction model in models)
-                {
-                    if (model.Type.Split(',').First() == wantReg)
-                        return;
-                }
+                return;
             }
 
             //如果没有在Web.config 中声明，就使用动态注册
-            DynamicModuleUtility.RegisterModule(typeof (CasClientModule));
+            DynamicModuleUtility.RegisterModule(typeof(CasClientModule));
+
+
+
         }
 
         #endregion
     }
+
+
 }
