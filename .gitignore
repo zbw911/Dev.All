@@ -110,3 +110,4 @@ UpgradeLog*.XML
 /CasSolution/ReleaseLib
 /CasSolution/CASServer/Presentation/WebApp/App_Data/casserver-2013.mdf
 /CasSolution/CASServer/Presentation/WebApp/App_Data/casserver-2013_log.ldf
+/DevLibs/Framework/LIB/OwnLib/Dev.Framework.User.dll
