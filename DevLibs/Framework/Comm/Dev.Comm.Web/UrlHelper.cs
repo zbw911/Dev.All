@@ -40,6 +40,17 @@ namespace Dev.Comm.Web
             return value;
         }
 
+        /// <summary>
+        ///  取得包含 http的host
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetHost(string url)
+        {
+            Uri myUri = new Uri(url);
+            return myUri.Scheme + "://" + myUri.Host + (myUri.Port == 80 ? "" : ":" + myUri.Port) + "";
+        }
+
 
 
     }

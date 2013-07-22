@@ -21,14 +21,15 @@ namespace Dev.Comm.Web
         /// <param name="value"></param>
         /// <param name="time"></param>
         /// <param name="domain"></param>
-        public static void SetCookie(string cookieName, string value, TimeSpan? timespan = null, string domain = "", bool crossDomainCookie = false)
+        public static void SetCookie(string cookieName, string value, TimeSpan? timespan = null, string domain = "", bool crossDomainCookie = false, string path = "")
         {
             var cookies = new HttpCookie(cookieName, value);
 
             if (!string.IsNullOrEmpty(domain) && domain != "localhost")
                 cookies.Domain = domain;
-            cookies.Path = "/";
 
+            if (!string.IsNullOrEmpty(path))
+                cookies.Path = path;
 
 
             if (timespan != null)
@@ -37,11 +38,12 @@ namespace Dev.Comm.Web
             if (crossDomainCookie)
                 HttpContext.Current.Response.AddHeader("P3P",
                                     "CP=\"CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\"");
+
             HttpContext.Current.Response.AppendCookie(cookies); //.a.Cookies.Add(cookies);
         }
 
         /// <summary>
-        /// 
+        /// 设置Cookie
         /// </summary>
         /// <param name="cookieName"></param>
         /// <param name="value"></param>
@@ -52,16 +54,35 @@ namespace Dev.Comm.Web
             SetCookie(cookieName, value, timespan, null, crossDomainCookie);
         }
 
+        public static void SetCookie(string cookieName, string value)
+        {
+            SetCookie(cookieName, value, null, null, false);
+        }
+
+
+        /// <summary>
+        /// 移除cookies
+        /// </summary>
+        /// <param name="cookieName"></param>
+        /// <param name="crossDomainCookie"></param>
         public static void RemoveCookie(string cookieName, bool crossDomainCookie = false)
         {
             SetCookie(cookieName, "", new TimeSpan(365 * 24, 0, 0), crossDomainCookie);
         }
 
-
+        /// <summary>
+        /// 清除
+        /// </summary>
         public static void Clear()
         {
             HttpContext.Current.Response.Cookies.Clear();
         }
+
+        /// <summary>
+        /// 取得
+        /// </summary>
+        /// <param name="cookieName"></param>
+        /// <returns></returns>
 
         public static string GetCookie(string cookieName)
         {
