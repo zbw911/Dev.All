@@ -20,21 +20,22 @@ namespace Dev.Framework.FileServer
     /// </summary>
     public interface IUploadFile
     {
+        /// <summary>
+        /// 当前的Key生成策略
+        /// </summary>
+        /// <param name="key"></param>
         void SetCurrentKey(IKey key);
 
         /// <summary>
         /// 保存图片，原图片的名称，返回运算后的图片名
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="fileName"></param>
         /// <returns></returns>
         string SaveFile(byte[] bytefile, string fileKey, params object[] param);
 
         /// <summary>
-        /// 
+        /// 使用流保存文件
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="fileName"></param>
         /// <returns></returns>
         string SaveFile(Stream stream, string fileKey, params object[] param);
 
