@@ -19,7 +19,19 @@ namespace Dev.Comm.IO
         /// <returns></returns>
         public static string GetFileCurrentContent(string file)
         {
-            return GetFileCurrentContent(file, Encoding.Default);
+            return GetFileCurrentContent(file, Encoding.Default, null, null);
+        }
+
+        /// <summary>
+        /// 读取最新文件内容，只管读就是了，FileWatch会自动加载最新的文件，使用读取处理，及读取后处理方式
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="preHander"></param>
+        /// <param name="afterHander"></param>
+        /// <returns></returns>
+        public static string GetFileCurrentContent(string file, Func<string, string> preHander, Func<string, string> afterHander)
+        {
+            return GetFileCurrentContent(file, Encoding.Default, preHander, afterHander);
         }
 
         /// <summary>
@@ -27,10 +39,12 @@ namespace Dev.Comm.IO
         /// </summary>
         /// <param name="file"></param>
         /// <param name="encoding"> </param>
+        /// <param name="afterHander"> </param>
+        /// <param name="preHander"> </param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="NullReferenceException"></exception>
-        public static string GetFileCurrentContent(string file, System.Text.Encoding encoding)
+        public static string GetFileCurrentContent(string file, System.Text.Encoding encoding, Func<string, string> preHander, Func<string, string> afterHander)
         {
             if (!File.Exists(file))
             {
@@ -43,7 +57,13 @@ namespace Dev.Comm.IO
             {
                 Action readFile = () =>
                                       {
-                                          content = IOUtility.ReadAsBypeArray(file);
+
+                                          var strFileContent = IOUtility.ReadAsString(file);
+                                          if (preHander != null)
+                                              strFileContent = preHander(strFileContent);
+
+                                          content = encoding.GetBytes(strFileContent);
+
                                           FileWatchStorageProvider.Provider.AddOrUpdate(file, content);
                                       };
                 readFile();
@@ -58,7 +78,15 @@ namespace Dev.Comm.IO
 
             if (content == null) throw new NullReferenceException("content");
 
-            return encoding.GetString(content);
+            var strcontent = encoding.GetString(content);
+
+            if (afterHander != null)
+            {
+                return afterHander(strcontent);
+            }
+
+            return strcontent;
+
         }
     }
 

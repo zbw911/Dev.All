@@ -21,12 +21,23 @@
             <param name="file"></param>
             <returns></returns>
         </member>
-        <member name="M:Dev.Comm.IO.FileContentWatcher.GetFileCurrentContent(System.String,System.Text.Encoding)">
+        <member name="M:Dev.Comm.IO.FileContentWatcher.GetFileCurrentContent(System.String,System.Func{System.String,System.String},System.Func{System.String,System.String})">
+            <summary>
+            读取最新文件内容，只管读就是了，FileWatch会自动加载最新的文件，使用读取处理，及读取后处理方式
+            </summary>
+            <param name="file"></param>
+            <param name="preHander"></param>
+            <param name="afterHander"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.IO.FileContentWatcher.GetFileCurrentContent(System.String,System.Text.Encoding,System.Func{System.String,System.String},System.Func{System.String,System.String})">
             <summary>
             读取最新文件内容，只管读就是了，FileWatch会自动加载最新的文件
             </summary>
             <param name="file"></param>
             <param name="encoding"> </param>
+            <param name="afterHander"> </param>
+            <param name="preHander"> </param>
             <returns></returns>
             <exception cref="T:System.IO.FileNotFoundException"></exception>
             <exception cref="T:System.NullReferenceException"></exception>
