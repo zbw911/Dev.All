@@ -23,20 +23,23 @@
 
 @section scripts
 {
-    <script type="text/javascript" src="http://castest.youxituan.com/Scripts/CAS.SDK.JS"></script>
+    @*<script type="text/javascript" src="@Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl/cas/jssdk"></script>*@
+
+    @Html.Raw(Dev.CasClient.Utils.ScriptBuilder.BuildSdkJsReference())
+
     <script type="text/javascript">
 
         $(function () {
-
-
-            CasSdk.Init(
-                @(Request.IsAuthenticated ? "true" : "false"),
-                "@(Request.IsAuthenticated ? Dev.CasClient.User.UserInfo.GetCurrentUserName() : "")",
-                "@Url.Action("login", "account")",
-                "@Url.Action("LogOff", "Account")",
-                '@Url.Action("LogOff", "Account")',
+            @* CasSdk.Init(
+                @(Dev.CasClient.User.UserInfo.IsAuthenticated ? "true" : "false"),
+                "@(Dev.CasClient.User.UserInfo.IsAuthenticated ? Dev.CasClient.User.UserInfo.GetCurrentUserName() : "")",
+                "@Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLoginPath",
+                "@Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLogOffPath",
+                '@Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLogOffPath',
                 true
-            );
+            );*@
+            
+            @Html.Raw(Dev.CasClient.Utils.ScriptBuilder.BuildCasInit())
 
             $('.one').click(function () {
                 CasSdk.Login(function () {

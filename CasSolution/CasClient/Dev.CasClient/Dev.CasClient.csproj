@@ -76,6 +76,7 @@
     <Compile Include="User\UserProfileModel.cs" />
     <Compile Include="User\UserInfo.cs" />
     <Compile Include="User\UserFace.cs" />
+    <Compile Include="Utils\ScriptBuilder.cs" />
     <Compile Include="Utils\Urls.cs" />
     <Compile Include="Utils\WebConfigUtils.cs" />
   </ItemGroup>

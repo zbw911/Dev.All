@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Dev.CasClient.UserAuthenticate;
 
 namespace Dev.CasClient.User
 {
@@ -132,6 +133,10 @@ namespace Dev.CasClient.User
         }
 
 
+        /// <summary>
+        /// 当前的用户名
+        /// </summary>
+        /// <returns></returns>
         public static string GetCurrentUserName()
         {
             if (Dev.Comm.Web.CookieFun.IsExistCookies(CookUserNameKey))
@@ -145,10 +150,22 @@ namespace Dev.CasClient.User
             //Dev.Comm.Web.CookieFun.GetCookie
         }
 
+
+
+
         internal static void SetCurrentUserName(string userName)
         {
             var value = Dev.Comm.Security.ToBase64Encrypt(userName);
             Dev.Comm.Web.CookieFun.SetCookie(CookUserNameKey, value);
+        }
+
+        /// <summary>
+        /// 用户是还是已经通过登录验证
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsAuthenticated
+        {
+            get { return UserAuthenticateManager.Provider.GetUserIsAuthenticated(); }
         }
 
         #endregion
