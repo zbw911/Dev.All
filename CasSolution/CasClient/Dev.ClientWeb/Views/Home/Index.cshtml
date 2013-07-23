@@ -41,10 +41,16 @@
             
             @Html.Raw(Dev.CasClient.Utils.ScriptBuilder.BuildCasInit())
 
-            $('.one').click(function () {
+            $('.one h5:first').click(function () {
                 CasSdk.Login(function () {
                     window.alert("全局登录成功，这里写上任意的回调方法就可以");
-                });
+                }, true);
+            });
+
+            $('.one h5:last').click(function () {
+                CasSdk.Login(function () {
+                    window.alert("全局登录成功，这里写上任意的回调方法就可以");
+                }, false);
             });
             $('.two').click(function () {
                 CasSdk.locallogoff(function () {
@@ -60,6 +66,13 @@
             });
 
 
+            $('.four h5').click(function () {
+                CasSdk.ExternalLoginStr(function (d) {
+                    //window.alert(d);
+                    $('.four #outlogin').html(d);
+                });
+            });
+
             //CasSdk.State();
 
         });
@@ -73,7 +86,10 @@
 
 <ol class="round">
     <li class="one">
-        <h5>弹出式登录</h5>
+        <h5>弹出式登录(切换用户,无论用户是否已经登录，一直弹出登录框)</h5>
+        <br />
+        <br />
+        <h5>弹出式登录(不切换用户，如果用户已经登录，不再弹出登录框)</h5>
     </li>
 
     <li class="two">
@@ -83,6 +99,12 @@
 
     <li class="three">
         <h5>JS 全局退出</h5>
+    </li>
+
+    <li class="four">
+        <h5>外部登录脚本</h5>
+
+        <div id="outlogin"></div>
 
     </li>
 </ol>
