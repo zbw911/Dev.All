@@ -33,6 +33,7 @@ namespace Dev.CasClient.Configuration
 
         private string _localLogOffPath;
         private string _localLoginPath;
+        private string _localCheckPath;
 
         #endregion
 
@@ -87,6 +88,27 @@ namespace Dev.CasClient.Configuration
                 return this._localLoginPath;
             }
             set { this._localLoginPath = value; }
+        }
+
+
+        ///<summary>
+        ///  检测本地用户是否已经登录径
+        ///</summary>
+        [DataMember]
+        public string LocalCheckPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this._localCheckPath))
+                {
+                    this._localCheckPath = "~/Account/LocalUserCheck";
+
+                    this._localCheckPath = VirtualPathUtility.ToAbsolute(this._localCheckPath);
+                }
+
+                return this._localCheckPath;
+            }
+            set { this._localCheckPath = value; }
         }
 
         #endregion

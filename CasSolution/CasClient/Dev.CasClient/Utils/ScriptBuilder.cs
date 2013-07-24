@@ -25,27 +25,25 @@ namespace Dev.CasClient.Utils
         /// </summary>
         /// <param name="isLocal"></param>
         /// <returns></returns>
-        public static string BuildCasInit(bool isLocal = true)
+        public static string BuildCasInit()
         {
             var initscript = string.Format(@"CasSdk.Init(
-                {0},
+                '{0}',
                 '{1}',
-                '{2}',
-                '{3}',
-                '{4}',
-                {5}
-            );", (User.UserInfo.IsAuthenticated ? "true" : "false")
-              , (User.UserInfo.IsAuthenticated ? User.UserInfo.GetCurrentUserName() : "")
+                '{2}'
+                
+            );"
+                //,(User.UserInfo.IsAuthenticated ? "true" : "false")
+                //, (User.UserInfo.IsAuthenticated ? User.UserInfo.GetCurrentUserName() : "")
               , Configuration.CasClientConfiguration.Config.LocalLoginPath
              , Configuration.CasClientConfiguration.Config.LocalLogOffPath
-             , Configuration.CasClientConfiguration.Config.LocalLogOffPath
-             , isLocal ? "true" : "false"
+             , Configuration.CasClientConfiguration.Config.LocalCheckPath
+                //, isLocal ? "true" : "false"
               );
 
 
             return initscript;
         }
-
 
         /// <summary>
         /// 创建$(function(){}),代码块

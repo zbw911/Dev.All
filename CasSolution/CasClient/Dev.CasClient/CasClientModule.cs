@@ -10,6 +10,7 @@
 
 using System;
 using System.Web;
+using Dev.CasClient.User;
 using Dev.CasClient.Utils;
 
 namespace Dev.CasClient
@@ -39,22 +40,8 @@ namespace Dev.CasClient
         {
             var context = HttpContext.Current;
             var request = context.Request;
-            if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalLogOffPath.ToLower())
-            {
-                bool local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
-                var s = Dev.Comm.Web.DevRequest.GetString("local");
-                string handedReturl;
-                var ret = this.casClient.LoginOut(out handedReturl);
 
-                if (local)
-                    context.Response.Write("Local");
-                else
-                    context.Response.Redirect(handedReturl);
 
-                context.ApplicationInstance.CompleteRequest();
-                return;
-
-            }
         }
 
         private void OnBeginRequest(object sender, EventArgs e)
@@ -63,6 +50,47 @@ namespace Dev.CasClient
             var request = context.Request;
 
 
+
+            //else if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
+            //{
+            //    bool local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
+
+            //    string handedReturl;
+            //    var ret = this.casClient.LoginOut(out handedReturl);
+
+            //    if (local)
+            //        context.Response.Write("Local");
+            //    else
+            //        context.Response.Redirect(handedReturl);
+
+            //    context.ApplicationInstance.CompleteRequest();
+            //    return;
+            //}
+
+
+        }
+
+        private void OnEndRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region IHttpModule Members
+
+        public void Init(HttpApplication context)
+        {
+            context.BeginRequest += this.OnBeginRequest;
+            context.AuthenticateRequest += this.OnAuthenticateRequest;
+            context.AcquireRequestState += this.OnAcquireRequestState;
+            context.EndRequest += this.OnEndRequest;
+        }
+
+        void OnAcquireRequestState(object sender, EventArgs e)
+        {
+            var context = HttpContext.Current;
+            var request = context.Request;
             //只有在请求路径一是设置路径的时候才进行处理
             if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalLoginPath.ToLower())
             {
@@ -135,39 +163,42 @@ namespace Dev.CasClient
                 context.ApplicationInstance.CompleteRequest();
                 return;
             }
-            //else if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
-            //{
-            //    bool local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
+            else if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalCheckPath.ToLower())
+            {
+                string responsestr;
+                if (UserAuthenticate.UserAuthenticateManager.Provider.GetUserIsAuthenticated())
+                {
+                    var username = UserInfo.GetCurrentUserName();
+                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new { state = true, username = username });
+                }
+                else
+                {
+                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new { state = false });
+                }
 
-            //    string handedReturl;
-            //    var ret = this.casClient.LoginOut(out handedReturl);
+                context.Response.ContentType = "application/json";
 
-            //    if (local)
-            //        context.Response.Write("Local");
-            //    else
-            //        context.Response.Redirect(handedReturl);
+                context.Response.Write(responsestr);
 
-            //    context.ApplicationInstance.CompleteRequest();
-            //    return;
-            //}
+                context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+            else if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalLogOffPath.ToLower())
+            {
+                bool local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
+                var s = Dev.Comm.Web.DevRequest.GetString("local");
+                string handedReturl;
+                var ret = this.casClient.LoginOut(out handedReturl);
 
+                if (local)
+                    context.Response.Write("Local");
+                else
+                    context.Response.Redirect(handedReturl);
 
-        }
+                context.ApplicationInstance.CompleteRequest();
+                return;
 
-        private void OnEndRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
-
-        #region IHttpModule Members
-
-        public void Init(HttpApplication context)
-        {
-            context.BeginRequest += this.OnBeginRequest;
-            context.AuthenticateRequest += this.OnAuthenticateRequest;
-            context.EndRequest += this.OnEndRequest;
+            }
         }
 
 

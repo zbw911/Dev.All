@@ -32,29 +32,29 @@ namespace Dev.ClientWeb.Controllers
         //
         // GET: /Account/Login
 
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl, string ticket)
-        {
+        //[AllowAnonymous]
+        //public ActionResult Login(string returnUrl, string ticket)
+        //{
 
-            //string handedReturl = Urls.GetReturnUrl(returnUrl);
-            //string strRedirectUrl, strUserName, strErrorText;
+        //    //string handedReturl = Urls.GetReturnUrl(returnUrl);
+        //    //string strRedirectUrl, strUserName, strErrorText;
 
-            ////去除增加returl,同时删除ticket参数
-            //var strService = Urls.BuildServiceUrl(handedReturl);// HttpServerInfo.RebuildUrl("returnUrl", HttpUtility.UrlEncode(handedReturl), "ticket");
+        //    ////去除增加returl,同时删除ticket参数
+        //    //var strService = Urls.BuildServiceUrl(handedReturl);// HttpServerInfo.RebuildUrl("returnUrl", HttpUtility.UrlEncode(handedReturl), "ticket");
 
-            //if (casClient.Login(ticket, strService, out strRedirectUrl, out strUserName, out strErrorText))
-            //{
-            //    if (string.IsNullOrEmpty(strRedirectUrl))
-            //        return Redirect(handedReturl);
-            //    return Redirect(strRedirectUrl);
-            //}
+        //    //if (casClient.Login(ticket, strService, out strRedirectUrl, out strUserName, out strErrorText))
+        //    //{
+        //    //    if (string.IsNullOrEmpty(strRedirectUrl))
+        //    //        return Redirect(handedReturl);
+        //    //    return Redirect(strRedirectUrl);
+        //    //}
 
-            //ModelState.AddModelError("", strErrorText);
-            //ViewBag.ReturnUrl = returnUrl;
+        //    //ModelState.AddModelError("", strErrorText);
+        //    //ViewBag.ReturnUrl = returnUrl;
 
 
-            return View();
-        }
+        //    return View();
+        //}
 
 
 
@@ -81,16 +81,16 @@ namespace Dev.ClientWeb.Controllers
         //
         // POST: /Account/LogOff
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            //var strRedirectUrl = "";
-            //casClient.LoginOut(out strRedirectUrl);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult LogOff()
+        //{
+        //    //var strRedirectUrl = "";
+        //    //casClient.LoginOut(out strRedirectUrl);
 
-            //return Redirect(strRedirectUrl);
-            return RedirectToAction("Index", "Home");
-        }
+        //    //return Redirect(strRedirectUrl);
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         //
         // GET: /Account/Register

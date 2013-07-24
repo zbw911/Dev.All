@@ -25,31 +25,30 @@
 {
     @*<script type="text/javascript" src="@Dev.CasClient.Configuration.CasClientConfiguration.Config.CasServerUrl/cas/jssdk"></script>*@
 
-    @Html.Raw(Dev.CasClient.Utils.ScriptBuilder.BuildSdkJsReference())
+    @*@Html.Raw(Dev.CasClient.Utils.ScriptBuilder.BuildSdkJsReference())*@
+
+    <script type="text/javascript" src="http://castest.youxituan.com/Scripts/CAS.SDK.JS"></script>
 
     <script type="text/javascript">
 
         $(function () {
-            @* CasSdk.Init(
-                @(Dev.CasClient.User.UserInfo.IsAuthenticated ? "true" : "false"),
-                "@(Dev.CasClient.User.UserInfo.IsAuthenticated ? Dev.CasClient.User.UserInfo.GetCurrentUserName() : "")",
+            CasSdk.Init(
                 "@Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLoginPath",
                 "@Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLogOffPath",
-                '@Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLogOffPath',
-                true
-            );*@
-            
+                '@Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalCheckPath'
+            );
+
             @Html.Raw(Dev.CasClient.Utils.ScriptBuilder.BuildCasInit())
 
             $('.one h5:first').click(function () {
                 CasSdk.Login(function () {
-                    window.alert("全局登录成功，这里写上任意的回调方法就可以");
+                    window.alert("全局登录成功，这里写上任意的回调方法就可以,如更新你的界面或其它操作等");
                 }, true);
             });
 
             $('.one h5:last').click(function () {
                 CasSdk.Login(function () {
-                    window.alert("全局登录成功，这里写上任意的回调方法就可以");
+                    window.alert("全局登录成功，这里写上任意的回调方法就可以,如更新你的界面或其它操作等");
                 }, false);
             });
             $('.two').click(function () {
@@ -61,7 +60,7 @@
 
             $('.three').click(function () {
                 CasSdk.LogOff(function () {
-                    window.alert('全局退出,这里写上任意的回调方法就可以');
+                    window.alert('全局退出,这里写上任意的回调方法就可以,如更新你的界面或其它操作等');
                 });
             });
 
@@ -73,8 +72,32 @@
                 });
             });
 
+            $('.five').click(function () {
+                CasSdk.CheckLocalState(function (d) {
+                    if (d == null) {
+                        window.alert("本地未登录的用户，这里写上任意的回调方法就可以,如更新你的界面或其它操作等");
+                    } else {
+                        window.alert(d + "已经在本地登录成功，这里写上任意的回调方法就可以,如更新你的界面或其它操作等");
+                    }
+                });
+            });
+            $('.six').click(function () {
+                CasSdk.__newticket(function (d) {
+                    if (d == null) {
+                        window.alert("CAS未登录的用户，未取得新ticket");
+                    } else {
+                        window.alert(d + "取得新Ticket，");
+                    }
+                });
+            });
             //CasSdk.State();
-
+            $('.seven').click(function () {
+                CasSdk.SyncState(function (d) {
+                    window.alert("登录状态回调");
+                }, function () {
+                    window.alert("退出状态回调");
+                });
+            });
         });
 
     </script>
@@ -106,5 +129,18 @@
 
         <div id="outlogin"></div>
 
+    </li>
+
+
+    <li class="five">
+        <h5>检测本地</h5>
+    </li>
+
+    <li class="six">
+        <h5>取得新Ticket</h5>
+    </li>
+
+    <li class="seven">
+        <h5>同步服务器与客户端状态</h5>
     </li>
 </ol>
