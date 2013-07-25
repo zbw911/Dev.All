@@ -51,6 +51,10 @@ namespace Dev.CasClient.Utils
 
                 var xml = websermodules.SectionInformation.GetRawXml();
 
+                if (string.IsNullOrEmpty(xml))
+                    return false;
+
+
                 var xmlFile = XDocument.Load(new StringReader(xml));
                 var query = from c in xmlFile.Descendants("modules").Descendants("add") select c;
 

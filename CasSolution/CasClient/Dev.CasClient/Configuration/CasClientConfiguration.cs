@@ -84,6 +84,8 @@ namespace Dev.CasClient.Configuration
                         this._localLoginPath = "~/Account/Login";
 
                     this._localLoginPath = VirtualPathUtility.ToAbsolute(this._localLoginPath);
+
+                    
                 }
                 return this._localLoginPath;
             }

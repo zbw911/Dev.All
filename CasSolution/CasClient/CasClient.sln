@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3CD0C0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.CasClientWeb", "Dev.ClientWeb\Dev.CasClientWeb.csproj", "{B33F5E92-CACD-492C-A771-B8CEB75ABB5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.CasClientWebForm", "Dev.CasClientWebForm\Dev.CasClientWebForm.csproj", "{2C6F9364-928E-4939-8BFA-56A0C40F639F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{B33F5E92-CACD-492C-A771-B8CEB75ABB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B33F5E92-CACD-492C-A771-B8CEB75ABB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B33F5E92-CACD-492C-A771-B8CEB75ABB5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C6F9364-928E-4939-8BFA-56A0C40F639F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C6F9364-928E-4939-8BFA-56A0C40F639F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C6F9364-928E-4939-8BFA-56A0C40F639F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C6F9364-928E-4939-8BFA-56A0C40F639F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
