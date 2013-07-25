@@ -9,9 +9,11 @@
 // ***********************************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
+using System.Linq;
 
 namespace Dev.Comm.Web
 {
@@ -84,14 +86,23 @@ and somewhere in some template:
 
         public static IHtmlString RenderResources(this HtmlHelper htmlHelper, string customkey)
         {
-            foreach (object key in htmlHelper.ViewContext.HttpContext.Items.Keys)
+
+            // “集合已修改；可能无法执行枚举操作” 
+            //解决这个问题
+            var keys = htmlHelper.ViewContext.HttpContext.Items.Keys;
+
+            var keystrs = (from object key in keys select key.ToString()).ToList();
+
+            foreach (string key in keystrs)
             {
-                if (key.ToString().StartsWith("_" + customkey + "_"))
+                if (key.StartsWith("_" + customkey + "_"))
                 {
                     var template = htmlHelper.ViewContext.HttpContext.Items[key] as Func<object, HelperResult>;
                     if (template != null)
                     {
                         htmlHelper.ViewContext.Writer.Write(template(null));
+
+                        htmlHelper.ViewContext.HttpContext.Items.Remove(key);
                     }
                 }
             }
