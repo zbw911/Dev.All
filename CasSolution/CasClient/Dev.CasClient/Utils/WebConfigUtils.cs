@@ -30,9 +30,17 @@ namespace Dev.CasClient.Utils
             var authSection =
                 (AuthenticationSection)ConfigurationManager.GetSection("system.web/authentication");
 
-            var loginurl = authSection.Forms.LoginUrl;
 
-            return loginurl;
+            if (authSection.Mode == AuthenticationMode.Forms)
+            {
+                var loginurl = authSection.Forms.LoginUrl;
+
+                return loginurl;
+            }
+
+            return null;
+
+
         }
 
         /// <summary>
