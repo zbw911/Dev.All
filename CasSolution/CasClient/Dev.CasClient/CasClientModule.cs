@@ -22,6 +22,7 @@ namespace Dev.CasClient
 
         private static bool __RouteInited = false;
         private readonly CasClient casClient = new CasClient();
+        private static bool __ModuleInited;
 
         #endregion
 
@@ -29,6 +30,7 @@ namespace Dev.CasClient
 
         public void checksession(HttpApplication app)
         {
+            return;
             var context = HttpContext.Current;
             //var request = context.Request;
 
@@ -43,18 +45,7 @@ namespace Dev.CasClient
 
             //Write(path + "->" + cn.ToString() + ":Session" + (session == null ? "null" : "SESSION") + "<br/>");
 
-            //var b = context.Session;
 
-
-            //if (a == null)
-            //{
-            //    var x = 1;
-            //}
-
-            //if (b == null)
-            //{
-            //    var x = 1;
-            //}
         }
 
         private void HandlerAll()
@@ -101,6 +92,8 @@ namespace Dev.CasClient
                     if (local)
                     {
                         context.Response.ContentType = "text/html;charset=UTF-8";
+
+                        //context.Response.Headers.Add("ContentType", "text/html");
                         context.Response.Write("OK");
                         context.ApplicationInstance.CompleteRequest();
                         return;
@@ -152,11 +145,11 @@ namespace Dev.CasClient
                 if (UserAuthenticate.UserAuthenticateManager.Provider.GetUserIsAuthenticated())
                 {
                     var username = UserInfo.GetCurrentUserName();
-                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new {state = true, username = username});
+                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new { state = true, username = username });
                 }
                 else
                 {
-                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new {state = false});
+                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new { state = false });
                 }
 
                 //context.Response.ContentType = "application/json";
@@ -200,6 +193,7 @@ namespace Dev.CasClient
         /// </summary>
         private void InitRoute()
         {
+            
             if (__RouteInited)
                 return;
             __RouteInited = true;
@@ -233,7 +227,7 @@ namespace Dev.CasClient
 
         private void OnAcquireRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            //this.checksession((HttpApplication)sender);
             this.HandlerAll();
         }
 
@@ -242,12 +236,12 @@ namespace Dev.CasClient
             var context = HttpContext.Current;
             var request = context.Request;
 
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnAuthorizeRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
 
@@ -256,7 +250,7 @@ namespace Dev.CasClient
             var context = HttpContext.Current;
             var request = context.Request;
 
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
 
             //else if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
             //{
@@ -277,92 +271,92 @@ namespace Dev.CasClient
 
         private void OnEndRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnLogRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnMapRequestHandler(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostAcquireRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostAuthenticateRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostAuthorizeRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostLogRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostMapRequestHandler(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostReleaseRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostRequestHandlerExecute(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostResolveRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPostUpdateRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPreRequestHandlerExecute(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPreSendRequestContent(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnPreSendRequestHeaders(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnReleaseRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnResolveRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         private void OnUpdateRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication) sender);
+            this.checksession((HttpApplication)sender);
         }
 
         #endregion
@@ -371,34 +365,36 @@ namespace Dev.CasClient
 
         public void Init(HttpApplication context)
         {
+
+
             this.InitRoute();
 
-            context.BeginRequest += this.OnBeginRequest;
+            //context.BeginRequest += this.OnBeginRequest;
 
-            context.PostUpdateRequestCache += this.OnPostUpdateRequestCache;
-            context.PostAuthorizeRequest += this.OnPostAuthorizeRequest;
-            context.AuthorizeRequest += this.OnAuthorizeRequest;
-            context.UpdateRequestCache += this.OnUpdateRequestCache;
-            context.ResolveRequestCache += this.OnResolveRequestCache;
-            context.ReleaseRequestState += this.OnReleaseRequestState;
+            //context.PostUpdateRequestCache += this.OnPostUpdateRequestCache;
+            //context.PostAuthorizeRequest += this.OnPostAuthorizeRequest;
+            //context.AuthorizeRequest += this.OnAuthorizeRequest;
+            //context.UpdateRequestCache += this.OnUpdateRequestCache;
+            //context.ResolveRequestCache += this.OnResolveRequestCache;
+            //context.ReleaseRequestState += this.OnReleaseRequestState;
 
-            context.PreRequestHandlerExecute += this.OnPreRequestHandlerExecute;
-            context.PostResolveRequestCache += this.OnPostResolveRequestCache;
-            context.PostRequestHandlerExecute += this.OnPostRequestHandlerExecute;
-            context.PostReleaseRequestState += this.OnPostReleaseRequestState;
-            context.PostMapRequestHandler += this.OnPostMapRequestHandler;
-            context.PostLogRequest += this.OnPostLogRequest;
-            context.PostAuthenticateRequest += this.OnPostAuthenticateRequest;
-            context.PostAcquireRequestState += this.OnPostAcquireRequestState;
-            context.LogRequest += this.OnLogRequest;
-            context.MapRequestHandler += this.OnMapRequestHandler;
+            //context.PreRequestHandlerExecute += this.OnPreRequestHandlerExecute;
+            //context.PostResolveRequestCache += this.OnPostResolveRequestCache;
+            //context.PostRequestHandlerExecute += this.OnPostRequestHandlerExecute;
+            //context.PostReleaseRequestState += this.OnPostReleaseRequestState;
+            //context.PostMapRequestHandler += this.OnPostMapRequestHandler;
+            //context.PostLogRequest += this.OnPostLogRequest;
+            //context.PostAuthenticateRequest += this.OnPostAuthenticateRequest;
+            //context.PostAcquireRequestState += this.OnPostAcquireRequestState;
+            //context.LogRequest += this.OnLogRequest;
+            //context.MapRequestHandler += this.OnMapRequestHandler;
 
-            context.AuthenticateRequest += this.OnAuthenticateRequest;
+            //context.AuthenticateRequest += this.OnAuthenticateRequest;
             context.AcquireRequestState += this.OnAcquireRequestState;
-            context.EndRequest += this.OnEndRequest;
+            //context.EndRequest += this.OnEndRequest;
 
-            context.PreSendRequestHeaders += this.OnPreSendRequestHeaders;
-            context.PreSendRequestContent += this.OnPreSendRequestContent;
+            //context.PreSendRequestHeaders += this.OnPreSendRequestHeaders;
+            //context.PreSendRequestContent += this.OnPreSendRequestContent;
         }
 
 

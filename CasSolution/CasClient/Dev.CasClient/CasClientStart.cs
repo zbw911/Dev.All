@@ -38,7 +38,7 @@ namespace Dev.CasClient
         public static void Start()
         {
 
-
+            //return;
             ////MachineKeySection section = (MachineKeySection)WebConfigurationManager.GetSection("system.web/machineKey");
 
             ////var key = section.DecryptionKey;
@@ -50,7 +50,7 @@ namespace Dev.CasClient
             //如果没有在Web.config 中声明，就使用动态注册
             DynamicModuleUtility.RegisterModule(typeof(CasClientModule));
 
-  
+
 
         }
 
