@@ -20,6 +20,7 @@ namespace Dev.CasClient
     {
         #region Readonly & Static Fields
 
+        private static bool __RouteInited = false;
         private readonly CasClient casClient = new CasClient();
 
         #endregion
@@ -56,21 +57,6 @@ namespace Dev.CasClient
             //}
         }
 
-        private void Write(string w)
-        {
-            HttpContext.Current.Response.Write(w);
-        }
-
-        #endregion
-
-        #region Event Handling
-
-        private void OnAcquireRequestState(object sender, EventArgs e)
-        {
-            this.checksession((HttpApplication)sender);
-            HandlerAll();
-        }
-
         private void HandlerAll()
         {
             var context = HttpContext.Current;
@@ -87,8 +73,6 @@ namespace Dev.CasClient
             //只有在请求路径一是设置路径的时候才进行处理
             if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalLoginPath.ToLower())
             {
-
-
                 #region Login
 
                 var returnUrl = Dev.Comm.Web.DevRequest.GetString("returnUrl");
@@ -168,11 +152,11 @@ namespace Dev.CasClient
                 if (UserAuthenticate.UserAuthenticateManager.Provider.GetUserIsAuthenticated())
                 {
                     var username = UserInfo.GetCurrentUserName();
-                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new { state = true, username = username });
+                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new {state = true, username = username});
                 }
                 else
                 {
-                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new { state = false });
+                    responsestr = Dev.Comm.JsonConvert.ToJsonStrDyn(new {state = false});
                 }
 
                 //context.Response.ContentType = "application/json";
@@ -186,7 +170,6 @@ namespace Dev.CasClient
             }
             else if (request.Path.ToLower() == Configuration.CasClientConfiguration.Config.LocalLogOffPath.ToLower())
             {
-
                 #region LocalLoginOut
 
                 var local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
@@ -210,17 +193,61 @@ namespace Dev.CasClient
             }
         }
 
+        /// <summary>
+        ///   初始化与CAS登录相关的Route，这个功能在MVC 中基本没有太大的意义，但极有可能出现副作用，
+        ///   但对于Winform而言，却是相当重要的，如果没有它，将会导致SEssion为空，或 无法找到页面的情况
+        ///   之所以放在这里，是为了可以使它在MVC设置Route的后面执行。
+        /// </summary>
+        private void InitRoute()
+        {
+            if (__RouteInited)
+                return;
+            __RouteInited = true;
+            var directory = HttpRuntime.AppDomainAppPath;
+            var filename = "___Dev.CasClient.aspx";
+
+            var filecontent = "<!-- 本文件为自动生成，用于承载SESSION，解决httpmodoule中为空的问题,生成于 " + System.DateTime.Now.ToString() +
+                              "-->";
+
+            Dev.Comm.IO.IOUtility.SaveStringToFile(directory + filename, filecontent);
+
+            RouteTable.Routes.MapPageRoute("Configuration.CasClientConfiguration.Config.LocalLogOffPath",
+                                           Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLogOffPath.
+                                               TrimStart('/'), "~/" + filename, false);
+            RouteTable.Routes.MapPageRoute("Configuration.CasClientConfiguration.Config.LocalLoginPath",
+                                           Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLoginPath.
+                                               TrimStart('/'), "~/" + filename, false);
+            RouteTable.Routes.MapPageRoute("Configuration.CasClientConfiguration.Config.LocalCheckPath",
+                                           Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalCheckPath.
+                                               TrimStart('/'), "~/" + filename, false);
+        }
+
+        private void Write(string w)
+        {
+            HttpContext.Current.Response.Write(w);
+        }
+
+        #endregion
+
+        #region Event Handling
+
+        private void OnAcquireRequestState(object sender, EventArgs e)
+        {
+            this.checksession((HttpApplication) sender);
+            this.HandlerAll();
+        }
+
         private void OnAuthenticateRequest(object sender, EventArgs e)
         {
             var context = HttpContext.Current;
             var request = context.Request;
 
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnAuthorizeRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
 
@@ -229,7 +256,7 @@ namespace Dev.CasClient
             var context = HttpContext.Current;
             var request = context.Request;
 
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
 
             //else if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
             //{
@@ -250,95 +277,92 @@ namespace Dev.CasClient
 
         private void OnEndRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnLogRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnMapRequestHandler(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostAcquireRequestState(object sender, EventArgs e)
         {
-
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostAuthenticateRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostAuthorizeRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostLogRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostMapRequestHandler(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostReleaseRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
-
-
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostRequestHandlerExecute(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostResolveRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPostUpdateRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPreRequestHandlerExecute(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPreSendRequestContent(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnPreSendRequestHeaders(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnReleaseRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnResolveRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         private void OnUpdateRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.checksession((HttpApplication) sender);
         }
 
         #endregion
@@ -347,6 +371,7 @@ namespace Dev.CasClient
 
         public void Init(HttpApplication context)
         {
+            this.InitRoute();
 
             context.BeginRequest += this.OnBeginRequest;
 
