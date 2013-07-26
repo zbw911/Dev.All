@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResult\JsonpResult.cs" />
+    <Compile Include="Filter\HttpResponeCache.cs" />
     <Compile Include="Filter\WatchAttribute.cs" />
     <Compile Include="Filter\WebApiAllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Filter\ErrorFilter.cs" />
