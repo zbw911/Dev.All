@@ -9,6 +9,7 @@
 // ***********************************************************************************
 
 using System;
+using System.IO;
 using System.Web;
 using System.Web.Routing;
 using Dev.CasClient.User;
@@ -193,17 +194,22 @@ namespace Dev.CasClient
         /// </summary>
         private void InitRoute()
         {
-            
+
             if (__RouteInited)
                 return;
             __RouteInited = true;
             var directory = HttpRuntime.AppDomainAppPath;
             var filename = "___Dev.CasClient.aspx";
 
-            var filecontent = "<!-- 本文件为自动生成，用于承载SESSION，解决httpmodoule中为空的问题,生成于 " + System.DateTime.Now.ToString() +
-                              "-->";
 
-            Dev.Comm.IO.IOUtility.SaveStringToFile(directory + filename, filecontent);
+            if (!File.Exists(directory + filename))
+            {
+                var filecontent = "<!-- 本文件为自动生成，用于承载SESSION，解决httpmodoule中为空的问题,生成于 " + System.DateTime.Now.ToString() +
+                                  "-->";
+
+
+                Dev.Comm.IO.IOUtility.SaveStringToFile(directory + filename, filecontent);
+            }
 
             RouteTable.Routes.MapPageRoute("Configuration.CasClientConfiguration.Config.LocalLogOffPath",
                                            Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalLogOffPath.

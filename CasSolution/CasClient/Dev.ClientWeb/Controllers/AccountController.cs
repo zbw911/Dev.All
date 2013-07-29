@@ -15,7 +15,7 @@ namespace Dev.ClientWeb.Controllers
     using Dev.CasClient;
     using Dev.CasClient.UserAuthenticate;
     using Dev.CasClient.Utils;
-
+  
     [Authorize]
     //[InitializeSimpleMembership]
     public class AccountController : Controller
@@ -439,4 +439,5 @@ namespace Dev.ClientWeb.Controllers
         //}
         //#endregion
     }
+ 
 }
