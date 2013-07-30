@@ -63,7 +63,7 @@
       <Name>Dev.Comm.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dev.Log.Impl\Dev.Log.Impl.csproj">
-      <Project>{E8F6FFFD-E078-4A37-BA9E-81EB11492581}</Project>
+      <Project>{e8f6fffd-e078-4a37-ba9e-81eb11492581}</Project>
       <Name>Dev.Log.Impl</Name>
     </ProjectReference>
     <ProjectReference Include="..\dev.Log\Dev.Log.csproj">

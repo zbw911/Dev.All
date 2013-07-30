@@ -259,6 +259,60 @@
             
             </summary>
         </member>
+        <member name="M:Dev.Comm.AsmUtil.InvokeMethod(System.String,System.String,System.String,System.Object[],System.Object[],System.Object@)">
+            <summary>
+            执行某个方法
+            </summary>
+            <param name="AAsmName"></param>
+            <param name="AClassName"></param>
+            <param name="AMethodName"></param>
+            <param name="AConstructorParam"></param>
+            <param name="AMethodParam"></param>
+            <param name="AInstance"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Dev.Comm.AsmUtil.GetPropertyValue(System.Object,System.String,System.Object[])">
+            <summary>
+            取得属性值
+            </summary>
+            <param name="obj"></param>
+            <param name="PropertyName"></param>
+            <param name="Index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.AsmUtil.ExistPropertyName(System.Object,System.String)">
+            <summary>
+            属性是否存在
+            </summary>
+            <param name="obj"></param>
+            <param name="PropertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.AsmUtil.SetPropertyValue(System.Object,System.String,System.Object,System.Object[])">
+            <summary>
+            设置属性值
+            </summary>
+            <param name="obj"></param>
+            <param name="PropertyName"></param>
+            <param name="Value"></param>
+            <param name="Index"></param>
+        </member>
+        <member name="M:Dev.Comm.AsmUtil.GetMethodParameterInfo">
+            <summary>
+            取得参数信息
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:Dev.Comm.AsmUtil.GetMethodParamNames”忽略有格式错误的 XML 注释 -->
+        <member name="M:Dev.Comm.AsmUtil.GetMethodParamNamesByFormat(System.String,System.String)">
+            <summary>
+            取得格式化后的参数列表
+            </summary>
+            <param name="methodNamefromat"> </param>
+            <param name="paramFormat"> </param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.ChineseCode">
             <summary>
             中文方法

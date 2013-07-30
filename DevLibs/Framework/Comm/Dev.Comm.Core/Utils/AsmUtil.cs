@@ -8,7 +8,9 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Text;
 
@@ -16,6 +18,7 @@ namespace Dev.Comm
 {
     public class AsmUtil
     {
+
         public static Assembly GetAssemblyFromCurrentDomain(string AName, bool IsLoadAsm)
         {
             Assembly[] asm = AppDomain.CurrentDomain.GetAssemblies();
@@ -42,10 +45,10 @@ namespace Dev.Comm
 
         public static object InvokeMethod(string AName, object[] AParam, object AInstance)
         {
-            if (ObjectUtil.IsNull(AInstance)) return null;
+            if (AInstance == null) return null;
             Type type = AInstance.GetType();
             MethodInfo mi = type.GetMethod(AName);
-            if (ObjectUtil.IsNull(mi))
+            if (null == mi)
             {
                 throw new Exception(String.Format("没找到方法", AName));
             }
@@ -67,11 +70,22 @@ namespace Dev.Comm
             return mi.Invoke(AInstance, AParam);
         }
 
+        /// <summary>
+        /// 执行某个方法
+        /// </summary>
+        /// <param name="AAsmName"></param>
+        /// <param name="AClassName"></param>
+        /// <param name="AMethodName"></param>
+        /// <param name="AConstructorParam"></param>
+        /// <param name="AMethodParam"></param>
+        /// <param name="AInstance"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static object InvokeMethod(string AAsmName, string AClassName, string AMethodName,
                                           object[] AConstructorParam, object[] AMethodParam, ref object AInstance)
         {
             Assembly asm = GetAssemblyFromCurrentDomain(AAsmName);
-            if (ObjectUtil.IsNull(asm))
+            if (null == (asm))
             {
                 throw new Exception(String.Format("错误的载入程序集", AAsmName));
             }
@@ -80,14 +94,14 @@ namespace Dev.Comm
             }
 
             Type type = asm.GetType(AClassName, false, true);
-            if (ObjectUtil.IsNull(type))
+            if (null == (type))
             {
                 throw new Exception(String.Format("类不存在", AClassName));
             }
             else
             {
                 MethodInfo mi = type.GetMethod(AMethodName);
-                if (ObjectUtil.IsNull(mi))
+                if (null == (mi))
                 {
                     throw new Exception(String.Format("方法不存在", AMethodName));
                 }
@@ -104,7 +118,7 @@ namespace Dev.Comm
                 {
                 }
 
-                if (!mi.IsStatic && ObjectUtil.IsNull(AInstance))
+                if (!mi.IsStatic && null == (AInstance))
                 {
                     AInstance = Activator.CreateInstance(type, AConstructorParam);
                 }
@@ -116,37 +130,61 @@ namespace Dev.Comm
             }
         }
 
+        /// <summary>
+        /// 取得属性值
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="PropertyName"></param>
+        /// <param name="Index"></param>
+        /// <returns></returns>
         public static object GetPropertyValue(object obj, string PropertyName, object[] Index)
         {
             PropertyInfo t = obj.GetType().GetProperty(PropertyName);
 
-            if (ObjectUtil.IsNull(t)) return null;
+            if (null == (t)) return null;
 
 
             return t.GetValue(obj, Index);
         }
-
+        /// <summary>
+        /// 属性是否存在
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="PropertyName"></param>
+        /// <returns></returns>
         public static bool ExistPropertyName(object obj, string PropertyName)
         {
             PropertyInfo t = obj.GetType().GetProperty(PropertyName);
             return t != null;
         }
-
+        /// <summary>
+        /// 设置属性值
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="PropertyName"></param>
+        /// <param name="Value"></param>
+        /// <param name="Index"></param>
         public static void SetPropertyValue(object obj, string PropertyName, object Value, object[] Index)
         {
             PropertyInfo t = obj.GetType().GetProperty(PropertyName);
 
-            if (ObjectUtil.IsNull(t)) throw new ArgumentNullException("t");
+            if (null == (t)) throw new ArgumentNullException("t");
 
             object tmp = Convert.ChangeType(Value, t.PropertyType);
             t.SetValue(obj, tmp, Index);
         }
-
+        /// <summary>
+        /// 取得参数信息
+        /// </summary>
+        /// <returns></returns>
         public static ParameterInfo[] GetMethodParameterInfo()
         {
             return (new StackTrace()).GetFrame(1).GetMethod().GetParameters();
         }
-
+        /// <summary>
+        //参数名列表
+        /// </summary>
+        /// <returns></returns>
         public static string[] GetMethodParamNames()
         {
             ParameterInfo[] pis = (new StackTrace()).GetFrame(1).GetMethod().GetParameters();
@@ -158,28 +196,34 @@ namespace Dev.Comm
             return (string[])a;
         }
 
-        public static string GetMethodParamNamesByFormat()
+        /// <summary>
+        /// 取得格式化后的参数列表
+        /// </summary>
+        /// <param name="methodNamefromat"> </param>
+        /// <param name="paramFormat"> </param>
+        /// <returns></returns>
+        public static string GetMethodParamNamesByFormat(string methodNamefromat = "{0}|", string paramFormat = "{0}={{{1}}}")
         {
-            string MethodName = (new StackTrace()).GetFrame(1).GetMethod().Name;
+            string methodName = (new StackTrace()).GetFrame(1).GetMethod().Name;
             ParameterInfo[] pis = (new StackTrace()).GetFrame(1).GetMethod().GetParameters();
             var result = new StringBuilder();
-            result.AppendFormat("{0}|", MethodName);
+            result.AppendFormat(methodNamefromat, methodName);
             for (int i = 0; i < pis.Length; i++)
             {
-                result.AppendFormat("{0}={{{1}}}", pis[i].Name, pis[i].Position);
+                result.AppendFormat(paramFormat, pis[i].Name, pis[i].Position);
             }
             return result.ToString();
         }
 
         #region Nested type: ObjectUtil
 
-        public class ObjectUtil
-        {
-            public static bool IsNull(object AObject)
-            {
-                return AObject == null;
-            }
-        }
+        //private class ObjectUtil
+        //{
+        //    //public static bool IsNull(object AObject)
+        //    //{
+        //    //    return AObject == null;
+        //    //}
+        //}
 
         #endregion
     }

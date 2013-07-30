@@ -27,6 +27,11 @@
             </summary>
             <param name="logSeverity"></param>
         </member>
+        <member name="T:Dev.Log.Config.XMLConfig">
+            <summary>
+            使用  Log.config 配置日志 
+            </summary>
+        </member>
         <member name="T:Dev.Log.ILog">
             <summary>
             Defines a single method to write requested log events to an output device.
