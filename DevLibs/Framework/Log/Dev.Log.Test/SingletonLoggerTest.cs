@@ -7,6 +7,8 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
+
+using System.IO;
 using Dev.Log;
 using Dev.Log.Config;
 using Dev.Log.Impl;
@@ -127,6 +129,35 @@ namespace Dev.Log.Test
             new XMLConfig().InitConfig();
         }
 
+
+
+        [TestMethod]
+        public void MyTestMethod_IsRooted()
+        {
+            string log4NetConfig = @"c:\windows\aasdf.txt";
+            var root = Path.IsPathRooted(log4NetConfig);
+
+            Assert.IsTrue(root);
+        }
+
+
+        [TestMethod]
+        public void MyTestMethod_IsNotRooted()
+        {
+            string log4NetConfig = @"aasdf.txt";
+            var root = Path.IsPathRooted(log4NetConfig);
+
+            Assert.IsFalse(root);
+        }
+
+
+        [TestMethod]
+        public void MyTestMethod_FindFile()
+        {
+            var file = Directory.GetFiles(@"C:\Users\Administrator\Source\Repos\Dev.All\DevLibs\Framework\Log\Dev.Log.Test\", @"Log.config", SearchOption.AllDirectories);
+
+            Assert.IsTrue(file.Length > 0);
+        }
 
     }
 }

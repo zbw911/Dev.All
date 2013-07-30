@@ -20,9 +20,9 @@ namespace Dev.Log.Impl
     /// <summary>
     /// 使用Log4NET
     /// </summary>
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
     public class ObserverLogToLog4net : ILog
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
     {
 
         /// <summary>
@@ -41,20 +41,48 @@ namespace Dev.Log.Impl
         /// <exception cref="Exception"></exception>
         public ObserverLogToLog4net(string log4NetConfig)
         {
+
+            //如果是绝对路径
+            if (Path.IsPathRooted(log4NetConfig))
+            {
+
+                if (File.Exists(log4NetConfig))
+                    log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(log4NetConfig));
+                else
+                    throw new FileNotFoundException(log4NetConfig);
+
+                return;
+            }
+
+
+            //对于文件名形式的
             var dirstart = AppDomain.CurrentDomain.BaseDirectory;
-            var file = Directory.GetFiles(dirstart, log4NetConfig,
-                                          SearchOption.AllDirectories);
 
-            if (file == null)
+
+            //从根查找
+            string[] file = Directory.GetFiles(dirstart, log4NetConfig);
+
+            //未找到，找全部
+            if (file.Length == 0)
             {
-                throw new Exception(log4NetConfig + " not Exist ");
+                throw new FileNotFoundException(log4NetConfig);
+                //file = Directory.GetFiles(dirstart, log4NetConfig, SearchOption.AllDirectories);
             }
 
-            if (file.Length > 1)
-            {
-                throw new Exception("存在多个" + log4NetConfig + "=>" +
-                                    file.Aggregate("", (current, fly) => current + (fly + ",")));
-            }
+
+            //if (file == null)
+            //{
+            //    throw new Exception(log4NetConfig + " not Exist ");
+            //}
+
+            //if (file.Length > 1)
+            //{
+            //    throw new Exception("存在多个" + log4NetConfig + "=>" +
+            //                        file.Aggregate("", (current, fly) => current + (fly + ",")));
+            //}
+
+
+
 
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(file[0]));
 
@@ -93,13 +121,13 @@ namespace Dev.Log.Impl
         {
 
 
-            var name = "";
+            string name;
 
             var frame = new StackFrame(5);
 
             var method = frame.GetMethod();      //取得调用函数
 
-            if (method == null)
+            if (method != null)
             {
                 name = method.DeclaringType + "." + method.Name;
             }
