@@ -9,6 +9,7 @@
 // ***********************************************************************************
 
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Dev.Log.Impl
 {
@@ -39,7 +40,7 @@ namespace Dev.Log.Impl
                              e.SeverityString + ": " + e.Message;
 
             var eventLog = new EventLog();
-            eventLog.Source = "Patterns In Action";
+            eventLog.Source = MethodBase.GetCurrentMethod().DeclaringType.Name;// "Patterns In Action";
 
             // Map severity level to an Windows EventLog entry type
             var type = EventLogEntryType.Error;
@@ -47,14 +48,14 @@ namespace Dev.Log.Impl
             if (e.Severity < LogSeverity.Error) type = EventLogEntryType.Warning;
 
             // In try catch. You will need proper privileges to write to eventlog.
-            try
-            {
-                eventLog.WriteEntry(message, type);
-            }
-            catch
-            {
-                /* do nothing */
-            }
+            //try
+            //{
+            eventLog.WriteEntry(message, type);
+            //}
+            //catch
+            //{
+            //    /* do nothing */
+            //}
         }
 
         #endregion

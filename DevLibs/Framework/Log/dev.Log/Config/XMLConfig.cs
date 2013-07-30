@@ -17,11 +17,14 @@ using Dev.Comm;
 
 namespace Dev.Log.Config
 {
+    /// <summary>
+    /// 使用  Log.config 配置日志 
+    /// </summary>
     public class XMLConfig
     {
         public bool InitConfig(string configfile = "Log.config")
         {
-            var xml = new XmlHelper();
+
 
 
             string applicationBaseDirectory = null;
@@ -31,6 +34,8 @@ namespace Dev.Log.Config
             if (!File.Exists(fullPath2ConfigFile))
                 return false;
 
+
+            var xml = new XmlHelper();
             xml.LoadXML(fullPath2ConfigFile, XmlHelper.LoadType.FromLocalFile);
 
             InitLogApender(xml);
@@ -124,6 +129,9 @@ namespace Dev.Log.Config
             Assembly asm = AsmUtil.GetAssemblyFromCurrentDomain(path);
 
             Type type = asm.GetType(typeName);
+
+
+
 
             return type;
         }

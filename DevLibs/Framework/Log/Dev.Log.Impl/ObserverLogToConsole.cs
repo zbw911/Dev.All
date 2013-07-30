@@ -22,6 +22,9 @@ namespace Dev.Log.Impl
     /// </remarks>
     public class ObserverLogToConsole : ILog
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string Prex { get; set; }
 
         #region ILog Members

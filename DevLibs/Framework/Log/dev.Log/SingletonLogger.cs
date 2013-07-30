@@ -40,12 +40,12 @@ namespace Dev.Log
         #endregion
 
         // These booleans are used strictly to improve performance.
-        private bool _isDebug;
-        private bool _isError;
-        private bool _isFatal;
-        private bool _isInfo;
-        private bool _isWarning;
-        private LogSeverity _severity;
+        private bool _isDebug = true;
+        private bool _isError = true;
+        private bool _isFatal = true;
+        private bool _isInfo = true;
+        private bool _isWarning = true;
+        private LogSeverity _severity = LogSeverity.Debug;
 
         /// <summary>
         /// Gets and sets the severity level of logging activity.
@@ -229,7 +229,7 @@ namespace Dev.Log
             catch (Exception e)
             {
                 var s = e.Message;
-                //throw;
+                throw;
             }
 
         }
@@ -239,7 +239,7 @@ namespace Dev.Log
         /// </summary>
         private SingletonLogger()
         {
-            
+
             // Default severity is Error level
             //Severity = LogSeverity.Error;
         }
