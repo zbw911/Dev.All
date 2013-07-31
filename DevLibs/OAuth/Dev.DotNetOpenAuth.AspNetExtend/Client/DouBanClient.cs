@@ -30,6 +30,8 @@ namespace Dev.DotNetOpenAuth.AspNetExtend.Client
 
         private readonly string appSecret;
 
+        private const string redirect_uri = "http://www.youxituan.com";
+
         /// <summary>
         /// 
         /// </summary>
@@ -63,7 +65,8 @@ namespace Dev.DotNetOpenAuth.AspNetExtend.Client
                                                },
 
                                                {
-                                                   "redirect_uri",returnUrl.AbsoluteUri
+                                                   //"redirect_uri",returnUrl.AbsoluteUri
+                                                   "redirect_uri",redirect_uri
                                                }
                                                ,
                                                {
@@ -126,7 +129,8 @@ namespace Dev.DotNetOpenAuth.AspNetExtend.Client
                                                               {"client_secret", this.appSecret},
                                                               {"grant_type", "authorization_code"},
                                                               {"code", authorizationCode},
-                                                              {"redirect_uri", returnUrl.AbsoluteUri}
+                                                              //{"redirect_uri", returnUrl.AbsoluteUri}
+                                                              {"redirect_uri",redirect_uri}
                                                           });
             string result;
 
