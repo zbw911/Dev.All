@@ -25,15 +25,19 @@ namespace Dev.CasClient.Configuration
 
         private static ICasClientConfigurationStorage _configProvider;
 
-        private static readonly object lockobj = new object();
+        private static readonly object Lockobj = new object();
 
         #endregion
 
         #region Fields
 
+        private string _localCheckPath;
+
         private string _localLogOffPath;
         private string _localLoginPath;
-        private string _localCheckPath;
+        private string _localParam;
+        private string _returnUrlParm;
+        private string _ticketName;
 
         #endregion
 
@@ -49,6 +53,26 @@ namespace Dev.CasClient.Configuration
         /// </summary>
         [DataMember]
         public string CasServerUrl { get; set; }
+
+        ///<summary>
+        ///  检测本地用户是否已经登录径
+        ///</summary>
+        [DataMember]
+        public string LocalCheckPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this._localCheckPath))
+                {
+                    this._localCheckPath = "~/Account/LocalUserCheck";
+
+                    this._localCheckPath = VirtualPathUtility.ToAbsolute(this._localCheckPath);
+                }
+
+                return this._localCheckPath;
+            }
+            set { this._localCheckPath = value; }
+        }
 
         ///<summary>
         ///  本地退出请求路径
@@ -84,33 +108,62 @@ namespace Dev.CasClient.Configuration
                         this._localLoginPath = "~/Account/Login";
 
                     this._localLoginPath = VirtualPathUtility.ToAbsolute(this._localLoginPath);
-
-                    
                 }
                 return this._localLoginPath;
             }
             set { this._localLoginPath = value; }
         }
 
-
-        ///<summary>
-        ///  检测本地用户是否已经登录径
-        ///</summary>
+        /// <summary>
+        ///   本地检测使用参数名
+        /// </summary>
         [DataMember]
-        public string LocalCheckPath
+        public string LocalParam
         {
             get
             {
-                if (string.IsNullOrEmpty(this._localCheckPath))
+                if (string.IsNullOrEmpty(this._localParam))
                 {
-                    this._localCheckPath = "~/Account/LocalUserCheck";
+                    this._localParam = "local";
+                }
+                return this._localParam;
+            }
+            set { this._localParam = value; }
+        }
 
-                    this._localCheckPath = VirtualPathUtility.ToAbsolute(this._localCheckPath);
+        /// <summary>
+        ///   系统中的返回地址 默认 "returnUrl"
+        /// </summary>
+        [DataMember]
+        public string ReturnUrlParm
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this._returnUrlParm))
+                {
+                    this._returnUrlParm = "returnUrl";
+                }
+                return this._returnUrlParm;
+            }
+            set { this._returnUrlParm = value; }
+        }
+
+        /// <summary>
+        ///   Ticket Name
+        /// </summary>
+        [DataMember]
+        public string TicketName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this._ticketName))
+                {
+                    this._ticketName = "ticket";
                 }
 
-                return this._localCheckPath;
+                return this._ticketName;
             }
-            set { this._localCheckPath = value; }
+            set { this._ticketName = value; }
         }
 
         #endregion
@@ -124,7 +177,7 @@ namespace Dev.CasClient.Configuration
         {
             get
             {
-                lock (lockobj)
+                lock (Lockobj)
                 {
                     if (_config == null)
                     {
@@ -140,6 +193,9 @@ namespace Dev.CasClient.Configuration
             }
         }
 
+        /// <summary>
+        ///   提供者
+        /// </summary>
         [XmlIgnore]
         public static ICasClientConfigurationStorage ConfigProvider
         {
