@@ -158,16 +158,33 @@ namespace Dev.CasClient
 
         #region Class Methods
 
+        /// <summary>
+        /// 登录请求URL
+        /// </summary>
+        /// <param name="strCasServerUrl"></param>
+        /// <param name="strService"></param>
+        /// <returns></returns>
         private static string BuildLoginRequest(string strCasServerUrl, string strService)
         {
             return strCasServerUrl.TrimEnd('/') + "/login?service=" + HttpUtility.UrlEncode(strService);
         }
-
+        /// <summary>
+        /// 退出主求Url
+        /// </summary>
+        /// <param name="strCasServerUrl"></param>
+        /// <returns></returns>
         private static string BuildLogoutRequest(string strCasServerUrl)
         {
             return strCasServerUrl.TrimEnd('/') + "/logout";
         }
 
+        /// <summary>
+        /// Validate Service Url
+        /// </summary>
+        /// <param name="strCasServerUrl"></param>
+        /// <param name="strService"></param>
+        /// <param name="strTicket"></param>
+        /// <returns></returns>
         private static string BuildServiceValidateRequest(string strCasServerUrl, string strService, string strTicket)
         {
             return strCasServerUrl.TrimEnd('/') + "/serviceValidate?service=" + HttpUtility.UrlEncode(strService) +

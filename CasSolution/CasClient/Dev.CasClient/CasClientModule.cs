@@ -21,15 +21,14 @@ namespace Dev.CasClient
     {
         #region Readonly & Static Fields
 
-        private static bool __RouteInited = false;
-        private readonly CasClient casClient = new CasClient();
-        private static bool __ModuleInited;
+        private static bool _routeInited = false;
+        private readonly CasClient _casClient = new CasClient();
 
         #endregion
 
         #region Instance Methods
 
-        public void checksession(HttpApplication app)
+        private void Checksession(HttpApplication app)
         {
             return;
             var context = HttpContext.Current;
@@ -45,8 +44,6 @@ namespace Dev.CasClient
 
 
             //Write(path + "->" + cn.ToString() + ":Session" + (session == null ? "null" : "SESSION") + "<br/>");
-
-
         }
 
         private void HandlerAll()
@@ -67,15 +64,21 @@ namespace Dev.CasClient
             {
                 #region Login
 
-                var returnUrl = Dev.Comm.Web.DevRequest.GetString("returnUrl");
-                var ticket = Dev.Comm.Web.DevRequest.GetString("ticket");
-                var local = Dev.Comm.Web.DevRequest.Get("local", false);
+                var returnUrlParm = Dev.CasClient.Configuration.CasClientConfiguration.Config.ReturnUrlParm;
+                var ticketName = Dev.CasClient.Configuration.CasClientConfiguration.Config.TicketName;
+
+                var localParam = Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalParam;
+
+
+                var returnUrl = Dev.Comm.Web.DevRequest.GetString(returnUrlParm);
+                var ticket = Dev.Comm.Web.DevRequest.GetString(ticketName);
+                var local = Dev.Comm.Web.DevRequest.Get(localParam, false);
 
                 var handedReturl = Urls.GetReturnUrl(returnUrl);
                 string strRedirectUrl, strUserName, strErrorText;
 
                 //去除增加returl,同时删除ticket参数
-                var strService = Urls.BuildServiceUrl(handedReturl);
+                var strService = Urls.BuildServiceUrl(handedReturl, returnUrlParm, ticketName);
                 // HttpServerInfo.RebuildUrl("returnUrl", HttpUtility.UrlEncode(handedReturl), "ticket");
 
                 if (local)
@@ -83,7 +86,7 @@ namespace Dev.CasClient
                     strService = Dev.Comm.Web.DevRequest.GetString("service");
                 }
 
-                if (this.casClient.Login(ticket, strService, out strRedirectUrl, out strUserName, out strErrorText))
+                if (this._casClient.Login(ticket, strService, out strRedirectUrl, out strUserName, out strErrorText))
                 {
                     if (CasClient.LoginSucess != null)
                     {
@@ -166,10 +169,11 @@ namespace Dev.CasClient
             {
                 #region LocalLoginOut
 
-                var local = Dev.Comm.Web.DevRequest.Get<bool>("local", false);
-                var s = Dev.Comm.Web.DevRequest.GetString("local");
+                var localParam = Dev.CasClient.Configuration.CasClientConfiguration.Config.LocalParam;
+                var local = Dev.Comm.Web.DevRequest.Get<bool>(localParam, false);
+
                 string handedReturl;
-                var ret = this.casClient.LoginOut(out handedReturl);
+                var ret = this._casClient.LoginOut(out handedReturl);
 
 
                 if (context.Session == null)
@@ -194,10 +198,9 @@ namespace Dev.CasClient
         /// </summary>
         private void InitRoute()
         {
-
-            if (__RouteInited)
+            if (_routeInited)
                 return;
-            __RouteInited = true;
+            _routeInited = true;
             var directory = HttpRuntime.AppDomainAppPath;
             var filename = "___Dev.CasClient.aspx";
 
@@ -222,32 +225,17 @@ namespace Dev.CasClient
                                                TrimStart('/'), "~/" + filename, false);
         }
 
-        private void Write(string w)
-        {
-            HttpContext.Current.Response.Write(w);
-        }
-
-        #endregion
-
-        #region Event Handling
-
-        private void OnAcquireRequestState(object sender, EventArgs e)
-        {
-            //this.checksession((HttpApplication)sender);
-            this.HandlerAll();
-        }
-
         private void OnAuthenticateRequest(object sender, EventArgs e)
         {
             var context = HttpContext.Current;
             var request = context.Request;
 
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnAuthorizeRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
 
@@ -256,7 +244,7 @@ namespace Dev.CasClient
             var context = HttpContext.Current;
             var request = context.Request;
 
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
 
             //else if (request.Path == Configuration.CasClientConfiguration.Config.LocalLogOffPath)
             //{
@@ -277,92 +265,107 @@ namespace Dev.CasClient
 
         private void OnEndRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnLogRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnMapRequestHandler(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostAcquireRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostAuthenticateRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostAuthorizeRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostLogRequest(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostMapRequestHandler(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostReleaseRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostRequestHandlerExecute(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostResolveRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPostUpdateRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPreRequestHandlerExecute(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPreSendRequestContent(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnPreSendRequestHeaders(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnReleaseRequestState(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnResolveRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
         }
 
         private void OnUpdateRequestCache(object sender, EventArgs e)
         {
-            this.checksession((HttpApplication)sender);
+            this.Checksession((HttpApplication)sender);
+        }
+
+        private void Write(string w)
+        {
+            HttpContext.Current.Response.Write(w);
+        }
+
+        #endregion
+
+        #region Event Handling
+
+        private void OnAcquireRequestState(object sender, EventArgs e)
+        {
+            //this.checksession((HttpApplication)sender);
+            this.HandlerAll();
         }
 
         #endregion
@@ -371,8 +374,6 @@ namespace Dev.CasClient
 
         public void Init(HttpApplication context)
         {
-
-
             this.InitRoute();
 
             //context.BeginRequest += this.OnBeginRequest;

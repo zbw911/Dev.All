@@ -23,7 +23,6 @@ namespace Dev.CasClient.Utils
         /// <summary>
         /// 生成 CasSdk.Init（。。。） 代码块
         /// </summary>
-        /// <param name="isLocal"></param>
         /// <returns></returns>
         public static string BuildCasInit()
         {
