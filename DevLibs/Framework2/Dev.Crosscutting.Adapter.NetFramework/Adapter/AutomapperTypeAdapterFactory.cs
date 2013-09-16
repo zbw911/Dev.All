@@ -57,9 +57,6 @@ namespace Dev.Crosscutting.Adapter.NetFramework.Adapter
                         }
                     }
                 });
-
-
-
         }
 
         #endregion
