@@ -1,47 +1,48 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：FileHelper.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/FileHelper.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System.IO;
 
 namespace Dev.Comm.NetFile
 {
     /// <summary>
-    /// 网络文件帮助方法
-    /// added by zbw911 2011-4-25
+    ///   网络文件帮助方法
+    ///   added by zbw911 2011-4-25
     /// </summary>
     public class FileHelper
     {
         /// <summary>
-        /// 密码
+        ///   密码
         /// </summary>
         public string password { get; set; }
 
         /// <summary>
-        /// 登录名
+        ///   登录名
         /// </summary>
         public string username { get; set; }
 
         /// <summary>
-        /// IP
+        ///   IP
         /// </summary>
         public string hostIp { get; set; }
 
         /// <summary>
-        /// 起始路径
+        ///   起始路径
         /// </summary>
         public string startdirname { get; set; }
 
         /// <summary>
-        /// 取得文件
+        ///   取得文件
         /// </summary>
-        /// <param name="dirname"></param>
-        /// <returns></returns>
+        /// <param name="dirname"> </param>
+        /// <returns> </returns>
         public string[] findFile(string dirname)
         {
             using (var iss = new IdentityScope(username, hostIp, password))
@@ -59,10 +60,10 @@ namespace Dev.Comm.NetFile
         }
 
         /// <summary>
-        /// 取得目录
+        ///   取得目录
         /// </summary>
-        /// <param name="dirname"></param>
-        /// <returns></returns>
+        /// <param name="dirname"> </param>
+        /// <returns> </returns>
         public string[] GetDirectories(string dirname)
         {
             using (var iss = new IdentityScope(username, hostIp, password))
@@ -80,11 +81,11 @@ namespace Dev.Comm.NetFile
         }
 
         /// <summary>
-        /// 写入指定的文件，如果不存在创建目录并写入文件
+        ///   写入指定的文件，如果不存在创建目录并写入文件
         /// </summary>
-        /// <param name="dirname"></param>
-        /// <param name="filename"></param>
-        /// <param name="fileByte"></param>
+        /// <param name="dirname"> </param>
+        /// <param name="filename"> </param>
+        /// <param name="fileByte"> </param>
         public void WriteFile(string dirname, string filename, byte[] fileByte)
         {
             using (var iss = new IdentityScope(username, hostIp, password))
@@ -110,11 +111,11 @@ namespace Dev.Comm.NetFile
 
 
         /// <summary>
-        /// 更新指定的文件，如果不存在创建目录并写入文件
+        ///   更新指定的文件，如果不存在创建目录并写入文件
         /// </summary>
-        /// <param name="dirname"></param>
-        /// <param name="filename"></param>
-        /// <param name="fileByte"></param>
+        /// <param name="dirname"> </param>
+        /// <param name="filename"> </param>
+        /// <param name="fileByte"> </param>
         public void UpdateFile(string dirname, string filename, byte[] fileByte)
         {
             using (var iss = new IdentityScope(username, hostIp, password))
@@ -159,10 +160,10 @@ namespace Dev.Comm.NetFile
         }
 
         /// <summary>
-        /// 删除文件
+        ///   删除文件
         /// </summary>
-        /// <param name="dirname"></param>
-        /// <param name="filename"></param>
+        /// <param name="dirname"> </param>
+        /// <param name="filename"> </param>
         public void DeleteFile(string dirname, string filename)
         {
             using (var iss = new IdentityScope(username, hostIp, password))

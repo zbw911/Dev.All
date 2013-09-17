@@ -1,11 +1,11 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：JsonHelper.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/JsonHelper.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
 using System;
@@ -88,12 +88,13 @@ namespace Dev.Comm.Core
 
     internal sealed class DynamicJsonConverter : JavaScriptConverter
     {
-        public override object Deserialize(IDictionary<string, object> dictionary, Type type, JavaScriptSerializer serializer)
+        public override object Deserialize(IDictionary<string, object> dictionary, Type type,
+                                           JavaScriptSerializer serializer)
         {
             if (dictionary == null)
                 throw new ArgumentNullException("dictionary");
 
-            return type == typeof(object) ? new DynamicJsonObject(dictionary) : null;
+            return type == typeof (object) ? new DynamicJsonObject(dictionary) : null;
         }
 
         public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
@@ -113,7 +114,7 @@ namespace Dev.Comm.Core
 
         public override IEnumerable<Type> SupportedTypes
         {
-            get { return new ReadOnlyCollection<Type>(new List<Type>(new[] { typeof(object) })); }
+            get { return new ReadOnlyCollection<Type>(new List<Type>(new[] {typeof (object)})); }
         }
 
         #region Nested type: DynamicJsonObject
@@ -153,24 +154,23 @@ namespace Dev.Comm.Core
                     }
                     else if (value is IDictionary<string, object>)
                     {
-                        new DynamicJsonObject((IDictionary<string, object>)value).ToString(sb);
+                        new DynamicJsonObject((IDictionary<string, object>) value).ToString(sb);
                     }
                     else if (value is ArrayList)
                     {
                         sb.Append(name + ":[");
                         var firstInArray = true;
-                        foreach (var arrayValue in (ArrayList)value)
+                        foreach (var arrayValue in (ArrayList) value)
                         {
                             if (!firstInArray)
                                 sb.Append(",");
                             firstInArray = false;
                             if (arrayValue is IDictionary<string, object>)
-                                new DynamicJsonObject((IDictionary<string, object>)arrayValue).ToString(sb);
+                                new DynamicJsonObject((IDictionary<string, object>) arrayValue).ToString(sb);
                             else if (arrayValue is string)
                                 sb.AppendFormat("\"{0}\"", arrayValue);
                             else
                                 sb.AppendFormat("{0}", arrayValue);
-
                         }
                         sb.Append("]");
                     }
@@ -202,7 +202,9 @@ namespace Dev.Comm.Core
                 if (arrayList != null && arrayList.Count > 0)
                 {
                     if (arrayList[0] is IDictionary<string, object>)
-                        result = new List<object>(arrayList.Cast<IDictionary<string, object>>().Select(x => new DynamicJsonObject(x)));
+                        result =
+                            new List<object>(
+                                arrayList.Cast<IDictionary<string, object>>().Select(x => new DynamicJsonObject(x)));
                     else
                         result = new List<object>(arrayList.Cast<object>());
                 }
@@ -213,5 +215,4 @@ namespace Dev.Comm.Core
 
         #endregion
     }
-
 }

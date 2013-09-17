@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：XMLEntityConvert.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/XMLEntityConvert.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -15,18 +16,18 @@ using System.Xml;
 namespace Dev.Comm
 {
     /// <summary>
-    /// 实体转换XML，XML转换实体
+    ///   实体转换XML，XML转换实体
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"> </typeparam>
     public class XMLEntityConvert<T> where T : new()
     {
         #region 实体转换成XML
 
         /// <summary>
-        /// 对象实体转换成xml
+        ///   对象实体转换成xml
         /// </summary>
-        /// <param name="item">对象实例</param>
-        /// <returns></returns>
+        /// <param name="item"> 对象实例 </param>
+        /// <returns> </returns>
         public static string EntityToXml(T item)
         {
             IList<T> items = new List<T>();
@@ -35,10 +36,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 对象实体转换成xml
+        ///   对象实体转换成xml
         /// </summary>
-        /// <param name="items">对象实例集</param>
-        /// <returns></returns>
+        /// <param name="items"> 对象实例集 </param>
+        /// <returns> </returns>
         public static string EntityToXml(IList<T> items)
         {
             //创建XmlDocument文档
@@ -93,10 +94,10 @@ namespace Dev.Comm
         #region XML转成实体类
 
         /// <summary>
-        /// XML转成对象实例
+        ///   XML转成对象实例
         /// </summary>
-        /// <param name="xml">xml</param>
-        /// <returns></returns>
+        /// <param name="xml"> xml </param>
+        /// <returns> </returns>
         public static T XmlToEntity(string xml)
         {
             IList<T> items = XmlToEntityList(xml);
@@ -111,10 +112,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// XML转成对象实例集
+        ///   XML转成对象实例集
         /// </summary>
-        /// <param name="xml">xml</param>
-        /// <returns></returns>
+        /// <param name="xml"> xml </param>
+        /// <returns> </returns>
         public static IList<T> XmlToEntityList(string xml)
         {
             var doc = new XmlDocument();

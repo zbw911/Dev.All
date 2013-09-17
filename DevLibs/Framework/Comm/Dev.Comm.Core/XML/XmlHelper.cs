@@ -1,12 +1,13 @@
 // ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：XmlHelper.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/XmlHelper.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,11 +21,11 @@ using System.Xml.XPath;
 
 namespace Dev.Comm
 {
-    ///	<summary>
-    /// This class attempts to wrap up some common things
-    /// we need to do when dealing with Xml and C# classes:
-    /// Load, Save, Add/Remove Attributes/Elements, et al.
-    /// </summary>
+    ///<summary>
+    ///  This class attempts to wrap up some common things
+    ///  we need to do when dealing with Xml and C# classes:
+    ///  Load, Save, Add/Remove Attributes/Elements, et al.
+    ///</summary>
     public class XmlHelper
     {
         #region Delegates
@@ -82,9 +83,9 @@ namespace Dev.Comm
 
         // 定义委托 delegates - more complex save operations can do it themselves...
 
-        ///	<summary>
-        /// Save the XML to a target file.
-        /// </summary>
+        ///<summary>
+        ///  Save the XML to a target file.
+        ///</summary>
         public bool SaveToFile(string sTargetFileName)
         {
             bool bResult = false;
@@ -103,10 +104,10 @@ namespace Dev.Comm
         }
 
 
-        ///	<summary>
-        ///	返回全部的XML字符串
-        /// Easy way to get the entire Xml string
-        /// </summary>
+        ///<summary>
+        ///  返回全部的XML字符串
+        ///  Easy way to get the entire Xml string
+        ///</summary>
         public override string ToString()
         {
             return m_xmlDocument.OuterXml;
@@ -124,10 +125,10 @@ namespace Dev.Comm
             return LoadXML(sourceXMLOrFile, loadType, Encoding.UTF8);
         }
 
-        ///	<summary>
-        /// 从文件或者URL加载XML
-        /// Easy way to load XML from a file or URL
-        /// </summary>
+        ///<summary>
+        ///  从文件或者URL加载XML
+        ///  Easy way to load XML from a file or URL
+        ///</summary>
         public bool LoadXML(string sourceXMLOrFile, LoadType loadType, Encoding encoding)
         {
             bool bLoadResult = false;
@@ -168,17 +169,17 @@ namespace Dev.Comm
             return bLoadResult;
         }
 
-        ///	<summary>
-        /// Helper method to get string content from a URL - not necessarily XML, but probably
-        /// </summary>
+        ///<summary>
+        ///  Helper method to get string content from a URL - not necessarily XML, but probably
+        ///</summary>
         public string GetURLContent(string sURL, Encoding encoding)
         {
             string s = "";
 
             try
             {
-                var webreq = (HttpWebRequest)WebRequest.Create(sURL);
-                var webresp = (HttpWebResponse)webreq.GetResponse();
+                var webreq = (HttpWebRequest) WebRequest.Create(sURL);
+                var webresp = (HttpWebResponse) webreq.GetResponse();
 
                 var stream = new StreamReader(webresp.GetResponseStream(), encoding);
                 s = stream.ReadToEnd();
@@ -192,9 +193,9 @@ namespace Dev.Comm
             return s;
         }
 
-        ///	<summary>
-        /// Helper function if navigation is used to ensure we're at the root node.
-        /// </summary>
+        ///<summary>
+        ///  Helper function if navigation is used to ensure we're at the root node.
+        ///</summary>
         public bool MoveToRoot()
         {
             bool bResult = false;
@@ -211,9 +212,9 @@ namespace Dev.Comm
             return bResult;
         }
 
-        ///	<summary>
-        /// Gets an ArrayList of XmlNode children using an xPath expression
-        /// </summary>
+        ///<summary>
+        ///  Gets an ArrayList of XmlNode children using an xPath expression
+        ///</summary>
         public IList<XmlNode> GetChildNodesFromCriteria(string xPathExpression)
         {
             var al = new List<XmlNode>();
@@ -235,9 +236,9 @@ namespace Dev.Comm
             return al;
         }
 
-        ///	<summary>
-        /// Gets an ArrayList of XmlNode children using an xPath expression
-        /// </summary>
+        ///<summary>
+        ///  Gets an ArrayList of XmlNode children using an xPath expression
+        ///</summary>
         public static IList<XmlNode> GetChildNodesFromCriteria(XmlNode XmlNode, string xPathExpression)
         {
             var al = new List<XmlNode>();
@@ -261,9 +262,9 @@ namespace Dev.Comm
             return al;
         }
 
-        ///	<summary>
-        /// Get first child node given an XPath expression
-        /// </summary>
+        ///<summary>
+        ///  Get first child node given an XPath expression
+        ///</summary>
         public XmlNode GetFirstChildNodeFromCriteria(string xPathExpression)
         {
             XmlNode node = null;
@@ -280,9 +281,9 @@ namespace Dev.Comm
             return node;
         }
 
-        ///	<summary>
-        /// Get the Attribute value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Attribute value from a given XmlNode
+        ///</summary>
         public string GetAttributeValue(XmlNode node, string sAttributeName)
         {
             string sVal = "";
@@ -300,9 +301,9 @@ namespace Dev.Comm
             return sVal;
         }
 
-        ///	<summary>
-        /// Get the Attribute int32 (int) value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Attribute int32 (int) value from a given XmlNode
+        ///</summary>
         public int GetAttributeInt32Value(XmlNode node, string sAttributeName)
         {
             string sVal = GetAttributeValue(node, sAttributeName);
@@ -310,36 +311,36 @@ namespace Dev.Comm
             return sVal != "" ? Convert.ToInt32(sVal) : 0;
         }
 
-        ///	<summary>
-        /// Get the Attribute floating point/Single value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Attribute floating point/Single value from a given XmlNode
+        ///</summary>
         public float GetAttributeFloatValue(XmlNode node, string sAttributeName)
         {
             string sVal = GetAttributeValue(node, sAttributeName);
             return sVal != "" ? Convert.ToSingle(sVal) : 0;
         }
 
-        ///	<summary>
-        /// Get the Attribute double value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Attribute double value from a given XmlNode
+        ///</summary>
         public double GetAttributeDoubleValue(XmlNode node, string sAttributeName)
         {
             string sVal = GetAttributeValue(node, sAttributeName);
             return sVal != "" ? Convert.ToDouble(sVal) : 0.00;
         }
 
-        ///	<summary>
-        /// Get the Attribute boolean value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Attribute boolean value from a given XmlNode
+        ///</summary>
         public bool GetAttributeBooleanValue(XmlNode node, string sAttributeName)
         {
             string sVal = GetAttributeValue(node, sAttributeName);
             return sVal != "" ? Convert.ToBoolean(sVal) : false;
         }
 
-        ///	<summary>
-        /// Get the Element value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Element value from a given XmlNode
+        ///</summary>
         public string GetElementValue(XmlNode xmlNode)
         {
             string sVal = "";
@@ -356,45 +357,45 @@ namespace Dev.Comm
             return sVal;
         }
 
-        ///	<summary>
-        /// Get the Element Int32 value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Element Int32 value from a given XmlNode
+        ///</summary>
         public int GetElementInt32Value(XmlNode xmlNode)
         {
             string sVal = GetElementValue(xmlNode);
             return sVal != "" ? Convert.ToInt32(sVal) : 0;
         }
 
-        ///	<summary>
-        /// Get the Element float/single floating point value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Element float/single floating point value from a given XmlNode
+        ///</summary>
         public float GetElementFloatValue(XmlNode xmlNode)
         {
             string sVal = GetElementValue(xmlNode);
             return sVal != "" ? Convert.ToSingle(sVal) : 0;
         }
 
-        ///	<summary>
-        /// Get the Element Double value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Element Double value from a given XmlNode
+        ///</summary>
         public double GetElementDoubleValue(XmlNode xmlNode)
         {
             string sVal = GetElementValue(xmlNode);
             return sVal != "" ? Convert.ToDouble(sVal) : 0.00;
         }
 
-        ///	<summary>
-        /// Get the Element Boolean value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the Element Boolean value from a given XmlNode
+        ///</summary>
         public bool GetElementBooleanValue(XmlNode xmlNode)
         {
             string sVal = GetElementValue(xmlNode);
             return sVal != "" ? Convert.ToBoolean(sVal) : false;
         }
 
-        ///	<summary>
-        /// Get the first Child Element value from a given XmlNode
-        /// </summary>
+        ///<summary>
+        ///  Get the first Child Element value from a given XmlNode
+        ///</summary>
         public string GetChildElementValue(XmlNode parentNode, string sElementName)
         {
             string sVal = "";
@@ -418,46 +419,46 @@ namespace Dev.Comm
             return sVal;
         }
 
-        ///	<summary>
-        /// Get the Child Element int32 value from a given XmlNode and ElementName
-        /// </summary>
+        ///<summary>
+        ///  Get the Child Element int32 value from a given XmlNode and ElementName
+        ///</summary>
         public int GetChildElementInt32Value(XmlNode parentNode, string sElementName)
         {
             string sVal = GetChildElementValue(parentNode, sElementName);
             return sVal != "" ? Convert.ToInt32(sVal) : 0;
         }
 
-        ///	<summary>
-        /// Get the Child Element floating point/single value from a given XmlNode and ElementName
-        /// </summary>
+        ///<summary>
+        ///  Get the Child Element floating point/single value from a given XmlNode and ElementName
+        ///</summary>
         public float GetChildElementFloatValue(XmlNode parentNode, string sElementName)
         {
             string sVal = GetChildElementValue(parentNode, sElementName);
             return sVal != "" ? Convert.ToSingle(sVal) : 0;
         }
 
-        ///	<summary>
-        /// Get the Child Element double value from a given XmlNode and ElementName
-        /// </summary>
+        ///<summary>
+        ///  Get the Child Element double value from a given XmlNode and ElementName
+        ///</summary>
         public double GetChildElementDoubleValue(XmlNode parentNode, string sElementName)
         {
             string sVal = GetChildElementValue(parentNode, sElementName);
             return sVal != "" ? Convert.ToDouble(sVal) : 0.00;
         }
 
-        ///	<summary>
-        /// Get the Child Element boolean value from a given XmlNode and ElementName
-        /// </summary>
+        ///<summary>
+        ///  Get the Child Element boolean value from a given XmlNode and ElementName
+        ///</summary>
         public bool GetChildElementBooleanValue(XmlNode parentNode, string sElementName)
         {
             string sVal = GetChildElementValue(parentNode, sElementName);
             return sVal != "" ? Convert.ToBoolean(sVal) : false;
         }
 
-        ///	<summary>
-        /// Returns the first XmlNode object matching this element name
-        /// <seealso cref='GetFirstChildXmlNode'/> 
-        /// </summary>
+        ///<summary>
+        ///  Returns the first XmlNode object matching this element name
+        ///  <seealso cref='GetFirstChildXmlNode' />
+        ///</summary>
         public XmlNode GetFirstChildXmlNodeFromRoot(string sElementName)
         {
             // TODO:  isn't there a better/faster/more effiecient way to do this?  couldn't find it sifting through documentation!
@@ -468,11 +469,11 @@ namespace Dev.Comm
             return null;
         }
 
-        ///	<summary>
-        /// Returns the first XmlNode object matching this element name 
-        /// NOTE:  this doesn't seem to work if parent is Root!  Use GetFirstChildXmlNodeFromRoot
-        /// <seealso cref='GetFirstChildXmlNodeFromRoot'/>
-        /// </summary>
+        ///<summary>
+        ///  Returns the first XmlNode object matching this element name 
+        ///  NOTE:  this doesn't seem to work if parent is Root!  Use GetFirstChildXmlNodeFromRoot
+        ///  <seealso cref='GetFirstChildXmlNodeFromRoot' />
+        ///</summary>
         public XmlNode GetFirstChildXmlNode(XmlNode parentNode, string sElementName)
         {
             // NOTE:  this doesn't seem to work if parent is Root!  Use GetFirstChildXmlNodeFromRoot
@@ -497,19 +498,19 @@ namespace Dev.Comm
             return foundChildNode;
         }
 
-        ///	<summary>
-        /// Returns an XmlNodeList of child nodes matching this element name
-        /// </summary>
+        ///<summary>
+        ///  Returns an XmlNodeList of child nodes matching this element name
+        ///</summary>
         public XmlNodeList GetChildNodesFromRoot(string sElementName)
         {
             return m_xmlDocument.GetElementsByTagName(sElementName);
         }
 
-        ///	<summary>
-        /// Returns an ArrayList (boxed XmlNode objects) of child nodes matching this element name
-        /// This function is recursive in that it will find ALL the children, even if their in 
-        /// sub folders (sub child nodes)
-        /// </summary>
+        ///<summary>
+        ///  Returns an ArrayList (boxed XmlNode objects) of child nodes matching this element name
+        ///  This function is recursive in that it will find ALL the children, even if their in 
+        ///  sub folders (sub child nodes)
+        ///</summary>
         public ArrayList GetRecursiveChildNodesFromParent(XmlNode parentNode, string sElementName)
         {
             var elementList = new ArrayList();
@@ -541,9 +542,9 @@ namespace Dev.Comm
             return elementList;
         }
 
-        ///	<summary>
-        /// Create an Element under the given parent based on the name and value pair.
-        /// </summary>
+        ///<summary>
+        ///  Create an Element under the given parent based on the name and value pair.
+        ///</summary>
         public XmlElement CreateNodeElement(XmlNode parentNode, string sElementName, string sElementValue)
         {
             XmlElement newElem = null;
@@ -573,9 +574,9 @@ namespace Dev.Comm
             return newElem;
         }
 
-        ///	<summary>
-        /// Create an Element under the given parent based on the name and value pair.
-        /// </summary>
+        ///<summary>
+        ///  Create an Element under the given parent based on the name and value pair.
+        ///</summary>
         public XmlElement CreateNodeElement(XmlNode parentNode, string sElementName, string sElementValue,
                                             string sAttributeName, string sAttributeValue)
         {
@@ -613,10 +614,10 @@ namespace Dev.Comm
             return newElem;
         }
 
-        ///	<summary>
-        /// Creates and adds a comment before the given node.  If root node, or null, 
-        /// the comment node is Appended to the tree.
-        /// </summary>
+        ///<summary>
+        ///  Creates and adds a comment before the given node.  If root node, or null, 
+        ///  the comment node is Appended to the tree.
+        ///</summary>
         public XmlNode CreateComment(XmlNode insertAfterThisNode, string sVal)
         {
             if (insertAfterThisNode == null)
@@ -654,9 +655,9 @@ namespace Dev.Comm
         }
 
 
-        ///	<summary>
-        /// Delete an XmlNode from the tree
-        /// </summary>
+        ///<summary>
+        ///  Delete an XmlNode from the tree
+        ///</summary>
         public bool DeleteNodeElement(XmlNode targetNode)
         {
             bool bResult = false;
@@ -675,9 +676,9 @@ namespace Dev.Comm
             return bResult;
         }
 
-        ///	<summary>
-        /// Modify an XmlNode elment with a new value.
-        /// </summary>
+        ///<summary>
+        ///  Modify an XmlNode elment with a new value.
+        ///</summary>
         public bool ModifyNodeElementValue(XmlNode targetNode, string sNewElementValue)
         {
             bool bResult = false;
@@ -696,9 +697,9 @@ namespace Dev.Comm
             return bResult;
         }
 
-        ///	<summary>
-        /// Create a new attribute given an XmlElement (XmlNode) target
-        /// </summary>
+        ///<summary>
+        ///  Create a new attribute given an XmlElement (XmlNode) target
+        ///</summary>
         public XmlAttribute CreateNodeAttribute(XmlElement targetElement, string sAttributeName, string sAttributeValue)
         {
             XmlAttribute newAttr = null;
@@ -718,9 +719,9 @@ namespace Dev.Comm
         }
 
 
-        ///	<summary>
-        /// Delete an attribute from the given target node.
-        /// </summary>
+        ///<summary>
+        ///  Delete an attribute from the given target node.
+        ///</summary>
         public bool DeleteNodeAttribute(XmlNode targetNode, string sAttributeName)
         {
             bool bResult = false;
@@ -740,9 +741,9 @@ namespace Dev.Comm
             return bResult;
         }
 
-        ///	<summary>
-        /// GenerateSchema a schema file from a given target file
-        /// </summary>
+        ///<summary>
+        ///  GenerateSchema a schema file from a given target file
+        ///</summary>
         public bool GenerateSchema(string sTargetFile)
         {
             bool bResult = false;
@@ -761,9 +762,9 @@ namespace Dev.Comm
             return bResult;
         }
 
-        ///	<summary>
-        /// GenerateSchemaAsString based on the currently loaded Xml
-        /// </summary>
+        ///<summary>
+        ///  GenerateSchemaAsString based on the currently loaded Xml
+        ///</summary>
         public string GenerateSchemaAsString()
         {
             string sSchemaXmlString = "";
@@ -793,9 +794,9 @@ namespace Dev.Comm
             return sSchemaXmlString;
         }
 
-        ///	<summary>
-        /// Modify an attribute value to a new value
-        /// </summary>
+        ///<summary>
+        ///  Modify an attribute value to a new value
+        ///</summary>
         public bool ModifyNodeAttributeValue(XmlNode targetNode, string sAttributeName, string sNewAttributeValue)
         {
             bool bResult = false;
@@ -815,9 +816,9 @@ namespace Dev.Comm
             return bResult;
         }
 
-        ///	<summary>
-        /// Internal method used to ensure that HTML and XML tags are encoded within their values
-        /// </summary>
+        ///<summary>
+        ///  Internal method used to ensure that HTML and XML tags are encoded within their values
+        ///</summary>
         private string Encode(string input)
         {
             string output = input;
@@ -829,9 +830,9 @@ namespace Dev.Comm
             return output;
         }
 
-        ///	<summary>
-        /// Internal method used to ensure that HTML and XML tags are decoded for display in other systems
-        /// </summary>
+        ///<summary>
+        ///  Internal method used to ensure that HTML and XML tags are decoded for display in other systems
+        ///</summary>
         private string Decode(string input)
         {
             string output = input;
@@ -842,9 +843,9 @@ namespace Dev.Comm
             return output;
         }
 
-        ///	<summary>
-        /// Internal method used to process errors and exception handling
-        /// </summary>
+        ///<summary>
+        ///  Internal method used to process errors and exception handling
+        ///</summary>
         private void HandleException(Exception e)
         {
             m_sLastErrorMessage = e.Message;

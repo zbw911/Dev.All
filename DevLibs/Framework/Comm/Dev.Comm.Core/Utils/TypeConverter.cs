@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：TypeConverter.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/TypeConverter.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Text.RegularExpressions;
 
@@ -15,11 +16,11 @@ namespace Dev.Comm.Core
     public class TypeConverter
     {
         /// <summary>
-        /// string型转换为bool型
+        ///   string型转换为bool型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的bool类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的bool类型结果 </returns>
         public static bool StrToBool(object expression, bool defValue)
         {
             if (expression != null)
@@ -29,11 +30,11 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// string型转换为bool型
+        ///   string型转换为bool型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的bool类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的bool类型结果 </returns>
         public static bool StrToBool(string expression, bool defValue)
         {
             if (expression != null)
@@ -47,22 +48,22 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// 将对象转换为Int32类型
+        ///   将对象转换为Int32类型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static int ObjectToInt(object expression)
         {
             return ObjectToInt(expression, 0);
         }
 
         /// <summary>
-        /// 将对象转换为Int32类型
+        ///   将对象转换为Int32类型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static int ObjectToInt(object expression, int defValue)
         {
             if (expression != null)
@@ -72,21 +73,21 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// 将对象转换为Int32类型,转换失败返回0
+        ///   将对象转换为Int32类型,转换失败返回0
         /// </summary>
-        /// <param name="str">要转换的字符串</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="str"> 要转换的字符串 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static int StrToInt(string str)
         {
             return StrToInt(str, 0);
         }
 
         /// <summary>
-        /// 将对象转换为Int32类型
+        ///   将对象转换为Int32类型
         /// </summary>
-        /// <param name="str">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="str"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static int StrToInt(string str, int defValue)
         {
             if (string.IsNullOrEmpty(str) || str.Trim().Length >= 11 ||
@@ -101,11 +102,11 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// string型转换为float型
+        ///   string型转换为float型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static float StrToFloat(object strValue, float defValue)
         {
             if ((strValue == null))
@@ -115,11 +116,11 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// string型转换为float型
+        ///   string型转换为float型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static float ObjectToFloat(object strValue, float defValue)
         {
             if ((strValue == null))
@@ -129,21 +130,21 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// string型转换为float型
+        ///   string型转换为float型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static float ObjectToFloat(object strValue)
         {
             return ObjectToFloat(strValue.ToString(), 0);
         }
 
         /// <summary>
-        /// string型转换为float型
+        ///   string型转换为float型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static float StrToFloat(string strValue)
         {
             if ((strValue == null))
@@ -153,11 +154,11 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// string型转换为float型
+        ///   string型转换为float型
         /// </summary>
-        /// <param name="strValue">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="strValue"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static float StrToFloat(string strValue, float defValue)
         {
             if ((strValue == null) || (strValue.Length > 10))
@@ -174,11 +175,11 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// 将对象转换为日期时间类型
+        ///   将对象转换为日期时间类型
         /// </summary>
-        /// <param name="str">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="str"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static DateTime StrToDateTime(string str, DateTime defValue)
         {
             if (!string.IsNullOrEmpty(str))
@@ -191,52 +192,52 @@ namespace Dev.Comm.Core
         }
 
         /// <summary>
-        /// 将对象转换为日期时间类型
+        ///   将对象转换为日期时间类型
         /// </summary>
-        /// <param name="str">要转换的字符串</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="str"> 要转换的字符串 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static DateTime StrToDateTime(string str)
         {
             return StrToDateTime(str, DateTime.Now);
         }
 
         /// <summary>
-        /// 将对象转换为日期时间类型
+        ///   将对象转换为日期时间类型
         /// </summary>
-        /// <param name="obj">要转换的对象</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="obj"> 要转换的对象 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static DateTime ObjectToDateTime(object obj)
         {
             return StrToDateTime(obj.ToString());
         }
 
         /// <summary>
-        /// 将对象转换为日期时间类型
+        ///   将对象转换为日期时间类型
         /// </summary>
-        /// <param name="obj">要转换的对象</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="obj"> 要转换的对象 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static DateTime ObjectToDateTime(object obj, DateTime defValue)
         {
             return StrToDateTime(obj.ToString(), defValue);
         }
 
         /// <summary>
-        /// 字符串转成整型数组
+        ///   字符串转成整型数组
         /// </summary>
-        /// <param name="idList">要转换的字符串</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="idList"> 要转换的字符串 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static int[] StringToIntArray(string idList)
         {
             return StringToIntArray(idList, -1);
         }
 
         /// <summary>
-        /// 字符串转成整型数组
+        ///   字符串转成整型数组
         /// </summary>
-        /// <param name="idList">要转换的字符串</param>
-        /// <param name="defValue">缺省值</param>
-        /// <returns>转换后的int类型结果</returns>
+        /// <param name="idList"> 要转换的字符串 </param>
+        /// <param name="defValue"> 缺省值 </param>
+        /// <returns> 转换后的int类型结果 </returns>
         public static int[] StringToIntArray(string idList, int defValue)
         {
             if (string.IsNullOrEmpty(idList))
@@ -254,12 +255,12 @@ namespace Dev.Comm.Core
         /**/
 
         /// <summary>
-        /// 泛型数据类型转换
+        ///   泛型数据类型转换
         /// </summary>
-        /// <typeparam name="T">自定义数据类型</typeparam>
-        /// <param name="value">传入需要转换的值</param>
-        /// <param name="defaultValue">默认值</param>
-        /// <returns></returns>
+        /// <typeparam name="T"> 自定义数据类型 </typeparam>
+        /// <param name="value"> 传入需要转换的值 </param>
+        /// <param name="defaultValue"> 默认值 </param>
+        /// <returns> </returns>
         public static T ConvertType<T>(object value, T defaultValue)
         {
             return (T) ConvertToT(value, defaultValue);
@@ -268,12 +269,12 @@ namespace Dev.Comm.Core
         /**/
 
         /// <summary>
-        /// 转换数据类型
+        ///   转换数据类型
         /// </summary>
-        /// <typeparam name="T">自定义数据类型</typeparam>
-        /// <param name="myvalue">传入需要转换的值</param>
-        /// <param name="defaultValue">默认值</param>
-        /// <returns></returns>
+        /// <typeparam name="T"> 自定义数据类型 </typeparam>
+        /// <param name="myvalue"> 传入需要转换的值 </param>
+        /// <param name="defaultValue"> 默认值 </param>
+        /// <returns> </returns>
         private static object ConvertToT<T>(object myvalue, T defaultValue)
         {
             TypeCode typeCode = Type.GetTypeCode(typeof (T));

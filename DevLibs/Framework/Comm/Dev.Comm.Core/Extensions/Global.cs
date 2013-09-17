@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：Global.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/Global.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,12 @@ namespace Dev.Comm
     public static class GlobalExtensions
     {
         /// <summary>
-        /// 截断字符串
+        ///   截断字符串
         /// </summary>
-        /// <param name="str"></param>
-        /// <param name="toLength"></param>
-        /// <param name="cutOffReplacement"></param>
-        /// <returns></returns>
+        /// <param name="str"> </param>
+        /// <param name="toLength"> </param>
+        /// <param name="cutOffReplacement"> </param>
+        /// <returns> </returns>
         public static string Shorten(this string str, int toLength, string cutOffReplacement = " ...")
         {
             if (string.IsNullOrEmpty(str) || str.Length <= toLength)
@@ -31,13 +32,13 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 分页
+        ///   分页
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="items"></param>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
+        /// <typeparam name="T"> </typeparam>
+        /// <param name="items"> </param>
+        /// <param name="page"> </param>
+        /// <param name="pageSize"> </param>
+        /// <returns> </returns>
         public static IEnumerable<T> TakePage<T>(this IEnumerable<T> items, int page, int pageSize = 10) where T : class
         {
             return items.Skip(pageSize*(page - 1)).Take(pageSize);

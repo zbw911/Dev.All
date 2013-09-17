@@ -1,12 +1,13 @@
 // ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：StringUtil.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/StringUtil.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,11 +21,11 @@ namespace Dev.Comm
         #region 对字符串进行有效的HTML转换
 
         /// <summary>
-        /// 对字符串进行有效的HTML转换
+        ///   对字符串进行有效的HTML转换
         /// </summary>
-        /// <param name="inputString">字符串</param>
-        /// <param name="maxLength">最多长度</param>
-        /// <returns></returns>
+        /// <param name="inputString"> 字符串 </param>
+        /// <param name="maxLength"> 最多长度 </param>
+        /// <returns> </returns>
         public static string InputText(string inputString, int maxLength)
         {
             // 定义一个可变字符字符串
@@ -156,9 +157,9 @@ namespace Dev.Comm
             {
                 string tempStr = inputText;
                 int num1 = GetStringCount(inputText, "&nbsp;");
-                num1 = num1 * 6;
+                num1 = num1*6;
                 int num2 = GetStringCount(inputText, "<br>");
-                num2 = num2 * 4;
+                num2 = num2*4;
                 int numCount = inputText.Length - num1 - num2;
 
                 int forNum = outNum;
@@ -232,9 +233,9 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// Returns a string with backslashes before characters that need to be quoted
+        ///   Returns a string with backslashes before characters that need to be quoted
         /// </summary>
-        /// <param name="InputTxt">Text string need to be escape with slashes</param>
+        /// <param name="InputTxt"> Text string need to be escape with slashes </param>
         public static string AddSlashes(string InputTxt)
         {
             // List of characters handled:
@@ -265,9 +266,9 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// Un-quotes a quoted string
+        ///   Un-quotes a quoted string
         /// </summary>
-        /// <param name="InputTxt">Text string need to be escape with slashes</param>
+        /// <param name="InputTxt"> Text string need to be escape with slashes </param>
         public static string StripSlashes(string InputTxt)
         {
             // List of characters handled:
@@ -299,12 +300,12 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 批量进行替换
+        ///   批量进行替换
         /// </summary>
-        /// <param name="oldvalue"></param>
-        /// <param name="newvalue"></param>
-        /// <param name="content"></param>
-        /// <returns></returns>
+        /// <param name="oldvalue"> </param>
+        /// <param name="newvalue"> </param>
+        /// <param name="content"> </param>
+        /// <returns> </returns>
         public static string ReplaceBat(IList<string> oldvalue, IList<string> newvalue, string content)
         {
             //StringBuilder sb = new StringBuilder(content);
@@ -321,11 +322,11 @@ namespace Dev.Comm
 
 
         /// <summary>
-        ///  用分隔符连接多个串
+        ///   用分隔符连接多个串
         /// </summary>
-        /// <param name="strs"></param>
-        /// <param name="spliter"></param>
-        /// <returns></returns>
+        /// <param name="strs"> </param>
+        /// <param name="spliter"> </param>
+        /// <returns> </returns>
         public static string ConcatStrs(string[] strs, string spliter = "")
         {
             var sb = new StringBuilder();
@@ -342,11 +343,11 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 按字节数截取,并去除半个汉字 
+        ///   按字节数截取,并去除半个汉字
         /// </summary>
-        /// <param name="str">字符串</param>
-        /// <param name="len">截取长度</param>
-        /// <returns></returns>
+        /// <param name="str"> 字符串 </param>
+        /// <param name="len"> 截取长度 </param>
+        /// <returns> </returns>
         public static string CutGBStr(string str, int len, string dot = "")
         {
             if (string.IsNullOrEmpty(str)) return "";
@@ -380,10 +381,10 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 去除HTML标记
+        ///   去除HTML标记
         /// </summary>
-        /// <param name="AHtml"></param>
-        /// <returns></returns>
+        /// <param name="AHtml"> </param>
+        /// <returns> </returns>
         public static string Strip_Tags(string AHtml)
         {
             var regex = new Regex(@"<[^>]*>");
@@ -395,11 +396,11 @@ namespace Dev.Comm
         }
 
 
-        /// <summary>   
-        /// 计算文本长度，区分中英文字符，中文算两个长度，英文算一个长度
+        /// <summary>
+        ///   计算文本长度，区分中英文字符，中文算两个长度，英文算一个长度
         /// </summary>
-        /// <param name="Text">需计算长度的字符串</param>
-        /// <returns>int</returns>
+        /// <param name="Text"> 需计算长度的字符串 </param>
+        /// <returns> int </returns>
         public static int GbStrLength(string Text)
         {
             int len = 0;
@@ -420,7 +421,7 @@ namespace Dev.Comm
         public static int[] SplitIntString(string strContent, string strSplit, bool RemoveEmpty = true)
         {
             string[] list = SplitString(strContent, strSplit, RemoveEmpty);
-            if (list.Length == 0) return new int[0] { };
+            if (list.Length == 0) return new int[0] {};
 
             var intlist = new List<int>();
             for (int i = 0; i < list.Length; i++)
@@ -434,21 +435,20 @@ namespace Dev.Comm
 
                     intlist.Add(x);
                 }
-
             }
             return intlist.ToArray();
         }
 
 
         /// <summary>
-        /// 分割字符串
+        ///   分割字符串
         /// </summary>
         public static string[] SplitString(string strContent, string strSplit, bool RemoveEmpty = true)
         {
             if (!string.IsNullOrEmpty(strContent))
             {
                 if (strContent.IndexOf(strSplit) < 0)
-                    return new[] { strContent };
+                    return new[] {strContent};
 
                 if (RemoveEmpty)
                     return strContent.Split(strSplit.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -456,13 +456,13 @@ namespace Dev.Comm
                     return Regex.Split(strContent, Regex.Escape(strSplit), RegexOptions.IgnoreCase);
             }
             else
-                return new string[0] { };
+                return new string[0] {};
         }
 
         /// <summary>
-        /// 分割字符串
+        ///   分割字符串
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static string[] SplitString(string strContent, string strSplit, int count)
         {
             var result = new string[count];
@@ -480,10 +480,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 字段串是否为Null或为""(空)
+        ///   字段串是否为Null或为""(空)
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str"> </param>
+        /// <returns> </returns>
         public static bool StrIsNullOrEmpty(string str)
         {
             if (str == null || str.Trim() == string.Empty)
@@ -499,7 +499,7 @@ namespace Dev.Comm
         {
             all = all == 0 ? 1 : all;
 
-            decimal result = x1 / all;
+            decimal result = x1/all;
 
             return result.ToString(string.Format("p{0}", point));
         }
@@ -509,7 +509,7 @@ namespace Dev.Comm
         {
             all = all == 0 ? 1 : all;
 
-            double result = x1 / all;
+            double result = x1/all;
 
             return result.ToString(string.Format("p{0}", point));
         }
@@ -538,10 +538,10 @@ namespace Dev.Comm
         #region 字符是否小写
 
         /// <summary>
-        /// 字符是否小写
+        ///   字符是否小写
         /// </summary>
-        /// <param name="ch">字符</param>
-        /// <returns>bool</returns>
+        /// <param name="ch"> 字符 </param>
+        /// <returns> bool </returns>
         public static bool isLower(char ch)
         {
             if (ch >= 'a' && ch <= 'z')
@@ -555,10 +555,10 @@ namespace Dev.Comm
         #region 字符是否大写
 
         /// <summary>
-        /// 字符是否大写
+        ///   字符是否大写
         /// </summary>
-        /// <param name="ch">字符</param>
-        /// <returns>bool</returns>
+        /// <param name="ch"> 字符 </param>
+        /// <returns> bool </returns>
         public static bool isUpper(char ch)
         {
             if (ch >= 'A' && ch <= 'Z')
@@ -572,10 +572,10 @@ namespace Dev.Comm
         #region 输入的字符是否是数字
 
         /// <summary>
-        /// 输入的字符是否是数字
+        ///   输入的字符是否是数字
         /// </summary>
-        /// <param name="ch">一个字符</param>
-        /// <returns>bool</returns>
+        /// <param name="ch"> 一个字符 </param>
+        /// <returns> bool </returns>
         public static bool isNumberic(char ch)
         {
             if (ch >= '0' && ch <= '9')
@@ -589,10 +589,10 @@ namespace Dev.Comm
         #region 特殊字符检验
 
         /// <summary>
-        /// 特殊字符检验
+        ///   特殊字符检验
         /// </summary>
-        /// <param name="ch">特殊字符</param>
-        /// <returns></returns>
+        /// <param name="ch"> 特殊字符 </param>
+        /// <returns> </returns>
         public static bool isSpecialCharacter(char ch)
         {
             if (ch == '!')
@@ -624,11 +624,11 @@ namespace Dev.Comm
         #region 从字符串中的尾部删除指定的字符串
 
         /// <summary>
-        /// 从字符串中的尾部删除指定的字符串
+        ///   从字符串中的尾部删除指定的字符串
         /// </summary>
-        /// <param name="sourceString"></param>
-        /// <param name="removedString"></param>
-        /// <returns></returns>
+        /// <param name="sourceString"> </param>
+        /// <param name="removedString"> </param>
+        /// <returns> </returns>
         public static string Remove(string sourceString, string removedString)
         {
             try
@@ -657,11 +657,11 @@ namespace Dev.Comm
         #region 获取拆分符右边的字符串
 
         /// <summary>
-        /// 获取拆分符右边的字符串
+        ///   获取拆分符右边的字符串
         /// </summary>
-        /// <param name="sourceString"></param>
-        /// <param name="splitChar"></param>
-        /// <returns></returns>
+        /// <param name="sourceString"> </param>
+        /// <param name="splitChar"> </param>
+        /// <returns> </returns>
         public static string RightSplit(string sourceString, char splitChar)
         {
             string result = null;
@@ -678,11 +678,11 @@ namespace Dev.Comm
         #region 获取拆分符左边的字符串
 
         /// <summary>
-        /// 获取拆分符左边的字符串
+        ///   获取拆分符左边的字符串
         /// </summary>
-        /// <param name="sourceString"></param>
-        /// <param name="splitChar"></param>
-        /// <returns></returns>
+        /// <param name="sourceString"> </param>
+        /// <param name="splitChar"> </param>
+        /// <returns> </returns>
         public static string LeftSplit(string sourceString, char splitChar)
         {
             string result = null;
@@ -699,10 +699,10 @@ namespace Dev.Comm
         #region 去掉最后一个逗号
 
         /// <summary>
-        /// 去掉最后一个逗号
+        ///   去掉最后一个逗号
         /// </summary>
-        /// <param name="origin"></param>
-        /// <returns></returns>
+        /// <param name="origin"> </param>
+        /// <returns> </returns>
         public static string DelLastComma(string origin)
         {
             if (origin.IndexOf(",") == -1)
@@ -717,10 +717,10 @@ namespace Dev.Comm
         #region 删除不可见字符
 
         /// <summary>
-        /// 删除不可见字符
+        ///   删除不可见字符
         /// </summary>
-        /// <param name="sourceString"></param>
-        /// <returns></returns>
+        /// <param name="sourceString"> </param>
+        /// <returns> </returns>
         public static string DeleteUnVisibleChar(string sourceString)
         {
             var sBuilder = new StringBuilder(131);
@@ -740,10 +740,10 @@ namespace Dev.Comm
         #region 获取数组元素的合并字符串
 
         /// <summary>
-        /// 获取数组元素的合并字符串
+        ///   获取数组元素的合并字符串
         /// </summary>
-        /// <param name="stringArray"></param>
-        /// <returns></returns>
+        /// <param name="stringArray"> </param>
+        /// <returns> </returns>
         public static string GetArrayString(string[] stringArray)
         {
             string totalString = null;
@@ -759,11 +759,11 @@ namespace Dev.Comm
         #region 获取某一字符串在字符串数组中出现的次数
 
         /// <summary>
-        /// 获取某一字符串在字符串数组中出现的次数
+        ///   获取某一字符串在字符串数组中出现的次数
         /// </summary>
-        /// <param name="stringArray">字符数字</param>
-        /// <param name="findString">寻找的字符串</param>
-        /// <returns>INT</returns>
+        /// <param name="stringArray"> 字符数字 </param>
+        /// <param name="findString"> 寻找的字符串 </param>
+        /// <returns> INT </returns>
         public static int GetStringCount(string[] stringArray, string findString)
         {
             int count = -1;
@@ -783,21 +783,15 @@ namespace Dev.Comm
         #region 获取某一字符串在字符串中出现的次数
 
         /// <summary>
-        ///     获取某一字符串在字符串中出现的次数
+        ///   获取某一字符串在字符串中出现的次数
         /// </summary>
         /// <param name="stringArray" type="string">
-        ///     <para>
-        ///         原字符串
-        ///     </para>
+        ///   <para> 原字符串 </para>
         /// </param>
         /// <param name="findString" type="string">
-        ///     <para>
-        ///         匹配字符串
-        ///     </para>
+        ///   <para> 匹配字符串 </para>
         /// </param>
-        /// <returns>
-        ///     匹配字符串数量
-        /// </returns>
+        /// <returns> 匹配字符串数量 </returns>
         public static int GetStringCount(string sourceString, string findString)
         {
             int count = 0;
@@ -817,21 +811,15 @@ namespace Dev.Comm
         #region 截取从startString开始到原字符串结尾的所有字符
 
         /// <summary>
-        /// 截取从startString开始到原字符串结尾的所有字符   
+        ///   截取从startString开始到原字符串结尾的所有字符
         /// </summary>
         /// <param name="sourceString" type="string">
-        ///     <para>
-        ///         
-        ///     </para>
+        ///   <para> </para>
         /// </param>
         /// <param name="startString" type="string">
-        ///     <para>
-        ///         
-        ///     </para>
+        ///   <para> </para>
         /// </param>
-        /// <returns>
-        ///     A string value...
-        /// </returns>
+        /// <returns> A string value... </returns>
         public static string GetSubString(string sourceString, string startString)
         {
             try
@@ -854,12 +842,11 @@ namespace Dev.Comm
         #region ????
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="sourceString"></param>
-        /// <param name="beginRemovedString"></param>
-        /// <param name="endRemovedString"></param>
-        /// <returns></returns>
+        /// <param name="sourceString"> </param>
+        /// <param name="beginRemovedString"> </param>
+        /// <param name="endRemovedString"> </param>
+        /// <returns> </returns>
         public static string GetSubString(string sourceString, string beginRemovedString, string endRemovedString)
         {
             try
@@ -890,10 +877,10 @@ namespace Dev.Comm
         #region 按字节数取出字符串的长度
 
         /// <summary>
-        /// 按字节数取出字符串的长度
+        ///   按字节数取出字符串的长度
         /// </summary>
-        /// <param name="strTmp">要计算的字符串</param>
-        /// <returns>字符串的字节数</returns>
+        /// <param name="strTmp"> 要计算的字符串 </param>
+        /// <returns> 字符串的字节数 </returns>
         public static int GetByteCount(string strTmp)
         {
             int intCharCount = 0;
@@ -916,11 +903,11 @@ namespace Dev.Comm
         #region 按字节数要在字符串的位置
 
         /// <summary>
-        /// 按字节数要在字符串的位置
+        ///   按字节数要在字符串的位置
         /// </summary>
-        /// <param name="intIns">字符串的位置</param>
-        /// <param name="strTmp">要计算的字符串</param>
-        /// <returns>字节的位置</returns>
+        /// <param name="intIns"> 字符串的位置 </param>
+        /// <param name="strTmp"> 要计算的字符串 </param>
+        /// <returns> 字节的位置 </returns>
         public static int GetByteIndex(int intIns, string strTmp)
         {
             int intReIns = 0;
@@ -952,10 +939,10 @@ namespace Dev.Comm
         #region 去掉字符中的空格
 
         /// <summary>
-        /// 去掉字符中的空格
+        ///   去掉字符中的空格
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str"> </param>
+        /// <returns> </returns>
         public static string RemoveMiddleSpace(string str)
         {
             char[] ch = str.ToCharArray();
@@ -980,11 +967,11 @@ namespace Dev.Comm
         #region 记算流水号
 
         /// <summary>
-        /// 记算流水号
+        ///   记算流水号
         /// </summary>
-        /// <param name="strId">开始字符串</param>
-        /// <param name="i">流水位数</param>
-        /// <returns>字符串</returns>
+        /// <param name="strId"> 开始字符串 </param>
+        /// <param name="i"> 流水位数 </param>
+        /// <returns> 字符串 </returns>
         private static string DoInc(string strId, int i)
         {
             string chrId;
@@ -1029,10 +1016,10 @@ namespace Dev.Comm
         #region 记算流水号
 
         /// <summary>
-        /// 记算流水号
+        ///   记算流水号
         /// </summary>
-        /// <param name="strId">输入的字符</param>
-        /// <returns></returns>
+        /// <param name="strId"> 输入的字符 </param>
+        /// <returns> </returns>
         public static string IncStr(string strId)
         {
             return DoInc(strId, strId.Length);
@@ -1141,7 +1128,7 @@ namespace Dev.Comm
 
         #region 替换html字符
 
-        private static readonly char[] _markupChar = { ' ', ' ', ' ', '<', '>', '&', '"', '*', '/' };
+        private static readonly char[] _markupChar = {' ', ' ', ' ', '<', '>', '&', '"', '*', '/'};
 
         private static readonly string[] _replaceString =
             {
@@ -1291,7 +1278,7 @@ namespace Dev.Comm
                     if (i != 25) max = areacode[i + 1];
                     if (areacode[i] <= code && code < max)
                     {
-                        return Encoding.Default.GetString(new[] { (byte)(65 + i) });
+                        return Encoding.Default.GetString(new[] {(byte) (65 + i)});
                     }
                 }
                 return "*";
@@ -1302,16 +1289,15 @@ namespace Dev.Comm
         #endregion
 
         /// <summary>
-        /// 把字符串中某些字符进行替换
+        ///   把字符串中某些字符进行替换
         /// </summary>
-        /// <param name="str"></param>
-        /// <param name="from"></param>
-        /// <param name="len"></param>
-        /// <param name="mask"></param>
-        /// <returns></returns>
+        /// <param name="str"> </param>
+        /// <param name="from"> </param>
+        /// <param name="len"> </param>
+        /// <param name="mask"> </param>
+        /// <returns> </returns>
         public static string Mask(string str, int from, int len, char mask = '*')
         {
-
             if (str.Length <= from + 1)
                 return str;
 
@@ -1341,7 +1327,6 @@ namespace Dev.Comm
         }
 
 
-
         public static string RMB(decimal? rmb)
         {
             if (rmb == null)
@@ -1353,12 +1338,12 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 生成随机颜色
+        ///   生成随机颜色
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static string GetColor()
         {
-            var nums = new List<string> { "0", "3", "6", "9", "C", "F" };
+            var nums = new List<string> {"0", "3", "6", "9", "C", "F"};
             var clr = "#";
             for (var i = 0; i < 6; i++)
             {

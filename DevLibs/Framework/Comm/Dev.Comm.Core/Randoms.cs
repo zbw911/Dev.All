@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：Randoms.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/Randoms.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Security.Cryptography;
 
@@ -17,10 +18,10 @@ namespace Dev.Comm
         #region 生成随机数
 
         /// <summary>
-        /// 生成随机数
+        ///   生成随机数
         /// </summary>
-        /// <param name="codeCount">随机数个数</param>
-        /// <returns>STRING</returns>
+        /// <param name="codeCount"> 随机数个数 </param>
+        /// <returns> STRING </returns>
         public static string CreateRandomCode(int codeCount)
         {
             string allChar = "2,3,4,5,6,7,8,a,b,c,d,e,f,g,h,i,j,k,m,n,p,q,r,s,t,u,w,x,y";
@@ -35,7 +36,7 @@ namespace Dev.Comm
                 if (temp != -1)
                 {
                     //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                    var s = (int)DateTime.Now.Ticks;
+                    var s = (int) DateTime.Now.Ticks;
                     rand = new Random(GetRandomSeed());
                 }
                 int t = rand.Next(29);
@@ -51,10 +52,9 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="max"></param>
-        /// <returns></returns>
+        /// <param name="max"> </param>
+        /// <returns> </returns>
         public static int CreateRandomNumber(int max)
         {
             var rand = new Random(GetRandomSeed());
@@ -99,10 +99,10 @@ namespace Dev.Comm
         #region 生成随机数
 
         /// <summary>
-        /// 生成随机数
+        ///   生成随机数
         /// </summary>
-        /// <param name="codeCount">随机数个数</param>
-        /// <returns>STRING</returns>
+        /// <param name="codeCount"> 随机数个数 </param>
+        /// <returns> STRING </returns>
         public static string CreateRandomCode()
         {
             string allChar = "0,1,2,3,4,5,6,7,8,9";
@@ -141,12 +141,12 @@ namespace Dev.Comm
 
         #region 生成随机数0-9的数字
 
-        /// lianyee		
+        /// lianyee
         /// <summary>
-        /// 生成随机数
+        ///   生成随机数
         /// </summary>
-        /// <param name="codeCount">随机数个数</param>
-        /// <returns>STRING</returns>
+        /// <param name="codeCount"> 随机数个数 </param>
+        /// <returns> STRING </returns>
         public static string CreateRandomEleCode()
         {
             string allChar = "A1,A2,A3,A4,A5,A6,A7,A8," +
@@ -168,7 +168,7 @@ namespace Dev.Comm
             if (temp != -1)
             {
                 //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                var s = (int)DateTime.Now.Ticks;
+                var s = (int) DateTime.Now.Ticks;
                 rand = new Random(GetRandomSeed());
             }
             int t = rand.Next(80);

@@ -2,7 +2,7 @@
 //  Created by zbw911 
 //  创建于：2013年07月16日 13:40
 //  
-//  修改于：2013年07月16日 13:57
+//  修改于：2013年09月17日 11:33
 //  文件名：Dev.Libs/Dev.Comm.Core/XmlToDynamic.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
@@ -25,10 +25,9 @@ namespace Dev.Comm
     {
         #region Class Methods
 
-
         public static dynamic Parse(string xml)
         {
-            var xDoc = XDocument.Parse(xml);//XDocument.Load(../xml.xml)
+            var xDoc = XDocument.Parse(xml); //XDocument.Load(../xml.xml)
             dynamic root = new ExpandoObject();
 
             return Parse(xDoc.Elements().First());

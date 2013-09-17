@@ -1,12 +1,13 @@
 // ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：Security.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/Security.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -115,10 +116,10 @@ namespace Dev.Comm
         //}
 
         /// <summary>
-        /// 检测是否有Sql危险字符
+        ///   检测是否有Sql危险字符
         /// </summary>
-        /// <param name="str">要判断字符串</param>
-        /// <returns>判断结果</returns>
+        /// <param name="str"> 要判断字符串 </param>
+        /// <returns> 判断结果 </returns>
         public static bool IsSafeSqlString(string str)
         {
             return !Regex.IsMatch(str, @"[-|;|,|\/|\(|\)|\[|\]|\}|\{|%|@|\*|!|\']");
@@ -261,10 +262,10 @@ namespace Dev.Comm
         #region base64位加密
 
         /// <summary>
-        /// base64位加密
+        ///   base64位加密
         /// </summary>
-        /// <param name="strInput">字符串</param>
-        /// <returns>STRING</returns>
+        /// <param name="strInput"> 字符串 </param>
+        /// <returns> STRING </returns>
         public static string ToBase64Encrypt(string strInput)
         {
             if (strInput.Trim() == string.Empty)
@@ -281,10 +282,10 @@ namespace Dev.Comm
         #region base64位解密
 
         /// <summary>
-        /// base64位解密
+        ///   base64位解密
         /// </summary>
-        /// <param name="strInput">字符串</param>
-        /// <returns>STRING</returns>
+        /// <param name="strInput"> 字符串 </param>
+        /// <returns> STRING </returns>
         public static string FormBase64Encrypt(string strInput)
         {
             if (strInput.Trim() == string.Empty)
@@ -298,11 +299,11 @@ namespace Dev.Comm
         #region RSA 私钥签名-ForPEM
 
         /// <summary>
-        /// RSA 私钥签名 杨栋添加
+        ///   RSA 私钥签名 杨栋添加
         /// </summary>
-        /// <param name="str">需要加密的原始字符串</param>
-        /// <param name="privatefilepath">私钥.PEM 文件路径</param>
-        /// <returns>加密后16进制字符串</returns>
+        /// <param name="str"> 需要加密的原始字符串 </param>
+        /// <param name="privatefilepath"> 私钥.PEM 文件路径 </param>
+        /// <returns> 加密后16进制字符串 </returns>
         public static string RSAEncodeForPEM(string str, string privatefilepath)
         {
             StreamReader prkey = null;
@@ -432,11 +433,11 @@ namespace Dev.Comm
         #region PEM 文件 转换成 XML 文件
 
         /// <summary>
-        /// PEM 文件 转换成 XML 文件 杨栋添加
+        ///   PEM 文件 转换成 XML 文件 杨栋添加
         /// </summary>
-        /// <param name="pemstr">PEM文件原型,包含开始和结尾的注释</param>
-        /// <param name="xmlfilepath">要保存为 XML文件路径</param>
-        /// <returns></returns>
+        /// <param name="pemstr"> PEM文件原型,包含开始和结尾的注释 </param>
+        /// <param name="xmlfilepath"> 要保存为 XML文件路径 </param>
+        /// <returns> </returns>
         public static bool PemToXml(string pemstr, string xmlfilepath)
         {
             BinaryReader binr = null;
@@ -597,11 +598,11 @@ namespace Dev.Comm
         #region RSA 私钥签名
 
         /// <summary>
-        /// RSA 私钥签名 杨栋添加
+        ///   RSA 私钥签名 杨栋添加
         /// </summary>
-        /// <param name="str">要签名的原始字符串</param>
-        /// <param name="PrivateXmlfilepath">私钥xml文件地址</param>
-        /// <returns>签名后字符串</returns>
+        /// <param name="str"> 要签名的原始字符串 </param>
+        /// <param name="PrivateXmlfilepath"> 私钥xml文件地址 </param>
+        /// <returns> 签名后字符串 </returns>
         public static string RSAEncode(string str, string PrivateXmlfilepath)
         {
             if (File.Exists(PrivateXmlfilepath) == false)
@@ -649,12 +650,12 @@ namespace Dev.Comm
         #region RSA 公钥验证算法
 
         /// <summary>
-        /// RSA 公钥验证 杨栋添加
+        ///   RSA 公钥验证 杨栋添加
         /// </summary>
-        /// <param name="RsaEncodeStr">私钥加密后字符串</param>
-        /// <param name="RsaPublicfilepath">RSA公钥PEM文件路径</param>
-        /// <param name="srcstr">RSA私钥加密前原始字符串</param>
-        /// <returns>验证结果 true or false</returns>
+        /// <param name="RsaEncodeStr"> 私钥加密后字符串 </param>
+        /// <param name="RsaPublicfilepath"> RSA公钥PEM文件路径 </param>
+        /// <param name="srcstr"> RSA私钥加密前原始字符串 </param>
+        /// <returns> 验证结果 true or false </returns>
         public static bool RSACheck(string RsaEncodeStr, string RsaPublicfilepath, string srcstr)
         {
             StreamReader pukey = null;

@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：GenerateThumbnail.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/ImageHelper.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -16,7 +17,7 @@ using System.IO;
 namespace Dev.Comm
 {
     /// <summary>
-    /// 图片帮助方法
+    ///   图片帮助方法
     /// </summary>
     public class ImageHelper
     {
@@ -66,14 +67,13 @@ namespace Dev.Comm
 
         /**/
 
-        /// <summary> 
-        /// 生成缩略图 静态方法 
-        /// </summary> 
-        /// <param name="pathImageFrom"> 源图的路径(含文件名及扩展名) </param> 
-        /// <param name="pathImageTo"> 生成的缩略图所保存的路径(含文件名及扩展名) 
-        /// 注意：扩展名一定要与生成的缩略图格式相对应 </param> 
-        /// <param name="width"> 欲生成的缩略图 "画布" 的宽度(像素值) </param> 
-        /// <param name="height"> 欲生成的缩略图 "画布" 的高度(像素值) </param> 
+        /// <summary>
+        ///   生成缩略图 静态方法
+        /// </summary>
+        /// <param name="pathImageFrom"> 源图的路径(含文件名及扩展名) </param>
+        /// <param name="pathImageTo"> 生成的缩略图所保存的路径(含文件名及扩展名) 注意：扩展名一定要与生成的缩略图格式相对应 </param>
+        /// <param name="width"> 欲生成的缩略图 "画布" 的宽度(像素值) </param>
+        /// <param name="height"> 欲生成的缩略图 "画布" 的高度(像素值) </param>
         public static void GenThumbnail(string pathImageFrom, string pathImageTo, int width, int height)
         {
             Image imageFrom = null;
@@ -141,13 +141,13 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 生成缩略后的流
-        /// zbw911
+        ///   生成缩略后的流
+        ///   zbw911
         /// </summary>
-        /// <param name="ImageStreamFrom"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <returns></returns>
+        /// <param name="ImageStreamFrom"> </param>
+        /// <param name="width"> </param>
+        /// <param name="height"> </param>
+        /// <returns> </returns>
         public static Stream GenThumbnail(Stream ImageStreamFrom, int width, int height)
         {
             ImageStreamFrom.Seek(0, SeekOrigin.Begin);
@@ -378,10 +378,10 @@ namespace Dev.Comm
         #region 添加黑边
 
         /// <summary>
-        /// 去除黑边
+        ///   去除黑边
         /// </summary>
-        /// <param name="Img"></param>
-        /// <param name="AddPx">要添加的黑边宽度 像素</param>
+        /// <param name="Img"> </param>
+        /// <param name="AddPx"> 要添加的黑边宽度 像素 </param>
         private static void AddBlackBorder(Bitmap Img, int AddPx) //去除黑边
         {
             int ImgWidth = Img.Width;

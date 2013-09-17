@@ -1,12 +1,13 @@
 // ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：AsmUtil.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/AsmUtil.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +19,6 @@ namespace Dev.Comm
 {
     public class AsmUtil
     {
-
         public static Assembly GetAssemblyFromCurrentDomain(string AName, bool IsLoadAsm)
         {
             Assembly[] asm = AppDomain.CurrentDomain.GetAssemblies();
@@ -71,15 +71,15 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 执行某个方法
+        ///   执行某个方法
         /// </summary>
-        /// <param name="AAsmName"></param>
-        /// <param name="AClassName"></param>
-        /// <param name="AMethodName"></param>
-        /// <param name="AConstructorParam"></param>
-        /// <param name="AMethodParam"></param>
-        /// <param name="AInstance"></param>
-        /// <returns></returns>
+        /// <param name="AAsmName"> </param>
+        /// <param name="AClassName"> </param>
+        /// <param name="AMethodName"> </param>
+        /// <param name="AConstructorParam"> </param>
+        /// <param name="AMethodParam"> </param>
+        /// <param name="AInstance"> </param>
+        /// <returns> </returns>
         /// <exception cref="Exception"></exception>
         public static object InvokeMethod(string AAsmName, string AClassName, string AMethodName,
                                           object[] AConstructorParam, object[] AMethodParam, ref object AInstance)
@@ -131,12 +131,12 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 取得属性值
+        ///   取得属性值
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="PropertyName"></param>
-        /// <param name="Index"></param>
-        /// <returns></returns>
+        /// <param name="obj"> </param>
+        /// <param name="PropertyName"> </param>
+        /// <param name="Index"> </param>
+        /// <returns> </returns>
         public static object GetPropertyValue(object obj, string PropertyName, object[] Index)
         {
             PropertyInfo t = obj.GetType().GetProperty(PropertyName);
@@ -146,24 +146,26 @@ namespace Dev.Comm
 
             return t.GetValue(obj, Index);
         }
+
         /// <summary>
-        /// 属性是否存在
+        ///   属性是否存在
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="PropertyName"></param>
-        /// <returns></returns>
+        /// <param name="obj"> </param>
+        /// <param name="PropertyName"> </param>
+        /// <returns> </returns>
         public static bool ExistPropertyName(object obj, string PropertyName)
         {
             PropertyInfo t = obj.GetType().GetProperty(PropertyName);
             return t != null;
         }
+
         /// <summary>
-        /// 设置属性值
+        ///   设置属性值
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="PropertyName"></param>
-        /// <param name="Value"></param>
-        /// <param name="Index"></param>
+        /// <param name="obj"> </param>
+        /// <param name="PropertyName"> </param>
+        /// <param name="Value"> </param>
+        /// <param name="Index"> </param>
         public static void SetPropertyValue(object obj, string PropertyName, object Value, object[] Index)
         {
             PropertyInfo t = obj.GetType().GetProperty(PropertyName);
@@ -173,36 +175,39 @@ namespace Dev.Comm
             object tmp = Convert.ChangeType(Value, t.PropertyType);
             t.SetValue(obj, tmp, Index);
         }
+
         /// <summary>
-        /// 取得参数信息
+        ///   取得参数信息
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static ParameterInfo[] GetMethodParameterInfo()
         {
             return (new StackTrace()).GetFrame(1).GetMethod().GetParameters();
         }
-        /// <summary>
+
         //参数名列表
+        /// <summary>
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static string[] GetMethodParamNames()
         {
             ParameterInfo[] pis = (new StackTrace()).GetFrame(1).GetMethod().GetParameters();
-            Array a = Array.CreateInstance(typeof(string), pis.Length);
+            Array a = Array.CreateInstance(typeof (string), pis.Length);
             for (int i = 0; i < pis.Length; i++)
             {
                 a.SetValue(pis[i].Name, i);
             }
-            return (string[])a;
+            return (string[]) a;
         }
 
         /// <summary>
-        /// 取得格式化后的参数列表
+        ///   取得格式化后的参数列表
         /// </summary>
         /// <param name="methodNamefromat"> </param>
         /// <param name="paramFormat"> </param>
-        /// <returns></returns>
-        public static string GetMethodParamNamesByFormat(string methodNamefromat = "{0}|", string paramFormat = "{0}={{{1}}}")
+        /// <returns> </returns>
+        public static string GetMethodParamNamesByFormat(string methodNamefromat = "{0}|",
+                                                         string paramFormat = "{0}={{{1}}}")
         {
             string methodName = (new StackTrace()).GetFrame(1).GetMethod().Name;
             ParameterInfo[] pis = (new StackTrace()).GetFrame(1).GetMethod().GetParameters();

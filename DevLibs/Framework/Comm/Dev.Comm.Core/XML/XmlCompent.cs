@@ -1,12 +1,13 @@
 // ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：XmlCompent.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/XmlCompent.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System.Collections;
 using System.Xml;
 
@@ -44,10 +45,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 字符串格式XML转换成HASHTABLE
+        ///   字符串格式XML转换成HASHTABLE
         /// </summary>
-        /// <param name="XmlFile"></param>
-        /// <returns></returns>
+        /// <param name="XmlFile"> </param>
+        /// <returns> </returns>
         public static Hashtable GetTable(string XmlFile)
         {
             var ht = new Hashtable();

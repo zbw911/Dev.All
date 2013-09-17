@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/StringExtensions.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +16,11 @@ using System.Text;
 namespace Dev.Comm.Core.Extensions
 {
     /// <summary>
-    /// 
     /// </summary>
     public static class StringExtensions
     {
         public static T AS<T>(this string source)
         {
-
             return AS<T>(source, default(T));
         }
 
@@ -22,6 +30,7 @@ namespace Dev.Comm.Core.Extensions
             T result = TypeConverter.ConvertType(source, defaultvalue);
             return result;
         }
+
         public static int AsInt(this string source, int defaultvalue)
         {
             return AS<int>(source, defaultvalue);

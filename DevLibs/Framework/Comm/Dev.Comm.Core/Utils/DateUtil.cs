@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：DateUtil.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/DateUtil.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Globalization;
 
@@ -15,11 +16,11 @@ namespace Dev.Comm
     public class DateUtil
     {
         /// <summary>
-        /// 取得某月的最后一天
-        /// 方法一：使用算出該月多少天，年+月+加上多少天即得，舉例取今天這個月的最后一天
+        ///   取得某月的最后一天
+        ///   方法一：使用算出該月多少天，年+月+加上多少天即得，舉例取今天這個月的最后一天
         /// </summary>
-        /// <param name="DtStart"></param>
-        /// <param name="DtEnd"></param>
+        /// <param name="DtStart"> </param>
+        /// <param name="DtEnd"> </param>
         public static void GetLastDateForMonth(DateTime DtStart, out DateTime DtEnd)
         {
             int Dtyear, DtMonth;
@@ -31,11 +32,11 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 取得某月的最后一天
-        /// 方法二：取出下月的第一天減去一天便是這個月的最后一天
+        ///   取得某月的最后一天
+        ///   方法二：取出下月的第一天減去一天便是這個月的最后一天
         /// </summary>
-        /// <param name="DtStart"></param>
-        /// <param name="DtEnd"></param>
+        /// <param name="DtStart"> </param>
+        /// <param name="DtEnd"> </param>
         public static void GetLastDateForMonthEx(DateTime DtStart, out DateTime DtEnd)
         {
             int Dtyear, DtMonth;
@@ -48,12 +49,12 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 获取时间差
+        ///   获取时间差
         /// </summary>
-        /// <param name="datepart">yy表示相差的年，mm表示相差的月，dd表示相差的天，hh表示相差的小时，mi表示相差的分，ss表示相差的秒</param>
-        /// <param name="startdate"></param>
-        /// <param name="enddate"></param>
-        /// <returns></returns>
+        /// <param name="datepart"> yy表示相差的年，mm表示相差的月，dd表示相差的天，hh表示相差的小时，mi表示相差的分，ss表示相差的秒 </param>
+        /// <param name="startdate"> </param>
+        /// <param name="enddate"> </param>
+        /// <returns> </returns>
         public static int DateDiff(string datepart, DateTime startdate, DateTime enddate)
         {
             TimeSpan Span = enddate - startdate;
@@ -72,7 +73,7 @@ namespace Dev.Comm
                     result = Years;
                     break;
                 case "mm":
-                    result = Years * 12;
+                    result = Years*12;
                     result += Months;
                     if (Days > 0)
                         result += 1;
@@ -94,10 +95,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 将系统时间转换成UNIX时间戳
+        ///   将系统时间转换成UNIX时间戳
         /// </summary>
-        /// <param name="Date"></param>
-        /// <returns></returns>
+        /// <param name="Date"> </param>
+        /// <returns> </returns>
         public static string ToUnixTimeStamp(DateTime Date)
         {
             DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
@@ -108,10 +109,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 将UNIX时间戳转换成系统时间
+        ///   将UNIX时间戳转换成系统时间
         /// </summary>
-        /// <param name="timeStamp"></param>
-        /// <returns></returns>
+        /// <param name="timeStamp"> </param>
+        /// <returns> </returns>
         public static DateTime GetUnixTimeStamp(string timeStamp)
         {
             DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
@@ -123,11 +124,11 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 时间格式化 added by zbw911
+        ///   时间格式化 added by zbw911
         /// </summary>
-        /// <param name="dateTime"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
+        /// <param name="dateTime"> </param>
+        /// <param name="format"> </param>
+        /// <returns> </returns>
         public static string my_date_format2(DateTime dateTime, string format = "M月d日 H时m分")
         {
             TimeSpan ts = DateTime.Now - dateTime;
@@ -152,11 +153,11 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 常用时间格式化
+        ///   常用时间格式化
         /// </summary>
-        /// <param name="timestamp"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
+        /// <param name="timestamp"> </param>
+        /// <param name="format"> </param>
+        /// <returns> </returns>
         public static string my_date_format(DateTime timestamp, string format = "yyyy-MM-dd H:m:s")
         {
             return timestamp.ToString(format);
@@ -176,11 +177,12 @@ namespace Dev.Comm
         {
             return string.Format((datetime).ToString("M月d日 {0} HH:mm"), (GetZhCnDayOfWeek(datetime)));
         }
+
         /// <summary>
-        /// 将UTC 时间 转化为本地化时间
+        ///   将UTC 时间 转化为本地化时间
         /// </summary>
-        /// <param name="utcDate"></param>
-        /// <returns></returns>
+        /// <param name="utcDate"> </param>
+        /// <returns> </returns>
         public static DateTime UtcToLocal(DateTime utcDate)
         {
             DateTime convertedDate = DateTime.SpecifyKind(utcDate, DateTimeKind.Utc);

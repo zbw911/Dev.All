@@ -1,12 +1,13 @@
 // ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：CodeImage.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/CodeImage.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -335,7 +336,7 @@ namespace Dev.Comm
     */
 
     /// <summary>
-    /// 生成验证码， from another project , added by zbw911
+    ///   生成验证码， from another project , added by zbw911
     /// </summary>
     public class ValidateCode
     {
@@ -359,10 +360,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 生成验证码
+        ///   生成验证码
         /// </summary>
-        /// <param name="length">指定验证码的长度</param>
-        /// <returns></returns>
+        /// <param name="length"> 指定验证码的长度 </param>
+        /// <returns> </returns>
         public string CreateValidateCode(int codeLen)
         {
             return CreateValidateCode(codeLen, 0);
@@ -370,14 +371,14 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 生成随机字符码
+        ///   生成随机字符码
         /// </summary>
-        /// <param name="codeLen">字符串总长度</param>
-        /// <param name="zhCharsCount">中文字符个数</param>
-        /// <returns></returns>
+        /// <param name="codeLen"> 字符串总长度 </param>
+        /// <param name="zhCharsCount"> 中文字符个数 </param>
+        /// <returns> </returns>
         public string CreateValidateCode(int codeLen, int zhCharsCount)
         {
-            var rnd = new Random(unchecked((int)DateTime.Now.Ticks));
+            var rnd = new Random(unchecked((int) DateTime.Now.Ticks));
             string ChineseChars =
                 "的一是在不了有和人这中大为上个国我以要他时来用们生到作地于出就分对成会可主发年动同工也能下过子说产种面而方后多定行学法所民得经十三之进着等部度家电力里如水化高自二理起小物现实加量都两体制机当使点从业本去把性好应开它合还因由其些然前外天政四日那社义事平形相全表间样与关各重新线内数正心反你明看原又么利比或但质气第向道命此变条只没结解问意建月公无系军很情者最立代想已通并提直题党程展五果料象员革位入常文总次品式活设及管特件长求老头基资边流路级少图山统接知较将组见计别她手角期根论运农指几九区强放决西被干做必战先回则任取据处队南给色光门即保治北造百规热领七海口东导器压志世金增争济阶油思术极交受联什认六共权收证改清己美再采转更单风切打白教速花带安场身车例真务具万每目至达走积示议声报斗完类八离华名确才科张信马节话米整空元况今集温传土许步群广石记需段研界拉林律叫且究观越织装影算低持音众书布复容儿须际商非验连断深难近矿千周委素技备半办青省列习响约支般史感劳便团往酸历市克何除消构府称太准精值号率族维划选标写存候毛亲快效斯院查江型眼王按格养易置派层片始却专状育厂京识适属圆包火住调满县局照参红细引听该铁价严";
             string EnglishOrNumChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -403,14 +404,14 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 创建验证码的图片
+        ///   创建验证码的图片
         /// </summary>
-        /// <param name="validateCode">验证码</param>
+        /// <param name="validateCode"> 验证码 </param>
         public byte[] CreateValidateGraphic(string validateCode)
         {
             //应考虑到中文的宽度，added by zbw911
             var len = Dev.Comm.StringUtil.GetGBStrLen(validateCode);
-            var image = new Bitmap((int)Math.Ceiling(len * _withPerCode), (int)_heightCode);
+            var image = new Bitmap((int) Math.Ceiling(len*_withPerCode), (int) _heightCode);
             Graphics g = Graphics.FromImage(image);
             try
             {
@@ -427,9 +428,9 @@ namespace Dev.Comm
                     int y2 = random.Next(image.Height);
                     g.DrawLine(new Pen(Color.Silver), x1, y1, x2, y2);
                 }
-                var font = new Font("Arial", (float)_withPerCode, (FontStyle.Bold | FontStyle.Italic));
+                var font = new Font("Arial", (float) _withPerCode, (FontStyle.Bold | FontStyle.Italic));
                 var brush = new LinearGradientBrush(new Rectangle(0, 0, image.Width, image.Height),
-                 Color.Blue, Color.DarkRed, 1.2f, true);
+                                                    Color.Blue, Color.DarkRed, 1.2f, true);
                 g.DrawString(validateCode, font, brush, 3, 2);
                 //画图片的前景干扰点
                 for (int i = 0; i < 100; i++)
@@ -455,17 +456,16 @@ namespace Dev.Comm
             }
         }
 
-
         #region 产生波形滤镜效果
 
         /// <summary>
-        /// 正弦曲线Wave扭曲图片（Edit By 51aspx.com）
+        ///   正弦曲线Wave扭曲图片（Edit By 51aspx.com）
         /// </summary>
-        /// <param name="srcBmp">图片路径</param>
-        /// <param name="bXDir">如果扭曲则选择为True</param>
-        /// <param name="nMultValue">波形的幅度倍数，越大扭曲的程度越高，一般为3</param>
-        /// <param name="dPhase">波形的起始相位，取值区间[0-2*PI)</param>
-        /// <returns></returns>
+        /// <param name="srcBmp"> 图片路径 </param>
+        /// <param name="bXDir"> 如果扭曲则选择为True </param>
+        /// <param name="nMultValue"> 波形的幅度倍数，越大扭曲的程度越高，一般为3 </param>
+        /// <param name="dPhase"> 波形的起始相位，取值区间[0-2*PI) </param>
+        /// <returns> </returns>
         private Bitmap TwistImage(Bitmap srcBmp, bool bXDir, double dMultValue, double dPhase)
         {
             //double PI = 3.1415926535897932384626433832795;
@@ -484,14 +484,14 @@ namespace Dev.Comm
                 for (int j = 0; j < destBmp.Height; j++)
                 {
                     double dx = 0;
-                    dx = bXDir ? (PI2 * j) / dBaseAxisLen : (PI2 * i) / dBaseAxisLen;
+                    dx = bXDir ? (PI2*j)/dBaseAxisLen : (PI2*i)/dBaseAxisLen;
                     dx += dPhase;
                     double dy = Math.Sin(dx);
 
                     // 取得当前点的颜色
                     int nOldX = 0, nOldY = 0;
-                    nOldX = bXDir ? i + (int)(dy * dMultValue) : i;
-                    nOldY = bXDir ? j : j + (int)(dy * dMultValue);
+                    nOldX = bXDir ? i + (int) (dy*dMultValue) : i;
+                    nOldY = bXDir ? j : j + (int) (dy*dMultValue);
 
                     Color color = srcBmp.GetPixel(i, j);
                     if (nOldX >= 0 && nOldX < destBmp.Width
@@ -507,24 +507,23 @@ namespace Dev.Comm
 
         #endregion
 
-
         /// <summary>
-        /// 得到验证码图片的长度
+        ///   得到验证码图片的长度
         /// </summary>
-        /// <param name="validateNumLength">验证码的长度</param>
-        /// <returns></returns>
+        /// <param name="validateNumLength"> 验证码的长度 </param>
+        /// <returns> </returns>
         public static int GetImageWidth(int validateNumLength)
         {
-            return (int)(validateNumLength * 12.0);
+            return (int) (validateNumLength*12.0);
         }
+
         /// <summary>
-        /// 得到验证码的高度
+        ///   得到验证码的高度
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static double GetImageHeight()
         {
             return 22.5;
         }
-
     }
 }

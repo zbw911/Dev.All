@@ -9,18 +9,23 @@
             创建顺序的串
             </summary>
         </member>
-        <member name="M:Dev.Comm.DataStructure.CreateSequence.#ctor(System.Int32,System.Char[])">
+        <member name="M:Dev.Comm.DataStructure.CreateSequence.#ctor(System.Int32,System.String[])">
             <summary>
             
             </summary>
-            <param name="len"></param>
-            <param name="seed"></param>
+            <param name="len">长度</param>
+            <param name="seed">种子</param>
         </member>
-        <member name="M:Dev.Comm.DataStructure.CreateSequence.Createno(System.Int32)">
+        <member name="M:Dev.Comm.DataStructure.CreateSequence.BeginCreate">
+            <summary>
+            开始创建
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.DataStructure.CreateSequence.CreateNo(System.Int32)">
             <summary>
             
             </summary>
-            <param name="arr"></param>
             <param name="position"></param>
         </member>
         <member name="T:Dev.Comm.DataStructure.Node`1">

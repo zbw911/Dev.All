@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：RegexHelper.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/RegexHelper.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -16,10 +17,9 @@ namespace Dev.Comm
     public class RegexHelper
     {
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="content"></param>
-        /// <param name="pattern"></param>
+        /// <param name="content"> </param>
+        /// <param name="pattern"> </param>
         public static IList<KeyValuePair<int, string>> MatchesKeyIndex(string content, string pattern)
         {
             MatchCollection mc = Matches(content, pattern);
@@ -58,11 +58,11 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 正则替换
+        ///   正则替换
         /// </summary>
-        /// <param name="content"></param>
-        /// <param name="pattern"></param>
-        /// <returns></returns>
+        /// <param name="content"> </param>
+        /// <param name="pattern"> </param>
+        /// <returns> </returns>
         public static string Replace(string content, string pattern, string replacement)
         {
             var r = new Regex(pattern);
@@ -81,12 +81,12 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 返回 所有 分组匹配项
+        ///   返回 所有 分组匹配项
         /// </summary>
-        /// <param name="content"></param>
-        /// <param name="pattern"></param>
-        /// <param name="matchindex"></param>
-        /// <returns></returns>
+        /// <param name="content"> </param>
+        /// <param name="pattern"> </param>
+        /// <param name="matchindex"> </param>
+        /// <returns> </returns>
         public static string[] MatchesGroupsString(string content, string pattern, int GroupIndex)
         {
             MatchCollection mc = Matches(content, pattern);
@@ -123,12 +123,11 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="content"></param>
-        /// <param name="pattern"></param>
-        /// <param name="matchindex"></param>
-        /// <returns></returns>
+        /// <param name="content"> </param>
+        /// <param name="pattern"> </param>
+        /// <param name="matchindex"> </param>
+        /// <returns> </returns>
         public static GroupCollection MatchesGroups(string content, string pattern, int matchindex)
         {
             MatchCollection mc = Matches(content, pattern);
@@ -165,11 +164,11 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 是否MATCH，兼容php
+        ///   是否MATCH，兼容php
         /// </summary>
-        /// <param name="content"></param>
-        /// <param name="pattern"></param>
-        /// <returns></returns>
+        /// <param name="content"> </param>
+        /// <param name="pattern"> </param>
+        /// <returns> </returns>
         public static bool Preg_match(string pattern, string content)
         {
             try

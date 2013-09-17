@@ -1,19 +1,20 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：ChineseCode.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/ChineseCode.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Text;
 
 namespace Dev.Comm
 {
     /// <summary>
-    /// 中文方法
+    ///   中文方法
     /// </summary>
     public class ChineseCode
     {
@@ -325,11 +326,11 @@ namespace Dev.Comm
                                                             };
 
         /// <summary>
-        /// 是否是中文字符
+        ///   是否是中文字符
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="input"> </param>
+        /// <param name="index"> </param>
+        /// <returns> </returns>
         public static bool IsChineseLetter(char input)
         {
             int code = 0;
@@ -355,11 +356,11 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 是否是中文字符
+        ///   是否是中文字符
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="input"> </param>
+        /// <param name="index"> </param>
+        /// <returns> </returns>
         public static bool IsChineseLetter(string input, int index)
         {
             int code = 0;
@@ -385,10 +386,9 @@ namespace Dev.Comm
         //http://hi.baidu.com/yhfd/blog/item/3222e1fca22cfb80b901a027.html
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="CString"></param>
-        /// <returns></returns>
+        /// <param name="CString"> </param>
+        /// <returns> </returns>
         public bool IsChina(string CString)
         {
             bool BoolValue = false;
@@ -408,9 +408,9 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 判断句子中是否含有中文     宁夏大学 张冬 zd4004.blog.163.com
+        ///   判断句子中是否含有中文     宁夏大学 张冬 zd4004.blog.163.com
         /// </summary>
-        /// <param >字符串</param> 
+        /// <param> 字符串 </param>
         public bool WordsIScn(string words)
         {
             string TmmP;
@@ -456,10 +456,10 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 给定一个字符串，判断其是否只包含有汉字
+        ///   给定一个字符串，判断其是否只包含有汉字
         /// </summary>
-        /// <param name="testStr"></param>
-        /// <returns></returns>
+        /// <param name="testStr"> </param>
+        /// <returns> </returns>
         public bool IsOnlyContainsChinese(string testStr)
         {
             char[] words = testStr.ToCharArray();
@@ -478,10 +478,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 判断一个word是否为GB2312编码的汉字
+        ///   判断一个word是否为GB2312编码的汉字
         /// </summary>
-        /// <param name="word"></param>
-        /// <returns></returns>
+        /// <param name="word"> </param>
+        /// <returns> </returns>
         private bool IsGBCode(string word)
         {
             byte[] bytes = Encoding.GetEncoding("GB2312").GetBytes(word);
@@ -505,10 +505,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 判断一个word是否为GBK编码的汉字
+        ///   判断一个word是否为GBK编码的汉字
         /// </summary>
-        /// <param name="word"></param>
-        /// <returns></returns>
+        /// <param name="word"> </param>
+        /// <returns> </returns>
         private bool IsGBKCode(string word)
         {
             byte[] bytes = Encoding.GetEncoding("GBK").GetBytes(word);
@@ -533,10 +533,10 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 判断一个word是否为Big5编码的汉字
+        ///   判断一个word是否为Big5编码的汉字
         /// </summary>
-        /// <param name="word"></param>
-        /// <returns></returns>
+        /// <param name="word"> </param>
+        /// <returns> </returns>
         private bool IsBig5Code(string word)
         {
             byte[] bytes = Encoding.GetEncoding("Big5").GetBytes(word);
@@ -561,10 +561,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 取得汉字拼音首字母
+        ///   取得汉字拼音首字母
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str"> </param>
+        /// <returns> </returns>
         public static string GetGbkX(string str)
         {
             if (str.CompareTo("吖") < 0)
@@ -668,11 +668,11 @@ namespace Dev.Comm
             return str;
         }
 
-        /// <summary> 
-        /// 获得一个字符串的汉语拼音码 
-        /// </summary> 
-        /// <param name="strText">字符串</param> 
-        /// <returns>汉语拼音码,该字符串只包含大写的英文字母</returns> 
+        /// <summary>
+        ///   获得一个字符串的汉语拼音码
+        /// </summary>
+        /// <param name="strText"> 字符串 </param>
+        /// <returns> 汉语拼音码,该字符串只包含大写的英文字母 </returns>
         public static string GetChineseSpell(string strText)
         {
             if (strText == null || strText.Length == 0)
@@ -706,11 +706,11 @@ namespace Dev.Comm
         /**/
 
         /// <summary>
-        /// 字符串替换方法，另外一种是以 4 个数字为基础的递归方法
-        /// Create By HJ 2007-10-21
+        ///   字符串替换方法，另外一种是以 4 个数字为基础的递归方法
+        ///   Create By HJ 2007-10-21
         /// </summary>
-        /// <param name="moneyNum"></param>
-        /// <returns></returns>
+        /// <param name="moneyNum"> </param>
+        /// <returns> </returns>
         public static string getCash(decimal moneyNum)
         {
             string intNum, point;

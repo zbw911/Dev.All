@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年09月16日 18:46
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/Tree.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,25 +54,26 @@ namespace Dev.Comm.DataStructure
 
 
     /// <summary>
-    /// 结点
+    ///   结点
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"> </typeparam>
     public class Node<T> where T : class
     {
         /// <summary>
-        /// 当前结点
+        ///   当前结点
         /// </summary>
         public T Current { get; set; }
+
         /// <summary>
-        /// 子结点
+        ///   子结点
         /// </summary>
         public List<Node<T>> Children { get; set; }
     }
 
     /// <summary>
-    /// 创建树
+    ///   创建树
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"> </typeparam>
     public abstract class TreeBuilder<T> where T : class, new()
     {
         private readonly IEnumerable<T> _list;
@@ -71,19 +82,19 @@ namespace Dev.Comm.DataStructure
         {
             _list = list;
         }
+
         /// <summary>
-        /// 开始解析
+        ///   开始解析
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public Node<T> Builder()
         {
             var root = GetRoot(_list);
 
             Node<T> rootNode = new Node<T>
-            {
-                Current = root,
-
-            };
+                                   {
+                                       Current = root,
+                                   };
 
             return Builder(rootNode);
             return null;
@@ -114,17 +125,18 @@ namespace Dev.Comm.DataStructure
 
 
         /// <summary>
-        /// 取得子项目
+        ///   取得子项目
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="node"></param>
-        /// <returns></returns>
+        /// <param name="list"> </param>
+        /// <param name="node"> </param>
+        /// <returns> </returns>
         public abstract List<T> GetChild(IEnumerable<T> list, T node);
+
         /// <summary>
-        /// 取得根项目
+        ///   取得根项目
         /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
+        /// <param name="list"> </param>
+        /// <returns> </returns>
         public abstract T GetRoot(IEnumerable<T> list);
 
         private static Node<T> ToNode(T t)
@@ -136,7 +148,7 @@ namespace Dev.Comm.DataStructure
             return node;
         }
 
-        static List<Node<T>> ToNodeList(List<T> list)
+        private static List<Node<T>> ToNodeList(List<T> list)
         {
             var listNode = new List<Node<T>>();
 

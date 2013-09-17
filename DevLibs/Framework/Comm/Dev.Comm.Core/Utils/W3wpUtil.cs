@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：W3wpUtil.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/W3wpUtil.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.Management;
@@ -15,8 +16,8 @@ using System.Text.RegularExpressions;
 namespace Dev.Comm
 {
     /// <summary>
-    /// W3wp 的摘要说明
-    /// 集合IIS容器的相关操作
+    ///   W3wp 的摘要说明
+    ///   集合IIS容器的相关操作
     /// </summary>
     public class W3wpUtil
     {
@@ -25,17 +26,17 @@ namespace Dev.Comm
         public enum AppPollControlOption
         {
             /// <summary>
-            /// 启动
+            ///   启动
             /// </summary>
             Start,
 
             /// <summary>
-            /// 回收
+            ///   回收
             /// </summary>
             Recycle,
 
             /// <summary>
-            /// 停止
+            ///   停止
             /// </summary>
             Stop
         }
@@ -47,10 +48,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 得到所有IIS应用程序池名字
+        ///   得到所有IIS应用程序池名字
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input"> </param>
+        /// <returns> </returns>
         public static IList<string> GetAllW3wp(string input)
         {
             var oQuery = new ObjectQuery("select * from Win32_Process where Name='w3wp.exe'");
@@ -89,10 +90,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 得到应用程序池的名字 进程ID可以使用此方法获取 System.Diagnostics.Process.GetCurrentProcess().Id
+        ///   得到应用程序池的名字 进程ID可以使用此方法获取 System.Diagnostics.Process.GetCurrentProcess().Id
         /// </summary>
-        /// <param name="ProcessId"></param>
-        /// <returns></returns>
+        /// <param name="ProcessId"> </param>
+        /// <returns> </returns>
         public static string GetAppPoolNameByPId(object ProcessId)
         {
             var oQuery = new ObjectQuery(string.Format("select * from Win32_Process where ProcessId={0}", ProcessId));
@@ -137,10 +138,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 控制应用程序池开始，停止和回收
+        ///   控制应用程序池开始，停止和回收
         /// </summary>
-        /// <param name="AppPoolName"></param>
-        /// <param name="Option"></param>
+        /// <param name="AppPoolName"> </param>
+        /// <param name="Option"> </param>
         public static void AppPoolControl(string AppPoolName, AppPollControlOption Option)
         {
             string method = Option.ToString("g");

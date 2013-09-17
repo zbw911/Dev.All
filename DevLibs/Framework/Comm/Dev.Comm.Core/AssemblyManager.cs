@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2013年02月18日 17:37
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：AssemblyManager.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/AssemblyManager.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 namespace Dev.Comm.Core
 {
     using System;
@@ -16,7 +17,7 @@ namespace Dev.Comm.Core
     using System.Reflection;
 
     /// <summary>
-    ///     程序集管理
+    ///   程序集管理
     /// </summary>
     public class AssemblyManager
     {
@@ -24,7 +25,6 @@ namespace Dev.Comm.Core
 
         public static Assembly GetAssembly(string assemblyName)
         {
-
             foreach (var item in GetDomainAssemblies())
             {
                 if (CompareAssembly(item, assemblyName))
@@ -37,8 +37,6 @@ namespace Dev.Comm.Core
 
         public static string GetAssemblyFileName(string assemblyName)
         {
-
-
             var assembly = GetAssembly(assemblyName);
 
             if (assembly != null) return (assembly.CodeBase);
@@ -47,11 +45,10 @@ namespace Dev.Comm.Core
         }
 
 
-
         /// <summary>
-        /// 取得所有与当前域相关的 Assembly
+        ///   取得所有与当前域相关的 Assembly
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static List<Assembly> LoadAllAssemblys()
         {
             var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
@@ -66,9 +63,7 @@ namespace Dev.Comm.Core
                 path => loadedAssemblies.Add(Assembly.LoadFrom(path)));
 
             return loadedAssemblies;
-
         }
-
 
 
         public static IEnumerable<Assembly> GetDomainAssemblies()
@@ -83,7 +78,7 @@ namespace Dev.Comm.Core
 
         public static IEnumerable<T> GetTypeInstances<T>() where T : class
         {
-            return GetTypes(typeof(T)).Select(it => Activator.CreateInstance(it) as T);
+            return GetTypes(typeof (T)).Select(it => Activator.CreateInstance(it) as T);
         }
 
         public static IEnumerable<Type> GetTypes()
@@ -91,7 +86,6 @@ namespace Dev.Comm.Core
             var types = new List<Type>();
             foreach (var assembly in GetDomainAssemblies())
             {
-
                 //var asstypes = TryGetAssembly(assembly);
 
                 types.AddRange(assembly.GetTypes());
@@ -123,7 +117,7 @@ namespace Dev.Comm.Core
 
         public static IEnumerable<Type> GetTypes<T>()
         {
-            return GetTypes(typeof(T));
+            return GetTypes(typeof (T));
         }
 
         public static IEnumerable<Type> GetTypes(string fileName)
@@ -141,11 +135,11 @@ namespace Dev.Comm.Core
         #region Methods
 
         /// <summary>
-        ///     比较程序集
+        ///   比较程序集
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="assemblyName"></param>
-        /// <returns></returns>
+        /// <param name="assembly"> </param>
+        /// <param name="assemblyName"> </param>
+        /// <returns> </returns>
         private static bool CompareAssembly(Assembly assembly, string assemblyName)
         {
             return !assembly.IsDynamic && !assembly.GlobalAssemblyCache

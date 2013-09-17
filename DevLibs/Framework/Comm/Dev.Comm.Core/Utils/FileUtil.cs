@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:44
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：FileUtil.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/FileUtil.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -15,25 +16,25 @@ using System.IO;
 namespace Dev.Comm
 {
     /// <summary>
-    /// 文件帮助方法 
+    ///   文件帮助方法
     /// </summary>
     public class FileUtil
     {
         /// <summary>
-        /// 指向的路径是否是文件及文件是否存在
+        ///   指向的路径是否是文件及文件是否存在
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path"> </param>
+        /// <returns> </returns>
         public static bool IsFile(string path)
         {
             return File.Exists(path);
         }
 
         /// <summary>
-        /// 取得文件信息
+        ///   取得文件信息
         /// </summary>
-        /// <param name="filepath"></param>
-        /// <returns></returns>
+        /// <param name="filepath"> </param>
+        /// <returns> </returns>
         public static FileInfo GetFileInfo(string filepath)
         {
             if (!IsFile(filepath))
@@ -47,10 +48,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 是不是图片类型的文件
+        ///   是不是图片类型的文件
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path"> </param>
+        /// <returns> </returns>
         public static bool IsImageFile(string path)
         {
             // throw new NotImplementedException();
@@ -72,9 +73,9 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 创建图片保存目录
+        ///   创建图片保存目录
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path"> </param>
         public static void FolderCreate(string path)
         {
             path = Path.GetDirectoryName(path);
@@ -84,9 +85,9 @@ namespace Dev.Comm
             }
         }
 
-        /// <summary> 
-        /// 将 Stream 转成 byte[] 
-        /// </summary> 
+        /// <summary>
+        ///   将 Stream 转成 byte[]
+        /// </summary>
         public static byte[] StreamToBytes(Stream stream)
         {
             var bytes = new byte[stream.Length];
@@ -98,11 +99,11 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 将二进制流写为图片
+        ///   将二进制流写为图片
         /// </summary>
-        /// <param name="imageByte"></param>
-        /// <param name="Path"></param>
-        /// <returns></returns>
+        /// <param name="imageByte"> </param>
+        /// <param name="Path"> </param>
+        /// <returns> </returns>
         public static string SaveImageFile(byte[] imageByte, string path)
         {
             Stream stream = new MemoryStream(imageByte);
@@ -122,10 +123,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 类型
+        ///   类型
         /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
+        /// <param name="stream"> </param>
+        /// <returns> </returns>
         public static string CheckImageExt(Stream stream)
         {
             stream.Seek(0, SeekOrigin.Begin);
@@ -179,7 +180,7 @@ namespace Dev.Comm
                 FileExtension extension;
                 try
                 {
-                    extension = (FileExtension)Enum.Parse(typeof(FileExtension), fileType);
+                    extension = (FileExtension) Enum.Parse(typeof (FileExtension), fileType);
                 }
                 catch
                 {
@@ -202,10 +203,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 判断是否是文本文件
+        ///   判断是否是文本文件
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
+        /// <param name="fileName"> </param>
+        /// <returns> </returns>
         public static bool CheckIsTextFile(string fileName)
         {
             var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
@@ -213,11 +214,11 @@ namespace Dev.Comm
             try
             {
                 int i = 0;
-                var length = (int)fs.Length;
+                var length = (int) fs.Length;
                 byte data;
                 while (i < length && isTextFile)
                 {
-                    data = (byte)fs.ReadByte();
+                    data = (byte) fs.ReadByte();
                     isTextFile = (data != 0);
                     i++;
                 }
@@ -238,11 +239,11 @@ namespace Dev.Comm
 
 
         /// <summary>
-        /// 将文件传到服务器上临时目录中
+        ///   将文件传到服务器上临时目录中
         /// </summary>
-        /// <param name="stream">文件流</param>
-        /// <param name="fileName">文件上传的路径</param>
-        /// <returns></returns>
+        /// <param name="stream"> 文件流 </param>
+        /// <param name="fileName"> 文件上传的路径 </param>
+        /// <returns> </returns>
         public static void StreamToFile(Stream stream, string fileName)
         {
             // 把 Stream 转换成 byte[]
@@ -322,10 +323,10 @@ namespace Dev.Comm
         //}
 
         /// <summary>
-        /// Byte to Stream
+        ///   Byte to Stream
         /// </summary>
-        /// <param name="bytefile"></param>
-        /// <returns></returns>
+        /// <param name="bytefile"> </param>
+        /// <returns> </returns>
         public static Stream BytesToStream(byte[] bytefile)
         {
             var stream = new MemoryStream(bytefile);

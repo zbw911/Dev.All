@@ -1,13 +1,22 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2013年09月17日 9:55
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/CreateSequence.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Dev.Comm.DataStructure
 {
-
     /// <summary>
-    /// 创建顺序的串
+    ///   创建顺序的串
     /// </summary>
     public class CreateSequence
     {
@@ -15,10 +24,9 @@ namespace Dev.Comm.DataStructure
         private readonly string[] _seed;
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="len">长度</param>
-        /// <param name="seed">种子</param>
+        /// <param name="len"> 长度 </param>
+        /// <param name="seed"> 种子 </param>
         public CreateSequence(int len, string[] seed)
         {
             _len = len;
@@ -27,9 +35,9 @@ namespace Dev.Comm.DataStructure
 
 
         /// <summary>
-        /// 开始创建
+        ///   开始创建
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         public IEnumerable<string> BeginCreate()
         {
             var List = this.CreateNo(this._len);
@@ -38,9 +46,8 @@ namespace Dev.Comm.DataStructure
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="position"> </param>
         private IEnumerable<string> CreateNo(int position)
         {
             if (position <= 0)

@@ -1,20 +1,21 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：Sorter.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:33
+//  文件名：Dev.Libs/Dev.Comm.Core/Sorter.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 namespace Dev.Comm
 {
     public class Sorter
     {
         /// <summary>
-        /// 冒泡排序法1
+        ///   冒泡排序法1
         /// </summary>
-        /// <param name="list"></param> 
+        /// <param name="list"> </param>
         public static void BubbleSort(int[] list)
         {
             for (int i = 0; i < list.Length; i++)
@@ -32,9 +33,9 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 插入排序法
+        ///   插入排序法
         /// </summary>
-        /// <param name="list"></param>
+        /// <param name="list"> </param>
         public static void InsertionSort(int[] list)
         {
             for (int i = 1; i < list.Length; i++)
@@ -53,7 +54,7 @@ namespace Dev.Comm
         //// <summary>
         /// 选择排序法
         /// </summary>
-        /// <param name="list"></param>
+        /// <param name="list"> </param>
         public static void SelectionSort(int[] list)
         {
             int min;
@@ -74,7 +75,7 @@ namespace Dev.Comm
         //// <summary>
         /// 希尔排序法
         /// </summary>
-        /// <param name="list"></param>
+        /// <param name="list"> </param>
         public static void ShellSort(int[] list)
         {
             int inc;
@@ -105,9 +106,9 @@ namespace Dev.Comm
 
         /// 快速排序法
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="low"></param>
-        /// <param name="high"></param>
+        /// <param name="list"> </param>
+        /// <param name="low"> </param>
+        /// <param name="high"> </param>
         public static void Sort(int[] list, int low, int high)
         {
             int pivot;

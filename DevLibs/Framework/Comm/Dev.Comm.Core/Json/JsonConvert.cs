@@ -1,12 +1,13 @@
 ﻿// ***********************************************************************************
-// Created by zbw911 
-// 创建于：2012年12月18日 10:43
-// 
-// 修改于：2013年02月18日 18:24
-// 文件名：JsonConvert.cs
-// 
-// 如果有更好的建议或意见请邮件至zbw911#gmail.com
+//  Created by zbw911 
+//  创建于：2013年06月07日 14:25
+//  
+//  修改于：2013年09月17日 11:32
+//  文件名：Dev.Libs/Dev.Comm.Core/JsonConvert.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,19 +22,18 @@ namespace Dev.Comm
     /********  comm 中引用System.web.Extends，这个问题值得考虑一下，以后是否应该改用json.net 去除web的依赖， ***********/
 
     /// <summary>
-    /// 
     /// </summary>
     public static class JsonConvert
     {
         /// <summary>
-        /// 将对象转成Json格式
+        ///   将对象转成Json格式
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <typeparam name="T"> </typeparam>
+        /// <param name="obj"> </param>
+        /// <returns> </returns>
         public static string ToJsonStr<T>(T t)
         {
-            var ser = new DataContractJsonSerializer(typeof(T));
+            var ser = new DataContractJsonSerializer(typeof (T));
             var ms = new MemoryStream();
             ser.WriteObject(ms, t);
             string jsonString = Encoding.UTF8.GetString(ms.ToArray());
@@ -47,10 +47,10 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 将动态对象转化为Json 字符串
+        ///   将动态对象转化为Json 字符串
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj"> </param>
+        /// <returns> </returns>
         public static string ToJsonStrDyn(dynamic obj)
         {
             //var o = ObjectDynamicConvert.ToExpando(obj);
@@ -77,11 +77,11 @@ namespace Dev.Comm
         }
 
         /// <summary>
-        /// 将JSON 字符转换为对象
+        ///   将JSON 字符转换为对象
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <typeparam name="T"> </typeparam>
+        /// <param name="str"> </param>
+        /// <returns> </returns>
         public static T ToJsonObject<T>(string jsonString)
         {
             //将"yyyy-MM-dd HH:mm:ss"格式的字符串转为"\/Date(1294499956278+0800)\/"格式  
@@ -91,19 +91,18 @@ namespace Dev.Comm
             MatchEvaluator matchEvaluator = ConvertDateStringToJsonDate;
             var reg = new Regex(p);
             jsonString = reg.Replace(jsonString, matchEvaluator);
-            var ser = new DataContractJsonSerializer(typeof(T));
+            var ser = new DataContractJsonSerializer(typeof (T));
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
-            var obj = (T)ser.ReadObject(ms);
+            var obj = (T) ser.ReadObject(ms);
             return obj;
         }
 
 
-
         /// <summary>
-        /// 动态json
+        ///   动态json
         /// </summary>
-        /// <param name="jsonString"></param>
-        /// <returns></returns>
+        /// <param name="jsonString"> </param>
+        /// <returns> </returns>
         public static dynamic ToJsonObject(string jsonString)
         {
             //将"yyyy-MM-dd HH:mm:ss"格式的字符串转为"\/Date(1294499956278+0800)\/"格式  
@@ -129,9 +128,9 @@ namespace Dev.Comm
             //return obj;
 
             var serializer = new JavaScriptSerializer();
-            serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
+            serializer.RegisterConverters(new[] {new DynamicJsonConverter()});
 
-            dynamic obj = serializer.Deserialize(jsonString, typeof(object));
+            dynamic obj = serializer.Deserialize(jsonString, typeof (object));
 
             return obj;
 
@@ -139,12 +138,11 @@ namespace Dev.Comm
         }
 
 
-
         /// <summary>
-        /// 原生生成Json对像
+        ///   原生生成Json对像
         /// </summary>
-        /// <param name="jsonString"></param>
-        /// <returns></returns>
+        /// <param name="jsonString"> </param>
+        /// <returns> </returns>
         public static dynamic ToJsonDynamic(string jsonString)
         {
             var jss = new JavaScriptSerializer();
@@ -153,11 +151,6 @@ namespace Dev.Comm
 
             return obj;
         }
-
-
-
-
-
 
 
         ///// <summary> 
@@ -192,9 +185,9 @@ namespace Dev.Comm
         //    T obj = (T)ser.ReadObject(ms);
         //    return obj;
         //}
-        /// <summary>  
-        /// 将Json序列化的时间由/Date(1294499956278+0800)转为字符串  
-        /// </summary> 
+        /// <summary>
+        ///   将Json序列化的时间由/Date(1294499956278+0800)转为字符串
+        /// </summary>
         private static string ConvertJsonDateToDateString(Match m)
         {
             string result = string.Empty;
@@ -206,9 +199,9 @@ namespace Dev.Comm
             return result;
         }
 
-        /// <summary> 
-        /// 将时间字符串转为Json时间 
-        /// </summary>  
+        /// <summary>
+        ///   将时间字符串转为Json时间
+        /// </summary>
         private static string ConvertDateStringToJsonDate(Match m)
         {
             string result = string.Empty;
