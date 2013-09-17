@@ -61,6 +61,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\DataStructure\CreateSequence.cs" />
+    <Compile Include="Core\DataStructure\Tree.cs" />
     <Compile Include="Core\IO\UnitTestFileWath.cs" />
     <Compile Include="Core\Json\XmlToDynamicTest.cs" />
     <Compile Include="MyTestClass.cs" />

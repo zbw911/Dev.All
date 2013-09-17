@@ -4,6 +4,68 @@
         <name>Dev.Comm.Core</name>
     </assembly>
     <members>
+        <member name="T:Dev.Comm.DataStructure.CreateSequence">
+            <summary>
+            创建顺序的串
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.DataStructure.CreateSequence.#ctor(System.Int32,System.Char[])">
+            <summary>
+            
+            </summary>
+            <param name="len"></param>
+            <param name="seed"></param>
+        </member>
+        <member name="M:Dev.Comm.DataStructure.CreateSequence.Createno(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="arr"></param>
+            <param name="position"></param>
+        </member>
+        <member name="T:Dev.Comm.DataStructure.Node`1">
+            <summary>
+            结点
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Dev.Comm.DataStructure.Node`1.Current">
+            <summary>
+            当前结点
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.DataStructure.Node`1.Children">
+            <summary>
+            子结点
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.DataStructure.TreeBuilder`1">
+            <summary>
+            创建树
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dev.Comm.DataStructure.TreeBuilder`1.Builder">
+            <summary>
+            开始解析
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.DataStructure.TreeBuilder`1.GetChild(System.Collections.Generic.IEnumerable{`0},`0)">
+            <summary>
+            取得子项目
+            </summary>
+            <param name="list"></param>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.DataStructure.TreeBuilder`1.GetRoot(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            取得根项目
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.Core.Extensions.StringExtensions">
             <summary>
             
