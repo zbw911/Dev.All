@@ -107,6 +107,10 @@
       <Project>{7FDF5D76-C1BB-48ED-B5C8-663C098CFCDD}</Project>
       <Name>Dev.Comm.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dev.Comm.Web\Dev.Comm.Web.csproj">
+      <Project>{3f728e57-c346-4608-b7ed-ee82a322d41f}</Project>
+      <Name>Dev.Comm.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Validate\jquery.validate.unobtrusive.extends.js" />

@@ -27,6 +27,16 @@ namespace Dev.Comm.Web.Mvc.Pager
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="action"></param>
+        /// <param name="controller"></param>
+        /// <param name="routeValues"></param>
+        /// <param name="pageQueryString"></param>
         public Pagination(
             int currentPage,
             int count,
@@ -63,17 +73,44 @@ namespace Dev.Comm.Web.Mvc.Pager
 
             routeDictionary.Add("controller", controller);
             routeDictionary.Add("action", action);
-            var totalPages = (int) Math.Ceiling((decimal) count/pageSize);
+            var totalPages = (int)Math.Ceiling((decimal)count / pageSize);
             this.PageSize = pageSize;
             this.Init(currentPage, totalPages, routeDictionary, pageQueryString);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="routeValues"></param>
+        /// <param name="pageQueryString"></param>
         public Pagination(int currentPage, int count, int pageSize, object routeValues, string pageQueryString = "page")
         {
             var routeDictionary = new RouteValueDictionary(routeValues);
             this.PageSize = pageSize;
-            var totalPages = (int) Math.Ceiling((decimal) count/pageSize);
+            var totalPages = (int)Math.Ceiling((decimal)count / pageSize);
             this.Init(currentPage, totalPages, routeDictionary, pageQueryString);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="routeDictionary"></param>
+        /// <param name="pageQueryString"></param>
+        public Pagination(int currentPage,
+            int count,
+            int pageSize,
+            RouteValueDictionary routeDictionary = null,
+            string pageQueryString = "page")
+            : this(currentPage, count, pageSize, Dev.Comm.Web.DevRequest.GetString("action"), Dev.Comm.Web.DevRequest.GetString("controller"), routeDictionary, pageQueryString)
+        {
+
         }
 
         /// <summary>
@@ -93,8 +130,14 @@ namespace Dev.Comm.Web.Mvc.Pager
 
         #region Public Properties
 
+        /// <summary>
+        /// 应用的Action
+        /// </summary>
         public string Action { get; private set; }
 
+        /// <summary>
+        /// 应用的Controller
+        /// </summary>
         public string Controller { get; private set; }
 
         /// <summary>
@@ -112,18 +155,39 @@ namespace Dev.Comm.Web.Mvc.Pager
         /// </summary>
         public string JavascriptFun { get; set; }
 
+        /// <summary>
+        ///  Page用什么参数
+        /// </summary>
         public string PageQueryString { get; private set; }
 
+        /// <summary>
+        /// 页面大小 
+        /// </summary>
         public int PageSize { get; set; }
 
+        /// <summary>
+        /// 路由集合
+        /// </summary>
         public RouteValueDictionary RouteValues { get; private set; }
 
+        /// <summary>
+        /// 是否超过最大页面，然后决定截断
+        /// </summary>
         public bool Shorten { get; private set; }
 
+        /// <summary>
+        /// 开始
+        /// </summary>
         public int Start { get; private set; }
 
+        /// <summary>
+        /// 结束
+        /// </summary>
         public int Stop { get; private set; }
 
+        /// <summary>
+        /// 总页数
+        /// </summary>
         public int TotalPages { get; private set; }
 
         #endregion
@@ -144,8 +208,8 @@ namespace Dev.Comm.Web.Mvc.Pager
         {
             this.CurrentPage = currentPage;
             this.TotalPages = totalPages;
-            this.Controller = (string) routeValues["controller"];
-            this.Action = (string) routeValues["action"];
+            this.Controller = (string)routeValues["controller"];
+            this.Action = (string)routeValues["action"];
             this.PageQueryString = pageQueryString;
             this.Shorten = this.TotalPages >= 10;
 
