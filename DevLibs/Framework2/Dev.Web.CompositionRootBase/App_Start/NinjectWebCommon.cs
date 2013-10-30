@@ -90,6 +90,7 @@ namespace Dev.Web.CompositionRootBase.App_Start
 
             RegisterServices(kernel);
 
+            RegsPlus(kernel);
 
             //自动释放连接
             DynamicModuleUtility.RegisterModule(typeof(WebDbContextStorageRleaseModule));
@@ -111,14 +112,7 @@ namespace Dev.Web.CompositionRootBase.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            IEnumerable<IRegister> registers = AssemblyManager.GetTypeInstances<IRegister>();
 
-            if (registers != null && registers.Any())
-                foreach (IRegister register in registers)
-                {
-                    register.Kernel = kernel;
-                    register.Register();
-                }
 
             //Jsonp Support
             GlobalConfiguration.Configuration.Formatters.Insert(0, new JsonpMediaTypeFormatter());
@@ -132,6 +126,39 @@ namespace Dev.Web.CompositionRootBase.App_Start
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
 
 
+        }
+
+
+        private static void RegsPlus(IKernel kernel)
+        {
+            //IEnumerable<IRegister> registers = AssemblyManager.GetTypeInstances<IRegister>();
+
+            //if (registers != null && registers.Any())
+            //    foreach (IRegister register in registers)
+            //    {
+            //        register.Kernel = kernel;
+            //        register.Register();
+            //    }
+
+            RegType<IRegister>(kernel);
+            RegType<IRegister2>(kernel);
+            RegType<IRegister3>(kernel);
+            RegType<IRegister4>(kernel);
+            RegType<IRegister5>(kernel);
+
+        }
+
+
+        private static void RegType<T>(IKernel kernel) where T : IRegister0
+        {
+            IEnumerable<object> registers = AssemblyManager.GetTypeInstances(typeof(T));
+
+            if (registers != null && registers.Any())
+                foreach (IRegister0 register in registers)
+                {
+                    register.Kernel = kernel;
+                    register.Register();
+                }
         }
 
         ///// <summary>

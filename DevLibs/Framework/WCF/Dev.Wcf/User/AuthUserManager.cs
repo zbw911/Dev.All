@@ -10,15 +10,22 @@ namespace Dev.Wcf.User
     public static class AuthUserManager
     {
 
-        private static IUsers _users;
 
+        private static Func<IUsers> _funcusers;
 
 
         internal static bool CheckUser(string username, string password)
         {
             var list = GetList();
-            if (list.Count == 0)
-                throw new Exception("用户标识列表不能为空");
+            //if (list.Count == 0)
+            //    throw new Exception("用户标识列表不能为空");
+
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                Dev.Log.Loger.Warning("用户名：" + username + "用户或密码为空");
+                return false;
+            }
 
             return list.FirstOrDefault(x => x.UserName == username && x.Password == password) != null;
         }
@@ -26,10 +33,14 @@ namespace Dev.Wcf.User
 
         private static List<AuthUser> GetList()
         {
-            if (_users == null)
-                _users = new WebConfigUsers();
+            IUsers users;
+            if (_funcusers == null)
+                users = new WebConfigUsers();
 
-            return _users.GetList();
+            else
+                users = _funcusers();
+
+            return users.GetList();
         }
 
 
@@ -37,9 +48,10 @@ namespace Dev.Wcf.User
         /// 设置当前的用户提取方法
         /// </summary>
         /// <param name="users"></param>
-        public static void SetCurrent(IUsers users)
+        /// <param name="funcusers"> </param>
+        public static void SetCurrent(Func<IUsers> funcusers)
         {
-            _users = users;
+            _funcusers = funcusers;
         }
     }
 }

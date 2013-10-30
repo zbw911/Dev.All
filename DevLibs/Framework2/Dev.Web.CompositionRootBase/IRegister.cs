@@ -12,7 +12,7 @@ namespace Dev.Web.CompositionRootBase
 {
     using Ninject;
 
-    public interface IRegister
+    public interface IRegister0
     {
         #region Public Properties
 
@@ -25,5 +25,31 @@ namespace Dev.Web.CompositionRootBase
         void Register();
 
         #endregion
+    }
+
+    public interface IRegister : IRegister0
+    {
+
+    }
+
+
+    public interface IRegister2 : IRegister0
+    {
+
+    }
+
+    public interface IRegister3 : IRegister0
+    {
+
+    }
+
+    public interface IRegister4 : IRegister0
+    {
+
+    }
+
+    public interface IRegister5 : IRegister0
+    {
+
     }
 }
