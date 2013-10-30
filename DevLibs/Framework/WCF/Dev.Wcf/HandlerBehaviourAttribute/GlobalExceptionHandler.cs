@@ -36,7 +36,7 @@ namespace Dev.Wcf.HandlerBehaviourAttribute
             Loger.Error("Wcf异常", ex);
             //// 写入log4net
             //log.Error("WCF异常", ex);
-            var newEx = new FaultException(string.Format("WCF接口出错 {0}", ex.TargetSite.Name));
+            var newEx = new FaultException(string.Format("WCF接口出错 {0}", ex.TargetSite.Name + "=>msg:" + ex.Message));
             MessageFault msgFault = newEx.CreateMessageFault();
             msg = Message.CreateMessage(version, msgFault, newEx.Action);
         }

@@ -95,7 +95,7 @@ namespace Dev.Wcf.HeaderAuthor
 
             Dev.Log.Loger.Error("非法调用" + operationName + "\r\n" + this.GetHeaders());
 
-            throw new UnauthorizedAccessException(operationName);
+            throw new UnauthorizedAccessException(operationName + "未经授权的调用");
         }
 
         private string GetHeaders()
