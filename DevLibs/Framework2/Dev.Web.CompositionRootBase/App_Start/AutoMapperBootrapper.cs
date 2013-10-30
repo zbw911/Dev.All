@@ -1,9 +1,8 @@
-﻿using Dev.Web.CompositionRootBase.App_Start;
+﻿using System.Web;
+using Dev.Web.CompositionRootBase.App_Start;
 
-using WebActivator;
-
-[assembly: PreApplicationStartMethod(typeof(AutoMapperBootrapper), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(AutoMapperBootrapper), "Stop")]
+//[assembly: PreApplicationStartMethod(typeof(AutoMapperBootrapper), "Start")]
+//[assembly: ApplicationShutdownMethod(typeof(AutoMapperBootrapper), "Stop")]
 
 namespace Dev.Web.CompositionRootBase.App_Start
 {

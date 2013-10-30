@@ -9,15 +9,16 @@
 // ***********************************************************************************
 
 using System.Linq;
+using System.Web;
 using Dev.Data;
 using Dev.Data.Configuration;
 using Dev.Data.ContextStorage;
 using Dev.Web.CompositionRootBase.App_Start;
 
-using WebActivator;
+//using WebActivator;
 
 [assembly: PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
+//[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace Dev.Web.CompositionRootBase.App_Start
 {
@@ -57,6 +58,8 @@ namespace Dev.Web.CompositionRootBase.App_Start
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
 
             bootstrapper.Initialize(CreateKernel);
+
+            AutoMapperBootrapper.Start();
         }
 
         /// <summary>
