@@ -528,6 +528,11 @@
             <param name="assemblyName"> </param>
             <returns> </returns>
         </member>
+        <member name="T:Dev.Comm.Core.AssemblyManager.ActivationManager">
+            <summary>
+            copy from:https://github.com/davidebbo/WebActivator/blob/master/WebActivator/ActivationManager.cs
+            </summary>
+        </member>
         <member name="M:Dev.Comm.DateUtil.GetLastDateForMonth(System.DateTime,System.DateTime@)">
             <summary>
               取得某月的最后一天

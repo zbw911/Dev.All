@@ -8,6 +8,12 @@
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
+using System.ComponentModel;
+using System.Security;
+using System.Web;
+using System.Web.Compilation;
+using System.Web.Hosting;
+
 namespace Dev.Comm.Core
 {
     using System;
@@ -34,6 +40,35 @@ namespace Dev.Comm.Core
             }
             return null;
         }
+
+
+        private static IEnumerable<string> GetAssemblyFiles()
+        {
+            // When running under ASP.NET, find assemblies in the bin folder.
+            // Outside of ASP.NET, use whatever folder WebActivator itself is in
+            string directory = HostingEnvironment.IsHosted
+                ? HttpRuntime.BinDirectory
+                : Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            return Directory.GetFiles(directory, "*.dll");
+        }
+
+        // Return all the App_Code assemblies
+        private static IEnumerable<Assembly> AppCodeAssemblies
+        {
+            get
+            {
+                // Return an empty list if we;re not hosted or there aren't any
+                if (!HostingEnvironment.IsHosted || BuildManager.CodeAssemblies == null)
+                {
+                    return Enumerable.Empty<Assembly>();
+                }
+
+
+                return BuildManager.CodeAssemblies.OfType<Assembly>();
+            }
+        }
+
+
 
         public static string GetAssemblyFileName(string assemblyName)
         {
@@ -78,13 +113,14 @@ namespace Dev.Comm.Core
 
         public static IEnumerable<T> GetTypeInstances<T>() where T : class
         {
-            return GetTypes(typeof (T)).Select(it => Activator.CreateInstance(it) as T);
+            return GetTypes(typeof(T)).Select(it => Activator.CreateInstance(it) as T);
         }
 
         public static IEnumerable<Type> GetTypes()
         {
             var types = new List<Type>();
-            foreach (var assembly in GetDomainAssemblies())
+            foreach (var assembly in ActivationManager.Assemblies)
+            //foreach (var assembly in GetDomainAssemblies())
             {
                 //var asstypes = TryGetAssembly(assembly);
 
@@ -117,7 +153,7 @@ namespace Dev.Comm.Core
 
         public static IEnumerable<Type> GetTypes<T>()
         {
-            return GetTypes(typeof (T));
+            return GetTypes(typeof(T));
         }
 
         public static IEnumerable<Type> GetTypes(string fileName)
@@ -148,6 +184,75 @@ namespace Dev.Comm.Core
         }
 
         #endregion
+
+        /// <summary>
+        /// copy from:https://github.com/davidebbo/WebActivator/blob/master/WebActivator/ActivationManager.cs
+        /// </summary>
+        internal class ActivationManager
+        {
+
+            private static List<Assembly> _assemblies;
+            private static bool _hasInited;
+
+
+            public static IEnumerable<Assembly> Assemblies
+            {
+                get
+                {
+                    if (_assemblies == null)
+                    {
+                        // Cache the list of relevant assemblies, since we need it for both Pre and Post
+                        _assemblies = new List<Assembly>();
+                        foreach (var assemblyFile in GetAssemblyFiles())
+                        {
+                            try
+                            {
+                                // Ignore assemblies we can't load. They could be native, etc...
+                                _assemblies.Add(Assembly.LoadFrom(assemblyFile));
+                            }
+                            finally
+                            {
+
+                            }
+                            //catch (Win32Exception) { }
+                            //catch (ArgumentException) { }
+                            //catch (FileNotFoundException) { }
+                            //catch (PathTooLongException) { }
+                            //catch (BadImageFormatException) { }
+                            //catch (SecurityException) { }
+                        }
+                    }
+
+                    return _assemblies;
+                }
+            }
+
+            private static IEnumerable<string> GetAssemblyFiles()
+            {
+                // When running under ASP.NET, find assemblies in the bin folder.
+                // Outside of ASP.NET, use whatever folder WebActivator itself is in
+                string directory = HostingEnvironment.IsHosted
+                    ? HttpRuntime.BinDirectory
+                    : Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+                return Directory.GetFiles(directory, "*.dll");
+            }
+
+            // Return all the App_Code assemblies
+            private static IEnumerable<Assembly> AppCodeAssemblies
+            {
+                get
+                {
+                    // Return an empty list if we;re not hosted or there aren't any
+                    if (!HostingEnvironment.IsHosted || !_hasInited || BuildManager.CodeAssemblies == null)
+                    {
+                        return Enumerable.Empty<Assembly>();
+                    }
+
+                    return BuildManager.CodeAssemblies.OfType<Assembly>();
+                }
+            }
+
+        }
     }
 
     internal static class strExt
@@ -161,4 +266,13 @@ namespace Dev.Comm.Core
 
         #endregion
     }
+
+
+
+
+
+
+
+
+
 }
