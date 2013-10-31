@@ -13,6 +13,7 @@ namespace Dev.Wcf.User
 
         private static Func<IUsers> _funcusers;
 
+        
 
         internal static bool CheckUser(string username, string password)
         {
@@ -51,6 +52,8 @@ namespace Dev.Wcf.User
         /// <param name="funcusers"> </param>
         public static void SetCurrent(Func<IUsers> funcusers)
         {
+            
+
             _funcusers = funcusers;
         }
     }

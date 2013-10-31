@@ -16,11 +16,11 @@ namespace Dev.Wcf.User
             if (List != null)
                 return List;
 
-
-            List = new List<AuthUser>();
-
             var strUserList = System.Configuration.ConfigurationManager.AppSettings["wcfclientuser"];
+            if (strUserList == null) throw new ArgumentNullException("strUserList", "如果使用Web.config 进行用户的验证，应加入wcfclientuser配置节");
             var listusers = strUserList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            //修正这里的一个BUG
+            List = new List<AuthUser>();
             foreach (var s in listusers)
             {
                 var userpwdrole = s.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
