@@ -2,23 +2,18 @@
 {
 
     /// <summary>
-    /// 
+    /// 应用程序上下文
     /// </summary>
     public static class AppContext
     {
-        static private string userName;
-        static private string password;
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public static string UserName { get; set; }
 
-        static public  string UserName
-        {
-            get { return userName; }
-            set { userName = value; }
-        }
-
-        static public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public static string Password { get; set; }
     }
 }

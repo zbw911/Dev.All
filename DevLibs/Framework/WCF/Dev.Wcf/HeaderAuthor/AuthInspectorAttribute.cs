@@ -83,6 +83,11 @@ namespace Dev.Wcf.HeaderAuthor
 
         public object BeforeCall(string operationName, object[] inputs)
         {
+
+            var msg = OperationContext.Current.RequestContext.RequestMessage.ToString();
+
+            
+
             int index = OperationContext.Current.IncomingMessageHeaders.FindHeader("UserName", Ns);
             if (index != -1)
             {
