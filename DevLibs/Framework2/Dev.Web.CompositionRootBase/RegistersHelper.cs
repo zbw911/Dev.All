@@ -74,6 +74,17 @@ namespace Dev.Web.CompositionRootBase
             this.Kernel.Bind<TI>().To<TImp>().InRequestScope()/*.InRequestScope()*/.WithConstructorArgument("connectionStringName", connectionStringName);
         }
 
+
+        /// <summary>
+        ///     使用默认连接名“DefaultConnection”进行的注入，要在 Manager中进行初始化Context,这个Context将是存于 ContextStorage中的，就要注意线程安全，特别是使用并发方法的时候，
+        /// </summary>
+        /// <typeparam name="TI"></typeparam>
+        /// <typeparam name="TImp"></typeparam>
+        protected void RegContextWith<TI, TImp>() where TImp : TI, IRepository
+        {
+            RegContextWith<TI, TImp>("DefaultConnection");
+        }
+
         /// <summary>
         ///     使用这个注入，直接注入的是的 XXXXXRepository，这个对像是理论上线程的安全的
         /// </summary>
