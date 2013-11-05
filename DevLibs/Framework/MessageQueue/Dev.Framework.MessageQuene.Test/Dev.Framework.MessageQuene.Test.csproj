@@ -56,6 +56,14 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestMsmqImpl.cs" />
+    <Compile Include="UnitTestMsmqImplRemote.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dev.Framewrok.MessageQuene\Dev.Framewrok.MessageQuene.csproj">
+      <Project>{e5db035d-51f2-4b10-b5cf-7a23102573bf}</Project>
+      <Name>Dev.Framewrok.MessageQuene</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
