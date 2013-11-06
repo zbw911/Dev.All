@@ -12,14 +12,14 @@ namespace Dev.Framework.MessageQuene.Test
     [TestClass]
     public class UnitTestMsmqImpl
     {
-
-
+        
+      
         private string path = @".\Private$\test";
         private IMsgQuene<Data> d;
         [TestInitialize]
         public void Init()
         {
-            d = new MsmqQueneImpl<Data>(path, true);
+            d = new MsmqQueneImpl<Data>(path,true);
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace Dev.Framework.MessageQuene.Test
         }
 
 
-
+        
 
 
 

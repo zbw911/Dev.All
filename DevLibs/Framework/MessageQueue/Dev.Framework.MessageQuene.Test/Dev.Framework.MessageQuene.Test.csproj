@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestMsgQueueProvider.cs" />
     <Compile Include="UnitTestMsmqImpl.cs" />
     <Compile Include="UnitTestMsmqImplRemote.cs" />
   </ItemGroup>
