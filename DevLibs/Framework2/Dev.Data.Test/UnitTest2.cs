@@ -68,6 +68,29 @@ namespace Dev.Data.Test
             }
         }
 
+        class mytype
+        {
+            public int Id { get; set; }
+
+            public string Lastname { get; set; }
+        }
+        [TestMethod]
+        public void CustomTypefrotable()
+        {
+
+
+            var list = customerRepository.SqlQuery<mytype>("select * from Customer").ToList();
+
+
+
+            foreach (mytype custom in list)
+            {
+                Console.WriteLine(custom.Id + "->" + custom.Lastname);
+            }
+
+
+        }
+
 
         [TestMethod]
         public void SQLAdd()
@@ -97,9 +120,9 @@ namespace Dev.Data.Test
 
     class MyCustom
     {
-        public virtual string Firstname { get; set; }
+        //public virtual string Firstname { get; set; }
 
-        public virtual DateTime Inserted { get; set; }
+        //public virtual DateTime Inserted { get; set; }
 
         public virtual string Lastname { get; set; }
 

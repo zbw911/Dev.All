@@ -81,14 +81,14 @@ namespace Dev.Data
             this._context = context;
         }
 
-        public GenericRepository(ObjectContext context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException("context");
-            }
-            this._context = new DbContext(context, true);
-        }
+        //protected GenericRepository(ObjectContext context)
+        //{
+        //    if (context == null)
+        //    {
+        //        throw new ArgumentNullException("context");
+        //    }
+        //    this._context = new DbContext(context, true);
+        //}
 
         #endregion
 
@@ -371,10 +371,12 @@ namespace Dev.Data
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public int ExecuteSqlCommand (string sql, params object[] parameters)
+        public int ExecuteSqlCommand(string sql, params object[] parameters)
         {
             return this.DbContext.Database.ExecuteSqlCommand(sql, parameters);
         }
+
+         
 
         public IQueryable<TEntity> GetQuery<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
