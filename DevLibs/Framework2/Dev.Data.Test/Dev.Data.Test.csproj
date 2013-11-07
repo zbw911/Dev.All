@@ -96,6 +96,7 @@
     <Compile Include="TestMethod1\WithoutStorageTest.cs" />
     <Compile Include="TestContext{T}.cs" />
     <Compile Include="Test_AdminRepository.cs" />
+    <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dev.Data.Infras\Dev.Data.Infras.csproj">

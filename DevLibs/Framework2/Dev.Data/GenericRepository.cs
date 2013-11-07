@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Collections;
+
 namespace Dev.Data
 {
     #region
@@ -335,8 +337,43 @@ namespace Dev.Data
             //string entityName = this.GetEntityName<TEntity>();
             //return ((IObjectContextAdapter)this.DbContext).ObjectContext.CreateQuery<TEntity>(entityName);
 
+
+
             //下面的方法也应该是可以的
             return this.DbContext.Set<TEntity>();
+        }
+
+        /// <summary>
+        /// 创建一个原始 SQL 查询，该查询将返回给定泛型类型的元素。 类型可以是包含与从查询返回的列名匹配的属性的任何类型，也可以是简单的基元类型。 该类型不必是实体类型。 即使返回对象的类型是实体类型，上下文也决不会跟踪此查询的结果。 使用 SqlQuery(String, Object[]) 方法可返回上下文跟踪的实体。 
+        /// </summary>
+        /// <param name="elementType"></param>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public IEnumerable SqlQuery(Type elementType, string sql, params object[] parameters)
+        {
+            return this.DbContext.Database.SqlQuery(elementType, sql, parameters);
+        }
+        /// <summary>
+        /// 创建一个原始 SQL 查询，该查询将返回给定泛型类型的元素。 类型可以是包含与从查询返回的列名匹配的属性的任何类型，也可以是简单的基元类型。 该类型不必是实体类型。 即使返回对象的类型是实体类型，上下文也决不会跟踪此查询的结果。 使用 SqlQuery(String, Object[]) 方法可返回上下文跟踪的实体。 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public IEnumerable<T> SqlQuery<T>(string sql, params object[] parameters)
+        {
+            return this.DbContext.Database.SqlQuery<T>(sql, parameters);
+        }
+        /// <summary>
+        ///  Executes the given DDL/DML command against the database.
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public int ExecuteSqlCommand (string sql, params object[] parameters)
+        {
+            return this.DbContext.Database.ExecuteSqlCommand(sql, parameters);
         }
 
         public IQueryable<TEntity> GetQuery<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
