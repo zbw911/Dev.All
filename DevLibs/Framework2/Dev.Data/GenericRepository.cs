@@ -342,6 +342,18 @@ namespace Dev.Data
             //下面的方法也应该是可以的
             return this.DbContext.Set<TEntity>();
         }
+        /// <summary>
+        /// 动态Query 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public IQueryable GetQuery(Type type)
+        {
+            //var t = Type.GetType(typeName);
+            var set = this.DbContext.Set(type);
+
+            return set;
+        }
 
         /// <summary>
         /// 创建一个原始 SQL 查询，该查询将返回给定泛型类型的元素。 类型可以是包含与从查询返回的列名匹配的属性的任何类型，也可以是简单的基元类型。 该类型不必是实体类型。 即使返回对象的类型是实体类型，上下文也决不会跟踪此查询的结果。 使用 SqlQuery(String, Object[]) 方法可返回上下文跟踪的实体。 
@@ -376,7 +388,7 @@ namespace Dev.Data
             return this.DbContext.Database.ExecuteSqlCommand(sql, parameters);
         }
 
-         
+
 
         public IQueryable<TEntity> GetQuery<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {

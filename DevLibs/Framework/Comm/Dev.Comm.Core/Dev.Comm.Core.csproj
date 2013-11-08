@@ -79,7 +79,9 @@
     <Compile Include="IO\IOUtility.cs" />
     <Compile Include="IO\StreamHelper.cs" />
     <Compile Include="ObjectDynmic.cs" />
+    <Compile Include="Php\PhpUtils.cs" />
     <Compile Include="Runtime\Serialization\DataContractSerializationHelper.cs" />
+    <Compile Include="Php\PHPSerializationLibrary\Serializer.cs" />
     <Compile Include="Utils\AsmUtil.cs" />
     <Compile Include="ChineseCode.cs" />
     <Compile Include="CodeImage.cs" />

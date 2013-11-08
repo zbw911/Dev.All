@@ -315,8 +315,37 @@
               http://stackoverflow.com/questions/7717281/expandoobject-to-static-object-and-back-again-spanning-the-two-domains
             </summary>
         </member>
+        <member name="T:Dev.Comm.Php.PhpUtils">
+            <summary>
+            php C# 方法
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Php.PhpUtils.PhpTimeNow">
+            <summary>
+            计算Php格式的当前时间
+            </summary>
+            <returns>Php格式的时间</returns>
+        </member>
+        <member name="M:Dev.Comm.Php.PhpUtils.PhpTimeToDateTime(System.Int64)">
+            <summary>
+            PhpTime转DataTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Php.PhpUtils.DateTimeToPhpTime(System.DateTime)">
+            <summary>
+            DataTime转PhpTime
+            </summary>
+            <param name="datetime">时间</param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.Runtime.Serialization.DataContractSerializationHelper">
             <summary>
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Runtime.PHPSerializationLibrary.Serializer">
+            <summary>
+            Serializer Class.
             </summary>
         </member>
         <member name="M:Dev.Comm.AsmUtil.InvokeMethod(System.String,System.String,System.String,System.Object[],System.Object[],System.Object@)">

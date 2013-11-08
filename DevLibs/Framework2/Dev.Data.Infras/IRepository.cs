@@ -210,6 +210,13 @@ namespace Dev.Data.Infras
         TEntity GetByKey<TEntity>(object keyValue) where TEntity : class;
 
         /// <summary>
+        /// 动态Query 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        IQueryable GetQuery(Type type);
+
+        /// <summary>
         ///     Gets the query.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
