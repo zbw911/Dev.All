@@ -86,7 +86,8 @@ namespace DS.Web.UCenter.Client
             Encoding encoding = Encoding.GetEncoding(UcConfig.UcCharset);
             byte[] data = encoding.GetBytes(args);
             HttpWebRequest request = getPostRequest(data);
-            return getStr(request).Trim();
+            var str = getStr(request).Trim();
+            return str;
         }
 
         /// <summary>
@@ -97,8 +98,16 @@ namespace DS.Web.UCenter.Client
         /// <returns></returns>
         protected string SendGet(string url, IEnumerable<KeyValuePair<string, string>> args)
         {
+
+            Console.WriteLine("发出请求：" + url + "?" + ArgsToString(args));
             HttpWebRequest request = getGetRequest(url + "?" + ArgsToString(args));
-            return getStr(request).Trim();
+
+            var callbackstr = getStr(request).Trim();
+
+
+            Console.WriteLine("返回响应:" + callbackstr);
+
+            return callbackstr;// getStr(request).Trim();
         }
 
         /// <summary>
@@ -110,7 +119,7 @@ namespace DS.Web.UCenter.Client
         {
             try
             {
-                using (var response = (HttpWebResponse) request.GetResponse())
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
                     if (response == null || response.StatusCode != HttpStatusCode.OK) return "";
                     using (Stream stream = response.GetResponseStream())
@@ -138,7 +147,7 @@ namespace DS.Web.UCenter.Client
         /// <returns></returns>
         private HttpWebRequest getGetRequest(string url)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             request.UserAgent = GetUserAgent();
             request.Headers.Add(HttpRequestHeader.AcceptLanguage, "zh-cn");
             request.Method = "GET";
@@ -152,7 +161,7 @@ namespace DS.Web.UCenter.Client
         /// <returns></returns>
         private HttpWebRequest getPostRequest(byte[] data)
         {
-            var request = (HttpWebRequest) WebRequest.Create(GetUrl());
+            var request = (HttpWebRequest)WebRequest.Create(GetUrl());
             request.UserAgent = GetUserAgent();
             request.Headers.Add(HttpRequestHeader.AcceptLanguage, "zh-cn");
             request.Method = "POST";

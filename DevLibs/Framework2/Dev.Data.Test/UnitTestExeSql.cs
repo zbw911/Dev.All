@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -169,6 +170,52 @@ namespace Dev.Data.Test
             }
 
         }
+        class customorder2
+        {
+            public Order order { get; set; }
+            public Customer Customer { get; set; }
+        }
+
+        [TestMethod]
+        public void JoinTest2()
+        {
+            throw new NotSupportedException();
+            var count = this.customerRepository.SqlQuery<customorder2>("select * from  Customer join [order] on   Customer.id = [order].CustomerId ");
+            // this is Error
+            foreach (var i in count)
+            {
+                Console.WriteLine(i.order.CustomerId);
+                Console.WriteLine(i.Customer.Inserted);
+            }
+
+        }
+
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            dic["1"] = "1";
+
+            Console.WriteLine(dic["1"]);
+        }
+
+        [TestMethod]
+        public void MyTestMethod2()
+        {
+            string[] a = new[] { "1", "2" };
+
+            var b = a.Select(x => Convert.ToInt16(x));
+
+            foreach (var intse in b)
+            {
+                Console.WriteLine(intse);
+            }
+        }
+
+
+
 
     }
 }
