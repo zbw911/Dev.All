@@ -88,6 +88,13 @@ namespace DS.Web.UCenter.Test
         }
 
 
+        [TestMethod]
+        public void testdeleteMsg()
+        {
+            //client.PmDelete()
+        }
+
+
 
     }
 }

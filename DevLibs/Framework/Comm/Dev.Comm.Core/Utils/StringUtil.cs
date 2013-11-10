@@ -157,9 +157,9 @@ namespace Dev.Comm
             {
                 string tempStr = inputText;
                 int num1 = GetStringCount(inputText, "&nbsp;");
-                num1 = num1*6;
+                num1 = num1 * 6;
                 int num2 = GetStringCount(inputText, "<br>");
-                num2 = num2*4;
+                num2 = num2 * 4;
                 int numCount = inputText.Length - num1 - num2;
 
                 int forNum = outNum;
@@ -387,6 +387,8 @@ namespace Dev.Comm
         /// <returns> </returns>
         public static string Strip_Tags(string AHtml)
         {
+            if (AHtml == null)
+                return null;
             var regex = new Regex(@"<[^>]*>");
             AHtml = regex.Replace(AHtml, "");
 
@@ -421,7 +423,7 @@ namespace Dev.Comm
         public static int[] SplitIntString(string strContent, string strSplit, bool RemoveEmpty = true)
         {
             string[] list = SplitString(strContent, strSplit, RemoveEmpty);
-            if (list.Length == 0) return new int[0] {};
+            if (list.Length == 0) return new int[0] { };
 
             var intlist = new List<int>();
             for (int i = 0; i < list.Length; i++)
@@ -448,7 +450,7 @@ namespace Dev.Comm
             if (!string.IsNullOrEmpty(strContent))
             {
                 if (strContent.IndexOf(strSplit) < 0)
-                    return new[] {strContent};
+                    return new[] { strContent };
 
                 if (RemoveEmpty)
                     return strContent.Split(strSplit.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -456,7 +458,7 @@ namespace Dev.Comm
                     return Regex.Split(strContent, Regex.Escape(strSplit), RegexOptions.IgnoreCase);
             }
             else
-                return new string[0] {};
+                return new string[0] { };
         }
 
         /// <summary>
@@ -499,7 +501,7 @@ namespace Dev.Comm
         {
             all = all == 0 ? 1 : all;
 
-            decimal result = x1/all;
+            decimal result = x1 / all;
 
             return result.ToString(string.Format("p{0}", point));
         }
@@ -509,7 +511,7 @@ namespace Dev.Comm
         {
             all = all == 0 ? 1 : all;
 
-            double result = x1/all;
+            double result = x1 / all;
 
             return result.ToString(string.Format("p{0}", point));
         }
@@ -1128,7 +1130,7 @@ namespace Dev.Comm
 
         #region Ìæ»»html×Ö·û
 
-        private static readonly char[] _markupChar = {' ', ' ', ' ', '<', '>', '&', '"', '*', '/'};
+        private static readonly char[] _markupChar = { ' ', ' ', ' ', '<', '>', '&', '"', '*', '/' };
 
         private static readonly string[] _replaceString =
             {
@@ -1278,7 +1280,7 @@ namespace Dev.Comm
                     if (i != 25) max = areacode[i + 1];
                     if (areacode[i] <= code && code < max)
                     {
-                        return Encoding.Default.GetString(new[] {(byte) (65 + i)});
+                        return Encoding.Default.GetString(new[] { (byte)(65 + i) });
                     }
                 }
                 return "*";
@@ -1343,7 +1345,7 @@ namespace Dev.Comm
         /// <returns> </returns>
         public static string GetColor()
         {
-            var nums = new List<string> {"0", "3", "6", "9", "C", "F"};
+            var nums = new List<string> { "0", "3", "6", "9", "C", "F" };
             var clr = "#";
             for (var i = 0; i < 6; i++)
             {

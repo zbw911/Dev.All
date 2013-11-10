@@ -33,7 +33,7 @@ namespace Dev.Comm.Extensions
         /// <param name="key"></param>
         /// <param name="defValue"></param>
         /// <returns></returns>
-        public static T Get<T>(this IDictionary data, string key, T defValue)
+        public static T Get<T>(this IDictionary data, object key, T defValue)
         {
             if (data == null || !data.Contains(key))
                 return defValue;
@@ -63,7 +63,7 @@ namespace Dev.Comm.Extensions
         public static string GetString(this IDictionary data, string key)
         {
             string result = string.Empty;
-            if (data != null) if (data.Contains(key)) result = data[key].ToString();
+            if (data != null) if (data.Contains(key)) result = data[key] as string;
             return result;
         }
 

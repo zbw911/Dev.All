@@ -82,7 +82,7 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:Dev.Comm.Extensions.DictionaryExtension.Get``1(System.Collections.IDictionary,System.String,``0)">
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.Get``1(System.Collections.IDictionary,System.Object,``0)">
             <summary>
             取得任意类型
             </summary>
