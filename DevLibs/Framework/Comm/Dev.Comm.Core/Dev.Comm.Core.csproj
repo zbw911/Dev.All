@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="DataStructure\CreateSequence.cs" />
     <Compile Include="DataStructure\Tree.cs" />
+    <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="IO\IOUtility.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Utils\DateUtil.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="Extensions\Global.cs" />
+    <Compile Include="Utils\DictionaryUtil.cs" />
     <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="Json\JsonConvert.cs" />

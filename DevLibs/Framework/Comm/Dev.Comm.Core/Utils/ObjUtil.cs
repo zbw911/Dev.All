@@ -9,6 +9,8 @@
 // ***********************************************************************************
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
@@ -87,6 +89,10 @@ namespace Dev.Comm
                 return CloneObject;
             }
         }
+
+
+       
+
 
         #region 序列化反序列化
 

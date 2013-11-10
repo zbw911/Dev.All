@@ -69,6 +69,70 @@
             <param name="list"> </param>
             <returns> </returns>
         </member>
+        <member name="T:Dev.Comm.Extensions.DictionaryExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.GetInt(System.Collections.IDictionary,System.String)">
+            <summary>
+            得到Int
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.Get``1(System.Collections.IDictionary,System.String,``0)">
+            <summary>
+            取得任意类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <param name="key"></param>
+            <param name="defValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.GetDecimal(System.Collections.IDictionary,System.String)">
+            <summary>
+            取得Decimal类型
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.GetString(System.Collections.IDictionary,System.String)">
+            <summary>
+            得到String
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.GetBool(System.Collections.IDictionary,System.String,System.String)">
+            <summary>
+            得到Bool
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <param name="compare"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.GetDouble(System.Collections.IDictionary,System.String)">
+            <summary>
+            得到Double
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Extensions.DictionaryExtension.GetHashtable(System.Collections.IDictionary,System.String)">
+            <summary>
+            得到Hashtable
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.Core.Extensions.StringExtensions">
             <summary>
             </summary>
@@ -648,6 +712,32 @@
             <param name="page"> </param>
             <param name="pageSize"> </param>
             <returns> </returns>
+        </member>
+        <member name="T:Dev.Comm.Utils.DictionaryUtil">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Utils.DictionaryUtil.StringArrayToDic(System.String[])">
+            <summary>
+            将返回的参数转化为Dic类型
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.DictionaryUtil.CollectionToDic(System.Collections.ICollection)">
+            <summary>
+            
+            </summary>
+            <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.DictionaryUtil.ToDictionary(System.Object)">
+            <summary>
+            转化为Dictionary
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
         </member>
         <member name="T:Dev.Comm.FileUtil">
             <summary>

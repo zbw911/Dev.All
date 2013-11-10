@@ -86,5 +86,8 @@ namespace DS.Web.UCenter.Test
             var user = client.UserInfo("llllllllllllll");
             Assert.IsTrue(user.Uid == 0);
         }
+
+
+
     }
 }
