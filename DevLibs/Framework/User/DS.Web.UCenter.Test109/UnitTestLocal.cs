@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DS.Web.UCenter.Test
 {
     [TestClass]
-    public class UnitTest1
+    public partial class UnitTestLocal
     {
         private UcClient client = new UcClient();
 
@@ -13,9 +13,7 @@ namespace DS.Web.UCenter.Test
         //string username = "hello";
         //string password = "hello";
 
-        string email = "sdfasdfasdfffff@hello.com";
-        string username = "admin1";
-        string password = "admin1";
+
 
         private int questionid = 1;
         private string answer = "aaaaaa";
@@ -70,13 +68,34 @@ namespace DS.Web.UCenter.Test
         public void GetPostMessage()
         {
             var user = client.UserInfo(username);
-            if (user == null)
+            if (user.Uid == 0)
                 throw new NullReferenceException();
 
             var news = client.PmCheckNew(user.Uid);
 
 
 
+        }
+
+
+        [TestMethod]
+        public void TestOnLs()
+        {
+            var news = client.PmList(Uid, 1, 15, PmReadFolder.OutBox, PmReadFilter.NewPm, 15);
+
+        }
+
+
+        private decimal Uid
+        {
+            get
+            {
+                var user = client.UserInfo(username);
+                if (user.Uid == 0)
+                    throw new NullReferenceException();
+
+                return user.Uid;
+            }
         }
 
 

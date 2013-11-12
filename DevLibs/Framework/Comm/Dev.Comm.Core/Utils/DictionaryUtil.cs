@@ -32,7 +32,7 @@ namespace Dev.Comm.Utils
 
 
         /// <summary>
-        /// 
+        /// 将集合类型生成如 Dictionary[index] = object ,类型的字典
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
@@ -52,6 +52,7 @@ namespace Dev.Comm.Utils
             foreach (var c in collection)
             {
                 data[index] = c;// Add(index, c);
+                index++;
             }
 
             return data;

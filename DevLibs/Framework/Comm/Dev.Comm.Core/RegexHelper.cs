@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Dev.Comm
 {
@@ -57,17 +58,7 @@ namespace Dev.Comm
             return null;
         }
 
-        /// <summary>
-        ///   正则替换
-        /// </summary>
-        /// <param name="content"> </param>
-        /// <param name="pattern"> </param>
-        /// <returns> </returns>
-        public static string Replace(string content, string pattern, string replacement)
-        {
-            var r = new Regex(pattern);
-            return r.Replace(content, replacement);
-        }
+
 
         public static string MatchesString(string content, string pattern, int matchindex, int groupindex)
         {
@@ -163,6 +154,77 @@ namespace Dev.Comm
         }
 
 
+
+
+
+        /// <summary>
+        ///  批量正则替换
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="patterns"> </param>
+        /// <param name="replaces"> </param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static string PregReplace(string source, IEnumerable<string> patterns, IEnumerable<string> replaces)
+        {
+            if (patterns.Count() != replaces.Count())
+                throw new ArgumentException("Replacement and Pattern Arrays must be balanced");
+
+
+            var index = 0;
+
+            var dest = source;
+
+            foreach (var pattern in patterns)
+            {
+                dest = PregReplace(dest, pattern, replaces.ElementAt(index));
+            }
+
+            return dest;
+        }
+
+
+
+
+        /// <summary>
+        ///   正则替换
+        /// </summary>
+        /// <param name="content"> </param>
+        /// <param name="pattern"> </param>
+        /// <returns> </returns>
+        public static string PregReplace(string content, string pattern, string replacement)
+        {
+            var r = new Regex(pattern);
+            return r.Replace(content, replacement);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="macth"></param>
+        /// <param name="handler"></param>
+        /// <returns></returns>
+        public static string MatchAndHandler(string source, string macth, Func<string, GroupCollection, string> handler)
+        {
+            var ms = Dev.Comm.RegexHelper.Matches(source, macth);
+            var dest = source;
+
+            for (int i = 0; i < ms.Count; i++)
+            {
+                var s = ms[i].Success;
+                if (!s)
+                    continue;
+                var group = ms[i].Groups;
+
+                if (handler != null)
+                    dest = handler(dest, group);
+            }
+
+            return dest;
+        }
+
         /// <summary>
         ///   是否MATCH，兼容php
         /// </summary>
@@ -184,16 +246,15 @@ namespace Dev.Comm
             }
         }
 
-
-        public static MatchCollection Preg_match_all(string content, string pattern, out MatchCollection mc)
+        public static int Preg_match_all(string content, string pattern, out MatchCollection mc)
         {
             var r = new Regex(pattern);
             mc = r.Matches(content);
 
-            return mc;
+            return mc.Count;
         }
 
-        public static MatchCollection Preg_match_all(string content, string pattern)
+        public static int Preg_match_all(string content, string pattern)
         {
             MatchCollection mc;
             return Preg_match_all(content, pattern, out mc);

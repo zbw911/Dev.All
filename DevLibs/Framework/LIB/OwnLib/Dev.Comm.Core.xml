@@ -727,7 +727,7 @@
         </member>
         <member name="M:Dev.Comm.Utils.DictionaryUtil.CollectionToDic(System.Collections.ICollection)">
             <summary>
-            
+            将集合类型生成如 Dictionary[index] = object ,类型的字典
             </summary>
             <param name="collection"></param>
             <returns></returns>
@@ -1004,14 +1004,6 @@
             <param name="content"> </param>
             <param name="pattern"> </param>
         </member>
-        <member name="M:Dev.Comm.RegexHelper.Replace(System.String,System.String,System.String)">
-            <summary>
-              正则替换
-            </summary>
-            <param name="content"> </param>
-            <param name="pattern"> </param>
-            <returns> </returns>
-        </member>
         <member name="M:Dev.Comm.RegexHelper.MatchesGroupsString(System.String,System.String,System.Int32)">
             <summary>
               返回 所有 分组匹配项
@@ -1028,6 +1020,33 @@
             <param name="pattern"> </param>
             <param name="matchindex"> </param>
             <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.RegexHelper.PregReplace(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+             批量正则替换
+            </summary>
+            <param name="source"></param>
+            <param name="patterns"> </param>
+            <param name="replaces"> </param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Dev.Comm.RegexHelper.PregReplace(System.String,System.String,System.String)">
+            <summary>
+              正则替换
+            </summary>
+            <param name="content"> </param>
+            <param name="pattern"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.RegexHelper.MatchAndHandler(System.String,System.String,System.Func{System.String,System.Text.RegularExpressions.GroupCollection,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="macth"></param>
+            <param name="handler"></param>
+            <returns></returns>
         </member>
         <member name="M:Dev.Comm.RegexHelper.Preg_match(System.String,System.String)">
             <summary>
