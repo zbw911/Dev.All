@@ -7,6 +7,8 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
+
+using System.IO;
 using System.Web;
 using System.Web.Routing;
 using Dev.Comm.Core;
@@ -43,7 +45,7 @@ namespace Dev.Comm.Web
         /// <returns>当前访问是否来自浏览器软件</returns>
         public static bool IsBrowserGet()
         {
-            string[] BrowserName = {"ie", "opera", "netscape", "mozilla", "konqueror", "firefox"};
+            string[] BrowserName = { "ie", "opera", "netscape", "mozilla", "konqueror", "firefox" };
             string curBrowser = HttpContext.Current.Request.Browser.Type.ToLower();
             for (int i = 0; i < BrowserName.Length; i++)
             {
@@ -333,13 +335,95 @@ namespace Dev.Comm.Web
 
         #endregion
 
-        public static T Get<T>(  string strName , T defValue)
+        /// <summary>
+        /// 取得类型
+        /// </summary>
+        /// <param name="strName"></param>
+        /// <param name="defValue"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T Get<T>(string strName, T defValue)
         {
             var val = GetString(strName);
             if (val == "")
                 return defValue;
 
-               return TypeConverter.ConvertType(val, defValue);
+            return TypeConverter.ConvertType(val, defValue);
+        }
+
+        /// <summary>
+        /// Reqest 文件处理
+        /// </summary>
+        public static class File
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public static Stream GetFilesStream(string name)
+            {
+                return Files[name].InputStream;
+            }
+
+            /// <summary>
+            /// 保存
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            public static Stream GetFilesStream(int index)
+            {
+                return Files[index].InputStream;
+            }
+
+
+            /// <summary>
+            /// 保存
+            /// </summary>
+            /// <param name="name"></param>
+            /// <param name="filename"></param>
+            public static void SavaAs(string name, string filename)
+            {
+                Files[name].SaveAs(filename);
+            }
+
+            /// <summary>
+            /// 保存
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="filename"></param>
+            public static void SavaAs(int index, string filename)
+            {
+                Files[index].SaveAs(filename);
+            }
+
+
+            /// <summary>
+            /// Mime类型
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public static string ContentType(string name)
+            {
+                return
+                    Files[name].ContentType;
+            }
+
+            /// <summary>
+            /// Mime类型
+            /// </summary>
+            /// <param name="index"> </param>
+            /// <returns></returns>
+            public static string ContentType(int index)
+            {
+                return
+                    Files[index].ContentType;
+            }
+
+            private static HttpFileCollection Files
+            {
+                get { return HttpContext.Current.Request.Files; }
+            }
         }
     }
 }

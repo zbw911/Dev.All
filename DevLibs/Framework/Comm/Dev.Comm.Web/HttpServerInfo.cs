@@ -302,6 +302,16 @@ namespace Dev.Comm.Web
             return url;
         }
 
+        /// <summary>
+        /// 返回物理路径 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string MapPath(string path)
+        {
+            return HttpContext.Current.Server.MapPath(path);
+        }
+
         #endregion
     }
 }
