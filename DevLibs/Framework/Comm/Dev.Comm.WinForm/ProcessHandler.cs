@@ -12,6 +12,9 @@ using System.Diagnostics;
 
 namespace Dev.Comm.WinForm
 {
+    /// <summary>
+    /// 进程处理
+    /// </summary>
     public static class ProcessHandler
     {
         public static void Kill(string processname)
