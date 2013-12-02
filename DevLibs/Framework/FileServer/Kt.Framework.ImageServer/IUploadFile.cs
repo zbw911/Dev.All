@@ -49,12 +49,28 @@ namespace Dev.Framework.FileServer
         string UpdateFile(Stream stream, string fileKey, params object[] param);
 
         /// <summary>
-        /// 
+        ///  
         /// </summary>
         /// <param name="bytefile"></param>
         /// <param name="fileKey"></param>
         /// <param name="param"></param>
         /// <returns></returns>
         string UpdateFile(byte[] bytefile, string fileKey, params object[] param);
+
+        /// <summary>
+        /// 根据文件Key删除文件 
+        /// </summary>
+        /// <param name="fileKey"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        void DeleteFile(string fileKey, params object[] param);
+
+
+        /// <summary>
+        /// 删除File所在的Path
+        /// </summary>
+        /// <param name="fileKey"></param>
+        void DeltePath(string fileKey);
+
     }
 }

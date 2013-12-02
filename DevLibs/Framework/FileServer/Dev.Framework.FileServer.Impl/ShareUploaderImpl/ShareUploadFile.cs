@@ -106,6 +106,48 @@ namespace Dev.Framework.FileServer.ShareImpl
             return fileKey;
         }
 
+        /// <summary>
+        /// 根据文件Key删除文件 
+        /// </summary>
+        /// <param name="fileKey"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public void DeleteFile(string fileKey, params object[] param)
+        {
+            FileSaveInfo fileSaveInfo = this._currentKey.GetFileSavePath(fileKey, param);
+
+            var filehelper = new FileHelper
+            {
+                hostIp = fileSaveInfo.FileServer.hostip,
+                password = fileSaveInfo.FileServer.password,
+                username = fileSaveInfo.FileServer.username,
+                startdirname = fileSaveInfo.FileServer.startdirname
+            };
+
+            filehelper.DeleteFile(fileSaveInfo.dirname, fileSaveInfo.savefilename);
+
+        }
+
+        /// <summary>
+        /// 删除File所在的Path
+        /// </summary>
+        /// <param name="fileKey"></param>
+        public void DeltePath(string fileKey)
+        {
+            FileSaveInfo fileSaveInfo = this._currentKey.GetFileSavePath(fileKey);
+
+            var filehelper = new FileHelper
+            {
+                hostIp = fileSaveInfo.FileServer.hostip,
+                password = fileSaveInfo.FileServer.password,
+                username = fileSaveInfo.FileServer.username,
+                startdirname = fileSaveInfo.FileServer.startdirname
+            };
+
+            filehelper.DeletePath(fileSaveInfo.dirname);
+            //filehelper.DeleteFile(fileSaveInfo.dirname, fileSaveInfo.savefilename);
+        }
+
 
         public string UpdateFile(Stream stream, string fileKey, params object[] param)
         {

@@ -175,6 +175,22 @@ namespace Dev.Comm.NetFile
             }
         }
 
+        /// <summary>
+        /// 删除目录
+        /// </summary>
+        /// <param name="dirname"></param>
+        public void DeletePath(string dirname)
+        {
+            using (var iss = new IdentityScope(username, hostIp, password))
+            {
+                string filepath = GetFileName(dirname, "");
+                if (Directory.Exists(filepath))
+                    Directory.Delete(filepath, true);
+            }
+        }
+
+
+
 
         private string GetFileName(string dirname, string filename)
         {

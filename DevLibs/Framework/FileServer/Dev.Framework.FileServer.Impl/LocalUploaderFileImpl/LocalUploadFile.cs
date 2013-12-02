@@ -91,6 +91,26 @@ namespace Dev.Framework.FileServer.LocalUploaderFileImpl
             return this.UpdateFile(FileUtil.BytesToStream(bytefile), fileKey, param);
         }
 
+        /// <summary>
+        /// 根据文件Key删除文件 
+        /// </summary>
+        /// <param name="fileKey"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public void DeleteFile(string fileKey, params object[] param)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// 删除File所在的Path
+        /// </summary>
+        /// <param name="fileKey"></param>
+        public void DeltePath(string fileKey)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         public string UpdateFile(Stream stream, string fileKey, params object[] param)
         {

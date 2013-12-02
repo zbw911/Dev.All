@@ -938,6 +938,12 @@
             <param name="dirname"> </param>
             <param name="filename"> </param>
         </member>
+        <member name="M:Dev.Comm.NetFile.FileHelper.DeletePath(System.String)">
+            <summary>
+            删除目录
+            </summary>
+            <param name="dirname"></param>
+        </member>
         <member name="P:Dev.Comm.NetFile.FileHelper.password">
             <summary>
               密码
