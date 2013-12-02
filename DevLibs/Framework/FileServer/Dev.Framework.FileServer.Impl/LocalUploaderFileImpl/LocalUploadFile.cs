@@ -99,7 +99,11 @@ namespace Dev.Framework.FileServer.LocalUploaderFileImpl
         /// <returns></returns>
         public void DeleteFile(string fileKey, params object[] param)
         {
-            throw new System.NotImplementedException();
+            var fileInfo = this._currentKey.GetFileSavePath(fileKey, param);
+
+            var filepath = this.GetFilePath(fileInfo);
+
+            FileUtil.DeleteFile(filepath);
         }
 
         /// <summary>
@@ -108,7 +112,14 @@ namespace Dev.Framework.FileServer.LocalUploaderFileImpl
         /// <param name="fileKey"></param>
         public void DeltePath(string fileKey)
         {
-            throw new System.NotImplementedException();
+            var fileInfo = this._currentKey.GetFileSavePath(fileKey);
+
+            var filepath = this.GetFilePath(fileInfo);
+
+            var pathname = Path.GetDirectoryName(filepath);
+
+            if (Directory.Exists(pathname))
+                Directory.Delete(pathname, true);
         }
 
 
@@ -118,7 +129,10 @@ namespace Dev.Framework.FileServer.LocalUploaderFileImpl
 
             var fileInfo = this._currentKey.GetFileSavePath(fileKey, param);
 
-            FileUtil.StreamToFile(stream, this.GetFilePath(fileInfo));
+            var filepath = this.GetFilePath(fileInfo);
+
+            FileUtil.StreamToFile(stream, filepath);
+
             return fileKey;
         }
 

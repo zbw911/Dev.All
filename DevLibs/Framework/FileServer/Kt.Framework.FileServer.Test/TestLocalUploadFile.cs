@@ -13,12 +13,13 @@ namespace Dev.Framework.FileServer.Test
         public void TestMethod1()
         {
             var filepath =
-                @"C:\Users\Administrator\Source\Repos\Dev.All\DevLibs\Framework\FileServer\Kt.Framework.FileServer.Test\TestLocalUploadFile.cs";
+                @"E:\Github\zbw911\Dev.All\DevLibs\Framework\FileServer\Kt.Framework.FileServer.Test\TestLocalUploadFile.cs";
             var x = new ReadConfig("TestLocalUploadFile.config");
             IKey key = new LocalFileKey();
             IUploadFile upload = new LocalUploadFile(key);
 
-            var filekey = key.CreateFileKey(filepath);
+            var filekey = "1-2013-12-02-05e89032842c22cc4cb13f07e1173333.cs";
+            //var filekey = key.CreateFileKey(filepath);
 
 
             Console.WriteLine(filekey);
@@ -35,12 +36,43 @@ namespace Dev.Framework.FileServer.Test
 
             var uploadedkey = upload.SaveFile(File.OpenRead(filepath), filekey);
 
-            //upload.SaveFile(File.OpenRead(".."), filekey);
+        }
 
-           
+        [TestMethod]
+        public void TestFileUrl()
+        {
+            var skey = "1-2013-12-02-05e89032842c22cc4cb13f07e1173333.cs";
+            var x = new ReadConfig("TestLocalUploadFile.config");
+            IKey key = new LocalFileKey();
+            IUploadFile upload = new LocalUploadFile(key);
+
+            var url = key.GetFileUrl(skey);
+
+        }
 
 
+        [TestMethod]
+        public void TestDeleteFile()
+        {
 
+            var skey = "1-2013-12-02-05e89032842c22cc4cb13f07e1173333.cs";
+            var x = new ReadConfig("TestLocalUploadFile.config");
+            IKey key = new LocalFileKey();
+            IUploadFile upload = new LocalUploadFile(key);
+
+            upload.DeleteFile(skey);
+        }
+
+
+        [TestMethod]
+        public void TestDeletePath()
+        {
+            var skey = "1-2013-12-02-05e89032842c22cc4cb13f07e1173333.cs";
+            var x = new ReadConfig("TestLocalUploadFile.config");
+            IKey key = new LocalFileKey();
+            IUploadFile upload = new LocalUploadFile(key);
+
+            upload.DeltePath(skey);
         }
     }
 }

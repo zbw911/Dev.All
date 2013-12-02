@@ -64,7 +64,10 @@ namespace Dev.Comm
             return false;
         }
 
-
+        /// <summary>
+        /// 删除文件
+        /// </summary>
+        /// <param name="filepath"></param>
         public static void DeleteFile(string filepath)
         {
             if (File.Exists(filepath))
@@ -180,7 +183,7 @@ namespace Dev.Comm
                 FileExtension extension;
                 try
                 {
-                    extension = (FileExtension) Enum.Parse(typeof (FileExtension), fileType);
+                    extension = (FileExtension)Enum.Parse(typeof(FileExtension), fileType);
                 }
                 catch
                 {
@@ -214,11 +217,11 @@ namespace Dev.Comm
             try
             {
                 int i = 0;
-                var length = (int) fs.Length;
+                var length = (int)fs.Length;
                 byte data;
                 while (i < length && isTextFile)
                 {
-                    data = (byte) fs.ReadByte();
+                    data = (byte)fs.ReadByte();
                     isTextFile = (data != 0);
                     i++;
                 }
