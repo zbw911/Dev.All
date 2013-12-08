@@ -7,12 +7,15 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
+
+using System.Linq;
+
 namespace Dev.Crosscutting.Adapter
 {
     using System.Collections.Generic;
 
     using Dev.Crosscutting.Adapter.Adapter;
-          
+
     /// <summary>
     /// 这个方法来自于http://microsoftnlayerapp.codeplex.com/
     /// 对原有方法进行了部分改进，将 ：Entity 改为 object ,
@@ -37,6 +40,12 @@ namespace Dev.Crosscutting.Adapter
             return adapter.Adapt<TProjection>(item);
         }
 
+
+        //public static TProjection DynProjectAs<TProjection>(this object item)
+        //{
+
+        //}
+
         /// <summary>
         /// projected a enumerable collection of items,
         /// 适用于集全类型
@@ -52,6 +61,38 @@ namespace Dev.Crosscutting.Adapter
 
             return adapter.Adapt<List<TProjection>>(items);
         }
+
+
+        /// <summary>
+        /// 动态
+        /// </summary>
+        /// <param name="item"></param>
+        /// <typeparam name="TProjection"></typeparam>
+        /// <returns></returns>
+        public static TProjection DynProjectedAs<TProjection>(this object item)
+           where TProjection : class,new()
+        {
+            var adapter = TypeAdapterFactory.CreateAdapter();
+            return adapter.DynAdapt<TProjection>(item);
+        }
+
+        /// <summary>
+        /// 动态列表
+        /// </summary>
+        /// <param name="items"></param>
+        /// <typeparam name="TProjection"></typeparam>
+        /// <returns></returns>
+        public static List<TProjection> DynProjectedAsCollection<TProjection>(this IEnumerable<object> items)
+           where TProjection : class,new()
+        {
+            //var adapter = TypeAdapterFactory.CreateAdapter();
+
+            var list = items.Select(x => x.ProjectedAs<TProjection>()).ToList();
+
+            return list;
+            //return adapter.DynAdapt<List<TProjection>>(items);
+        }
+
     }
 
 

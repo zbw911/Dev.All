@@ -38,5 +38,15 @@ namespace Dev.Crosscutting.Adapter.Adapter
         /// <returns><paramref name="source"/> mapped to <typeparamref name="TTarget"/></returns>
         TTarget Adapt<TTarget>(object source)
             where TTarget : class,new();
+
+
+        /// <summary>
+        /// 动态 Adapt
+        /// </summary>
+        /// <param name="source"></param>
+        /// <typeparam name="TTarget"></typeparam>
+        /// <returns></returns>
+        TTarget DynAdapt<TTarget>(object source)
+                   where TTarget : class,new();
     }
 }

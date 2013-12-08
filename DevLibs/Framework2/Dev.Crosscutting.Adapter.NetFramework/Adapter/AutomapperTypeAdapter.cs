@@ -12,12 +12,12 @@ namespace Dev.Crosscutting.Adapter.NetFramework.Adapter
     using AutoMapper;
 
     using Dev.Crosscutting.Adapter.Adapter;
-           
+
     /// <summary>
     /// Automapper type adapter implementation
     /// </summary>
     public class AutomapperTypeAdapter
-        :ITypeAdapter
+        : ITypeAdapter
     {
         #region ITypeAdapter Members
 
@@ -43,7 +43,13 @@ namespace Dev.Crosscutting.Adapter.NetFramework.Adapter
         /// <returns><see cref="Microsoft.Samples.NLayerApp.Infrastructure.Crosscutting.Adapter.ITypeAdapter"/></returns>
         public TTarget Adapt<TTarget>(object source) where TTarget : class, new()
         {
+
             return Mapper.Map<TTarget>(source);
+        }
+
+        public TTarget DynAdapt<TTarget>(object source) where TTarget : class, new()
+        {
+            return Mapper.DynamicMap<TTarget>(source);
         }
 
         #endregion
