@@ -74,5 +74,12 @@ namespace Dev.Framework.FileServer.Test
 
             upload.DeltePath(skey);
         }
+
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            var x = System.AppDomain.CurrentDomain.BaseDirectory;
+        }
     }
 }

@@ -41,7 +41,13 @@ namespace Dev.Framework.FileServer.LocalUploaderFileImpl
 
         private string GetFilePath(FileSaveInfo fileInfo)
         {
-            return "" + fileInfo.FileServer.startdirname + "/" + fileInfo.dirname + "/" + fileInfo.savefilename;
+            var filepath = "" + fileInfo.FileServer.startdirname + "/" + fileInfo.dirname + "/" + fileInfo.savefilename;
+
+            var apppath = System.AppDomain.CurrentDomain.BaseDirectory;
+
+            filepath = filepath.Replace("|APP_BASE|", apppath);
+
+            return filepath;
         }
 
         #endregion
