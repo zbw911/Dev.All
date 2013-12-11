@@ -819,6 +819,20 @@
             <param name="bytefile"> </param>
             <returns> </returns>
         </member>
+        <member name="M:Dev.Comm.FileUtil.MD5Stream(System.String)">
+            <summary>
+            对文件流进行MD5加密
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+            <example></example>
+        </member>
+        <member name="M:Dev.Comm.FileUtil.MD5File(System.String)">
+            <summary>
+            对文件进行MD5加密
+            </summary>
+            <param name="filePath"></param>
+        </member>
         <member name="T:Dev.Comm.ImageHelper">
             <summary>
               图片帮助方法
