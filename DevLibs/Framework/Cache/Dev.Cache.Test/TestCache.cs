@@ -15,7 +15,7 @@ namespace Dev.Cache.Test
         private ICacheWraper _cacheWraper;
 
         #endregion
-[TestInitialize]
+        [TestInitialize]
         public void init()
         {
             this._cacheState = new AppFabricCache();
@@ -48,7 +48,7 @@ namespace Dev.Cache.Test
             Console.WriteLine(data.DateTime);
         }
 
-        
+
 
 
         [TestMethod]

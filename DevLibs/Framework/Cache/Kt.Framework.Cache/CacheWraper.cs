@@ -42,35 +42,37 @@ namespace Dev.Framework.Cache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="absoluteExpiration"></param>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        public T SmartyGetPut<T>(object key, DateTime absoluteExpiration, Func<T> GetDataFunc)
+        public T SmartyGetPut<T>(object key, DateTime absoluteExpiration, Func<T> getDataFunc)
         {
-
-            var cachekey = key.BuildFullKey<T>();
-
-            var instance = this.CacheState.GetObjectByKey(cachekey);
+            return InnerCache(key, (cachekey, data) => this.CacheState.PutObjectByKey(cachekey, data, absoluteExpiration), getDataFunc);
 
 
-            if (instance == null)
-                instance = GetDataFunc();
-            //取回的数据还是空的
-            if (instance == null)
-            {
-                this.CacheState.PutObjectByKey(cachekey, new FactNull(), absoluteExpiration);
-                return default(T);
-            }
+            //var cachekey = key.BuildFullKey<T>();
 
-            if (instance is FactNull)
-                return default(T);
+            //var instance = this.CacheState.GetObjectByKey(cachekey);
 
-            if (instance is T)
-            {
-                this.CacheState.Put(key, (T)instance, absoluteExpiration);
-                return (T)instance;
-            }
 
-            throw new Exception("Error");
+            //if (instance == null)
+            //    instance = GetDataFunc();
+            ////取回的数据还是空的
+            //if (instance == null)
+            //{
+            //    this.CacheState.PutObjectByKey(cachekey, new FactNull(), absoluteExpiration);
+            //    return default(T);
+            //}
+
+            //if (instance is FactNull)
+            //    return default(T);
+
+            //if (instance is T)
+            //{
+            //    this.CacheState.Put(key, (T)instance, absoluteExpiration);
+            //    return (T)instance;
+            //}
+
+            //throw new Exception("Error");
         }
 
         /// <summary>
@@ -91,18 +93,68 @@ namespace Dev.Framework.Cache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="slidingExpiration"></param>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        public T SmartyGetPut<T>(object key, TimeSpan slidingExpiration, Func<T> GetDataFunc)
+        public T SmartyGetPut<T>(object key, TimeSpan slidingExpiration, Func<T> getDataFunc)
         {
-            var instance = this.CacheState.Get<T>(key);
-            if (instance != null) return instance;
 
-            instance = GetDataFunc();
-            if (instance == null) return instance;
-            //放入缓存
-            this.CacheState.Put(key, instance, slidingExpiration);
-            return instance;
+            return InnerCache(key, (cachekey, data) => this.CacheState.PutObjectByKey(cachekey, data, slidingExpiration), getDataFunc);
+
+            //var cachekey = key.BuildFullKey<T>();
+
+            //var instance = this.CacheState.GetObjectByKey(cachekey);
+
+
+            //if (instance == null)
+            //    instance = GetDataFunc();
+            ////取回的数据还是空的
+            //if (instance == null)
+            //{
+            //    this.CacheState.PutObjectByKey(cachekey, new FactNull(), slidingExpiration);
+            //    return default(T);
+            //}
+
+            //if (instance is FactNull)
+            //    return default(T);
+
+            //if (instance is T)
+            //{
+            //    this.CacheState.Put(key, (T)instance, slidingExpiration);
+            //    return (T)instance;
+            //}
+
+            //throw new Exception("Error");
+        }
+
+
+        private T InnerCache<T>(object key, Action<string, object> innerAction, Func<T> getDataFunc)
+        {
+            var cachekey = key.BuildFullKey<T>();
+
+            var instance = this.CacheState.GetObjectByKey(cachekey);
+
+
+            if (instance == null)
+                instance = getDataFunc();
+            //取回的数据还是空的
+            if (instance == null)
+            {
+                innerAction(cachekey, new FactNull());
+                //this.CacheState.PutObjectByKey(cachekey, new FactNull(), slidingExpiration);
+                return default(T);
+            }
+
+            if (instance is FactNull)
+                return default(T);
+
+            if (instance is T)
+            {
+                //this.CacheState.PutObjectByKey(cachekey, instance, slidingExpiration);
+                innerAction(cachekey, instance);
+                return (T)instance;
+            }
+
+            throw new Exception("Error");
         }
 
         /// <summary>
@@ -122,45 +174,47 @@ namespace Dev.Framework.Cache
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        public T SmartyGetPut<T>(object key, Func<T> GetDataFunc)
+        public T SmartyGetPut<T>(object key, Func<T> getDataFunc)
         {
+            return InnerCache(key, (cachekey, data) => this.CacheState.PutObjectByKey(cachekey, data), getDataFunc);
+
+            //var cachekey = key.BuildFullKey<T>();
+
+            //var instance = this.CacheState.GetObjectByKey(cachekey);
 
 
-            var instance = this.CacheState.Get<T>(key);
-            //if (instance != defaultT) return instance;
+            //if (instance == null)
+            //    instance = GetDataFunc();
+            ////取回的数据还是空的
+            //if (instance == null)
+            //{
+            //    this.CacheState.PutObjectByKey(cachekey, new FactNull());
+            //    return default(T);
+            //}
 
-            //if(defaultT!= null)
+            //if (instance is FactNull)
+            //    return default(T);
 
-            if (instance != null && instance.Equals(default(T)))
-            {
+            //if (instance is T)
+            //{
+            //    this.CacheState.Put(key, (T)instance);
+            //    return (T)instance;
+            //}
 
-            }
-
-
-            var isclass = typeof(T).IsValueType;
-
-            var equal = instance.Equals(default(T));
-
-            instance = GetDataFunc();
-
-            if (instance == null) return instance;
-
-            //放入缓存
-            this.CacheState.Put(key, instance);
-            return instance;
+            //throw new Exception("Error");
         }
 
         /// <summary>
         /// 永远不过期
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        public T SmartyGetPut<T>(Func<T> GetDataFunc)
+        public T SmartyGetPut<T>(Func<T> getDataFunc)
         {
-            return this.SmartyGetPut(null, GetDataFunc);
+            return this.SmartyGetPut(null, getDataFunc);
         }
 
         #endregion

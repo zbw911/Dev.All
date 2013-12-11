@@ -23,9 +23,9 @@ namespace Dev.Framework.Cache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="absoluteExpiration"></param>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        T SmartyGetPut<T>(object key, DateTime absoluteExpiration, Func<T> GetDataFunc) ;
+        T SmartyGetPut<T>(object key, DateTime absoluteExpiration, Func<T> getDataFunc) ;
 
         /// <summary>
         /// 绝对过期
@@ -41,18 +41,18 @@ namespace Dev.Framework.Cache
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        T SmartyGetPut<T>(object key, Func<T> GetDataFunc) ;
+        T SmartyGetPut<T>(object key, Func<T> getDataFunc) ;
 
 
         /// <summary>
         /// 不过期
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        T SmartyGetPut<T>(Func<T> GetDataFunc) ;
+        T SmartyGetPut<T>(Func<T> getDataFunc) ;
 
 
         /// <summary>
@@ -61,9 +61,9 @@ namespace Dev.Framework.Cache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="slidingExpiration"></param>
-        /// <param name="GetDataFunc"></param>
+        /// <param name="getDataFunc"></param>
         /// <returns></returns>
-        T SmartyGetPut<T>(object key, TimeSpan slidingExpiration, Func<T> GetDataFunc) ;
+        T SmartyGetPut<T>(object key, TimeSpan slidingExpiration, Func<T> getDataFunc) ;
 
         /// <summary>
         /// 相对过期
