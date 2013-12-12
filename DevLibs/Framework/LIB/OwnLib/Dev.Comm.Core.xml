@@ -553,6 +553,26 @@
             <param name="moneyNum"> </param>
             <returns> </returns>
         </member>
+        <member name="T:Dev.Comm.PinyinHelper">
+            <summary>
+            获得汉字的拼音
+            http://www.cnblogs.com/yukaizhao/archive/2008/12/08/pinyin_helper.html
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.PinyinHelper.GetPinyin(System.String)">
+            <summary>
+            获得汉字的拼音，如果输入的是英文字符将原样输出，中文标点符号将被忽略
+            </summary>
+            <param name="chineseChars">汉字字符串</param>
+            <returns>拼音</returns>
+        </member>
+        <member name="M:Dev.Comm.PinyinHelper.GetShortPinyin(System.String)">
+            <summary>
+            获得汉字拼音的简写，即每一个汉字的拼音的首字母组成的串，如果输入的是英文字符将原样输出，中文标点符号将被忽略
+            </summary>
+            <param name="chineseChars">汉字字符串</param>
+            <returns>拼音简写</returns>
+        </member>
         <member name="T:Dev.Comm.ValidateCode">
             <summary>
               生成验证码， from another project , added by zbw911

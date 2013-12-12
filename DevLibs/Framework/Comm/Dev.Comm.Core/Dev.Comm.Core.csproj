@@ -84,7 +84,7 @@
     <Compile Include="Runtime\Serialization\DataContractSerializationHelper.cs" />
     <Compile Include="Php\PHPSerializationLibrary\Serializer.cs" />
     <Compile Include="Utils\AsmUtil.cs" />
-    <Compile Include="ChineseCode.cs" />
+    <Compile Include="Utils\ChineseCode.cs" />
     <Compile Include="CodeImage.cs" />
     <Compile Include="AssemblyManager.cs" />
     <Compile Include="Utils\Class1.cs" />
