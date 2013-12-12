@@ -553,25 +553,95 @@
             <param name="moneyNum"> </param>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.PinyinHelper">
+        <member name="T:Dev.Comm.ChineseToBopomofo">
             <summary>
-            获得汉字的拼音
-            http://www.cnblogs.com/yukaizhao/archive/2008/12/08/pinyin_helper.html
+            功能:      汉字转拼音静态类,包括功能全拼和声母，方法全部是静态的,不能区分多音字,只完全支持GB2312-80汉字库
+            完成日期:  2009-04-17
+            作者:      adair
             </summary>
         </member>
-        <member name="M:Dev.Comm.PinyinHelper.GetPinyin(System.String)">
+        <member name="M:Dev.Comm.ChineseToBopomofo.IndexCode(System.String)">
             <summary>
-            获得汉字的拼音，如果输入的是英文字符将原样输出，中文标点符号将被忽略
+            获取汉字的首字母
             </summary>
-            <param name="chineseChars">汉字字符串</param>
-            <returns>拼音</returns>
+            <param name="IndexTxt">汉字</param>
+            <returns>汉字的首字母</returns>
         </member>
-        <member name="M:Dev.Comm.PinyinHelper.GetShortPinyin(System.String)">
+        <member name="M:Dev.Comm.ChineseToBopomofo.GetOneIndex(System.String)">
             <summary>
-            获得汉字拼音的简写，即每一个汉字的拼音的首字母组成的串，如果输入的是英文字符将原样输出，中文标点符号将被忽略
+            单个汉字
             </summary>
-            <param name="chineseChars">汉字字符串</param>
-            <returns>拼音简写</returns>
+            <param name="OneIndexTxt">汉字</param>
+            <returns>首拼</returns>
+        </member>
+        <member name="M:Dev.Comm.ChineseToBopomofo.GetX(System.Int32)">
+            <summary>
+            根据区位得到首字母
+            </summary>
+            <param name="GBCode">区位</param>
+            <returns>首字母</returns>
+        </member>
+        <member name="F:Dev.Comm.ChineseToBopomofo.pyValue">
+            <summary>
+            汉字的机内码数组
+            </summary>
+        </member>
+        <member name="F:Dev.Comm.ChineseToBopomofo.pyName">
+            <summary>
+            机内码对应的拼音数组
+            </summary>
+        </member>
+        <member name="F:Dev.Comm.ChineseToBopomofo.otherChinese">
+            <summary>
+            二级汉字数组
+            </summary>
+        </member>
+        <member name="F:Dev.Comm.ChineseToBopomofo.otherPinYin">
+            <summary>
+            二级汉字对应拼音数组
+            </summary>
+        </member>
+        <member name="F:Dev.Comm.ChineseToBopomofo.referenceChinese">
+            <summary>
+            用作比较的汉字列.
+            <remarks>
+            实现流程:
+            1.这些汉字是按a~z拼音排序.且每个汉字都是以a~z为声母发音的第一个汉字.即首界限汉字
+            </remarks>
+            </summary>
+        </member>
+        <member name="F:Dev.Comm.ChineseToBopomofo.pinYinArray">
+            <summary>
+            referenceChinese数组中汉字发音的声母
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.ChineseToBopomofo.ConvertToBopomofo(System.String)">
+            <summary>
+            把汉字转换成拼音(全拼)
+            </summary>
+            <param name="hzString">汉字字符串</param>
+            <returns>转换后的拼音(全拼)字符串</returns>
+        </member>
+        <member name="M:Dev.Comm.ChineseToBopomofo.ConvertWithBlank(System.String)">
+            <summary>
+            把汉字转换成拼音(全拼)
+            </summary>
+            <param name="hzString">汉字字符串</param>
+            <returns>转换后的拼音(全拼)字符串</returns>
+        </member>
+        <member name="M:Dev.Comm.ChineseToBopomofo.ConvertWithSplitChar(System.String,System.Char)">
+            <summary>
+            把汉字转换成拼音(全拼)
+            </summary>
+            <param name="hzString">汉字字符串</param>
+            <returns>转换后的拼音(全拼)字符串</returns>
+        </member>
+        <member name="M:Dev.Comm.ChineseToBopomofo.GetFirstPinYin(System.String)">
+            <summary>
+            获取字符串中各汉字的声母
+            </summary>
+            <param name="hzString">要解析成声母的包含汉字的字符串</param>
+            <returns>汉字拼音声母</returns>
         </member>
         <member name="T:Dev.Comm.ValidateCode">
             <summary>
