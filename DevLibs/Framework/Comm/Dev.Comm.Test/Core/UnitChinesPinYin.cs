@@ -343,9 +343,9 @@ namespace Dev.Comm.Test.Core
         [TestMethod]
         public void ZhuYin()
         {
-            Class1 c = new Class1();
+            //Class1 c = new Class1();
 
-            c.ZhunYin("张");
+            //c.ZhunYin("张");
         }
     }
 

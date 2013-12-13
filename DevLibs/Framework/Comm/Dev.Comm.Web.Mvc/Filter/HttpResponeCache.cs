@@ -27,17 +27,21 @@ namespace Dev.Comm.Web.Mvc.Filter
     public class CacheMaxAgeAttribute : ActionFilterAttribute
     {
 
+        ///// <summary>
+        ///// MaxAge值
+        ///// </summary>
+        //public TimeSpan MaxAge { get; set; }
+
+
         /// <summary>
-        /// MaxAge值
+        /// 过期时间 
         /// </summary>
-        public TimeSpan MaxAge { get; set; }
-
-
+        public int SecondMaxAge { get; set; }
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
             //filterContext.HttpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            filterContext.HttpContext.Response.Cache.SetMaxAge(MaxAge);
+            filterContext.HttpContext.Response.Cache.SetMaxAge(TimeSpan.FromSeconds(SecondMaxAge));
 
             //filterContext.HttpContext.Response.CacheControl = "private";
             base.OnResultExecuted(filterContext);
