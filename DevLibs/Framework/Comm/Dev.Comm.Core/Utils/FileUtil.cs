@@ -73,7 +73,10 @@ namespace Dev.Comm
         public static void DeleteFile(string filepath)
         {
             if (File.Exists(filepath))
+            {
+                File.SetAttributes(filepath, FileAttributes.Normal);
                 File.Delete(filepath);
+            }
         }
 
 
