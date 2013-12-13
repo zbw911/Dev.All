@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpStateHandler.cs" />
     <Compile Include="UrlHelper.cs" />
     <Compile Include="WebFrom\ControlSet.cs" />
     <Compile Include="CookieFun.cs" />
