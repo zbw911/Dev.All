@@ -20,28 +20,24 @@ namespace Dev.CasServer.RequestTypes
         /// <summary>
         ///   Check if the current request is CAS login request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         bool IsLoginRequest();
 
         /// <summary>
         ///   Check if the current request is CAS logout request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         bool IsLogoutRequest();
 
         /// <summary>
         ///   Check if the current request is CAS validate (CAS 1.0) request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         bool IsServiceValidateRequest();
 
         /// <summary>
         ///   Check if the current request is CAS server validate request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         bool IsValidateRequest();
 

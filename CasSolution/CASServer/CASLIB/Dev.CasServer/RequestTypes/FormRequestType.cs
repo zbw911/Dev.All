@@ -20,7 +20,7 @@ namespace Dev.CasServer.RequestTypes
     {
         #region Readonly & Static Fields
 
-        private readonly HttpRequest httpRequest = HttpContext.Current.Request;
+        private readonly HttpRequest _httpRequest = HttpContext.Current.Request;
 
         #endregion
 
@@ -29,37 +29,33 @@ namespace Dev.CasServer.RequestTypes
         /// <summary>
         ///   Check if the current request is CAS login request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         public bool IsLoginRequest()
         {
-            return this.httpRequest.PathInfo == "/login";
+            return this._httpRequest.PathInfo == "/login";
         }
 
         /// <summary>
         ///   Check if the current request is CAS validate (CAS 1.0) request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         public bool IsServiceValidateRequest()
         {
-            return this.httpRequest.PathInfo == "/serviceValidate";
+            return this._httpRequest.PathInfo == "/serviceValidate";
         }
 
         /// <summary>
         ///   Check if the current request is CAS server validate request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         public bool IsValidateRequest()
         {
-            return this.httpRequest.PathInfo == "/validate";
+            return this._httpRequest.PathInfo == "/validate";
         }
 
         /// <summary>
         ///   Check if the current request is CAS logout request.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
         /// <returns> </returns>
         public bool IsLogoutRequest()
         {
@@ -70,7 +66,7 @@ namespace Dev.CasServer.RequestTypes
             //    string strService = httpRequest.QueryString["service"];
             //    return !String.IsNullOrEmpty(strService) && strService.Contains("logout=true");
             //}
-            return this.httpRequest.PathInfo == "/logout";
+            return this._httpRequest.PathInfo == "/logout";
         }
 
         #endregion

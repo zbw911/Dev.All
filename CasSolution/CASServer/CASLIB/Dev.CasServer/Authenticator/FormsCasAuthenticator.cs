@@ -20,11 +20,15 @@ namespace Dev.CasServer.Authenticator
 
         public bool CasCheckPermission(string strUserName, string strService)
         {
-            return
-                Configuration.CasServerConfiguration.Config.ClientList.Any(
-                    x => strService.ToLower().IndexOf(x.Url.ToLower()) >= 0);
+            var reslut =
+               Configuration.CasServerConfiguration.Config.ClientList.OrderByDescending(x => (x.Url ?? "").Length).Any(
+                   x => strService.ToLower().IndexOf(x.Url.ToLower()) == 0);
             // no restrictions by default
-            return true;
+
+
+
+            return reslut;
+
         }
 
         public void CasLogin(string strUserName, bool doRemember)

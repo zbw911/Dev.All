@@ -160,7 +160,7 @@ namespace NCAS.jasig.authentication.principal
             //    LOG.warn("The following redirect URL has been sanitized and may be sign of attack:\n" + url);
             //}
 
-            return Dev.Comm.RegexHelper.Replace(url, "[\\x00-\\x19\\x7F]+", " ");
+            return Dev.Comm.RegexHelper.PregReplace(url, "[\\x00-\\x19\\x7F]+", " ");
 
             //return sb.toString();
         }

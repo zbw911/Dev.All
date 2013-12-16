@@ -25,7 +25,7 @@ namespace Dev.CasServer
 
         private readonly string _strService;
         private readonly string _strUserName;
-        private static readonly ITicketStorage ticketStorage;
+        private static readonly ITicketStorage TicketStorage;
 
         #endregion
 
@@ -33,7 +33,7 @@ namespace Dev.CasServer
 
         static CasTicket()
         {
-            ticketStorage = new HttpCacheTicketStorage();
+            TicketStorage = new HttpCacheTicketStorage();
         }
 
         private CasTicket(string strUserName, string strService)
@@ -49,17 +49,16 @@ namespace Dev.CasServer
         /// <summary>
         ///   Read a ticket from cache, check and immedeately invalidate (punch) it
         /// </summary>
-        /// <param name="httpContext"> </param>
         /// <param name="strTicket"> </param>
         /// <param name="strService"> Returns the corresponding service </param>
         /// <returns> Returns the corresponding user name </returns>
         public static string CheckAndPunch(string strTicket, ref string strService)
         {
-            var ticket = ticketStorage.Get(strTicket);
+            var ticket = TicketStorage.Get(strTicket);
 
             if (ticket == null) return "";
 
-            ticketStorage.Remove(strTicket);
+            TicketStorage.Remove(strTicket);
 
             // return ticket data
             strService = ticket._strService;
@@ -69,7 +68,6 @@ namespace Dev.CasServer
         /// <summary>
         ///   Issue a CAS ticket and store it temporarily in the context cache
         /// </summary>
-        /// <param name="httpContext"> </param>
         /// <param name="strUserName"> </param>
         /// <param name="strService"> </param>
         /// <returns> Returns the corresponding ticket string. </returns>
@@ -90,7 +88,7 @@ namespace Dev.CasServer
             var strTicket = "ST-" + (++_nCounter).ToString() + "-" + strToken + "-cas";
 
 
-            ticketStorage.Add(strTicket, ticket, DateTime.Now.AddMinutes(1));
+            TicketStorage.Add(strTicket, ticket, DateTime.Now.AddMinutes(1));
             return strTicket;
         }
 

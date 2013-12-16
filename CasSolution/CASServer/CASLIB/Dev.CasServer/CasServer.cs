@@ -47,8 +47,6 @@ namespace Dev.CasServer
         /// <summary>
         ///   Handle CAS logout request: logout and redirect to the logon page.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
-        /// <param name="casAuthenticator"> </param>
         public void HandleLogoutRequest()
         {
             // call the logout hook
@@ -80,17 +78,18 @@ namespace Dev.CasServer
         ///   Handle Login_Click from Login page, after a successfull authentication
         /// </summary>
         /// <param name="strService"> </param>
-        /// <param name="casAuthenticator"> </param>
         /// <param name="strUserName"> </param>
+        /// <param name="strPassWord"> </param>
         /// <param name="doRemember"> </param>
+        /// <param name="redirectUrl"> </param>
         /// <returns> Returns true when the call was handled. </returns>
         public bool HandlePageLogin(string strService, string strUserName, string strPassWord, bool doRemember,
                                     out string redirectUrl)
         {
             redirectUrl = "";
-            string ErrorMsg;
+            string errorMsg;
             // validate user name and password
-            if (this._userValidate.PerformAuthentication(strUserName, strPassWord, doRemember, out ErrorMsg))
+            if (this._userValidate.PerformAuthentication(strUserName, strPassWord, doRemember, out errorMsg))
             {
                 // call the login hook ， 是否已经设置了cookie?设置登录的cookies
                 this._casAuthenticator.CasLogin(strUserName, doRemember);
@@ -107,9 +106,8 @@ namespace Dev.CasServer
         /// <summary>
         ///   处理 cas/ServiceValidate 的请求
         /// </summary>
-        /// <param name="casAuthenticator"> </param>
-        /// <param name="strResponse"> </param>
         /// <param name="service"> </param>
+        /// <param name="ticket"> </param>
         /// <returns> </returns>
         public string HandleServiceValidateRequest(string service, string ticket)
         {
@@ -139,12 +137,12 @@ namespace Dev.CasServer
         /// <summary>
         ///   Build a XML response for ticket service validation CAS 2.0
         /// </summary>
-        /// <param name="isOK"> Indicates whether it is a positive response </param>
+        /// <param name="isOk"> Indicates whether it is a positive response </param>
         /// <param name="strUserName"> The user name to be included in the response. </param>
         /// <param name="strErrorCode"> The error code to be included in the response. </param>
         /// <param name="strErrorMsg"> The error message to be included in the response. </param>
         /// <returns> </returns>
-        private string BuildServiceValidateResponse(bool isOK, string strUserName, string strErrorCode,
+        private string BuildServiceValidateResponse(bool isOk, string strUserName, string strErrorCode,
                                                     string strErrorMsg)
         {
             //XmlWriterSettings settings = new XmlWriterSettings();
@@ -156,7 +154,7 @@ namespace Dev.CasServer
             xmlwriter.WriteProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
             xmlwriter.WriteStartElement("cas:serviceResponse");
             xmlwriter.WriteAttributeString("xmlns:cas", "http://www.yale.edu/tp/cas");
-            if (isOK)
+            if (isOk)
             {
                 xmlwriter.WriteStartElement("cas:authenticationSuccess");
                 xmlwriter.WriteStartElement("cas:user");
@@ -198,19 +196,18 @@ namespace Dev.CasServer
         /// <summary>
         ///   Build a response for ticket validation CAS 1.0
         /// </summary>
-        /// <param name="isOK"> Indicates whether it is a positive response </param>
+        /// <param name="isOk"> Indicates whether it is a positive response </param>
         /// <param name="strUserName"> The user name to be included in the response. </param>
         /// <returns> </returns>
-        private string BuildValidateResponse(bool isOK, string strUserName)
+        private string BuildValidateResponse(bool isOk, string strUserName)
         {
-            return isOK ? "yes\n" + strUserName + "\n" : "no\n\n";
+            return isOk ? "yes\n" + strUserName + "\n" : "no\n\n";
         }
 
         /// <summary>
         ///   Handle CAS login request: create a ticket and redirect to the requested service.
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
-        /// <param name="casAuthenticator"> </param>
+        /// <param name="strService"> </param>
         /// <param name="strUserName"> </param>
         /// <param name="doRemember"> </param>
         private string HandleLoginRequest(string strService, string strUserName, bool doRemember)
@@ -228,7 +225,7 @@ namespace Dev.CasServer
                 // call the check permission hook
                 if (!this._casAuthenticator.CasCheckPermission(strUserName, strService))
 
-                    throw new Exception("无权限的client" + strService);
+                    throw new ClientNoPermissionException("无权限的接入端：" + strService);
                 //return "";
 
 
@@ -250,7 +247,6 @@ namespace Dev.CasServer
         ///   Service translation
         /// </summary>
         /// <param name="strService"> </param>
-        /// <param name="casAuthenticator"> </param>
         /// <returns> </returns>
         private string TranslateService(string strService)
         {
@@ -268,11 +264,11 @@ namespace Dev.CasServer
         /// <summary>
         ///   Validate the given ticket and return the corresponding user, or an error code and message
         /// </summary>
-        /// <param name="httpContext"> An System.Web.HttpContext object that contains information associated with the current page. </param>
-        /// <param name="casAuthenticator"> </param>
+        /// <param name="strTicketRequest"> </param>
         /// <param name="strUserName"> </param>
         /// <param name="strErrorCode"> </param>
         /// <param name="strErrorMsg"> </param>
+        /// <param name="strServiceRequest"> </param>
         /// <returns> Returns true when the ticket is valid. </returns>
         private bool ValidateTicket(string strServiceRequest, string strTicketRequest, out string strUserName,
                                     out string strErrorCode, out string strErrorMsg)

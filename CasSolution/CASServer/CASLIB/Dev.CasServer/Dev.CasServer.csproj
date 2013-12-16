@@ -24,8 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Debug\Dev.CasServer.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,6 +70,7 @@
     <Compile Include="Configuration\CasServerConfiguration.cs" />
     <Compile Include="Configuration\ICasServerConfigurationStorage.cs" />
     <Compile Include="Configuration\XmlCasServerConfigurationStorage.cs" />
+    <Compile Include="NoPermissionException.cs" />
     <Compile Include="TicketStorage\HttpCacheTicketStorage.cs" />
     <Compile Include="Authenticator\FormsCasAuthenticator.cs" />
     <Compile Include="Authenticator\ICasAuthenticator.cs" />

@@ -72,6 +72,7 @@ namespace Dev.CasServer.Configuration
     {
         #region Instance Properties
 
+        public string Name { get; set; }
         public string Url { get; set; }
 
         #endregion

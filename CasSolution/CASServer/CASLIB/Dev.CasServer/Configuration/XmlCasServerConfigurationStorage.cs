@@ -10,7 +10,7 @@
 
 using System;
 using System.IO;
-using Dev.Comm.Core.Runtime.Serialization;
+using Dev.Comm.Runtime.Serialization;
 
 
 namespace Dev.CasServer.Configuration
