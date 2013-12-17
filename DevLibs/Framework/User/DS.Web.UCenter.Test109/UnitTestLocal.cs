@@ -20,6 +20,8 @@ namespace DS.Web.UCenter.Test
         [TestMethod]
         public void TestMethod1()
         {
+            username = "12121@qq.com";
+            password = "12345678";
             var r = client.UserLogin(username, password);
             Assert.IsTrue(r.Result == LoginResult.Success);
 

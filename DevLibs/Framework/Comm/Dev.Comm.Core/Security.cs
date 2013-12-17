@@ -23,7 +23,7 @@ namespace Dev.Comm
         public static string GetMD5(string s)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] t = md5.ComputeHash(Encoding.GetEncoding("gb2312").GetBytes(s));
+            byte[] t = md5.ComputeHash(Encoding.GetEncoding("utf-8").GetBytes(s));
             var sb = new StringBuilder(32);
             for (int i = 0; i < t.Length; i++)
             {
