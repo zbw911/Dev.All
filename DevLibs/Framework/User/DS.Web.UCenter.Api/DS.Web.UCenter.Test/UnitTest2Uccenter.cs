@@ -5,7 +5,7 @@ using UserCenter.UserCenter;
 namespace DS.Web.UCenter.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTest2Uccenter
     {
         [TestMethod]
         public void TestMethod1()
@@ -22,5 +22,18 @@ namespace DS.Web.UCenter.Test
             }
 
         }
+
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            
+        }
+
+
+
+
+
+
     }
 }
