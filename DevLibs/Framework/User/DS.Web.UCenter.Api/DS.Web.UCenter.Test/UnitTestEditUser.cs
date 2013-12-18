@@ -119,5 +119,33 @@ namespace DS.Web.UCenter.Test
         }
 
 
+        [TestMethod]
+        public void TestLogin2()
+        {
+            //var username = "450141191@qq.com";
+            //var password = "9613171";
+
+            var username = "15369156134";
+            var password = "123456";
+
+            UserCenter.UserCenter.UserCenterAPI ui = new UserCenterAPI();
+
+            var result = ui.uc_user_edit(username, "", password, "", 1);
+
+            Assert.IsTrue(result > 0);
+
+            var t = ui.uc_user_login(username, password);
+
+          
+            Assert.IsTrue(decimal.Parse(t[0]) > 0);
+
+
+            var r = client.UserLogin(username, password);
+
+            Assert.AreEqual(LoginResult.Success, r.Result);
+
+        }
+
+
     }
 }
