@@ -14,6 +14,7 @@ using System.Web;
 using Dev.CasClient.Configuration;
 using Dev.CasClient.UserAuthenticate;
 using Dev.Comm;
+using Dev.Comm.XML;
 
 namespace Dev.CasClient
 {
