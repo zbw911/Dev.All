@@ -1,4 +1,5 @@
 ﻿using System;
+using Dev.Comm.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dev.Comm.Test
@@ -11,13 +12,14 @@ namespace Dev.Comm.Test
         {
             string aa = "aaa{你好";
 
-            var bb = Dev.Comm.Core.Utils.MockUrlCode.UrlEncode(aa);
+            var bb = Dev.Comm.Utils.MockUrlCode.UrlEncode(aa);
 
             //var xx = 
+ 
 
             Console.WriteLine(bb);
 
-            var cc = Dev.Comm.Core.Utils.MockUrlCode.UrlDecode(bb);
+            var cc = Dev.Comm.Utils.MockUrlCode.UrlDecode(bb);
 
             Console.WriteLine(cc);
 

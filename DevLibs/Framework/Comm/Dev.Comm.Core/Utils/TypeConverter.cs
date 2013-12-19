@@ -11,7 +11,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Dev.Comm.Core
+namespace Dev.Comm.Utils
 {
     public class TypeConverter
     {

@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using Dev.Comm;
+
 namespace Dev.Crosscutting.Adapter.NetFramework.Adapter
 {
     using System;
@@ -17,8 +19,6 @@ namespace Dev.Crosscutting.Adapter.NetFramework.Adapter
     using System.Reflection;
 
     using AutoMapper;
-
-    using Dev.Comm.Core;
     using Dev.Crosscutting.Adapter.Adapter;
 
     public class AutomapperTypeAdapterFactory : ITypeAdapterFactory

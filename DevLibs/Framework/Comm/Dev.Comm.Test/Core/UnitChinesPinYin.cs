@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Dev.Comm.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 namespace Dev.Comm.Test.Core
@@ -15,7 +16,7 @@ namespace Dev.Comm.Test.Core
         public void TestMethod1()
         {
             //var a = Dev.Comm.ChineseCode.GetGbkX(yx);
-            var a = Dev.Comm.StringUtil.GetChineseSpell(yx);
+            var a = StringUtil.GetChineseSpell(yx);
             Assert.AreEqual(a, "YX");
         }
 

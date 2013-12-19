@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using Dev.Comm.XML;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dev.Comm.Test.Core

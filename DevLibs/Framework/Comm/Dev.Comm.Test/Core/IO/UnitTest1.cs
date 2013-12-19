@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Dev.Comm.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dev.Comm.Test.Core.IO
@@ -20,7 +21,7 @@ namespace Dev.Comm.Test.Core.IO
 
 
 
-            Dev.Comm.FileUtil.DeleteFile(filepath);
+            FileUtil.DeleteFile(filepath);
 
             if (File.Exists(filepath))
                 Assert.Fail("");

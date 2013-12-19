@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
 
-namespace Dev.Comm
+namespace Dev.Comm.XML
 {
     /// <summary>
     ///   实体转换XML，XML转换实体

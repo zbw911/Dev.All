@@ -517,7 +517,7 @@ namespace UserCenter.UserCenter
                 {
 
 
-                    s += sep + de.Key.ToString() + "=" + Dev.Comm.Core.Utils.MockUrlCode.UrlEncode(de.Value.ToString());
+                    s += sep + de.Key.ToString() + "=" + Dev.Comm.Utils.MockUrlCode.UrlEncode(de.Value.ToString());
                     //s += sep + de.Key.ToString() + "=" + urlencode(de.Value.ToString());
                 }
                 sep = "&";
@@ -783,10 +783,10 @@ namespace UserCenter.UserCenter
     public abstract class SqlHelper
     {
 
-//        define('UC_CHARSET', 'utf-8');
-//define('UC_KEY', 'l9e5f387Y5IcW9I6U3q6Abibfccag4Qc86pfQ53ai4L9KdJfFfIci7I6Oeyb472c');
-//define('UC_API', 'http://localhost:34382/ucServer');
-//define('UC_APPID', '1');
+        //        define('UC_CHARSET', 'utf-8');
+        //define('UC_KEY', 'l9e5f387Y5IcW9I6U3q6Abibfccag4Qc86pfQ53ai4L9KdJfFfIci7I6Oeyb472c');
+        //define('UC_API', 'http://localhost:34382/ucServer');
+        //define('UC_APPID', '1');
         //数据库连接字符串
         //public static readonly string ConnectionStringLocalTransaction = ConfigurationManager.ConnectionStrings["SQLConnString"].ConnectionString;
         //关键接口字符串

@@ -257,7 +257,7 @@ namespace DS.Web.UCenter
             string fullPath2ConfigFile = Path.Combine(applicationBaseDirectory, configfile);
 
             var xml = new ReadWriteAppSettings();
-            xml.loadConfigDoc(fullPath2ConfigFile);
+            xml.LoadConfigDoc(fullPath2ConfigFile);
 
             return xml.GetValue(key);
         }

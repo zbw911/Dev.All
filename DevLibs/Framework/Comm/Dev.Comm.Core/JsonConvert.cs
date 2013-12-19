@@ -15,7 +15,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
-using Dev.Comm.Core;
+using Dev.Comm.Json;
 
 namespace Dev.Comm
 {

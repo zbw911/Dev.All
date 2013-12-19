@@ -8,20 +8,17 @@
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
-using System.ComponentModel;
-using System.Security;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Compilation;
 using System.Web.Hosting;
 
-namespace Dev.Comm.Core
+namespace Dev.Comm
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-
     /// <summary>
     ///   程序集管理
     /// </summary>

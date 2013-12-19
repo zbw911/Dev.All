@@ -14,7 +14,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Dev.Comm
+namespace Dev.Comm.XML
 {
     /// <summary>
     ///   From :http://www.itdevspace.com/2012/07/parse-xml-to-dynamic-object-in-c.html

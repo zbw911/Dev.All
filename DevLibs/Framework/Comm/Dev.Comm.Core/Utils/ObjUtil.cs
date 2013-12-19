@@ -9,52 +9,50 @@
 // ***********************************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Dev.Comm
+namespace Dev.Comm.Utils
 {
     public class ObjUtil
     {
-        public static bool IsNull(object AObject)
+        public static bool IsNull(object aObject)
         {
-            return AObject == null;
+            return aObject == null;
         }
 
-        public static bool IsDbNull(object AObject)
+        public static bool IsDbNull(object aObject)
         {
-            if (IsNull(AObject)) return true;
+            if (IsNull(aObject)) return true;
 
-            return AObject.Equals(DBNull.Value);
+            return aObject.Equals(DBNull.Value);
         }
 
-        public static object FormatValue(object AValue)
+        public static object FormatValue(object aValue)
         {
-            switch (AValue.GetType().FullName.ToLower())
+            switch (aValue.GetType().FullName.ToLower())
             {
                 case "system.string":
-                    return StrUtil.FormatValue(AValue);
+                    return FormatValue(aValue);
                 case "system.datetime":
-                    return FormatDateTimeValue(AValue);
+                    return FormatDateTimeValue(aValue);
                 default:
-                    if (IsDbNull(AValue))
+                    if (IsDbNull(aValue))
                     {
                         return 0;
                     }
                     else
                     {
-                        return AValue;
+                        return aValue;
                     }
             }
         }
 
-        public static object FormatDateTimeValue(object AValue)
+        public static object FormatDateTimeValue(object aValue)
         {
-            return Convert.ToDateTime(AValue);
+            return Convert.ToDateTime(aValue);
         }
 
 
@@ -91,7 +89,7 @@ namespace Dev.Comm
         }
 
 
-       
+
 
 
         #region 序列化反序列化

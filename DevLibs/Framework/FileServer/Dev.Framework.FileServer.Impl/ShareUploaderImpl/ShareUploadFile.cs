@@ -11,6 +11,7 @@
 using System.IO;
 using Dev.Comm;
 using Dev.Comm.NetFile;
+using Dev.Comm.Utils;
 using Dev.Framework.FileServer.Config;
 
 namespace Dev.Framework.FileServer.ShareImpl

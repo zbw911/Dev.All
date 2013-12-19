@@ -14,6 +14,8 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 using Dev.Comm;
+using Dev.Comm.Utils;
+using Dev.Comm.XML;
 
 namespace Dev.Log.Config
 {

@@ -11,6 +11,7 @@
 using System;
 using System.IO;
 using Dev.Comm;
+using Dev.Comm.Utils;
 using ImageResizer.Plugins.AnimatedGifs;
 using ImageResizer.Plugins.Basic;
 using ImageResizer.Plugins.PrettyGifs;

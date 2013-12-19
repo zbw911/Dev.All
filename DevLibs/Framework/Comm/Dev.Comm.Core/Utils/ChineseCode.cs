@@ -9,11 +9,10 @@
 // ***********************************************************************************
 
 using System;
-using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Dev.Comm
+namespace Dev.Comm.Utils
 {
     /// <summary>
     ///   中文方法

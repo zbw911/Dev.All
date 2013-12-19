@@ -13,6 +13,9 @@ using System.Security.Cryptography;
 
 namespace Dev.Comm
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Randoms
     {
         #region 生成随机数
@@ -36,7 +39,7 @@ namespace Dev.Comm
                 if (temp != -1)
                 {
                     //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                    var s = (int) DateTime.Now.Ticks;
+                    var s = (int)DateTime.Now.Ticks;
                     rand = new Random(GetRandomSeed());
                 }
                 int t = rand.Next(29);
@@ -168,7 +171,7 @@ namespace Dev.Comm
             if (temp != -1)
             {
                 //rand = new Random(i*temp*((int)DateTime.Now.Ticks));
-                var s = (int) DateTime.Now.Ticks;
+                var s = (int)DateTime.Now.Ticks;
                 rand = new Random(GetRandomSeed());
             }
             int t = rand.Next(80);

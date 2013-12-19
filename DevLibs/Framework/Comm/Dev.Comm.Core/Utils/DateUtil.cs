@@ -11,7 +11,7 @@
 using System;
 using System.Globalization;
 
-namespace Dev.Comm
+namespace Dev.Comm.Utils
 {
     public class DateUtil
     {
@@ -23,6 +23,8 @@ namespace Dev.Comm
         /// <param name="DtEnd"> </param>
         public static void GetLastDateForMonth(DateTime DtStart, out DateTime DtEnd)
         {
+
+           
             int Dtyear, DtMonth;
             DtStart = DateTime.Now;
             Dtyear = DtStart.Year;

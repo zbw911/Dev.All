@@ -23,6 +23,7 @@ namespace Dev.Comm.IO
         /// <param name="stream"> </param>
         public static void StreamToBegin(Stream stream)
         {
+           
             stream.Seek(0, SeekOrigin.Begin);
         }
 

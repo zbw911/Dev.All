@@ -8,12 +8,9 @@
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Dev.Comm.Utils;
 
-namespace Dev.Comm.Core.Extensions
+namespace Dev.Comm.Extensions
 {
     /// <summary>
     /// </summary>

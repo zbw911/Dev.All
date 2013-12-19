@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Dev.Comm.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dev.Comm.Test.Core
@@ -131,7 +132,7 @@ namespace Dev.Comm.Test.Core
         public void Quteses()
         {
             string message = "asdf[quote]ccccccccccccccccccccccccccccc[/quote]";
-            if (Dev.Comm.StringUtil.strpos(message, "[/quote]") >= 0)
+            if (StringUtil.strpos(message, "[/quote]") >= 0)
             {
                 message = Dev.Comm.RegexHelper.PregReplace(message, @"\s*\[quote\][\n\r]*(.+?)[\n\r]*\[\/quote\]\s*", this.tpl_quote());
             }

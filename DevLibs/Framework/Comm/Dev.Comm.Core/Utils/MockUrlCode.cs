@@ -8,12 +8,7 @@
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Dev.Comm.Core.Utils
+namespace Dev.Comm.Utils
 {
     /// <summary>
     ///   不使用　System.Web.进行ＵＲＬ编码　，　added by zbw911

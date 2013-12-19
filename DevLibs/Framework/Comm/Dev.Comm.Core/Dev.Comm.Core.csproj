@@ -82,6 +82,7 @@
     <Compile Include="IO\StreamHelper.cs" />
     <Compile Include="ObjectDynmic.cs" />
     <Compile Include="Php\PhpUtils.cs" />
+    <Compile Include="ReadWriteAppSettings.cs" />
     <Compile Include="Runtime\Serialization\DataContractSerializationHelper.cs" />
     <Compile Include="Php\PHPSerializationLibrary\Serializer.cs" />
     <Compile Include="Utils\AsmUtil.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Utils\DictionaryUtil.cs" />
     <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="ImageHelper.cs" />
-    <Compile Include="Json\JsonConvert.cs" />
+    <Compile Include="JsonConvert.cs" />
     <Compile Include="Json\JsonHelper.cs" />
     <Compile Include="NetFile\FileHelper.cs" />
     <Compile Include="NetFile\IdentityScope.cs" />

@@ -135,7 +135,7 @@
         </member>
         <member name="T:Dev.Comm.Extensions.ListExtensions">
             <summary>
-            
+            From:http://stackoverflow.com/questions/222598/how-do-i-clone-a-generic-list-in-c
             </summary>
         </member>
         <member name="M:Dev.Comm.Extensions.ListExtensions.Clone``1(System.Collections.Generic.IList{``0})">
@@ -146,7 +146,7 @@
             <param name="listToClone"></param>
             <returns></returns>
         </member>
-        <member name="T:Dev.Comm.Core.Extensions.StringExtensions">
+        <member name="T:Dev.Comm.Extensions.StringExtensions">
             <summary>
             </summary>
         </member>
@@ -416,6 +416,58 @@
             <param name="datetime">时间</param>
             <returns></returns>
         </member>
+        <member name="T:Dev.Comm.ReadWriteAppSettings">
+             <summary> 
+            Summary description for ReadWriteConfig. 
+            .config appsetting readwrite  
+            added by zbw911
+             </summary> 
+        </member>
+        <member name="M:Dev.Comm.ReadWriteAppSettings.GetValue(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Dev.Comm.ReadWriteAppSettings.SetValue(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Dev.Comm.ReadWriteAppSettings.RemoveElement(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="elementKey"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Dev.Comm.ReadWriteAppSettings.ModifyElement(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="elementKey"></param>
+            <param name="elementValue"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Dev.Comm.ReadWriteAppSettings.LoadConfigDoc(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="docName"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.Runtime.Serialization.DataContractSerializationHelper">
             <summary>
             </summary>
@@ -425,7 +477,12 @@
             Serializer Class.
             </summary>
         </member>
-        <member name="M:Dev.Comm.AsmUtil.InvokeMethod(System.String,System.String,System.String,System.Object[],System.Object[],System.Object@)">
+        <member name="T:Dev.Comm.Utils.AsmUtil">
+            <summary>
+            程序集方法
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Utils.AsmUtil.InvokeMethod(System.String,System.String,System.String,System.Object[],System.Object[],System.Object@)">
             <summary>
               执行某个方法
             </summary>
@@ -438,7 +495,7 @@
             <returns> </returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Dev.Comm.AsmUtil.GetPropertyValue(System.Object,System.String,System.Object[])">
+        <member name="M:Dev.Comm.Utils.AsmUtil.GetPropertyValue(System.Object,System.String,System.Object[])">
             <summary>
               取得属性值
             </summary>
@@ -447,7 +504,7 @@
             <param name="Index"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.AsmUtil.ExistPropertyName(System.Object,System.String)">
+        <member name="M:Dev.Comm.Utils.AsmUtil.ExistPropertyName(System.Object,System.String)">
             <summary>
               属性是否存在
             </summary>
@@ -455,27 +512,35 @@
             <param name="PropertyName"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.AsmUtil.SetPropertyValue(System.Object,System.String,System.Object,System.Object[])">
+        <member name="M:Dev.Comm.Utils.AsmUtil.SetPropertyValue(System.Object,System.String,System.Object,System.Object[])">
             <summary>
               设置属性值
             </summary>
             <param name="obj"> </param>
-            <param name="PropertyName"> </param>
-            <param name="Value"> </param>
-            <param name="Index"> </param>
+            <param name="propertyName"> </param>
+            <param name="value"> </param>
+            <param name="index"> </param>
         </member>
-        <member name="M:Dev.Comm.AsmUtil.GetMethodParameterInfo">
+        <member name="M:Dev.Comm.Utils.AsmUtil.SetPropertyValue(System.Object,System.String,System.Object)">
+            <summary>
+            设置属性值
+            </summary>
+            <param name="obj"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Dev.Comm.Utils.AsmUtil.GetMethodParameterInfo">
             <summary>
               取得参数信息
             </summary>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.AsmUtil.GetMethodParamNames">
+        <member name="M:Dev.Comm.Utils.AsmUtil.GetMethodParamNames">
             <summary>
             </summary>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.AsmUtil.GetMethodParamNamesByFormat(System.String,System.String)">
+        <member name="M:Dev.Comm.Utils.AsmUtil.GetMethodParamNamesByFormat(System.String,System.String)">
             <summary>
               取得格式化后的参数列表
             </summary>
@@ -483,12 +548,12 @@
             <param name="paramFormat"> </param>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.ChineseCode">
+        <member name="T:Dev.Comm.Utils.ChineseCode">
             <summary>
               中文方法
             </summary>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.IsChineseLetter(System.Char)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.IsChineseLetter(System.Char)">
             <summary>
               是否是中文字符
             </summary>
@@ -496,7 +561,7 @@
             <param name="index"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.IsChineseLetter(System.String,System.Int32)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.IsChineseLetter(System.String,System.Int32)">
             <summary>
               是否是中文字符
             </summary>
@@ -504,61 +569,61 @@
             <param name="index"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.IsChina(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.IsChina(System.String)">
             <summary>
             </summary>
             <param name="CString"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.WordsIScn(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.WordsIScn(System.String)">
             <summary>
               判断句子中是否含有中文     宁夏大学 张冬 zd4004.blog.163.com
             </summary>
             <param> 字符串 </param>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.IsOnlyContainsChinese(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.IsOnlyContainsChinese(System.String)">
             <summary>
               给定一个字符串，判断其是否只包含有汉字
             </summary>
             <param name="testStr"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.IsGBCode(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.IsGBCode(System.String)">
             <summary>
               判断一个word是否为GB2312编码的汉字
             </summary>
             <param name="word"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.IsGBKCode(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.IsGBKCode(System.String)">
             <summary>
               判断一个word是否为GBK编码的汉字
             </summary>
             <param name="word"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.IsBig5Code(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.IsBig5Code(System.String)">
             <summary>
               判断一个word是否为Big5编码的汉字
             </summary>
             <param name="word"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.GetGbkX(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.GetGbkX(System.String)">
             <summary>
               取得汉字拼音首字母
             </summary>
             <param name="str"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.GetChineseSpell(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.GetChineseSpell(System.String)">
             <summary>
               获得一个字符串的汉语拼音码
             </summary>
             <param name="strText"> 字符串 </param>
             <returns> 汉语拼音码,该字符串只包含大写的英文字母 </returns>
         </member>
-        <member name="M:Dev.Comm.ChineseCode.getCash(System.Decimal)">
+        <member name="M:Dev.Comm.Utils.ChineseCode.getCash(System.Decimal)">
             <summary>
               字符串替换方法，另外一种是以 4 个数字为基础的递归方法
               Create By HJ 2007-10-21
@@ -566,55 +631,55 @@
             <param name="moneyNum"> </param>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.ChineseToBopomofo">
+        <member name="T:Dev.Comm.Utils.ChineseToBopomofo">
             <summary>
             功能:      汉字转拼音静态类,包括功能全拼和声母，方法全部是静态的,不能区分多音字,只完全支持GB2312-80汉字库
             完成日期:  2009-04-17
             作者:      adair
             </summary>
         </member>
-        <member name="M:Dev.Comm.ChineseToBopomofo.IndexCode(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseToBopomofo.IndexCode(System.String)">
             <summary>
             获取汉字的首字母
             </summary>
             <param name="IndexTxt">汉字</param>
             <returns>汉字的首字母</returns>
         </member>
-        <member name="M:Dev.Comm.ChineseToBopomofo.GetOneIndex(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseToBopomofo.GetOneIndex(System.String)">
             <summary>
             单个汉字
             </summary>
             <param name="OneIndexTxt">汉字</param>
             <returns>首拼</returns>
         </member>
-        <member name="M:Dev.Comm.ChineseToBopomofo.GetX(System.Int32)">
+        <member name="M:Dev.Comm.Utils.ChineseToBopomofo.GetX(System.Int32)">
             <summary>
             根据区位得到首字母
             </summary>
             <param name="GBCode">区位</param>
             <returns>首字母</returns>
         </member>
-        <member name="F:Dev.Comm.ChineseToBopomofo.pyValue">
+        <member name="F:Dev.Comm.Utils.ChineseToBopomofo.pyValue">
             <summary>
             汉字的机内码数组
             </summary>
         </member>
-        <member name="F:Dev.Comm.ChineseToBopomofo.pyName">
+        <member name="F:Dev.Comm.Utils.ChineseToBopomofo.pyName">
             <summary>
             机内码对应的拼音数组
             </summary>
         </member>
-        <member name="F:Dev.Comm.ChineseToBopomofo.otherChinese">
+        <member name="F:Dev.Comm.Utils.ChineseToBopomofo.otherChinese">
             <summary>
             二级汉字数组
             </summary>
         </member>
-        <member name="F:Dev.Comm.ChineseToBopomofo.otherPinYin">
+        <member name="F:Dev.Comm.Utils.ChineseToBopomofo.otherPinYin">
             <summary>
             二级汉字对应拼音数组
             </summary>
         </member>
-        <member name="F:Dev.Comm.ChineseToBopomofo.referenceChinese">
+        <member name="F:Dev.Comm.Utils.ChineseToBopomofo.referenceChinese">
             <summary>
             用作比较的汉字列.
             <remarks>
@@ -623,33 +688,33 @@
             </remarks>
             </summary>
         </member>
-        <member name="F:Dev.Comm.ChineseToBopomofo.pinYinArray">
+        <member name="F:Dev.Comm.Utils.ChineseToBopomofo.pinYinArray">
             <summary>
             referenceChinese数组中汉字发音的声母
             </summary>
         </member>
-        <member name="M:Dev.Comm.ChineseToBopomofo.ConvertToBopomofo(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseToBopomofo.ConvertToBopomofo(System.String)">
             <summary>
             把汉字转换成拼音(全拼)
             </summary>
             <param name="hzString">汉字字符串</param>
             <returns>转换后的拼音(全拼)字符串</returns>
         </member>
-        <member name="M:Dev.Comm.ChineseToBopomofo.ConvertWithBlank(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseToBopomofo.ConvertWithBlank(System.String)">
             <summary>
             把汉字转换成拼音(全拼)
             </summary>
             <param name="hzString">汉字字符串</param>
             <returns>转换后的拼音(全拼)字符串</returns>
         </member>
-        <member name="M:Dev.Comm.ChineseToBopomofo.ConvertWithSplitChar(System.String,System.Char)">
+        <member name="M:Dev.Comm.Utils.ChineseToBopomofo.ConvertWithSplitChar(System.String,System.Char)">
             <summary>
             把汉字转换成拼音(全拼)
             </summary>
             <param name="hzString">汉字字符串</param>
             <returns>转换后的拼音(全拼)字符串</returns>
         </member>
-        <member name="M:Dev.Comm.ChineseToBopomofo.GetFirstPinYin(System.String)">
+        <member name="M:Dev.Comm.Utils.ChineseToBopomofo.GetFirstPinYin(System.String)">
             <summary>
             获取字符串中各汉字的声母
             </summary>
@@ -705,18 +770,18 @@
             </summary>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.Core.AssemblyManager">
+        <member name="T:Dev.Comm.AssemblyManager">
             <summary>
               程序集管理
             </summary>
         </member>
-        <member name="M:Dev.Comm.Core.AssemblyManager.LoadAllAssemblys">
+        <member name="M:Dev.Comm.AssemblyManager.LoadAllAssemblys">
             <summary>
               取得所有与当前域相关的 Assembly
             </summary>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.Core.AssemblyManager.CompareAssembly(System.Reflection.Assembly,System.String)">
+        <member name="M:Dev.Comm.AssemblyManager.CompareAssembly(System.Reflection.Assembly,System.String)">
             <summary>
               比较程序集
             </summary>
@@ -724,12 +789,12 @@
             <param name="assemblyName"> </param>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.Core.AssemblyManager.ActivationManager">
+        <member name="T:Dev.Comm.AssemblyManager.ActivationManager">
             <summary>
             copy from:https://github.com/davidebbo/WebActivator/blob/master/WebActivator/ActivationManager.cs
             </summary>
         </member>
-        <member name="M:Dev.Comm.DateUtil.GetLastDateForMonth(System.DateTime,System.DateTime@)">
+        <member name="M:Dev.Comm.Utils.DateUtil.GetLastDateForMonth(System.DateTime,System.DateTime@)">
             <summary>
               取得某月的最后一天
               方法一：使用算出該月多少天，年+月+加上多少天即得，舉例取今天這個月的最后一天
@@ -737,7 +802,7 @@
             <param name="DtStart"> </param>
             <param name="DtEnd"> </param>
         </member>
-        <member name="M:Dev.Comm.DateUtil.GetLastDateForMonthEx(System.DateTime,System.DateTime@)">
+        <member name="M:Dev.Comm.Utils.DateUtil.GetLastDateForMonthEx(System.DateTime,System.DateTime@)">
             <summary>
               取得某月的最后一天
               方法二：取出下月的第一天減去一天便是這個月的最后一天
@@ -745,7 +810,7 @@
             <param name="DtStart"> </param>
             <param name="DtEnd"> </param>
         </member>
-        <member name="M:Dev.Comm.DateUtil.DateDiff(System.String,System.DateTime,System.DateTime)">
+        <member name="M:Dev.Comm.Utils.DateUtil.DateDiff(System.String,System.DateTime,System.DateTime)">
             <summary>
               获取时间差
             </summary>
@@ -754,21 +819,21 @@
             <param name="enddate"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.DateUtil.ToUnixTimeStamp(System.DateTime)">
+        <member name="M:Dev.Comm.Utils.DateUtil.ToUnixTimeStamp(System.DateTime)">
             <summary>
               将系统时间转换成UNIX时间戳
             </summary>
             <param name="Date"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.DateUtil.GetUnixTimeStamp(System.String)">
+        <member name="M:Dev.Comm.Utils.DateUtil.GetUnixTimeStamp(System.String)">
             <summary>
               将UNIX时间戳转换成系统时间
             </summary>
             <param name="timeStamp"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.DateUtil.my_date_format2(System.DateTime,System.String)">
+        <member name="M:Dev.Comm.Utils.DateUtil.my_date_format2(System.DateTime,System.String)">
             <summary>
               时间格式化 added by zbw911
             </summary>
@@ -776,7 +841,7 @@
             <param name="format"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.DateUtil.my_date_format(System.DateTime,System.String)">
+        <member name="M:Dev.Comm.Utils.DateUtil.my_date_format(System.DateTime,System.String)">
             <summary>
               常用时间格式化
             </summary>
@@ -784,7 +849,7 @@
             <param name="format"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.DateUtil.UtcToLocal(System.DateTime)">
+        <member name="M:Dev.Comm.Utils.DateUtil.UtcToLocal(System.DateTime)">
             <summary>
               将UTC 时间 转化为本地化时间
             </summary>
@@ -842,50 +907,50 @@
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="T:Dev.Comm.FileUtil">
+        <member name="T:Dev.Comm.Utils.FileUtil">
             <summary>
               文件帮助方法
             </summary>
         </member>
-        <member name="M:Dev.Comm.FileUtil.IsFile(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.IsFile(System.String)">
             <summary>
               指向的路径是否是文件及文件是否存在
             </summary>
             <param name="path"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.GetFileInfo(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.GetFileInfo(System.String)">
             <summary>
               取得文件信息
             </summary>
             <param name="filepath"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.IsImageFile(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.IsImageFile(System.String)">
             <summary>
               是不是图片类型的文件
             </summary>
             <param name="path"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.DeleteFile(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.DeleteFile(System.String)">
             <summary>
             删除文件
             </summary>
             <param name="filepath"></param>
         </member>
-        <member name="M:Dev.Comm.FileUtil.FolderCreate(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.FolderCreate(System.String)">
             <summary>
               创建图片保存目录
             </summary>
             <param name="path"> </param>
         </member>
-        <member name="M:Dev.Comm.FileUtil.StreamToBytes(System.IO.Stream)">
+        <member name="M:Dev.Comm.Utils.FileUtil.StreamToBytes(System.IO.Stream)">
             <summary>
               将 Stream 转成 byte[]
             </summary>
         </member>
-        <member name="M:Dev.Comm.FileUtil.SaveImageFile(System.Byte[],System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.SaveImageFile(System.Byte[],System.String)">
             <summary>
               将二进制流写为图片
             </summary>
@@ -893,21 +958,21 @@
             <param name="Path"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.CheckImageExt(System.IO.Stream)">
+        <member name="M:Dev.Comm.Utils.FileUtil.CheckImageExt(System.IO.Stream)">
             <summary>
               类型
             </summary>
             <param name="stream"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.CheckIsTextFile(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.CheckIsTextFile(System.String)">
             <summary>
               判断是否是文本文件
             </summary>
             <param name="fileName"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.StreamToFile(System.IO.Stream,System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.StreamToFile(System.IO.Stream,System.String)">
             <summary>
               将文件传到服务器上临时目录中
             </summary>
@@ -915,14 +980,14 @@
             <param name="fileName"> 文件上传的路径 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.BytesToStream(System.Byte[])">
+        <member name="M:Dev.Comm.Utils.FileUtil.BytesToStream(System.Byte[])">
             <summary>
               Byte to Stream
             </summary>
             <param name="bytefile"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.FileUtil.MD5Stream(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.MD5Stream(System.String)">
             <summary>
             对文件流进行MD5加密
             </summary>
@@ -930,7 +995,7 @@
             <returns></returns>
             <example></example>
         </member>
-        <member name="M:Dev.Comm.FileUtil.MD5File(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.MD5File(System.String)">
             <summary>
             对文件进行MD5加密
             </summary>
@@ -1087,17 +1152,22 @@
               起始路径
             </summary>
         </member>
-        <member name="T:Dev.Comm.Core.Utils.MockUrlCode">
+        <member name="T:Dev.Comm.Utils.MockUrlCode">
             <summary>
               不使用　System.Web.进行ＵＲＬ编码　，　added by zbw911
             </summary>
         </member>
-        <member name="M:Dev.Comm.Core.Utils.MockUrlCode.UrlEncode(System.String)">
+        <member name="M:Dev.Comm.Utils.MockUrlCode.UrlEncode(System.String)">
             <summary>
               默认源为gb2312
             </summary>
             <param name="str"> </param>
             <returns> </returns>
+        </member>
+        <member name="T:Dev.Comm.Randoms">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:Dev.Comm.Randoms.CreateRandomCode(System.Int32)">
             <summary>
@@ -1254,7 +1324,7 @@
         <!-- 对于成员“M:Dev.Comm.Sorter.SelectionSort(System.Int32[])”忽略有格式错误的 XML 注释 -->
         <!-- 对于成员“M:Dev.Comm.Sorter.ShellSort(System.Int32[])”忽略有格式错误的 XML 注释 -->
         <!-- 对于成员“M:Dev.Comm.Sorter.Sort(System.Int32[],System.Int32,System.Int32)”忽略有格式错误的 XML 注释 -->
-        <member name="M:Dev.Comm.StringUtil.InputText(System.String,System.Int32)">
+        <member name="M:Dev.Comm.Utils.StringUtil.InputText(System.String,System.Int32)">
             <summary>
               对字符串进行有效的HTML转换
             </summary>
@@ -1262,19 +1332,19 @@
             <param name="maxLength"> 最多长度 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.AddSlashes(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.AddSlashes(System.String)">
             <summary>
               Returns a string with backslashes before characters that need to be quoted
             </summary>
             <param name="InputTxt"> Text string need to be escape with slashes </param>
         </member>
-        <member name="M:Dev.Comm.StringUtil.StripSlashes(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.StripSlashes(System.String)">
             <summary>
               Un-quotes a quoted string
             </summary>
             <param name="InputTxt"> Text string need to be escape with slashes </param>
         </member>
-        <member name="M:Dev.Comm.StringUtil.ReplaceBat(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.ReplaceBat(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.String)">
             <summary>
               批量进行替换
             </summary>
@@ -1283,7 +1353,7 @@
             <param name="content"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.ConcatStrs(System.String[],System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.ConcatStrs(System.String[],System.String)">
             <summary>
               用分隔符连接多个串
             </summary>
@@ -1291,7 +1361,7 @@
             <param name="spliter"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.CutGBStr(System.String,System.Int32,System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.CutGBStr(System.String,System.Int32,System.String)">
             <summary>
               按字节数截取,并去除半个汉字
             </summary>
@@ -1299,67 +1369,67 @@
             <param name="len"> 截取长度 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.Strip_Tags(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.Strip_Tags(System.String)">
             <summary>
               去除HTML标记
             </summary>
             <param name="AHtml"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GbStrLength(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.GbStrLength(System.String)">
             <summary>
               计算文本长度，区分中英文字符，中文算两个长度，英文算一个长度
             </summary>
             <param name="Text"> 需计算长度的字符串 </param>
             <returns> int </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.SplitString(System.String,System.String,System.Boolean)">
+        <member name="M:Dev.Comm.Utils.StringUtil.SplitString(System.String,System.String,System.Boolean)">
             <summary>
               分割字符串
             </summary>
         </member>
-        <member name="M:Dev.Comm.StringUtil.SplitString(System.String,System.String,System.Int32)">
+        <member name="M:Dev.Comm.Utils.StringUtil.SplitString(System.String,System.String,System.Int32)">
             <summary>
               分割字符串
             </summary>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.StrIsNullOrEmpty(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.StrIsNullOrEmpty(System.String)">
             <summary>
               字段串是否为Null或为""(空)
             </summary>
             <param name="str"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.isLower(System.Char)">
+        <member name="M:Dev.Comm.Utils.StringUtil.isLower(System.Char)">
             <summary>
               字符是否小写
             </summary>
             <param name="ch"> 字符 </param>
             <returns> bool </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.isUpper(System.Char)">
+        <member name="M:Dev.Comm.Utils.StringUtil.isUpper(System.Char)">
             <summary>
               字符是否大写
             </summary>
             <param name="ch"> 字符 </param>
             <returns> bool </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.isNumberic(System.Char)">
+        <member name="M:Dev.Comm.Utils.StringUtil.isNumberic(System.Char)">
             <summary>
               输入的字符是否是数字
             </summary>
             <param name="ch"> 一个字符 </param>
             <returns> bool </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.isSpecialCharacter(System.Char)">
+        <member name="M:Dev.Comm.Utils.StringUtil.isSpecialCharacter(System.Char)">
             <summary>
               特殊字符检验
             </summary>
             <param name="ch"> 特殊字符 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.Remove(System.String,System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.Remove(System.String,System.String)">
             <summary>
               从字符串中的尾部删除指定的字符串
             </summary>
@@ -1367,7 +1437,7 @@
             <param name="removedString"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.RightSplit(System.String,System.Char)">
+        <member name="M:Dev.Comm.Utils.StringUtil.RightSplit(System.String,System.Char)">
             <summary>
               获取拆分符右边的字符串
             </summary>
@@ -1375,7 +1445,7 @@
             <param name="splitChar"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.LeftSplit(System.String,System.Char)">
+        <member name="M:Dev.Comm.Utils.StringUtil.LeftSplit(System.String,System.Char)">
             <summary>
               获取拆分符左边的字符串
             </summary>
@@ -1383,28 +1453,28 @@
             <param name="splitChar"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.DelLastComma(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.DelLastComma(System.String)">
             <summary>
               去掉最后一个逗号
             </summary>
             <param name="origin"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.DeleteUnVisibleChar(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.DeleteUnVisibleChar(System.String)">
             <summary>
               删除不可见字符
             </summary>
             <param name="sourceString"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetArrayString(System.String[])">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetArrayString(System.String[])">
             <summary>
               获取数组元素的合并字符串
             </summary>
             <param name="stringArray"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetStringCount(System.String[],System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetStringCount(System.String[],System.String)">
             <summary>
               获取某一字符串在字符串数组中出现的次数
             </summary>
@@ -1412,7 +1482,7 @@
             <param name="findString"> 寻找的字符串 </param>
             <returns> INT </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetStringCount(System.String,System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetStringCount(System.String,System.String)">
             <summary>
               获取某一字符串在字符串中出现的次数
             </summary>
@@ -1424,7 +1494,7 @@
             </param>
             <returns> 匹配字符串数量 </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetSubString(System.String,System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetSubString(System.String,System.String)">
             <summary>
               截取从startString开始到原字符串结尾的所有字符
             </summary>
@@ -1436,7 +1506,7 @@
             </param>
             <returns> A string value... </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetSubString(System.String,System.String,System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetSubString(System.String,System.String,System.String)">
             <summary>
             </summary>
             <param name="sourceString"> </param>
@@ -1444,14 +1514,14 @@
             <param name="endRemovedString"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetByteCount(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetByteCount(System.String)">
             <summary>
               按字节数取出字符串的长度
             </summary>
             <param name="strTmp"> 要计算的字符串 </param>
             <returns> 字符串的字节数 </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetByteIndex(System.Int32,System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetByteIndex(System.Int32,System.String)">
             <summary>
               按字节数要在字符串的位置
             </summary>
@@ -1459,14 +1529,14 @@
             <param name="strTmp"> 要计算的字符串 </param>
             <returns> 字节的位置 </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.RemoveMiddleSpace(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.RemoveMiddleSpace(System.String)">
             <summary>
               去掉字符中的空格
             </summary>
             <param name="str"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.DoInc(System.String,System.Int32)">
+        <member name="M:Dev.Comm.Utils.StringUtil.DoInc(System.String,System.Int32)">
             <summary>
               记算流水号
             </summary>
@@ -1474,14 +1544,14 @@
             <param name="i"> 流水位数 </param>
             <returns> 字符串 </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.IncStr(System.String)">
+        <member name="M:Dev.Comm.Utils.StringUtil.IncStr(System.String)">
             <summary>
               记算流水号
             </summary>
             <param name="strId"> 输入的字符 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.Mask(System.String,System.Int32,System.Int32,System.Char)">
+        <member name="M:Dev.Comm.Utils.StringUtil.Mask(System.String,System.Int32,System.Int32,System.Char)">
             <summary>
               把字符串中某些字符进行替换
             </summary>
@@ -1491,13 +1561,13 @@
             <param name="mask"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.StringUtil.GetColor">
+        <member name="M:Dev.Comm.Utils.StringUtil.GetColor">
             <summary>
               生成随机颜色
             </summary>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToBool(System.Object,System.Boolean)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToBool(System.Object,System.Boolean)">
             <summary>
               string型转换为bool型
             </summary>
@@ -1505,7 +1575,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的bool类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToBool(System.String,System.Boolean)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToBool(System.String,System.Boolean)">
             <summary>
               string型转换为bool型
             </summary>
@@ -1513,7 +1583,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的bool类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ObjectToInt(System.Object)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ObjectToInt(System.Object)">
             <summary>
               将对象转换为Int32类型
             </summary>
@@ -1521,7 +1591,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ObjectToInt(System.Object,System.Int32)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ObjectToInt(System.Object,System.Int32)">
             <summary>
               将对象转换为Int32类型
             </summary>
@@ -1529,14 +1599,14 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToInt(System.String)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToInt(System.String)">
             <summary>
               将对象转换为Int32类型,转换失败返回0
             </summary>
             <param name="str"> 要转换的字符串 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToInt(System.String,System.Int32)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToInt(System.String,System.Int32)">
             <summary>
               将对象转换为Int32类型
             </summary>
@@ -1544,7 +1614,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToFloat(System.Object,System.Single)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToFloat(System.Object,System.Single)">
             <summary>
               string型转换为float型
             </summary>
@@ -1552,7 +1622,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ObjectToFloat(System.Object,System.Single)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ObjectToFloat(System.Object,System.Single)">
             <summary>
               string型转换为float型
             </summary>
@@ -1560,7 +1630,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ObjectToFloat(System.Object)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ObjectToFloat(System.Object)">
             <summary>
               string型转换为float型
             </summary>
@@ -1568,14 +1638,14 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToFloat(System.String)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToFloat(System.String)">
             <summary>
               string型转换为float型
             </summary>
             <param name="strValue"> 要转换的字符串 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToFloat(System.String,System.Single)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToFloat(System.String,System.Single)">
             <summary>
               string型转换为float型
             </summary>
@@ -1583,7 +1653,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToDateTime(System.String,System.DateTime)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToDateTime(System.String,System.DateTime)">
             <summary>
               将对象转换为日期时间类型
             </summary>
@@ -1591,21 +1661,21 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StrToDateTime(System.String)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StrToDateTime(System.String)">
             <summary>
               将对象转换为日期时间类型
             </summary>
             <param name="str"> 要转换的字符串 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ObjectToDateTime(System.Object)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ObjectToDateTime(System.Object)">
             <summary>
               将对象转换为日期时间类型
             </summary>
             <param name="obj"> 要转换的对象 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ObjectToDateTime(System.Object,System.DateTime)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ObjectToDateTime(System.Object,System.DateTime)">
             <summary>
               将对象转换为日期时间类型
             </summary>
@@ -1613,14 +1683,14 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StringToIntArray(System.String)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StringToIntArray(System.String)">
             <summary>
               字符串转成整型数组
             </summary>
             <param name="idList"> 要转换的字符串 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.StringToIntArray(System.String,System.Int32)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.StringToIntArray(System.String,System.Int32)">
             <summary>
               字符串转成整型数组
             </summary>
@@ -1628,7 +1698,7 @@
             <param name="defValue"> 缺省值 </param>
             <returns> 转换后的int类型结果 </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ConvertType``1(System.Object,``0)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ConvertType``1(System.Object,``0)">
             <summary>
               泛型数据类型转换
             </summary>
@@ -1637,7 +1707,7 @@
             <param name="defaultValue"> 默认值 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.Core.TypeConverter.ConvertToT``1(System.Object,``0)">
+        <member name="M:Dev.Comm.Utils.TypeConverter.ConvertToT``1(System.Object,``0)">
             <summary>
               转换数据类型
             </summary>
@@ -1646,307 +1716,307 @@
             <param name="defaultValue"> 默认值 </param>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.W3wpUtil">
+        <member name="T:Dev.Comm.Utils.W3wpUtil">
             <summary>
               W3wp 的摘要说明
               集合IIS容器的相关操作
             </summary>
         </member>
-        <member name="M:Dev.Comm.W3wpUtil.GetAllW3wp(System.String)">
+        <member name="M:Dev.Comm.Utils.W3wpUtil.GetAllW3wp(System.String)">
             <summary>
               得到所有IIS应用程序池名字
             </summary>
             <param name="input"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.W3wpUtil.GetAppPoolNameByPId(System.Object)">
+        <member name="M:Dev.Comm.Utils.W3wpUtil.GetAppPoolNameByPId(System.Object)">
             <summary>
               得到应用程序池的名字 进程ID可以使用此方法获取 System.Diagnostics.Process.GetCurrentProcess().Id
             </summary>
             <param name="ProcessId"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.W3wpUtil.AppPoolControl(System.String,Dev.Comm.W3wpUtil.AppPollControlOption)">
+        <member name="M:Dev.Comm.Utils.W3wpUtil.AppPoolControl(System.String,Dev.Comm.Utils.W3wpUtil.AppPollControlOption)">
             <summary>
               控制应用程序池开始，停止和回收
             </summary>
             <param name="AppPoolName"> </param>
             <param name="Option"> </param>
         </member>
-        <member name="F:Dev.Comm.W3wpUtil.AppPollControlOption.Start">
+        <member name="F:Dev.Comm.Utils.W3wpUtil.AppPollControlOption.Start">
             <summary>
               启动
             </summary>
         </member>
-        <member name="F:Dev.Comm.W3wpUtil.AppPollControlOption.Recycle">
+        <member name="F:Dev.Comm.Utils.W3wpUtil.AppPollControlOption.Recycle">
             <summary>
               回收
             </summary>
         </member>
-        <member name="F:Dev.Comm.W3wpUtil.AppPollControlOption.Stop">
+        <member name="F:Dev.Comm.Utils.W3wpUtil.AppPollControlOption.Stop">
             <summary>
               停止
             </summary>
         </member>
-        <member name="T:Dev.Comm.XmlToDynamic">
+        <member name="T:Dev.Comm.XML.XmlToDynamic">
             <summary>
               From :http://www.itdevspace.com/2012/07/parse-xml-to-dynamic-object-in-c.html
             
               xml 转化为 Dynamic
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlCompent.GetTable(System.String)">
+        <member name="M:Dev.Comm.XML.XmlCompent.GetTable(System.String)">
             <summary>
               字符串格式XML转换成HASHTABLE
             </summary>
             <param name="XmlFile"> </param>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.XMLEntityConvert`1">
+        <member name="T:Dev.Comm.XML.XMLEntityConvert`1">
             <summary>
               实体转换XML，XML转换实体
             </summary>
             <typeparam name="T"> </typeparam>
         </member>
-        <member name="M:Dev.Comm.XMLEntityConvert`1.EntityToXml(`0)">
+        <member name="M:Dev.Comm.XML.XMLEntityConvert`1.EntityToXml(`0)">
             <summary>
               对象实体转换成xml
             </summary>
             <param name="item"> 对象实例 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.XMLEntityConvert`1.EntityToXml(System.Collections.Generic.IList{`0})">
+        <member name="M:Dev.Comm.XML.XMLEntityConvert`1.EntityToXml(System.Collections.Generic.IList{`0})">
             <summary>
               对象实体转换成xml
             </summary>
             <param name="items"> 对象实例集 </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.XMLEntityConvert`1.XmlToEntity(System.String)">
+        <member name="M:Dev.Comm.XML.XMLEntityConvert`1.XmlToEntity(System.String)">
             <summary>
               XML转成对象实例
             </summary>
             <param name="xml"> xml </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.XMLEntityConvert`1.XmlToEntityList(System.String)">
+        <member name="M:Dev.Comm.XML.XMLEntityConvert`1.XmlToEntityList(System.String)">
             <summary>
               XML转成对象实例集
             </summary>
             <param name="xml"> xml </param>
             <returns> </returns>
         </member>
-        <member name="T:Dev.Comm.XmlHelper">
+        <member name="T:Dev.Comm.XML.XmlHelper">
             <summary>
               This class attempts to wrap up some common things
               we need to do when dealing with Xml and C# classes:
               Load, Save, Add/Remove Attributes/Elements, et al.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.SaveToFile(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.SaveToFile(System.String)">
             <summary>
               Save the XML to a target file.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.ToString">
+        <member name="M:Dev.Comm.XML.XmlHelper.ToString">
             <summary>
               返回全部的XML字符串
               Easy way to get the entire Xml string
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.LoadXML(System.String,Dev.Comm.XmlHelper.LoadType,System.Text.Encoding)">
+        <member name="M:Dev.Comm.XML.XmlHelper.LoadXML(System.String,Dev.Comm.XML.XmlHelper.LoadType,System.Text.Encoding)">
             <summary>
               从文件或者URL加载XML
               Easy way to load XML from a file or URL
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetURLContent(System.String,System.Text.Encoding)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetURLContent(System.String,System.Text.Encoding)">
             <summary>
               Helper method to get string content from a URL - not necessarily XML, but probably
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.MoveToRoot">
+        <member name="M:Dev.Comm.XML.XmlHelper.MoveToRoot">
             <summary>
               Helper function if navigation is used to ensure we're at the root node.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildNodesFromCriteria(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildNodesFromCriteria(System.String)">
             <summary>
               Gets an ArrayList of XmlNode children using an xPath expression
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildNodesFromCriteria(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildNodesFromCriteria(System.Xml.XmlNode,System.String)">
             <summary>
               Gets an ArrayList of XmlNode children using an xPath expression
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetFirstChildNodeFromCriteria(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetFirstChildNodeFromCriteria(System.String)">
             <summary>
               Get first child node given an XPath expression
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetAttributeValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetAttributeValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Attribute value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetAttributeInt32Value(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetAttributeInt32Value(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Attribute int32 (int) value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetAttributeFloatValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetAttributeFloatValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Attribute floating point/Single value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetAttributeDoubleValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetAttributeDoubleValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Attribute double value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetAttributeBooleanValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetAttributeBooleanValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Attribute boolean value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetElementValue(System.Xml.XmlNode)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetElementValue(System.Xml.XmlNode)">
             <summary>
               Get the Element value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetElementInt32Value(System.Xml.XmlNode)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetElementInt32Value(System.Xml.XmlNode)">
             <summary>
               Get the Element Int32 value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetElementFloatValue(System.Xml.XmlNode)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetElementFloatValue(System.Xml.XmlNode)">
             <summary>
               Get the Element float/single floating point value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetElementDoubleValue(System.Xml.XmlNode)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetElementDoubleValue(System.Xml.XmlNode)">
             <summary>
               Get the Element Double value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetElementBooleanValue(System.Xml.XmlNode)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetElementBooleanValue(System.Xml.XmlNode)">
             <summary>
               Get the Element Boolean value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildElementValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildElementValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the first Child Element value from a given XmlNode
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildElementInt32Value(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildElementInt32Value(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Child Element int32 value from a given XmlNode and ElementName
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildElementFloatValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildElementFloatValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Child Element floating point/single value from a given XmlNode and ElementName
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildElementDoubleValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildElementDoubleValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Child Element double value from a given XmlNode and ElementName
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildElementBooleanValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildElementBooleanValue(System.Xml.XmlNode,System.String)">
             <summary>
               Get the Child Element boolean value from a given XmlNode and ElementName
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetFirstChildXmlNodeFromRoot(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetFirstChildXmlNodeFromRoot(System.String)">
             <summary>
               Returns the first XmlNode object matching this element name
-              <seealso cref="M:Dev.Comm.XmlHelper.GetFirstChildXmlNode(System.Xml.XmlNode,System.String)"/>
+              <seealso cref="M:Dev.Comm.XML.XmlHelper.GetFirstChildXmlNode(System.Xml.XmlNode,System.String)"/>
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetFirstChildXmlNode(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetFirstChildXmlNode(System.Xml.XmlNode,System.String)">
             <summary>
               Returns the first XmlNode object matching this element name 
               NOTE:  this doesn't seem to work if parent is Root!  Use GetFirstChildXmlNodeFromRoot
-              <seealso cref="M:Dev.Comm.XmlHelper.GetFirstChildXmlNodeFromRoot(System.String)"/>
+              <seealso cref="M:Dev.Comm.XML.XmlHelper.GetFirstChildXmlNodeFromRoot(System.String)"/>
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetChildNodesFromRoot(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetChildNodesFromRoot(System.String)">
             <summary>
               Returns an XmlNodeList of child nodes matching this element name
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GetRecursiveChildNodesFromParent(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GetRecursiveChildNodesFromParent(System.Xml.XmlNode,System.String)">
             <summary>
               Returns an ArrayList (boxed XmlNode objects) of child nodes matching this element name
               This function is recursive in that it will find ALL the children, even if their in 
               sub folders (sub child nodes)
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.CreateNodeElement(System.Xml.XmlNode,System.String,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.CreateNodeElement(System.Xml.XmlNode,System.String,System.String)">
             <summary>
               Create an Element under the given parent based on the name and value pair.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.CreateNodeElement(System.Xml.XmlNode,System.String,System.String,System.String,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.CreateNodeElement(System.Xml.XmlNode,System.String,System.String,System.String,System.String)">
             <summary>
               Create an Element under the given parent based on the name and value pair.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.CreateComment(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.CreateComment(System.Xml.XmlNode,System.String)">
             <summary>
               Creates and adds a comment before the given node.  If root node, or null, 
               the comment node is Appended to the tree.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.DeleteNodeElement(System.Xml.XmlNode)">
+        <member name="M:Dev.Comm.XML.XmlHelper.DeleteNodeElement(System.Xml.XmlNode)">
             <summary>
               Delete an XmlNode from the tree
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.ModifyNodeElementValue(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.ModifyNodeElementValue(System.Xml.XmlNode,System.String)">
             <summary>
               Modify an XmlNode elment with a new value.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.CreateNodeAttribute(System.Xml.XmlElement,System.String,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.CreateNodeAttribute(System.Xml.XmlElement,System.String,System.String)">
             <summary>
               Create a new attribute given an XmlElement (XmlNode) target
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.DeleteNodeAttribute(System.Xml.XmlNode,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.DeleteNodeAttribute(System.Xml.XmlNode,System.String)">
             <summary>
               Delete an attribute from the given target node.
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GenerateSchema(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.GenerateSchema(System.String)">
             <summary>
               GenerateSchema a schema file from a given target file
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.GenerateSchemaAsString">
+        <member name="M:Dev.Comm.XML.XmlHelper.GenerateSchemaAsString">
             <summary>
               GenerateSchemaAsString based on the currently loaded Xml
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.ModifyNodeAttributeValue(System.Xml.XmlNode,System.String,System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.ModifyNodeAttributeValue(System.Xml.XmlNode,System.String,System.String)">
             <summary>
               Modify an attribute value to a new value
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.Encode(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.Encode(System.String)">
             <summary>
               Internal method used to ensure that HTML and XML tags are encoded within their values
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.Decode(System.String)">
+        <member name="M:Dev.Comm.XML.XmlHelper.Decode(System.String)">
             <summary>
               Internal method used to ensure that HTML and XML tags are decoded for display in other systems
             </summary>
         </member>
-        <member name="M:Dev.Comm.XmlHelper.HandleException(System.Exception)">
+        <member name="M:Dev.Comm.XML.XmlHelper.HandleException(System.Exception)">
             <summary>
               Internal method used to process errors and exception handling
             </summary>

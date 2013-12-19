@@ -10,6 +10,7 @@
 
 using System.Linq;
 using System.Web;
+using Dev.Comm;
 using Dev.Data;
 using Dev.Data.Configuration;
 using Dev.Data.ContextStorage;
@@ -27,8 +28,6 @@ namespace Dev.Web.CompositionRootBase.App_Start
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
-
-    using Dev.Comm.Core;
     using Dev.Comm.Web.Mvc.Formatter;
     using Dev.Crosscutting.Adapter.Adapter;
     using Dev.Crosscutting.Adapter.NetFramework.Adapter;

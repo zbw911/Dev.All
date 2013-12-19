@@ -11,7 +11,7 @@
 using System.Collections;
 using System.Xml;
 
-namespace Dev.Comm
+namespace Dev.Comm.XML
 {
     public class XmlCompent
     {

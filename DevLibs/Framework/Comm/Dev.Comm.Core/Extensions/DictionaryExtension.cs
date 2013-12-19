@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dev.Comm.Core;
+using Dev.Comm.Utils;
 
 namespace Dev.Comm.Extensions
 {

@@ -6,7 +6,7 @@ using System.Text;
 namespace Dev.Comm.Extensions
 {
     /// <summary>
-    /// 
+    /// From:http://stackoverflow.com/questions/222598/how-do-i-clone-a-generic-list-in-c
     /// </summary>
     public static class ListExtensions
     {

@@ -15,7 +15,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Dev.Comm
+namespace Dev.Comm.Utils
 {
     /// <summary>
     ///   文件帮助方法

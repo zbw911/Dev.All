@@ -9,14 +9,15 @@
 // ***********************************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace Dev.Comm
+namespace Dev.Comm.Utils
 {
+    /// <summary>
+    /// 程序集方法
+    /// </summary>
     public class AsmUtil
     {
         public static Assembly GetAssemblyFromCurrentDomain(string AName, bool IsLoadAsm)
@@ -163,18 +164,35 @@ namespace Dev.Comm
         ///   设置属性值
         /// </summary>
         /// <param name="obj"> </param>
-        /// <param name="PropertyName"> </param>
-        /// <param name="Value"> </param>
-        /// <param name="Index"> </param>
-        public static void SetPropertyValue(object obj, string PropertyName, object Value, object[] Index)
+        /// <param name="propertyName"> </param>
+        /// <param name="value"> </param>
+        /// <param name="index"> </param>
+        public static void SetPropertyValue(object obj, string propertyName, object value, object[] index)
         {
-            PropertyInfo t = obj.GetType().GetProperty(PropertyName);
+            PropertyInfo t = obj.GetType().GetProperty(propertyName);
 
             if (null == (t)) throw new ArgumentNullException("t");
 
-            object tmp = Convert.ChangeType(Value, t.PropertyType);
-            t.SetValue(obj, tmp, Index);
+            //删除这个，在进行类型转换的时候会发生错误
+            //object tmp = Convert.ChangeType(Value, t.PropertyType);
+            //t.SetValue(obj, tmp, Index);
+
+            t.SetValue(obj, value, index);
+
         }
+
+        /// <summary>
+        /// 设置属性值
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="value"></param>
+        public static void SetPropertyValue(object obj, string propertyName, object value)
+        {
+            SetPropertyValue(obj, propertyName, value, null);
+        }
+
+
 
         /// <summary>
         ///   取得参数信息
@@ -192,12 +210,12 @@ namespace Dev.Comm
         public static string[] GetMethodParamNames()
         {
             ParameterInfo[] pis = (new StackTrace()).GetFrame(1).GetMethod().GetParameters();
-            Array a = Array.CreateInstance(typeof (string), pis.Length);
+            Array a = Array.CreateInstance(typeof(string), pis.Length);
             for (int i = 0; i < pis.Length; i++)
             {
                 a.SetValue(pis[i].Name, i);
             }
-            return (string[]) a;
+            return (string[])a;
         }
 
         /// <summary>

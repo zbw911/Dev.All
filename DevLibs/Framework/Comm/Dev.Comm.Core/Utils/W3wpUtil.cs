@@ -13,7 +13,7 @@ using System.DirectoryServices;
 using System.Management;
 using System.Text.RegularExpressions;
 
-namespace Dev.Comm
+namespace Dev.Comm.Utils
 {
     /// <summary>
     ///   W3wp 的摘要说明

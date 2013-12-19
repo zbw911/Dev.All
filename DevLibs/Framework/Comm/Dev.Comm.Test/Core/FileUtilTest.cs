@@ -1,4 +1,5 @@
 ﻿using System;
+using Dev.Comm.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dev.Comm.Test.Core
