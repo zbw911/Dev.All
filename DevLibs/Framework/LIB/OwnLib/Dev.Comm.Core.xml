@@ -133,6 +133,19 @@
             <param name="key"></param>
             <returns></returns>
         </member>
+        <member name="T:Dev.Comm.Extensions.ListExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Extensions.ListExtensions.Clone``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            对列表进行克隆
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="listToClone"></param>
+            <returns></returns>
+        </member>
         <member name="T:Dev.Comm.Core.Extensions.StringExtensions">
             <summary>
             </summary>

@@ -75,6 +75,7 @@
     <Compile Include="DataStructure\CreateSequence.cs" />
     <Compile Include="DataStructure\Tree.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="IO\IOUtility.cs" />
