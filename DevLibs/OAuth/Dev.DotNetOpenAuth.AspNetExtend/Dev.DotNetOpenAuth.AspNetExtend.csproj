@@ -76,7 +76,20 @@
   <ItemGroup>
     <Compile Include="Client\DouBanClient.cs" />
     <Compile Include="Client\QQClient.cs" />
+    <Compile Include="Client\QQModel\Callback.cs" />
+    <Compile Include="Client\QQModel\OAuthToken.cs">
+      <SubType>
+      </SubType>
+    </Compile>
+    <Compile Include="Client\QQModel\QzoneBase.cs" />
+    <Compile Include="Client\QQModel\User.cs">
+      <SubType>
+      </SubType>
+    </Compile>
     <Compile Include="Client\RenRenClient.cs" />
+    <Compile Include="Client\SinaModel\AccessToken.cs" />
+    <Compile Include="Client\SinaModel\Status.cs" />
+    <Compile Include="Client\SinaModel\User.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="Client\SinaClient.cs" />
     <Compile Include="UrlUtilities.cs" />
@@ -90,14 +103,6 @@
     <ProjectReference Include="..\..\Framework\Comm\Dev.Comm.Net\Dev.Comm.Net.csproj">
       <Project>{83d81d8e-2eaa-4869-910a-be13eeb6567f}</Project>
       <Name>Dev.Comm.Net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ThridPart\Open.Sina2.0SDK\Open.Sina2SDK.csproj">
-      <Project>{c5399c53-98e7-45eb-ba32-782714aa6b4c}</Project>
-      <Name>Open.Sina2SDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ThridPart\QConnectSDK\QConnectSDK.csproj">
-      <Project>{DDF84840-7A36-425D-A0A0-ED63DABB78EF}</Project>
-      <Name>QConnectSDK</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dev.Comm.Net;
+using Dev.DotNetOpenAuth.AspNetExtend.Client.QQModel;
 using DotNetOpenAuth.AspNet.Clients;
-using QConnectSDK.Models;
 
 namespace Dev.DotNetOpenAuth.AspNetExtend.Client
 {
@@ -130,7 +130,7 @@ state  必须  client端的状态值。用于第三方应用防止CSRF攻击，�
 
             var strJson = CleanJsonStr(userjson);
 
-            var user = JsonHelper<QConnectSDK.Models.User>(strJson);
+            var user = JsonHelper<User>(strJson);
 
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.AddItemIfNotEmpty("id", openid);

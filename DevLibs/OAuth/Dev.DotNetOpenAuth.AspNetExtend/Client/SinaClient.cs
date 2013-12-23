@@ -11,8 +11,8 @@
 using System;
 using System.Collections.Generic;
 using Dev.Comm.Net;
+using Dev.DotNetOpenAuth.AspNetExtend.Client.SinaModel;
 using DotNetOpenAuth.AspNet.Clients;
-using Open.Sina2SDK;
 
 namespace Dev.DotNetOpenAuth.AspNetExtend.Client
 {
