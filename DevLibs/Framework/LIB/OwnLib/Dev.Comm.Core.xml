@@ -482,16 +482,50 @@
             程序集方法
             </summary>
         </member>
+        <member name="M:Dev.Comm.Utils.AsmUtil.GetAssemblyFromCurrentDomain(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="assemblyNameOrPath"></param>
+            <param name="isLoadAsmPath">是否从绝对路径中取</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.AsmUtil.GetAssemblyFromCurrentDomain(System.String)">
+            <summary>
+            根据 AssemblyName 取得应用程序集 ，
+            </summary>
+            <param name="assemblyNameOrPath">程序名或路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.AsmUtil.InvokeMethod(System.Func{System.Type,System.Reflection.MethodInfo},System.Object[],System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="filter"></param>
+            <param name="aParam"></param>
+            <param name="aInstance"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Dev.Comm.Utils.AsmUtil.InvokeMethod(System.String,System.Object[],System.Object)">
+            <summary>
+            执行方法 
+            </summary>
+            <param name="aName"></param>
+            <param name="aParam"></param>
+            <param name="aInstance"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dev.Comm.Utils.AsmUtil.InvokeMethod(System.String,System.String,System.String,System.Object[],System.Object[],System.Object@)">
             <summary>
               执行某个方法
             </summary>
-            <param name="AAsmName"> </param>
-            <param name="AClassName"> </param>
-            <param name="AMethodName"> </param>
-            <param name="AConstructorParam"> </param>
-            <param name="AMethodParam"> </param>
-            <param name="AInstance"> </param>
+            <param name="aAsmName"> </param>
+            <param name="aClassName"> </param>
+            <param name="aMethodName"> </param>
+            <param name="aConstructorParam"> </param>
+            <param name="aMethodParam"> </param>
+            <param name="aInstance"> </param>
             <returns> </returns>
             <exception cref="T:System.Exception"></exception>
         </member>
@@ -500,8 +534,8 @@
               取得属性值
             </summary>
             <param name="obj"> </param>
-            <param name="PropertyName"> </param>
-            <param name="Index"> </param>
+            <param name="propertyName"> </param>
+            <param name="index"> </param>
             <returns> </returns>
         </member>
         <member name="M:Dev.Comm.Utils.AsmUtil.ExistPropertyName(System.Object,System.String)">
@@ -509,7 +543,7 @@
               属性是否存在
             </summary>
             <param name="obj"> </param>
-            <param name="PropertyName"> </param>
+            <param name="propertyName"> </param>
             <returns> </returns>
         </member>
         <member name="M:Dev.Comm.Utils.AsmUtil.SetPropertyValue(System.Object,System.String,System.Object,System.Object[])">
@@ -987,7 +1021,7 @@
             <param name="bytefile"> </param>
             <returns> </returns>
         </member>
-        <member name="M:Dev.Comm.Utils.FileUtil.MD5Stream(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.Md5Stream(System.String)">
             <summary>
             对文件流进行MD5加密
             </summary>
@@ -995,7 +1029,14 @@
             <returns></returns>
             <example></example>
         </member>
-        <member name="M:Dev.Comm.Utils.FileUtil.MD5File(System.String)">
+        <member name="M:Dev.Comm.Utils.FileUtil.Md5Stream(System.IO.FileStream)">
+            <summary>
+            将文件流进行Md5
+            </summary>
+            <param name="fs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FileUtil.Md5File(System.String)">
             <summary>
             对文件进行MD5加密
             </summary>
@@ -1159,10 +1200,17 @@
         </member>
         <member name="M:Dev.Comm.Utils.MockUrlCode.UrlEncode(System.String)">
             <summary>
-              默认源为gb2312
+              UrlEndcode
             </summary>
             <param name="str"> </param>
             <returns> </returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.MockUrlCode.UrlDecode(System.String)">
+            <summary>
+            UrlDecode
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
         </member>
         <member name="T:Dev.Comm.Randoms">
             <summary>

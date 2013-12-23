@@ -40,7 +40,7 @@ namespace Dev.Framework.FileServer
         string SaveFile(Stream stream, string fileKey, params object[] param);
 
         /// <summary>
-        /// 
+        /// 通过文件流修改文件
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="fileKey"></param>
@@ -49,7 +49,7 @@ namespace Dev.Framework.FileServer
         string UpdateFile(Stream stream, string fileKey, params object[] param);
 
         /// <summary>
-        ///  
+        ///  通过文件Byte修改文件
         /// </summary>
         /// <param name="bytefile"></param>
         /// <param name="fileKey"></param>

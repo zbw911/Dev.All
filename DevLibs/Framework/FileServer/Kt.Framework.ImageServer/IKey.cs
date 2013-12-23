@@ -13,48 +13,31 @@ using Dev.Framework.FileServer.Config;
 
 namespace Dev.Framework.FileServer
 {
-    //public class KeyInfo
-    //{
-    //    /// <summary>
-    //    /// 唯一编号
-    //    /// </summary>
-    //    public string unqid { get; set; }
-
-    //    /// <summary>
-    //    /// 当前的时间
-    //    /// </summary>
-    //    public DateTime now { get; set; }
-
-    //    /// <summary>
-    //    /// 生成的路径信息
-    //    /// </summary>
-    //    public string dirname { get; set; }
-
-    //    public string extname { get; set; }
-    //    public string savefilename { get; set; }
-    //}
 
     /// <summary>
     /// 文件的绝对路径
     /// </summary>
     public class FileSaveInfo
     {
+        /// <summary>
+        /// 文件服务器
+        /// </summary>
         public Server FileServer { get; set; }
 
         /// <summary>
         /// 生成的路径信息
         /// </summary>
-        public string dirname { get; set; }
+        public string Dirname { get; set; }
 
         /// <summary>
         /// 扩展名
         /// </summary>
-        public string extname { get; set; }
+        public string Extname { get; set; }
 
         /// <summary>
         /// 保存原始文件名
         /// </summary>
-        public string savefilename { get; set; }
+        public string Savefilename { get; set; }
     }
 
     /// <summary>
@@ -62,21 +45,14 @@ namespace Dev.Framework.FileServer
     /// </summary>
     public interface IKey
     {
-        ///// <summary>
-        ///// 生成KEY返回相关信息
-        ///// </summary>
-        ///// <returns></returns>
-        //KeyInfo CreateFileInfo(string fileName, params object[] param);
-
         /// <summary>
-        /// 
+        /// 生成文件Key
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="param"></param>
         /// <returns></returns>
         string CreateFileKey(string fileName, params object[] param);
 
-        //string CreateFileKey(int serverId, DateTime now, string savefilename, params object[] param);
 
         /// <summary>
         /// 通过URLKEY生成URL

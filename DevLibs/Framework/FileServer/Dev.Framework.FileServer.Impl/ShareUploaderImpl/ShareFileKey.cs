@@ -82,9 +82,9 @@ namespace Dev.Framework.FileServer.ShareImpl
             return new FileSaveInfo
                        {
                            FileServer = server,
-                           dirname = @"" + parts[1] + @"/" + parts[2] + @"/" + parts[3] + @"/" + GetUploadPath(parts[4]),
-                           extname = Path.GetExtension(fileKey),
-                           savefilename = parts[4] + Path.GetExtension(fileKey)
+                           Dirname = @"" + parts[1] + @"/" + parts[2] + @"/" + parts[3] + @"/" + GetUploadPath(parts[4]),
+                           Extname = Path.GetExtension(fileKey),
+                           Savefilename = parts[4] + Path.GetExtension(fileKey)
                        };
         }
 

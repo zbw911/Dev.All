@@ -42,7 +42,7 @@ namespace Dev.Framework.FileServer.LocalUploaderFileImpl
 
         private string GetFilePath(FileSaveInfo fileInfo)
         {
-            var filepath = "" + fileInfo.FileServer.startdirname + "/" + fileInfo.dirname + "/" + fileInfo.savefilename;
+            var filepath = "" + fileInfo.FileServer.startdirname + "/" + fileInfo.Dirname + "/" + fileInfo.Savefilename;
 
             var apppath = System.AppDomain.CurrentDomain.BaseDirectory;
 

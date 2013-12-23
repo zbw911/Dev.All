@@ -17,34 +17,35 @@ namespace Dev.Framework.FileServer.DocFile
     /// </summary>
     public class DocFileUploader : IDocFile
     {
-        private readonly IUploadFile CurFileDisposer;
-        private readonly IKey CurKeyDisposer;
+        private readonly IUploadFile _curFileDisposer;
+        private readonly IKey _curKeyDisposer;
 
         /// <summary>
         /// 设置当前的文件处理器
         /// </summary>
-        /// <param name="IUploadFile"></param>
-        public DocFileUploader(IUploadFile IUploadFile, IKey Key)
+        /// <param name="uploadFile"></param>
+        /// <param name="key"></param>
+        public DocFileUploader(IUploadFile uploadFile, IKey key)
         {
-            this.CurFileDisposer = IUploadFile;
+            this._curFileDisposer = uploadFile;
             //this.CurFileDisposer.SetCurrentKey(Key);
-            this.CurKeyDisposer = Key;
+            this._curKeyDisposer = key;
         }
 
         #region IDocFile Members
 
         public string Save(Stream stream, string fileName)
         {
-            string fileKey = this.CurKeyDisposer.CreateFileKey(fileName);
+            string fileKey = this._curKeyDisposer.CreateFileKey(fileName);
 
-            this.CurFileDisposer.SaveFile(stream, fileKey);
+            this._curFileDisposer.SaveFile(stream, fileKey);
 
             return fileKey;
         }
 
         public string Update(Stream stream, string fileKey)
         {
-            this.CurFileDisposer.UpdateFile(stream, fileKey);
+            this._curFileDisposer.UpdateFile(stream, fileKey);
 
             return fileKey;
         }
@@ -52,7 +53,7 @@ namespace Dev.Framework.FileServer.DocFile
 
         public string GetDocUrl(string fileKey)
         {
-            return this.CurKeyDisposer.GetFileUrl(fileKey);
+            return this._curKeyDisposer.GetFileUrl(fileKey);
         }
 
         #endregion

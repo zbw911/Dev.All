@@ -64,7 +64,7 @@ namespace Dev.Framework.FileServer.ShareImpl
                                      startdirname = server.startdirname
                                  };
 
-            filehelper.WriteFile(fileInfo.dirname, fileInfo.savefilename, bytefile);
+            filehelper.WriteFile(fileInfo.Dirname, fileInfo.Savefilename, bytefile);
 
             return fileKey;
         }
@@ -102,7 +102,7 @@ namespace Dev.Framework.FileServer.ShareImpl
                                      startdirname = fileSaveInfo.FileServer.startdirname
                                  };
 
-            filehelper.UpdateFile(fileSaveInfo.dirname, fileSaveInfo.savefilename, bytefile);
+            filehelper.UpdateFile(fileSaveInfo.Dirname, fileSaveInfo.Savefilename, bytefile);
 
             return fileKey;
         }
@@ -125,7 +125,7 @@ namespace Dev.Framework.FileServer.ShareImpl
                 startdirname = fileSaveInfo.FileServer.startdirname
             };
 
-            filehelper.DeleteFile(fileSaveInfo.dirname, fileSaveInfo.savefilename);
+            filehelper.DeleteFile(fileSaveInfo.Dirname, fileSaveInfo.Savefilename);
 
         }
 
@@ -145,7 +145,7 @@ namespace Dev.Framework.FileServer.ShareImpl
                 startdirname = fileSaveInfo.FileServer.startdirname
             };
 
-            filehelper.DeletePath(fileSaveInfo.dirname);
+            filehelper.DeletePath(fileSaveInfo.Dirname);
             //filehelper.DeleteFile(fileSaveInfo.dirname, fileSaveInfo.savefilename);
         }
 
