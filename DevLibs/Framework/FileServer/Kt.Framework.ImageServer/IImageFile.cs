@@ -18,6 +18,11 @@ namespace Dev.Framework.FileServer
     /// </summary>
     public struct ImagesSize
     {
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public ImagesSize(int width, int height)
         {
             this.Width = width;
@@ -25,7 +30,13 @@ namespace Dev.Framework.FileServer
         }
 
 
+        /// <summary>
+        /// 图片 宽
+        /// </summary>
         public int Width;
+        /// <summary>
+        /// 图片高
+        /// </summary>
         public int Height;
     }
 
