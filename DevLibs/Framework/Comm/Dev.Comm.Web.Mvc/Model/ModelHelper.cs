@@ -26,6 +26,17 @@ namespace Dev.Comm.Web.Mvc.Model
         /// 直接取得Model
         /// </summary>
         /// <param name="controller"></param>
+        /// <param name="modeltype"></param>
+        /// <returns></returns>
+        public static object GetModel(Controller controller, Type modeltype)
+        {
+            return GetModel(controller, modeltype, false);
+        }
+
+        /// <summary>
+        /// 直接取得Model
+        /// </summary>
+        /// <param name="controller"></param>
         /// <param name="ignoreModelStateError"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
@@ -33,7 +44,24 @@ namespace Dev.Comm.Web.Mvc.Model
         /// <exception cref="InvalidCastException"></exception>
         public static TModel GetModel<TModel>(Controller controller, bool ignoreModelStateError) where TModel : class
         {
-            TModel model = (TModel)DependencyResolver.Current.GetService(typeof(TModel));
+            var modeltype = typeof(TModel);
+            return (TModel)GetModel(controller, modeltype, ignoreModelStateError);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="modeltype"></param>
+        /// <param name="ignoreModelStateError"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidCastException"></exception>
+        public static object GetModel(Controller controller, Type modeltype, bool ignoreModelStateError)
+        {
+            if (modeltype == null) throw new ArgumentNullException("modeltype");
+            var model = DependencyResolver.Current.GetService(modeltype);
 
             if (model == null)
             {
@@ -45,13 +73,13 @@ namespace Dev.Comm.Web.Mvc.Model
 
             var valueProvider = ValueProviderFactories.Factories.GetValueProvider(controllerContext);
 
-            IModelBinder binder = ModelBinders.Binders.GetBinder(typeof(TModel));
+            IModelBinder binder = ModelBinders.Binders.GetBinder(modeltype);
 
             var innerModelState = new ModelStateDictionary();
 
-            ModelBindingContext bindingContext = new ModelBindingContext()
+            var bindingContext = new ModelBindingContext()
             {
-                ModelMetadata = ModelMetadataProviders.Current.GetMetadataForType(() => model, typeof(TModel)),
+                ModelMetadata = ModelMetadataProviders.Current.GetMetadataForType(() => model, modeltype),
                 //ModelName = prefix,
                 ModelState = innerModelState,
                 //PropertyFilter = propertyFilter,
@@ -65,13 +93,16 @@ namespace Dev.Comm.Web.Mvc.Model
 
             var error = Dev.Comm.Web.Mvc.Model.ModelStateHandler.GetAllError(innerModelState);
 
-            if (error.Count() > 0)
+            if (!ignoreModelStateError && error.Any())
             {
                 throw new InvalidCastException(string.Join(",", error.Select(x => x.ErrorMessage)));
             }
 
-            return obj as TModel;
+            return obj;
 
         }
+
+
+
     }
 }

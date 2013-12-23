@@ -16,8 +16,8 @@ namespace Dev.Comm.Test.Core
         public void Md5File()
         {
             var filepath = @"E:\AutoDesk\Revit\Autodesk Revit2014完美完整包（族库、样板、注册机、序列号密、匙、安装视频及说明）.zip";
-            var key1 = FileUtil.MD5File(filepath);
-            var key2 = FileUtil.MD5Stream(filepath);
+            var key1 = FileUtil.Md5File(filepath);
+            var key2 = FileUtil.Md5Stream(filepath);
 
             Console.WriteLine(key1);
 
@@ -30,8 +30,8 @@ namespace Dev.Comm.Test.Core
             var filepath = @"C:\Users\Administrator\Desktop\changelog.txt";
             var filepath2 = @"C:\Users\Administrator\Desktop\changelog.txt";
 
-            var key1 = FileUtil.MD5File(filepath);
-            var key2 = FileUtil.MD5Stream(filepath2);
+            var key1 = FileUtil.Md5File(filepath);
+            var key2 = FileUtil.Md5Stream(filepath2);
 
             Console.WriteLine(key1);
 
@@ -46,7 +46,7 @@ namespace Dev.Comm.Test.Core
             sw.Start();
 
             var filepath = @"E:\AutoDesk\Revit\Autodesk Revit2014完美完整包（族库、样板、注册机、序列号密、匙、安装视频及说明）.zip";
-            var key1 = FileUtil.MD5File(filepath);
+            var key1 = FileUtil.Md5File(filepath);
             //var key2 = FileUtil.MD5Stream(filepath);
             sw.Stop();
 
@@ -62,7 +62,7 @@ namespace Dev.Comm.Test.Core
             sw.Start();
             var filepath = @"E:\AutoDesk\Revit\Autodesk Revit2014完美完整包（族库、样板、注册机、序列号密、匙、安装视频及说明）.zip";
             //var key1 = FileUtil.MD5File(filepath);
-            var key2 = FileUtil.MD5Stream(filepath);
+            var key2 = FileUtil.Md5Stream(filepath);
 
             sw.Stop();
 

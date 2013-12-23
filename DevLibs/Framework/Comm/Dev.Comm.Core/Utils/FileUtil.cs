@@ -352,23 +352,28 @@ namespace Dev.Comm.Utils
         /// <param name="filePath"></param>
         /// <returns></returns>
         /// <example></example>
-        public static string MD5Stream(string filePath)
+        public static string Md5Stream(string filePath)
         {
-            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            return MD5Stream(fs);
+            return Md5Stream(fs);
         }
 
-        public static string MD5Stream(FileStream fs)
+        /// <summary>
+        /// 将文件流进行Md5
+        /// </summary>
+        /// <param name="fs"></param>
+        /// <returns></returns>
+        public static string Md5Stream(FileStream fs)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            var md5 = new MD5CryptoServiceProvider();
             md5.ComputeHash(fs);
             fs.Close();
 
             byte[] b = md5.Hash;
             md5.Clear();
 
-            StringBuilder sb = new StringBuilder(32);
+            var sb = new StringBuilder(32);
             for (int i = 0; i < b.Length; i++)
             {
                 sb.Append(b[i].ToString("X2"));
@@ -379,9 +384,6 @@ namespace Dev.Comm.Utils
                 fs.Seek(0, SeekOrigin.Begin);
             }
 
-            //Console.WriteLine(sb.ToString());
-            //Console.ReadLine();
-            //fs.Seek(0, SeekOrigin.Begin);
             return sb.ToString();
         }
 
@@ -389,13 +391,13 @@ namespace Dev.Comm.Utils
         /// 对文件进行MD5加密
         /// </summary>
         /// <param name="filePath"></param>
-        public static string MD5File(string filePath)
+        public static string Md5File(string filePath)
         {
-            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            int bufferSize = 1048576; // 缓冲区大小，1MB
+            var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            const int bufferSize = 1048576; // 缓冲区大小，1MB
             byte[] buff = new byte[bufferSize];
 
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            var md5 = new MD5CryptoServiceProvider();
             md5.Initialize();
 
             long offset = 0;
@@ -431,9 +433,7 @@ namespace Dev.Comm.Utils
                 sb.Append(result[i].ToString("X2"));
             }
 
-            //Console.WriteLine(sb.ToString());
-            //Console.ReadLine();
-
+         
             return sb.ToString();
         }
 

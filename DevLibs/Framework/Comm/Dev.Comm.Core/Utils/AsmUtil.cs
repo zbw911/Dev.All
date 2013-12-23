@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -20,17 +21,23 @@ namespace Dev.Comm.Utils
     /// </summary>
     public class AsmUtil
     {
-        public static Assembly GetAssemblyFromCurrentDomain(string AName, bool IsLoadAsm)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assemblyNameOrPath"></param>
+        /// <param name="isLoadAsmPath">是否从绝对路径中取</param>
+        /// <returns></returns>
+        public static Assembly GetAssemblyFromCurrentDomain(string assemblyNameOrPath, bool isLoadAsmPath)
         {
             Assembly[] asm = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var a in asm)
             {
-                if (a.GetName().Name.Equals(AName)) return a;
+                if (a.GetName().Name.Equals(assemblyNameOrPath)) return a;
             }
 
-            if (IsLoadAsm /*&& File.Exists(AName)*/)
+            if (isLoadAsmPath /*&& File.Exists(AName)*/)
             {
-                return Assembly.LoadFile(AName);
+                return Assembly.LoadFile(assemblyNameOrPath);
             }
             else
             {
@@ -39,95 +46,123 @@ namespace Dev.Comm.Utils
         }
 
 
-        public static Assembly GetAssemblyFromCurrentDomain(string AName)
+        /// <summary>
+        /// 根据 AssemblyName 取得应用程序集 ，
+        /// </summary>
+        /// <param name="assemblyNameOrPath">程序名或路径</param>
+        /// <returns></returns>
+        public static Assembly GetAssemblyFromCurrentDomain(string assemblyNameOrPath)
         {
-            return GetAssemblyFromCurrentDomain(AName, true);
+            return GetAssemblyFromCurrentDomain(assemblyNameOrPath, true);
         }
 
-        public static object InvokeMethod(string AName, object[] AParam, object AInstance)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="aParam"></param>
+        /// <param name="aInstance"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static object InvokeMethod(Func<Type, MethodInfo> filter, object[] aParam, object aInstance)
         {
-            if (AInstance == null) return null;
-            Type type = AInstance.GetType();
-            MethodInfo mi = type.GetMethod(AName);
+            if (aInstance == null) return null;
+            Type type = aInstance.GetType();
+
+            var mi = filter.Invoke(type);
+
+
+
             if (null == mi)
             {
-                throw new Exception(String.Format("没找到方法", AName));
+                throw new Exception(String.Format("没找到方法"));
             }
-            //else
-            //{
-            //    return mi;
-            //}
 
             ParameterInfo[] param = mi.GetParameters();
-            if (AParam != null && !param.Length.Equals(AParam.Length))
+            if (aParam != null && !param.Length.Equals(aParam.Length))
             {
-                throw new Exception(String.Format("没找到参数", AName));
+                throw new Exception(String.Format("没找到参数"));
             }
-            //else
-            //{
-            //    return "noParam";
-            //}
 
-            return mi.Invoke(AInstance, AParam);
+            return mi.Invoke(aInstance, aParam);
+
         }
+
+
+
+        /// <summary>
+        /// 执行方法 
+        /// </summary>
+        /// <param name="aName"></param>
+        /// <param name="aParam"></param>
+        /// <param name="aInstance"></param>
+        /// <returns></returns>
+        public static object InvokeMethod(string aName, object[] aParam, object aInstance)
+        {
+
+            return InvokeMethod(x => x.GetMethods().FirstOrDefault(y => y.Name == aName), aParam, aInstance);
+        }
+
+
 
         /// <summary>
         ///   执行某个方法
         /// </summary>
-        /// <param name="AAsmName"> </param>
-        /// <param name="AClassName"> </param>
-        /// <param name="AMethodName"> </param>
-        /// <param name="AConstructorParam"> </param>
-        /// <param name="AMethodParam"> </param>
-        /// <param name="AInstance"> </param>
+        /// <param name="aAsmName"> </param>
+        /// <param name="aClassName"> </param>
+        /// <param name="aMethodName"> </param>
+        /// <param name="aConstructorParam"> </param>
+        /// <param name="aMethodParam"> </param>
+        /// <param name="aInstance"> </param>
         /// <returns> </returns>
         /// <exception cref="Exception"></exception>
-        public static object InvokeMethod(string AAsmName, string AClassName, string AMethodName,
-                                          object[] AConstructorParam, object[] AMethodParam, ref object AInstance)
+        public static object InvokeMethod(string aAsmName, string aClassName, string aMethodName,
+                                          object[] aConstructorParam, object[] aMethodParam, ref object aInstance)
         {
-            Assembly asm = GetAssemblyFromCurrentDomain(AAsmName);
+            Assembly asm = GetAssemblyFromCurrentDomain(aAsmName);
             if (null == (asm))
             {
-                throw new Exception(String.Format("错误的载入程序集", AAsmName));
+                throw new Exception(String.Format("错误的载入程序集", aAsmName));
             }
             else
             {
             }
 
-            Type type = asm.GetType(AClassName, false, true);
+            Type type = asm.GetType(aClassName, false, true);
             if (null == (type))
             {
-                throw new Exception(String.Format("类不存在", AClassName));
+                throw new Exception(String.Format("类不存在", aClassName));
             }
             else
             {
-                MethodInfo mi = type.GetMethod(AMethodName);
+                MethodInfo mi = type.GetMethod(aMethodName);
                 if (null == (mi))
                 {
-                    throw new Exception(String.Format("方法不存在", AMethodName));
+                    throw new Exception(String.Format("方法不存在", aMethodName));
                 }
                 else
                 {
                 }
 
                 ParameterInfo[] param = mi.GetParameters();
-                if (!param.Length.Equals(AMethodParam.Length))
+                if (!param.Length.Equals(aMethodParam.Length))
                 {
-                    throw new Exception(String.Format("方法参数错误", AMethodName));
+                    throw new Exception(String.Format("方法参数错误", aMethodName));
                 }
                 else
                 {
                 }
 
-                if (!mi.IsStatic && null == (AInstance))
+                if (!mi.IsStatic && null == (aInstance))
                 {
-                    AInstance = Activator.CreateInstance(type, AConstructorParam);
+                    aInstance = Activator.CreateInstance(type, aConstructorParam);
                 }
                 else
                 {
                 }
 
-                return mi.Invoke(AInstance, AMethodParam);
+                return mi.Invoke(aInstance, aMethodParam);
             }
         }
 
@@ -135,28 +170,28 @@ namespace Dev.Comm.Utils
         ///   取得属性值
         /// </summary>
         /// <param name="obj"> </param>
-        /// <param name="PropertyName"> </param>
-        /// <param name="Index"> </param>
+        /// <param name="propertyName"> </param>
+        /// <param name="index"> </param>
         /// <returns> </returns>
-        public static object GetPropertyValue(object obj, string PropertyName, object[] Index)
+        public static object GetPropertyValue(object obj, string propertyName, object[] index)
         {
-            PropertyInfo t = obj.GetType().GetProperty(PropertyName);
+            PropertyInfo t = obj.GetType().GetProperty(propertyName);
 
             if (null == (t)) return null;
 
 
-            return t.GetValue(obj, Index);
+            return t.GetValue(obj, index);
         }
 
         /// <summary>
         ///   属性是否存在
         /// </summary>
         /// <param name="obj"> </param>
-        /// <param name="PropertyName"> </param>
+        /// <param name="propertyName"> </param>
         /// <returns> </returns>
-        public static bool ExistPropertyName(object obj, string PropertyName)
+        public static bool ExistPropertyName(object obj, string propertyName)
         {
-            PropertyInfo t = obj.GetType().GetProperty(PropertyName);
+            PropertyInfo t = obj.GetType().GetProperty(propertyName);
             return t != null;
         }
 
@@ -210,12 +245,12 @@ namespace Dev.Comm.Utils
         public static string[] GetMethodParamNames()
         {
             ParameterInfo[] pis = (new StackTrace()).GetFrame(1).GetMethod().GetParameters();
-            Array a = Array.CreateInstance(typeof(string), pis.Length);
+            var a = new string[pis.Length];
             for (int i = 0; i < pis.Length; i++)
             {
                 a.SetValue(pis[i].Name, i);
             }
-            return (string[])a;
+            return a;
         }
 
         /// <summary>
@@ -238,16 +273,6 @@ namespace Dev.Comm.Utils
             return result.ToString();
         }
 
-        #region Nested type: ObjectUtil
 
-        //private class ObjectUtil
-        //{
-        //    //public static bool IsNull(object AObject)
-        //    //{
-        //    //    return AObject == null;
-        //    //}
-        //}
-
-        #endregion
     }
 }

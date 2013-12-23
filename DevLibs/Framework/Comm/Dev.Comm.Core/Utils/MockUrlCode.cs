@@ -15,50 +15,28 @@ namespace Dev.Comm.Utils
     /// </summary>
     public class MockUrlCode
     {
-        ///// <summary>
-        ///// Url编码
-        ///// </summary>
-        ///// <param name="str">字符串</param>
-        ///// <returns></returns>
-        //public static string UrlEncode(string str, Encoding Encode)
-        //{
-        //    string result = string.Empty;
-        //    const string keys = "_-.1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        //    for (int i = 0; i < str.Length; i++)
-        //    {
-        //        string str4 = str.Substring(i, 1);
-        //        if (keys.Contains(str4))
-        //        {
-        //            result = result + str4;
-        //        }
-        //        else
-        //        {
-        //            result = Encode.GetBytes(str4).Aggregate(result, (current, n) => current + "%" + n.ToString("X"));
-        //        }
-        //    }
-        //    return result;
-        //}
 
         /// <summary>
-        ///   默认源为gb2312
+        ///   UrlEndcode
         /// </summary>
         /// <param name="str"> </param>
         /// <returns> </returns>
         public static string UrlEncode(string str)
         {
             return System.Uri.EscapeDataString(str);
-            //return UrlEncode(str, Encoding.GetEncoding("gb2312"));
         }
 
 
+        /// <summary>
+        /// UrlDecode
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string UrlDecode(string str)
         {
             return System.Uri.UnescapeDataString(str);
         }
 
-        //public static string UrlDecode(string str)
-        //{
-        //    return UrlDecode(str, Encoding.GetEncoding("gb2312"));
-        //}
+
     }
 }
