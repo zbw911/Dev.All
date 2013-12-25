@@ -10,6 +10,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Dev.Comm;
 using Dev.Framework.FileServer.Config;
 using Dev.Framework.FileServer.HashServer;
@@ -86,6 +87,29 @@ namespace Dev.Framework.FileServer.ShareImpl
                            Extname = Path.GetExtension(fileKey),
                            Savefilename = parts[4] + Path.GetExtension(fileKey)
                        };
+        }
+
+        public string GetFileKeyFromFileUrl(string fileUrl)
+        {
+            //
+            //2-2013-12-25-4f0eb0a9b77215416687ac05c1d660e1.png
+            //http://localhost:55470/share/files/2013/12/25/4f/0/e/4f0eb0a9b77215416687ac05c1d660e1.png
+            //分成多个部分                    8   7   6  5  4  3 2         1
+            var parts = fileUrl.Split(new[] { '/' });
+            var len = parts.Length;
+            var tailKeys = new[] { parts[len - 7], parts[len - 6], parts[len - 5], parts[len - 1] };
+            var urlpart = new string[len - 7];
+            Array.Copy(parts, urlpart, len - 7);
+
+            var baurl = string.Join("/", urlpart);
+
+            var server = HashFileServer.ServerList.First(x => x.serverurl == baurl);
+
+            var id = server.id;
+
+            return id + "-" + string.Join("-", tailKeys);
+
+           
         }
 
         public string GetFileUrl(string fileKey, params object[] param)

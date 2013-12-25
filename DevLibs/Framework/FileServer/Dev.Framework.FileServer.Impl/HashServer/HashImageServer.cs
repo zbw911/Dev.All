@@ -54,5 +54,12 @@ namespace Dev.Framework.FileServer.HashServer
 
             return usedserver;
         }
+        /// <summary>
+        /// 全部服务器列表
+        /// </summary>
+        internal static List<Server> ServerList
+        {
+            get { return ReadConfig.Configuration.Servers.ToList(); }
+        }
     }
 }

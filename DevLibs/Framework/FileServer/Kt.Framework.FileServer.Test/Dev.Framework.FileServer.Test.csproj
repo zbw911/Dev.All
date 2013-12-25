@@ -59,6 +59,7 @@
     <Compile Include="TestThumbnailAndWatorMark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestLocalUploadFile.cs" />
+    <Compile Include="UnitTestUrlToKey.cs" />
     <Compile Include="UntestFileLoad.cs" />
   </ItemGroup>
   <ItemGroup>

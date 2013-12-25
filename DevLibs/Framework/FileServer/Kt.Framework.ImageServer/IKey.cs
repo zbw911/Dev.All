@@ -69,5 +69,13 @@ namespace Dev.Framework.FileServer
         /// <param name="param"></param>
         /// <returns></returns>
         FileSaveInfo GetFileSavePath(string fileKey, params object[] param);
+
+        /// <summary>
+        /// 通过文件URL取得文件原始Key
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <returns></returns>
+        string GetFileKeyFromFileUrl(string fileUrl);
+
     }
 }
