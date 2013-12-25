@@ -159,6 +159,54 @@ namespace Dev.Framework.FileServer.ImageFile
             return this.Watermark(new MemoryStream(bytefile), watermark);
         }
 
+        /// <summary>
+        /// 改变大小 
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="with"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public Stream ResizeImage(byte[] bytefile, int with, int height)
+        {
+            return this.ResizeImage(new MemoryStream(bytefile), with, height);
+        }
+
+        
+
+        /// <summary>
+        /// 改变大小 
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="with"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public Stream ResizeImage(Stream stream, int with, int height)
+        {
+            return Resize(stream, with, height);
+        }
+
+        /// <summary>
+        /// 旋转图片 
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="rotationDegree"></param>
+        /// <returns></returns>
+        public Stream RotateImage(byte[] bytefile, int rotationDegree)
+        {
+            return this.RotateImage(new MemoryStream(bytefile), rotationDegree);
+        }
+
+        /// <summary>
+        /// 旋转图片
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="rotationDegree"></param>
+        /// <returns></returns>
+        public Stream RotateImage(Stream stream, int rotationDegree)
+        {
+            return Rotate(stream, rotationDegree);
+        }
+
         public string SaveImageFile(byte[] bytefile, string fileName, int width = 0, int height = 0)
         {
             return this.SaveImageFile(new MemoryStream(bytefile), fileName, width, height);
@@ -294,6 +342,71 @@ namespace Dev.Framework.FileServer.ImageFile
 
                 var mark = Path.GetFileName(watermark);
                 strsetting += "&watermark=" + mark;
+            }
+
+            strsetting = strsetting.TrimStart('&');
+            var outStream = new MemoryStream();
+            c.BuildImage(stream, outStream, strsetting);
+
+            var s = c.GetDiagnosticsPage();
+            Console.WriteLine(s);
+
+            return outStream;
+        }
+
+
+        private static Stream Resize(Stream stream, int with, int height)
+        {
+
+            var c = ImageResizer.Configuration.Config.Current;
+
+            if (!c.Plugins.Has<PrettyGifs>())
+                new PrettyGifs().Install(c);
+            if (!c.Plugins.Has<AnimatedGifs>())
+                new AnimatedGifs().Install(c);
+
+            //c.Plugins.LoadPlugins();
+            if (c.Plugins.Has<SizeLimiting>())
+                c.Plugins.Get<SizeLimiting>().Uninstall(c);
+
+
+            var strsetting = "";
+
+            if (height != 0 && height != 0)
+            {
+                strsetting += "width=" + with + "&height=" + height;
+            }
+
+            strsetting = strsetting.TrimStart('&');
+            var outStream = new MemoryStream();
+            c.BuildImage(stream, outStream, strsetting);
+
+            var s = c.GetDiagnosticsPage();
+            Console.WriteLine(s);
+
+            return outStream;
+
+        }
+
+        public static Stream Rotate(Stream stream, int rotationDegree)
+        {
+            var c = ImageResizer.Configuration.Config.Current;
+
+            if (!c.Plugins.Has<PrettyGifs>())
+                new PrettyGifs().Install(c);
+            if (!c.Plugins.Has<AnimatedGifs>())
+                new AnimatedGifs().Install(c);
+
+            //c.Plugins.LoadPlugins();
+            if (c.Plugins.Has<SizeLimiting>())
+                c.Plugins.Get<SizeLimiting>().Uninstall(c);
+
+
+            var strsetting = "";
+
+            if (rotationDegree != 0)
+            {
+                strsetting += "rotate=" + rotationDegree;
             }
 
             strsetting = strsetting.TrimStart('&');

@@ -254,19 +254,51 @@ namespace Dev.Comm.Utils
         /// <returns> </returns>
         public static void StreamToFile(Stream stream, string fileName)
         {
-            // 把 Stream 转换成 byte[]
-            var bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
-            // 设置当前流的位置为流的开始
-            stream.Seek(0, SeekOrigin.Begin);
+            //stream.Seek(0, SeekOrigin.Begin);
+            //// 把 Stream 转换成 byte[]
+            //var bytes = new byte[stream.Length];
 
-            FolderCreate(fileName);
-            // 把 byte[] 写入文件
-            var fs = new FileStream(fileName, FileMode.Create);
-            var bw = new BinaryWriter(fs);
-            bw.Write(bytes);
-            bw.Close();
-            fs.Close();
+
+            //stream.Read(bytes, 0, bytes.Length);
+            //// 设置当前流的位置为流的开始
+            //stream.Seek(0, SeekOrigin.Begin);
+
+            //FolderCreate(fileName);
+            //// 把 byte[] 写入文件
+            //var fs = new FileStream(fileName, FileMode.Create);
+            //var bw = new BinaryWriter(fs);
+            //bw.Write(bytes);
+
+            //bw.Close();
+            //fs.Close();
+
+
+            StreamToFile(stream, fileName, null);
+        }
+
+
+        public delegate void ProgressCallback(long position, long total);
+        public static void StreamToFile(Stream inputStream, string outputFile, ProgressCallback progressCallback)
+        {
+            FolderCreate(outputFile);
+
+            if (File.Exists(outputFile))
+                DeleteFile(outputFile);
+
+            using (var outputStream = File.OpenWrite(outputFile))
+            {
+                const int bufferSize = 4096;
+                while (inputStream.Position < inputStream.Length)
+                {
+                    byte[] data = new byte[bufferSize];
+                    int amountRead = inputStream.Read(data, 0, bufferSize);
+                    outputStream.Write(data, 0, amountRead);
+
+                    if (progressCallback != null)
+                        progressCallback(inputStream.Position, inputStream.Length);
+                }
+                outputStream.Flush();
+            }
         }
 
         #region Nested type: FileExtension
@@ -433,7 +465,7 @@ namespace Dev.Comm.Utils
                 sb.Append(result[i].ToString("X2"));
             }
 
-         
+
             return sb.ToString();
         }
 

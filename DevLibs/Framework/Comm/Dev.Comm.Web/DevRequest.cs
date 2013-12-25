@@ -363,7 +363,7 @@ namespace Dev.Comm.Web
             /// <returns></returns>
             public static Stream GetFilesStream(string name)
             {
-                return Files[name].InputStream;
+                return HttpPostFiles[name].InputStream;
             }
 
             /// <summary>
@@ -373,7 +373,7 @@ namespace Dev.Comm.Web
             /// <returns></returns>
             public static Stream GetFilesStream(int index)
             {
-                return Files[index].InputStream;
+                return HttpPostFiles[index].InputStream;
             }
 
 
@@ -384,7 +384,7 @@ namespace Dev.Comm.Web
             /// <param name="filename"></param>
             public static void SavaAs(string name, string filename)
             {
-                Files[name].SaveAs(filename);
+                HttpPostFiles[name].SaveAs(filename);
             }
 
             /// <summary>
@@ -394,7 +394,7 @@ namespace Dev.Comm.Web
             /// <param name="filename"></param>
             public static void SavaAs(int index, string filename)
             {
-                Files[index].SaveAs(filename);
+                HttpPostFiles[index].SaveAs(filename);
             }
 
 
@@ -406,7 +406,7 @@ namespace Dev.Comm.Web
             public static string ContentType(string name)
             {
                 return
-                    Files[name].ContentType;
+                    HttpPostFiles[name].ContentType;
             }
 
             /// <summary>
@@ -417,10 +417,34 @@ namespace Dev.Comm.Web
             public static string ContentType(int index)
             {
                 return
-                    Files[index].ContentType;
+                    HttpPostFiles[index].ContentType;
             }
 
-            private static HttpFileCollection Files
+
+            /// <summary>
+            /// 上传的文件名
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            public static string FileName(int index)
+            {
+                return HttpPostFiles[index].FileName;
+            }
+            /// <summary>
+            /// 上传的文件名
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public static string FileName(string name)
+            {
+                return HttpPostFiles[name].FileName;
+            }
+
+
+            /// <summary>
+            /// 上传怕文件
+            /// </summary>
+            public static HttpFileCollection HttpPostFiles
             {
                 get { return HttpContext.Current.Request.Files; }
             }

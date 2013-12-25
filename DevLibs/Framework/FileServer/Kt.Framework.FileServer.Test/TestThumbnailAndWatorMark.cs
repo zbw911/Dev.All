@@ -142,6 +142,53 @@ namespace Dev.Framework.FileServer.Test
         }
 
 
+        [TestMethod]
+        public void TestResize()
+        {
+            string basepath = @"C:\Users\Administrator\Desktop\P\";
+
+            string imageDir = basepath + "QQ½ØÍ¼20131225160035.png";
+
+            string outdir = basepath + "animatedsamplesmallWatorMar.gif";
+            string outdir2 = basepath + "animatedsamplesmall2WatorMar.gif";
+            string outdir3 = basepath + "animatedsamplesmall3WatorMar.gif";
+            string outdir4 = basepath + "animatedsamplesmall4WatorMar.gif";
+
+            var obj = ImageServer.ImageFile.ResizeImage(File.OpenRead(imageDir), 50, 50);
+
+            Save(obj, outdir);
+
+            obj = ImageServer.ImageFile.ResizeImage(File.OpenRead(imageDir), 300, 300);
+            Save(obj, outdir2);
+
+            obj = ImageServer.ImageFile.ResizeImage(File.OpenRead(imageDir), 100, 100);
+            Save(obj, outdir3);
+        }
+
+
+        [TestMethod]
+        public void TestRotate()
+        {
+            string basepath = @"C:\Users\Administrator\Desktop\P\";
+
+            string imageDir = basepath + "QQ½ØÍ¼20131225160035.png";
+
+            string outdir = basepath + "animatedsamplesmallWatorMar.gif";
+            string outdir2 = basepath + "animatedsamplesmall2WatorMar.gif";
+            string outdir3 = basepath + "animatedsamplesmall3WatorMar.gif";
+            string outdir4 = basepath + "animatedsamplesmall4WatorMar.gif";
+
+            var obj = ImageServer.ImageFile.RotateImage(File.OpenRead(imageDir), 90);
+
+            Save(obj, outdir);
+
+            obj = ImageServer.ImageFile.RotateImage(File.OpenRead(imageDir), 180);
+            Save(obj, outdir2);
+
+            obj = ImageServer.ImageFile.RotateImage(File.OpenRead(imageDir), 360);
+            Save(obj, outdir3);
+        }
+
         public void Save(Stream stream, string path)
         {
             var image = Image.FromStream(stream);

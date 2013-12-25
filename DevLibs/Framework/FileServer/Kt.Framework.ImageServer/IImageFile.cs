@@ -80,6 +80,42 @@ namespace Dev.Framework.FileServer
         /// <param name="watermark">水印图片地址</param>
         /// <returns></returns>
         Stream Watermark(byte[] bytefile, string watermark);
+
+        /// <summary>
+        /// 改变大小 
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="with"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        Stream ResizeImage(byte[] bytefile, int with, int height);
+
+        /// <summary>
+        /// 改变大小 
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="with"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        Stream ResizeImage(Stream stream, int with, int height);
+
+        /// <summary>
+        /// 旋转图片 
+        /// </summary>
+        /// <param name="bytefile"></param>
+        /// <param name="rotationDegree"></param>
+        /// <returns></returns>
+        Stream RotateImage(byte[] bytefile, int rotationDegree);
+
+        /// <summary>
+        /// 旋转图片
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="rotationDegree"></param>
+        /// <returns></returns>
+        Stream RotateImage(Stream stream, int rotationDegree);
+
+
         /// <summary>
         /// 保存图片，原图片的名称，返回运算后的图片名
         /// </summary>
@@ -152,5 +188,9 @@ namespace Dev.Framework.FileServer
         /// <param name="fileKey"></param>
         /// <param name="sizes"></param>
         void UpdateImageFile(Stream stream, string fileKey, ImagesSize[] sizes);
+
+
+
+
     }
 }
