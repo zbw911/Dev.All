@@ -828,6 +828,190 @@
             copy from:https://github.com/davidebbo/WebActivator/blob/master/WebActivator/ActivationManager.cs
             </summary>
         </member>
+        <member name="T:Dev.Comm.Utils.FtpUtil">
+            <summary>
+                General, easy-to-use FTP class.
+            http://www.blackbeltcoder.com/Articles/client/an-ftpclient-class-and-winform-control
+            
+            </summary>
+        </member>
+        <!-- 对于成员“M:Dev.Comm.Utils.FtpUtil.ChangeDirectory(System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Dev.Comm.Utils.FtpUtil.CreateDirectory(System.String)">
+            <summary>
+                Creates the specified directory. This method will create multiple levels of
+                subdirectories as needed.
+            </summary>
+            <param name="directory">Directory to create. May be relative or absolute.</param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.DeleteDirectory(System.String)">
+            <summary>
+                Deletes the specified directory. The directory should be empty.
+            </summary>
+            <param name="files">Directory to delete.</param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.DeleteFiles(System.String[])">
+            <summary>
+                Deletes the given list of files from the current working directory.
+            </summary>
+            <param name="files">List of files to delete.</param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.DirectoryExists(System.String)">
+            <summary>
+                Indicates if the specified directory exists. This function returns false
+                if a filename existing with the given name.
+            </summary>
+            <param name="directory">Directory to test. May be relative or absolute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.DownloadFile(System.String,System.String)">
+            <summary>
+            下载文件
+            </summary>
+            <param name="ftpFile"></param>
+            <param name="file"></param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.DownloadFileStream(System.String)">
+            <summary>
+            下载流
+            </summary>
+            <param name="ftpFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.DownloadFileBytes(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ftpFile"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.ListDirectory">
+            <summary>
+                Returns a directory listing of the current working directory.
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.UploadFiles(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.UploadFiles(System.String,System.IO.Stream)">
+            <summary>
+            </summary>
+            <param name="ftpFileName"></param>
+            <param name="stream"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.UploadFiles(System.String,System.Byte[])">
+            <summary>
+                使用Byte
+            </summary>
+            <param name="ftpFileName"></param>
+            <param name="filebytes"></param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.CutSubstringWithTrim(System.String@,System.Char,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="s"></param>
+            <param name="c"></param>
+            <param name="startIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.GetRequest">
+            <summary>
+            Constructs an FTP web request
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.GetRequest(System.String)">
+            <summary>
+             Constructs an FTP web request with the given filename
+            </summary>
+            <param name="filename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.GuessDirectoryFormat(System.String[])">
+            <summary>
+             Attempts to determine the directory format.
+            </summary>
+            <param name="lines"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Dev.Comm.Utils.FtpUtil.Host">
+            <summary>
+                Gets or sets the current FTP domain and optional directory
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Utils.FtpUtil.IsRootDirectory">
+            <summary>
+                Indicates if the current directory is the
+                root directory.
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Utils.FtpUtil.Password">
+            <summary>
+                Gets or sets the login password.
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Utils.FtpUtil.Username">
+            <summary>
+                Gets or sets the login username.
+            </summary>
+        </member>
+        <member name="T:Dev.Comm.Utils.FtpUtil.FtpDirectory">
+            <summary>
+                Helper class for managing current FTP directory.
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.FtpDirectory.ToString">
+            <summary>
+                Returns the domain and current directory as a URL
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.FtpDirectory.ApplyDirectory(System.String)">
+            <summary>
+                Applies the given directory to the current directory and returns the
+                result.
+                If directory starts with "/", it replaces all of the current directory.
+                If directory is "..", the top-most subdirectory is removed from
+                the current directory.
+            </summary>
+            <param name="directory">The directory to apply</param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.FtpDirectory.GetUrl">
+            <summary>
+                Returns the domain and current directory as a URL.
+            </summary>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.FtpDirectory.GetUrl(System.String)">
+            <summary>
+                Returns the domain and specified directory as a URL.
+            </summary>
+            <param name="directory">
+                Partial directory or filename applied to the
+                current working directory.
+            </param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FtpUtil.FtpDirectory.SetUrl(System.String)">
+            <summary>
+                Sets the domain and current directory from a URL.
+            </summary>
+            <param name="url">URL to set to</param>
+        </member>
+        <member name="P:Dev.Comm.Utils.FtpUtil.FtpDirectory.CurrentDirectory">
+            <summary>
+                Gets or sets the current FTP directory.
+            </summary>
+        </member>
+        <member name="P:Dev.Comm.Utils.FtpUtil.FtpDirectory.IsRootDirectory">
+            <summary>
+                Determines if the current directory is the root directory.
+            </summary>
+        </member>
         <member name="M:Dev.Comm.Utils.DateUtil.GetLastDateForMonth(System.DateTime,System.DateTime@)">
             <summary>
               取得某月的最后一天
@@ -1041,6 +1225,14 @@
             对文件进行MD5加密
             </summary>
             <param name="filePath"></param>
+        </member>
+        <member name="M:Dev.Comm.Utils.FileUtil.BytesToFile(System.Byte[],System.String)">
+            <summary>
+            
+            </summary>
+            <param name="bytes"></param>
+            <param name="filepath"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:Dev.Comm.ImageHelper">
             <summary>

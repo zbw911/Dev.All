@@ -58,5 +58,18 @@ namespace Dev.Framework.FileServer.Test
 
 
         }
+
+
+        [TestMethod]
+        public void CreateNoExtKey()
+        {
+            var x = new ReadConfig("TestLocalUploadFile.config");
+            IKey key = new LocalFileKey();
+            //var fkey = key.CreateFileKey("filename.cs");
+            var fkey = "1-2013-12-02-0a499429af636838f06bbc2af31b65e8";// key.CreateFileKey("filename.cs");
+
+            var strkey = key.CreateFileKey(fkey);
+            Console.WriteLine(strkey);
+        }
     }
 }

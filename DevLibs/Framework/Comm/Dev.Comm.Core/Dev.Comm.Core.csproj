@@ -89,7 +89,7 @@
     <Compile Include="Utils\ChineseCode.cs" />
     <Compile Include="CodeImage.cs" />
     <Compile Include="AssemblyManager.cs" />
-    <Compile Include="Utils\Class1.cs" />
+    <Compile Include="Utils\FtpClient.cs" />
     <Compile Include="Utils\DateUtil.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="Extensions\Global.cs" />

@@ -285,6 +285,8 @@ namespace Dev.Comm.Utils
             if (File.Exists(outputFile))
                 DeleteFile(outputFile);
 
+            inputStream.Seek(0, SeekOrigin.Begin);
+
             using (var outputStream = File.OpenWrite(outputFile))
             {
                 const int bufferSize = 4096;
@@ -469,5 +471,24 @@ namespace Dev.Comm.Utils
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="filepath"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public static void BytesToFile(byte[] bytes, string filepath)
+        {
+            System.IO.FileStream _FileStream = new System.IO.FileStream(filepath, System.IO.FileMode.Create,
+                              System.IO.FileAccess.Write);
+
+            _FileStream.Write(bytes, 0, bytes.Length);
+
+            // close file stream
+            _FileStream.Close();
+
+
+
+        }
     }
 }
