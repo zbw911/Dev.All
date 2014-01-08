@@ -29,7 +29,7 @@ namespace Dev.Comm.WinForm
 
             if (t.InvokeRequired)
             {
-                t.Invoke(handler, new object[] {t, null});
+                t.Invoke(handler, new object[] { t, null });
             }
             else
             {
@@ -49,12 +49,25 @@ namespace Dev.Comm.WinForm
 
             if (t.InvokeRequired)
             {
-                t.BeginInvoke(handler, new object[] {t, null});
+                t.BeginInvoke(handler, new object[] { t, null });
             }
             else
             {
                 handler(t, null);
             }
+
+
+        }
+
+
+        /// <summary>
+        /// 在线程中安全调用WinForm控件的扩展方法
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="action"></param>
+        public static void ThreadInvokeAction(this Control control, Action<Control> action)
+        {
+            Invork(control, action);
         }
     }
 }

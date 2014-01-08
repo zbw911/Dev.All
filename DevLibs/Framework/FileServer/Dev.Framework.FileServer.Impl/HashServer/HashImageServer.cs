@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Dev.Framework.FileServer.Config;
 
 namespace Dev.Framework.FileServer.HashServer
@@ -24,7 +25,7 @@ namespace Dev.Framework.FileServer.HashServer
         /// <returns></returns>
         internal static Server HashConfig(string unqid)
         {
-            IEnumerable<Server> usedserver = ReadConfig.Configuration.Servers.Where(x => x.used);
+            IEnumerable<Server> usedserver = ServerList.Where(x => x.used);
             if (usedserver == null || usedserver.Count() == 0)
             {
                 throw new Exception("不存在有效的服务器");
@@ -46,7 +47,7 @@ namespace Dev.Framework.FileServer.HashServer
         /// <returns></returns>
         internal static Server GetServer(int ServerId)
         {
-            Server usedserver = ReadConfig.Configuration.Servers.FirstOrDefault(x => x.id == ServerId);
+            Server usedserver = ServerList.FirstOrDefault(x => x.id == ServerId);
             if (usedserver == null)
             {
                 throw new Exception("不存在有效的服务器");
@@ -59,7 +60,44 @@ namespace Dev.Framework.FileServer.HashServer
         /// </summary>
         internal static List<Server> ServerList
         {
-            get { return ReadConfig.Configuration.Servers.ToList(); }
+            get
+            {
+                return ReadConfig.Configuration.Servers.ToList().Select(x => new Server
+                    {
+                        hostip = x.hostip,
+                        id = x.id,
+                        password = x.password,
+                        serverurl = ToAbsloutUrl(x.serverurl),
+                        startdirname = x.startdirname,
+                        used = x.used,
+                        username = x.username
+                    }).ToList();
+            }
         }
+
+
+        /// <summary>
+        /// 将 ~/ 类型的Url转化为将前的绝对地址
+        /// </summary>
+        /// <param name="contentPath"></param>
+        /// <returns></returns>
+        private static string ToAbsloutUrl(string contentPath)
+        {
+            if (String.IsNullOrEmpty(contentPath))
+            {
+                return contentPath;
+            }
+
+            if (contentPath.StartsWith("~") && HttpContext.Current == null)
+            {
+                throw new Exception("在非WEB环境下无法使用~开头的路径设置");
+            }
+
+            if (contentPath.StartsWith("~"))
+                contentPath = VirtualPathUtility.ToAbsolute(contentPath, System.Web.HttpContext.Current.Request.ApplicationPath);
+            return contentPath;
+        }
+
+
     }
 }
