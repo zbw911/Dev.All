@@ -300,11 +300,7 @@ namespace Dev.Comm.Net
             {
                 var req = (HttpWebRequest)WebRequest.Create(url);
 
-                #region add by lxj 20100701 设置到官方获取信息的超时时间为5秒。如果5秒之内无响应将不再等待。
-
-                req.Timeout = 5000;
-
-                #endregion
+              
 
                 req.ServicePoint.Expect100Continue = HttpExpect100Continue == false ? true : false;
                 req.Method = "GET";

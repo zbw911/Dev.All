@@ -98,6 +98,7 @@
     <Compile Include="TestContext{T}.cs" />
     <Compile Include="Test_AdminRepository.cs" />
     <Compile Include="UnitTest2.cs" />
+    <Compile Include="UnitTestMutiThread.cs" />
     <Compile Include="UnitTestExeSql.cs" />
   </ItemGroup>
   <ItemGroup>
