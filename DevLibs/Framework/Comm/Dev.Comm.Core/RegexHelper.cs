@@ -187,6 +187,28 @@ namespace Dev.Comm
 
 
         /// <summary>
+        /// 取得匹配结果
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public static Match GetMatch(string content, string pattern)
+        {
+            Regex r = new Regex(pattern);
+            Match mc = r.Match(content);
+            if (mc.Success)
+            {
+                return mc;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+
+        /// <summary>
         ///   正则替换
         /// </summary>
         /// <param name="content"> </param>

@@ -1470,6 +1470,14 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="M:Dev.Comm.RegexHelper.GetMatch(System.String,System.String)">
+            <summary>
+            取得匹配结果
+            </summary>
+            <param name="content"></param>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
         <member name="M:Dev.Comm.RegexHelper.PregReplace(System.String,System.String,System.String)">
             <summary>
               正则替换

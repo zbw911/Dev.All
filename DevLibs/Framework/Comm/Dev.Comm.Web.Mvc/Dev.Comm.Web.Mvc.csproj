@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResult\JsonpResult.cs" />
+    <Compile Include="Domain\DomainData.cs" />
+    <Compile Include="Domain\DomainRoute.cs" />
+    <Compile Include="Domain\LinkExtensions.cs" />
     <Compile Include="Filter\HttpResponeCache.cs" />
     <Compile Include="Filter\IfModifiedSinceAttribute.cs" />
     <Compile Include="Filter\WatchAttribute.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Filter\ActionAllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Formatter\JsonpMediaTypeFormatter.cs" />
     <Compile Include="HtmlExtensions.cs" />
+    <Compile Include="Model\Messager.cs" />
     <Compile Include="Model\ModelHelper.cs" />
     <Compile Include="Model\ModelStateHandler.cs" />
     <Compile Include="Pager\Pagination.cs" />
@@ -117,6 +121,7 @@
   <ItemGroup>
     <Content Include="Validate\jquery.validate.unobtrusive.extends.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
