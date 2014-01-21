@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Practices.ServiceLocation;
 using Ninject;
 
-namespace Dev.CommonServiceLocator.NinjectAdapter
+namespace Dev.Ioc.ServiceLocator.NinjectAdapter
 {
     public class NinjectServiceLocator : ServiceLocatorImplBase
     {
@@ -37,5 +36,4 @@ namespace Dev.CommonServiceLocator.NinjectAdapter
             return Kernel.GetAll(serviceType);
         }
     }
-
 }
