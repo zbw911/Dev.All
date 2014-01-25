@@ -8,8 +8,10 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 
 namespace Dev.Log.Impl
 {
@@ -37,10 +39,12 @@ namespace Dev.Log.Impl
         public void Log(object sender, LogEventArgs e)
         {
             string message = "[" + e.Date.ToString() + "] " +
-                             e.SeverityString + ": " + e.Message;
+
+                             GetExceptionMsg(e.Exception, e.SeverityString + ": " + e.Message + "; ");
+
 
             var eventLog = new EventLog();
-            eventLog.Source = MethodBase.GetCurrentMethod().DeclaringType.Name;// "Patterns In Action";
+            eventLog.Source = GetSource();// MethodBase.GetCurrentMethod().DeclaringType.Name;// "Patterns In Action";
 
             // Map severity level to an Windows EventLog entry type
             var type = EventLogEntryType.Error;
@@ -56,6 +60,48 @@ namespace Dev.Log.Impl
             //{
             //    /* do nothing */
             //}
+        }
+
+        static string GetExceptionMsg(Exception ex, string backStr)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("****************************异常文本****************************");
+            sb.AppendLine("【出现时间】：" + DateTime.Now.ToString());
+            if (ex != null)
+            {
+                sb.AppendLine("【异常类型】：" + ex.GetType().Name);
+                sb.AppendLine("【异常信息】：" + ex.Message);
+                sb.AppendLine("【堆栈调用】：" + ex.StackTrace);
+            }
+
+            sb.AppendLine("" + backStr);
+            sb.AppendLine("***************************************************************");
+            var error = sb.ToString();
+
+            //Dev.Log.Loger.Error(error);
+
+            return error;
+        }
+
+
+        private static string GetSource()
+        {
+            string name;
+
+            var frame = new StackFrame(5);
+
+            var method = frame.GetMethod();      //取得调用函数
+
+            if (method != null)
+            {
+                name = method.DeclaringType + "." + method.Name;
+            }
+            else
+            {
+                name = "NULL Frame";
+            }
+
+            return name;
         }
 
         #endregion

@@ -334,8 +334,8 @@ namespace Dev.Data
             // - call CreateQuery<TEntity>(entityName) method on the ObjectContext
             // - perform querying on the returning IQueryable, and it works!
 
-            //string entityName = this.GetEntityName<TEntity>();
-            //return ((IObjectContextAdapter)this.DbContext).ObjectContext.CreateQuery<TEntity>(entityName);
+            string entityName = this.GetEntityName<TEntity>();
+            return ((IObjectContextAdapter)this.DbContext).ObjectContext.CreateQuery<TEntity>(entityName);
 
 
 

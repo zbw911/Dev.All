@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestEventLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dev.Log.Impl\Dev.Log.Impl.csproj">

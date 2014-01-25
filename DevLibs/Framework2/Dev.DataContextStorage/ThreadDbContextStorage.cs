@@ -31,6 +31,13 @@ namespace Dev.Data.ContextStorage
             //    };
         }
 
+
+
+        ~ThreadDbContextStorage()
+        {
+            DbContextManager.CloseAllDbContexts();
+        }
+
         #endregion
 
         #region Public Methods and Operators
