@@ -1,11 +1,12 @@
-﻿namespace Dev.Data.Test
+﻿using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
+using System.Linq;
+
+namespace Dev.Data.Test
 {
     using System;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Metadata.Edm;
-    using System.Data.Objects;
     using System.IO;
-    using System.Linq;
     using System.Reflection;
 
     using Dev.Data.ContextStorage;

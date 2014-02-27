@@ -10,9 +10,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Objects;
-using System.Data.Objects.DataClasses;
-using System.Reflection;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core.Objects.DataClasses;
 
 namespace Kt.Framework.Repository.Data.EntityFramework
 {

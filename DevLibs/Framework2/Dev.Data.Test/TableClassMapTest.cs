@@ -1,12 +1,13 @@
-﻿namespace Dev.Data.Test
+﻿using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
+
+namespace Dev.Data.Test
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Metadata.Edm;
-    using System.Data.Objects;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -136,7 +137,7 @@
         {
             ObjectContext objcontext = ((IObjectContextAdapter)context).ObjectContext;
 
-            Console.WriteLine(objcontext.DefaultContainerName);
+            //Console.WriteLine(objcontext.DefaultContainerName);
 
             ReadOnlyCollection<EntityType> entities = objcontext.MetadataWorkspace.GetItems<EntityType>(
                 DataSpace.CSpace);

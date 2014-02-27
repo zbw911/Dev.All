@@ -9,7 +9,7 @@
 // ***********************************************************************************
 using System;
 using System.Data.Entity;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 
 namespace Kt.Framework.Repository.Data.EntityFramework5
 {

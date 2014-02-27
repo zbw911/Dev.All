@@ -14,7 +14,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace Kt.Framework.Repository.Data.EntityFramework5
 {
-    using System.Data.Objects;
+    using System.Data.Entity.Core.Objects;
 
     /// <summary>
     ///     Defines an interface that wraps a <see cref="ObjectContext" /> instance.

@@ -7,21 +7,17 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
- 
+
 
 using System;
 using System.Collections.Generic;
-using System.Data.Objects;
-using System.Data.Objects.DataClasses;
+using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Microsoft.Practices.ServiceLocation;
-using Kt.Framework.Repository.Expressions;
-using Kt.Framework.Repository.Extensions;
 using Kt.Framework.Repository.State;
- 
-using System.Data;
 
 namespace Kt.Framework.Repository.Data.EntityFramework
 {
@@ -31,8 +27,8 @@ namespace Kt.Framework.Repository.Data.EntityFramework
     /// </summary>
     public class EFRepository<TEntity> : RepositoryBase<TEntity> where TEntity : EntityObject
     {
-       
-       
+
+
         readonly List<string> _includes = new List<string>();
 
         /// <summary>
@@ -41,7 +37,7 @@ namespace Kt.Framework.Repository.Data.EntityFramework
         static readonly Func<EFUnitOfWork> Cur_UOWManager = () =>
         {
             var LocalTransactionManagerKey = "EFUOW.My.Custom.NoScoap";
-            
+
             var state = ServiceLocator.Current.GetInstance<IState>();
             var uow = state.Local.Get<EFUnitOfWork>(LocalTransactionManagerKey);
             if (uow == null)
@@ -249,7 +245,7 @@ namespace Kt.Framework.Repository.Data.EntityFramework
                 _table.Attach(entity);
             }
 
-            _table.Context.ObjectStateManager.ChangeObjectState(entity, System.Data.EntityState.Modified);
+            _table.Context.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
 
             var unitOfWork = base.UnitOfWork<EFUnitOfWork>();
             if (unitOfWork == null)
@@ -265,6 +261,6 @@ namespace Kt.Framework.Repository.Data.EntityFramework
             Session.SaveChanges();
         }
 
-       
+
     }
 }

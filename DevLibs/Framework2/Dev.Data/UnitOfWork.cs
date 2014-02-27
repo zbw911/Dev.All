@@ -8,6 +8,8 @@
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
 
+using System.Data.Entity.Core.Objects;
+
 namespace Dev.Data
 {
     #region
@@ -17,8 +19,6 @@ namespace Dev.Data
     using System.Data.Common;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Objects;
-
     using Dev.Data.Infras;
 
     #endregion
@@ -121,23 +121,23 @@ namespace Dev.Data
             }
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
             if (this.IsInTransaction)
             {
                 throw new ApplicationException("A transaction is running. Call CommitTransaction instead.");
             }
-            ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChanges();
+            return ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChanges();
         }
 
-        public void SaveChanges(SaveOptions saveOptions)
+        public int SaveChanges(SaveOptions saveOptions)
         {
             if (this.IsInTransaction)
             {
                 throw new ApplicationException("A transaction is running. Call CommitTransaction instead.");
             }
 
-            ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChanges(saveOptions);
+            return ((IObjectContextAdapter)this._dbContext).ObjectContext.SaveChanges(saveOptions);
         }
 
         #endregion

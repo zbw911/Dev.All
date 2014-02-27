@@ -7,7 +7,9 @@
 // 
 // 如果有更好的建议或意见请邮件至zbw911#gmail.com
 // ***********************************************************************************
-using System.Data.Objects.DataClasses;
+
+using System.Data.Entity.Core.Objects.DataClasses;
+
 namespace Kt.Framework.Repository.Data.EntityFramework
 {
     public interface IEFFetchingRepository<TEntity, TFetch> : IRepository<TEntity> where TEntity : EntityObject
