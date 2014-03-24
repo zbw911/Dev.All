@@ -10,6 +10,8 @@
 
 using System;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
 using System.Web;
 using System.Web.Routing;
 using Dev.CasClient.User;
@@ -125,6 +127,7 @@ namespace Dev.CasClient
                 }
                 else
                 {
+                    context.Response.Charset = Encoding.UTF8.WebName;
                     if (local)
                     {
                         context.Response.Write(strErrorText);
