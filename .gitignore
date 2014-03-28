@@ -113,3 +113,4 @@ UpgradeLog*.XML
 /DevLibs/Framework/LIB/OwnLib/Dev.Framework.User.dll
 /CasSolution/CasClient/Dev.CasClientWebForm/___Dev.CasClient.aspx
 /CasSolution/CasClient/Dev.ClientWeb/___Dev.CasClient.aspx
+/DevLibs/LIB
