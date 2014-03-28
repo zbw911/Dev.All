@@ -121,7 +121,30 @@ namespace Dev.Comm
             {
                 //var asstypes = TryGetAssembly(assembly);
 
-                types.AddRange(assembly.GetTypes());
+                try
+                {
+                    types.AddRange(assembly.GetTypes());
+                }
+                catch (Exception e)
+                {
+                    var assemblyName = assembly.FullName;
+
+                    if (e is System.Reflection.ReflectionTypeLoadException)
+                    {
+                        var typeLoadException = e as ReflectionTypeLoadException;
+                        var loaderExceptions = typeLoadException.LoaderExceptions;
+
+                        foreach (var loaderException in loaderExceptions)
+                        {
+                            throw new Exception("加载程序集时发生错误：程序集名" + assemblyName, loaderException);
+
+                        }
+                    }
+
+                    throw new Exception("加载程序集时发生错误：程序集名" + assemblyName, e);
+                }
+
+
             }
             return types;
         }
@@ -206,6 +229,10 @@ namespace Dev.Comm
                             {
                                 // Ignore assemblies we can't load. They could be native, etc...
                                 _assemblies.Add(Assembly.LoadFrom(assemblyFile));
+                            }
+                            catch (Exception e)
+                            {
+                                throw new Exception("发生错误，assemblyFile:" + assemblyFile, e);
                             }
                             finally
                             {
