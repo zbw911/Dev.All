@@ -1,14 +1,5 @@
 Dev.All
 =======
-集合.net Framework 常见模块解决方案模块。
 
-
-<a href="https://github.com/zbw911/Dev.All/tree/master/CasSolution">CasSolution</a>
-=======
-CAS登录解决方案,构建passport用于整合各个web项目.基于C#,MVC4,Enitity framework实现。 
-
-
-<a href="https://github.com/zbw911/Dev.All/tree/master/DevLibs">DevLibs</a>
-======
-常用开发类库  
+ 些项目已经完全重构，为了便于维护，分开为几个独立项目，减少中间环节依赖。
  
